@@ -145,7 +145,7 @@ url = "https://semt0.github.io/"
 [project.markdown_extensions.footnotes]     # 脚注支持
 [project.markdown_extensions.md_in_html]    # HTML 中使用 Markdown
 [project.markdown_extensions.toc]           # 目录生成
-toc_depth = 3                               # 目录深度
+toc_depth = 4                              # 目录深度
 permalink = true                            # 标题锚点链接
 
 # ===== 数学公式支持 =====
