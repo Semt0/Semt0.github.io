@@ -217,10 +217,10 @@ $$
 
 - 证明方法：用逐步逼近法构造 **皮卡序列(Picard, 1856-1841)**
   $$
-  \begin{align}
+  \begin{aligned}
   \varphi_0(t) &= \xi, \\
   \varphi_k(t) &= \xi + \int_\tau^t(A(s)\varphi_{k - 1}(s) + f(s))ds, \qquad k = 1,2, \dots
-  \end{align}
+  \end{aligned}
   $$
 
 - 证明序列 ${\varphi_k(t)}$ 于 $I$ 内部一致收敛（即于 $I$ 的任意有限闭子区间上一致收敛），且其极限函数是积分方程组
@@ -241,7 +241,7 @@ $$
 
 
 
-#Weierstrass判别法
+<!-- Weierstrass 判别法 -->
 
 ### Weierstrass 判别法
 
@@ -304,7 +304,7 @@ $$
 
 
 
-#齐次函数
+<!-- 齐次函数 -->
 
 ## 齐次函数
 
@@ -320,7 +320,7 @@ $$
 
 
 
-#欧拉齐次函数定理
+<!-- 欧拉齐次函数定理 -->
 
 
 
@@ -422,13 +422,13 @@ $$
 
   - 设非齐次方程的解为 $x = \Phi(t)c(t)$
     $$
-    \begin{align}
+    \begin{aligned}
     \frac{dx}{dt} &= \frac{d \Phi(t)}{dt} c(t) + \Phi(t)\frac{dc(t)}{dt} \\
     &= A(t)\Phi(t)c(t) + \Phi(t)c^{'}(t) \\
     &= A(t)x + f(t) \\
     &= A(t)\Phi(t)c(t) + f(t) \\
     &\Rightarrow c^{'}(t) = \Phi^{-1}(t)f(t)
-    \end{align} \\
+    \end{aligned} \\
     $$
     求出一组 $c_i(t)$，最后利用通解结构定理写出通解。
 
@@ -708,13 +708,13 @@ $$
 
 **例**：
 $$
-\begin{align}
+\begin{aligned}
 \frac{1}{D^2 + 3D + 2}e^{e^t} &= \frac{1}{D+2} \cdot \frac{1}{D + 1}e^{e^t} \\
 &= \frac{1}{D + 2}\cdot (e^{-t}\frac{1}{D}e^te^{e^t}) \\
 &= \frac{1}{D + 2}e^{-t}e^{e^t} \\
 &= e^{-2t}\frac{1}{D}e^te^{e^t} \\
 &= e^{-2t}e^{e^t}
-\end{align}
+\end{aligned}
 $$
 
 
@@ -880,10 +880,10 @@ $$
 >
 > 2. 在 $I_0$ 上构造皮卡迭代序列 $\{\varphi_k(t)\}$ 并证明其一致收敛。令
 >    $$
->    \begin{align}
+>    \begin{aligned}
 >    \varphi_0(t) &= \xi \\
 >    \varphi_k(t) &= \xi + \int_{\tau}^t f(s,\varphi_{k - 1}(s))ds, k = 1,2, \dots
->    \end{align}
+>    \end{aligned}
 >    $$
 >    
 >
@@ -967,10 +967,10 @@ $$
 
 设 $F(t,x,p)$ 是 $(t,x,p)$ 的连续可微函数，则 $x = \varphi(t)$ 是方程 $(2.13)$ 在 $I$ 上的奇解的必要条件是
 $$
-\begin{align}
+\begin{aligned}
 &F(t,\varphi(t),\varphi^{'}(t)) = 0 \\
 &F_p(t,\varphi(t),\varphi^{'}(t))= 0 
-\end{align}
+\end{aligned}
 $$
 必要条件表明，方程 $(2.13)$ 的奇解包含在由方程组
 $$

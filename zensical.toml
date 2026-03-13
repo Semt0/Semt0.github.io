@@ -28,6 +28,9 @@ extra_javascript = [
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js",
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js",
     "javascripts/katex.js",
+    "javascripts/home-animation.js",
+    "javascripts/home-intro-words.js",
+    "javascripts/sakura-init.js",
 ]
 
 [project.theme]

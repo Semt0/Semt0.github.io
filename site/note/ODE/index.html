@@ -1043,10 +1043,10 @@ x^{'} = A(t)x + f(t)
 <li>
 <p>证明方法：用逐步逼近法构造 <strong>皮卡序列(Picard, 1856-1841)</strong>
   $$
-  \begin{align}
+  \begin{aligned}
   \varphi_0(t) &amp;= \xi, \
   \varphi_k(t) &amp;= \xi + \int_\tau^t(A(s)\varphi_{k - 1}(s) + f(s))ds, \qquad k = 1,2, \dots
-  \end{align}
+  \end{aligned}
   $$</p>
 </li>
 <li>
@@ -1066,8 +1066,9 @@ x^{'} = A(t)x + f(t)
 <ul>
 <li>从更高观点来看，<span class="arithmatex">\(A(t)x + f(t) = f(t,x)\)</span>，其中 <span class="arithmatex">\(f(t, x)\)</span> 在其定义区间上连续可微，满足利普希兹条件，于是 <span class="arithmatex">\(x^{'} = f(t,x)\)</span> 的解在任意初值所在区间附近存在且唯一。又由解的延拓性和整体存在性，可以进一步扩大解的存在范围。</li>
 </ul>
-<h1 id="weierstrass">Weierstrass判别法<a class="headerlink" href="#weierstrass" title="Permanent link">&para;</a></h1>
-<h3 id="weierstrass_1">Weierstrass 判别法<a class="headerlink" href="#weierstrass_1" title="Permanent link">&para;</a></h3>
+<!-- Weierstrass 判别法 -->
+
+<h3 id="weierstrass">Weierstrass 判别法<a class="headerlink" href="#weierstrass" title="Permanent link">&para;</a></h3>
 <p>设函数项级数 <span class="arithmatex">\(\sum_{n = 1}^{\infty}u_{n}(x)(x \in D)\)</span> 的每一项 <span class="arithmatex">\(u_{n}(x)\)</span> 满足 
 $$
 |u_{n}(x)| \leq a_{n}, x \in D
@@ -1105,15 +1106,17 @@ $$</p>
 </li>
 <li>非齐次线性方程组有且最多有 <span class="arithmatex">\(n+1\)</span> 个线性无关解</li>
 </ul>
-<h1 id="_15">齐次函数<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h1>
-<h2 id="_16">齐次函数<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<!-- 齐次函数 -->
+
+<h2 id="_15">齐次函数<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <p>一个函数 <span class="arithmatex">\(f: \mathbb{R}^n \to \mathbb{R}\)</span> 为 <strong>m 次齐次函数</strong>，如果对于所有  <span class="arithmatex">\(t &gt; 0\)</span> 和所有 <span class="arithmatex">\(\mathbf{x} = (x_1, \dots, x_n)\)</span> 在其定义域内，满足以下基本性质：</p>
-<h3 id="_17">核心定义<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h3 id="_16">核心定义<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <div class="arithmatex">\[
 f(t\mathbf{x}) = f(tx_1, tx_2, \dots, tx_n) = t^m f(\mathbf{x})
 \]</div>
-<h1 id="_18">欧拉齐次函数定理<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h1>
-<h3 id="_19">欧拉齐次函数定理<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<!-- 欧拉齐次函数定理 -->
+
+<h3 id="_17">欧拉齐次函数定理<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>如果一个 <span class="arithmatex">\(m\)</span> 次齐次函数 <span class="arithmatex">\(f\)</span> 是可微的，那么它的所有一阶偏导数满足以下关系：</p>
 <div class="arithmatex">\[
 x_1 \frac{\partial f}{\partial x_1} + x_2 \frac{\partial f}{\partial x_2} + \dots + x_n \frac{\partial f}{\partial x_n} = m f(x_1, x_2, \dots, x_n)
@@ -1123,27 +1126,27 @@ x_1 \frac{\partial f}{\partial x_1} + x_2 \frac{\partial f}{\partial x_2} + \dot
 <div class="arithmatex">\[
 \mathbf{x} \cdot \nabla f(\mathbf{x}) = m f(\mathbf{x})
 \]</div>
-<h3 id="_20">偏导数的齐次性<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<h3 id="_18">偏导数的齐次性<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
 <p>如果 <span class="arithmatex">\(f(\mathbf{x})\)</span> 是 <span class="arithmatex">\(m\)</span> 次齐次的，那么它的一阶偏导数 <span class="arithmatex">\(\frac{\partial f}{\partial x_i}\)</span> 是 <span class="arithmatex">\((m-1)\)</span> 次齐次的。</p>
 <div class="arithmatex">\[
 \frac{\partial f}{\partial x_i}(t\mathbf{x}) = t^{m-1} \frac{\partial f}{\partial x_i}(\mathbf{x})
 \]</div>
 <p>更一般地，<span class="arithmatex">\(k\)</span> 阶偏导数是 <span class="arithmatex">\((m-k)\)</span> 次齐次的。</p>
-<h2 id="_21">边值问题和周期解<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h2 id="_19">边值问题和周期解<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <h3 id="51">定理 5.1<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <p>齐次方程组（LH）只有平凡解 <span class="arithmatex">\(x = 0\)</span> 满足两点边值条件 <span class="arithmatex">\(Lx(a) + Nx(b) = 0\)</span> 当且仅当 <span class="arithmatex">\(L\Phi(a) + N\Phi(b)\)</span> 是非奇异矩阵，其中 <span class="arithmatex">\(\Phi(t)\)</span> 是方程组（LH）的基本解矩阵。</p>
 <h3 id="52">定理 5.2<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
 <p>若齐次方程组（LH）只有零解 <span class="arithmatex">\(x=0\)</span> 满足两点边值条件，则对任何 <span class="arithmatex">\(f(t)\)</span>，方程组（NH）恒有解满足两点边值条件。</p>
 <h3 id="53-massera">定理 5.3 （马赛拉（Massera）准则）<a class="headerlink" href="#53-massera" title="Permanent link">&para;</a></h3>
 <p>若 <span class="arithmatex">\(A(t)\)</span> 和 <span class="arithmatex">\(f(t)\)</span> 是 <span class="arithmatex">\(R\)</span> 上连续的 <span class="arithmatex">\(\omega\)</span>-周期函数，则方程组（NH）存在 <span class="arithmatex">\(\omega\)</span>-周期解的充要条件是方程组（NH）有一个 <span class="arithmatex">\(R\)</span> 上的有界解。 </p>
-<h2 id="_22">高阶线性方程<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<h2 id="_20">高阶线性方程<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
 <p>形如
 $$
 x^{(n)} + a_1(t)x^{(n-1)} + \cdots + a_n(t)x = f(t)
 $$
 的 <strong><span class="arithmatex">\(n\)</span> 阶线性微分方程</strong>，其中 <span class="arithmatex">\(a_1(t), a_2(t), \dots, a_n(t), f(t)\)</span> 都是区间 <span class="arithmatex">\(I\)</span> 上的纯量函数。</p>
 <p><span class="arithmatex">\(f(t) = 0\)</span> 时变为齐次方程。</p>
-<h3 id="_23">通解的结构<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<h3 id="_21">通解的结构<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <p>作代换
 $$
 x_1 = x, x_2 = \frac{dx}{dt}, \dots, x_n = \frac{d^{n - 1}x}{d^{n - 1}t}
@@ -1178,13 +1181,13 @@ $$
 <li>
 <p>设非齐次方程的解为 <span class="arithmatex">\(x = \Phi(t)c(t)\)</span>
     $$
-    \begin{align}
+    \begin{aligned}
     \frac{dx}{dt} &amp;= \frac{d \Phi(t)}{dt} c(t) + \Phi(t)\frac{dc(t)}{dt} \
     &amp;= A(t)\Phi(t)c(t) + \Phi(t)c^{'}(t) \
     &amp;= A(t)x + f(t) \
     &amp;= A(t)\Phi(t)c(t) + f(t) \
     &amp;\Rightarrow c^{'}(t) = \Phi^{-1}(t)f(t)
-    \end{align} \
+    \end{aligned} \
     $$
     求出一组 <span class="arithmatex">\(c_i(t)\)</span>，最后利用通解结构定理写出通解。</p>
 </li>
@@ -1200,7 +1203,7 @@ $$
   $$
   其中 <span class="arithmatex">\(\varphi_i(t)\)</span> 是齐次方程的一个基本解组，<span class="arithmatex">\(W(t)\)</span> 是 <span class="arithmatex">\(\varphi_i(t)\)</span> 的朗斯基行列式，<span class="arithmatex">\(\Delta(t, s)\)</span> 是这样一个 <span class="arithmatex">\(n\)</span> 阶行列式：前 <span class="arithmatex">\(n - 1\)</span> 行是 <span class="arithmatex">\(W(t)\)</span> 的前 <span class="arithmatex">\(n - 1\)</span> 行相应元素，而第 <span class="arithmatex">\(n\)</span> 行是 <span class="arithmatex">\(W(t)\)</span> 第一行的相应元素。</li>
 </ul>
-<h2 id="_24">线性方程的复值解<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
+<h2 id="_22">线性方程的复值解<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <p>容易证明：一个复值向量函数
 $$
 \varphi(t) = u(t) + iv(t)
@@ -1213,12 +1216,12 @@ $$</p>
 <li><span class="arithmatex">\(u(t), v(t)\)</span> 都是（LH）的解</li>
 </ul>
 <hr />
-<h1 id="_25">第三章：常系数线性方程<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h1>
+<h1 id="_23">第三章：常系数线性方程<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h1>
 <h2 id="n"><span class="arithmatex">\(n\)</span> 阶常系数齐次线性方程<a class="headerlink" href="#n" title="Permanent link">&para;</a></h2>
 <div class="arithmatex">\[
 \frac{d^n x}{dt^n} + a_1 \frac{d^{n-1} x}{dt^{n-1}} + \cdots + a_{n-1} \frac{dx}{dt} + a_n x = 0
 \]</div>
-<h3 id="_26">特征方程及其性质<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<h3 id="_24">特征方程及其性质<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
 <p>引入微分算子 <span class="arithmatex">\(D = \frac{d}{dt}\)</span>，<span class="arithmatex">\(D x = \frac{dx}{dt}\)</span>，<span class="arithmatex">\(D^2 x = \frac{d^2 x}{dt^2}\)</span>，<span class="arithmatex">\(\cdots\)</span>。</p>
 <p>方程化为 <span class="arithmatex">\((D^n + a_1 D^{n-1} + \cdots + a_{n-1} D + a_n) x = 0\)</span>。</p>
 <p>记 <span class="arithmatex">\(P(D) = D^n + a_1 D^{n-1} + \cdots + a_n\)</span>，则 <span class="arithmatex">\(P(D) x = 0\)</span>。</p>
@@ -1245,7 +1248,7 @@ $$</p>
 <p>引理：对于复数 <span class="arithmatex">\(s\)</span> 和整数 <span class="arithmatex">\(m\)</span>，<span class="arithmatex">\(D^m (e^{s t} x(t)) = e^{s t} (D + s)^m x(t)\)</span>。</p>
 <p>证明（归纳法）：<span class="arithmatex">\(m=1\)</span>，<span class="arithmatex">\(D(e^{s t} x) = s e^{s t} x + e^{s t} D x = e^{s t} (D + s) x\)</span>。假设 <span class="arithmatex">\(m\)</span> 时成立，<span class="arithmatex">\(D^m (e^{s t} x) = e^{s t} (D+s)^m x\)</span>。<span class="arithmatex">\(D^{m+1} (e^{s t} x) = D [ e^{s t} (D+s)^m x ] = e^{s t} (D+s) (D+s)^m x = e^{s t} (D+s)^{m+1} x\)</span>。现在，令 <span class="arithmatex">\(s = -\lambda_0\)</span>，则 <span class="arithmatex">\((D - \lambda_0)^k x = e^{\lambda_0 t} D^k (e^{-\lambda_0 t} x)\)</span>。所以 <span class="arithmatex">\(P(D) x = Q(D) e^{\lambda_0 t} D^k (e^{-\lambda_0 t} x) = 0\)</span>。由于 <span class="arithmatex">\(Q(D)\)</span> 和 <span class="arithmatex">\(e^{\lambda_0 t}\)</span> 可逆（在解空间中），等价于 <span class="arithmatex">\(D^k (e^{-\lambda_0 t} x) = 0\)</span>。<span class="arithmatex">\(\Rightarrow e^{-\lambda_0 t} x\)</span> 为任意次数不超过 <span class="arithmatex">\(k-1\)</span> 的多项式：<span class="arithmatex">\(C_0 + C_1 t + \cdots + C_{k-1} t^{k-1}\)</span>。<span class="arithmatex">\(\Rightarrow x = e^{\lambda_0 t} (C_0 + C_1 t + \cdots + C_{k-1} t^{k-1})\)</span>。取 <span class="arithmatex">\(C_i=1\)</span>，其余为 <span class="arithmatex">\(0\)</span>，得到 <span class="arithmatex">\(k\)</span> 个线性无关解 <span class="arithmatex">\(e^{\lambda_0 t}, t e^{\lambda_0 t}, \ldots, t^{k-1} e^{\lambda_0 t}\)</span>。</p>
 </blockquote>
-<h3 id="_27">解的结构<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<h3 id="_25">解的结构<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
 <p>如果特征多项式 <span class="arithmatex">\(P(\lambda)\)</span> 可分解为
 $$
 P(\lambda) = (\lambda - \lambda_1)^{n_1} (\lambda - \lambda_2)^{n_2} \cdots (\lambda - \lambda_r)^{n_r}
@@ -1262,7 +1265,7 @@ e^{\lambda_r t}, t e^{\lambda_r t}, \ldots, t^{n_r-1} e^{\lambda_r t}
 <ul>
 <li>注意实系数方程组（方程）都要求求出实值解</li>
 </ul>
-<h2 id="_28">矩阵指数函数<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h2>
+<h2 id="_26">矩阵指数函数<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
 <p>引入的主要目的是为了研究常系数齐次线性方程组
 $$
 \frac{dx}{dt} = Ax
@@ -1305,7 +1308,7 @@ e^{A t} \triangleq \sum_{n=0}^{\infty} \frac{1}{n!} (A t)^n = E + A t + \frac{1}
 e^{J_i t} = e^{\lambda_i t} (E + N t + \frac{N^2 t^2}{2!} + \cdots + \frac{N^{k-1} t^{k-1}}{(k-1)!})
 $$
 <del>考算这个的话算我输</del></p>
-<h2 id="_29">常系数线性齐次线性方程组的求解<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h2 id="_27">常系数线性齐次线性方程组的求解<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h2>
 <h3 id="a"><span class="arithmatex">\(A\)</span> 可对角化<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
 <p>则 <span class="arithmatex">\(A\)</span> 有 <span class="arithmatex">\(n\)</span> 个线性无关的特征向量。令 <span class="arithmatex">\(\lambda_1, \lambda_2, \dots, \lambda_n\)</span> 对应的特征向量为 <span class="arithmatex">\(c_1, c_2, \dots, c_n\)</span> （可以有相同的特征值），则
 $$
@@ -1340,7 +1343,7 @@ $$
 <p>也可以用算子解法求解常系数微分方程组：克莱姆法则——化为高阶线性方程</p>
 </li>
 </ol>
-<h2 id="_30">常系数方程解的渐近性质（稳定性）<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h2>
+<h2 id="_28">常系数方程解的渐近性质（稳定性）<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h2>
 <div class="arithmatex">\[
 \frac{dx}{dt} = A x
 \]</div>
@@ -1349,7 +1352,7 @@ $$
 <li>若 <span class="arithmatex">\(A\)</span> 至少有一个特征根实部大于零，即 <span class="arithmatex">\(\exists i, \operatorname{Re}(\lambda_i) &gt; 0\)</span>，则存在解 <span class="arithmatex">\(\lim\limits_{t \to +\infty} |X(t)| = \infty\)</span>。</li>
 <li>若 <span class="arithmatex">\(A\)</span> 的所有特征根实部都小于等于零，且实部为零的特征根对应的初等因子是一次的（即若当块均为 <span class="arithmatex">\(1\times 1\)</span>），则所有解有界。</li>
 </ul>
-<h2 id="_31">非齐次方程解法<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
+<h2 id="_29">非齐次方程解法<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
 <p>有常数变易法，待定系数法，算子解法，拉普拉斯变换法等解法</p>
 <p><strong>算子解法</strong> 比较好用</p>
 <p>把非齐次微分方程 
@@ -1387,13 +1390,13 @@ $$</p>
 <p><strong>注意灵活运用</strong></p>
 <p><strong>例</strong>：
 $$
-\begin{align}
+\begin{aligned}
 \frac{1}{D^2 + 3D + 2}e<sup>{e</sup>t} &amp;= \frac{1}{D+2} \cdot \frac{1}{D + 1}e<sup>{e</sup>t} \
 &amp;= \frac{1}{D + 2}\cdot (e<sup>{-t}\frac{1}{D}e</sup>te<sup>{e</sup>t}) \
 &amp;= \frac{1}{D + 2}e<sup e_t="e^t">{-t}e</sup> \
 &amp;= e<sup>{-2t}\frac{1}{D}e</sup>te<sup>{e</sup>t} \
 &amp;= e<sup e_t="e^t">{-2t}e</sup>
-\end{align}
+\end{aligned}
 $$</p>
 <ul>
 <li>算子解法解出的是非齐次方程的一个特解，要得到通解，还需要解 <span class="arithmatex">\(P(D) = 0\)</span> 得出齐次方程的通解。</li>
@@ -1424,9 +1427,9 @@ $$
 $$
 x = c_1t + c_2 t^2 + 2 \ln |t|  + 3
 $$</p>
-<h2 id="_32">拉式变换法<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
+<h2 id="_30">拉式变换法<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h2>
 <p>不考，懒得写了</p>
-<h2 id="_33">例题<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<h2 id="_31">例题<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
 <p>例：设 <span class="arithmatex">\(y = \varphi(x)\)</span> 是二阶齐次线性微分方程 <span class="arithmatex">\(y'' + p(x)y' + q(x)y = 0\)</span> 的一个非零解，其中 <span class="arithmatex">\(p(x), q(x)\)</span> 在 <span class="arithmatex">\([a,b]\)</span> 上连续，求方程的通解。</p>
 <p>解：由降阶法公式，（刘维尔公式）</p>
 <div class="arithmatex">\[
@@ -1437,8 +1440,8 @@ y = \varphi(x) \left[ C_1 + C_2 \int \frac{e^{-\int p(x) dx}}{\varphi^2(x)} dx \
 <p>证明：<span class="arithmatex">\(\frac{d}{dt} (\psi^T \varphi) = (\frac{d\psi}{dt})^T \varphi + \psi^T \frac{d\varphi}{dt} = (-A^T \psi)^T \varphi + \psi^T (A \varphi) = -\psi^T A \varphi + \psi^T A \varphi = 0\)</span>。</p>
 <p>故 <span class="arithmatex">\(\psi^T(t) \varphi(t)\)</span> 为常数。</p>
 <hr />
-<h1 id="_34">第四章：一般理论<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h1>
-<h2 id="_35">引言<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h2>
+<h1 id="_32">第四章：一般理论<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h1>
+<h2 id="_33">引言<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
 <p>一阶正规形非线性方程组
 $$
 \begin{cases} 
@@ -1454,7 +1457,7 @@ $<span class="arithmatex">\(x^{(n)} = f(t,x,x^{'},\dots,x^{(n - 1)})(E_n)\)</spa
 都可以变为等价的一阶正规形方程组，因此关于一阶正规形方程组 <span class="arithmatex">\((E)\)</span> 的所有结论都可以转移到正规形高阶方程 <span class="arithmatex">\(E_n\)</span> 上。</p>
 <p>方程组 <span class="arithmatex">\((E)\)</span> 可简记为 $<span class="arithmatex">\(\frac{dx}{dt} = f(t,x)\)</span>$，其中 $<span class="arithmatex">\(\frac{dx}{dt} = \begin{pmatrix} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \\ \vdots \\ \frac{dx_n}{dt}\end{pmatrix},x = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n\end{pmatrix},f(t,x) = \begin{pmatrix} f_1(t,x_1,x_2, \dots, x_n) \\ f_2(t, x_1, x_2, \dots, x_n) \\ \vdots \\ f_n(t,x_1,x_2,\dots,x_n)\end{pmatrix}.\)</span>$
 方程组 <span class="arithmatex">\((E)\)</span> 的最基本的定解问题是初值问题，也称为 <strong>柯西问题</strong>。设初值条件为 $<span class="arithmatex">\(x(\tau) = \xi\)</span>$，其中 <span class="arithmatex">\(\xi\)</span> 是 <span class="arithmatex">\(n\)</span> 维列向量。</p>
-<h2 id="_36">皮卡存在与唯一性定理<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
+<h2 id="_34">皮卡存在与唯一性定理<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h2>
 <h3 id="lipschitz">Lipschitz 条件<a class="headerlink" href="#lipschitz" title="Permanent link">&para;</a></h3>
 <p>函数 <span class="arithmatex">\(f(t,x)\)</span> 在闭域 
 $$
@@ -1469,7 +1472,7 @@ $$
 <p>[!tip]</p>
 <p>由中值定理知，若 <span class="arithmatex">\(f(t,x)\)</span> 在 <span class="arithmatex">\(R\)</span> 上关于 <span class="arithmatex">\(x\)</span> 的各个分量的偏微商都存在且有界，则 <span class="arithmatex">\(f(t,x)\)</span> 在 <span class="arithmatex">\(R\)</span> 上满足利氏条件。 </p>
 </blockquote>
-<h3 id="_37">皮卡定理<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<h3 id="_35">皮卡定理<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
 <p>若 <span class="arithmatex">\(f(t,x)\)</span> 在闭域 <span class="arithmatex">\(R\)</span> 上连续，且满足利氏条件，则初值问题于区间 <span class="arithmatex">\(I_0 = \{t||t - \tau| \leq h\}\)</span> 上存在唯一解，其中
 $$
 h = min{a, \frac{b}{M}}
@@ -1486,10 +1489,10 @@ $$
 <li>
 <p>在 <span class="arithmatex">\(I_0\)</span> 上构造皮卡迭代序列 <span class="arithmatex">\(\{\varphi_k(t)\}\)</span> 并证明其一致收敛。令
    $$
-   \begin{align}
+   \begin{aligned}
    \varphi_0(t) &amp;= \xi \
    \varphi_k(t) &amp;= \xi + \int_{\tau}^t f(s,\varphi_{k - 1}(s))ds, k = 1,2, \dots
-   \end{align}
+   \end{aligned}
    $$</p>
 </li>
 <li>
@@ -1523,12 +1526,12 @@ $$
   \int_0^{s_0}\frac{ds}{G(s)} = + \infty
   $$</li>
 </ul>
-<h3 id="_38">推论<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<h3 id="_36">推论<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
 <p>若 <span class="arithmatex">\(f(t,x)\)</span> 在域 <span class="arithmatex">\(G\)</span> 内连续，且局部地满足利氏条件，则对任意 <span class="arithmatex">\((\tau,\xi) \in G\)</span>，初值问题的解在含 <span class="arithmatex">\(\tau\)</span> 的某一区间上的存在且唯一。</p>
-<h3 id="_39">定理（解的整体唯一性）<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
+<h3 id="_37">定理（解的整体唯一性）<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
 <p>若对任意 <span class="arithmatex">\((t_0,\xi_0) \in G\)</span>，初值问题 <span class="arithmatex">\((E),x(t_0) = \xi_0\)</span> 的解在含 <span class="arithmatex">\(t_0\)</span> 的某区间上唯一，则对任意 <span class="arithmatex">\((\tau, \xi) \in G\)</span>，初值问题的任意两个解在其共同存在区间上恒等。</p>
 <p>保证 <span class="arithmatex">\((E)\)</span> 的局部解唯一的任何条件，也能保证 <span class="arithmatex">\((E)\)</span> 的整体解唯一。</p>
-<h3 id="_40">解不唯一的情况，奇解<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<h3 id="_38">解不唯一的情况，奇解<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
 <p>若 <span class="arithmatex">\(f(t,x)\)</span> 在 <span class="arithmatex">\((t,x)\)</span> 空间的域 <span class="arithmatex">\(G\)</span> 内连续，且局部地满足利氏条件或其他更一般的条件，则对任何 <span class="arithmatex">\((\tau,\xi) \in G\)</span>，初值问题的解不仅存在，而且是唯一的。</p>
 <p>然而，如果只假设 <span class="arithmatex">\(f(t,x)\)</span> 连续，那么初值问题的解依然存在，但不一定唯一。例如初值问题 
 $$
@@ -1543,10 +1546,10 @@ $$
 设 <span class="arithmatex">\(x = \varphi(t)\)</span> 是方程 <span class="arithmatex">\((2.13)\)</span> 在区间 <span class="arithmatex">\(I\)</span> 上的解，若在它相应的积分曲线上任何一点都有方程 <span class="arithmatex">\((2.13)\)</span> 的另一条积分曲线经过并在该点与之相切，则称 <span class="arithmatex">\(x = \varphi(t)\)</span> 为方程 <span class="arithmatex">\((2.13)\)</span> 在 <span class="arithmatex">\(I\)</span> 上的 <strong>奇解</strong>。</p>
 <p>设 <span class="arithmatex">\(F(t,x,p)\)</span> 是 <span class="arithmatex">\((t,x,p)\)</span> 的连续可微函数，则 <span class="arithmatex">\(x = \varphi(t)\)</span> 是方程 <span class="arithmatex">\((2.13)\)</span> 在 <span class="arithmatex">\(I\)</span> 上的奇解的必要条件是
 $$
-\begin{align}
+\begin{aligned}
 &amp;F(t,\varphi(t),\varphi^{'}(t)) = 0 \
 &amp;F_p(t,\varphi(t),\varphi^{'}(t))= 0 
-\end{align}
+\end{aligned}
 $$
 必要条件表明，方程 <span class="arithmatex">\((2.13)\)</span> 的奇解包含在由方程组
 $$
@@ -1556,24 +1559,24 @@ F_p(t,x,p) = 0
 \end{cases}
 $$
 消去 <span class="arithmatex">\(p\)</span> 而得到的曲线中，该曲线称为方程 <span class="arithmatex">\((2.13)\)</span> 的 <strong><span class="arithmatex">\(p\)</span>-判别曲线</strong>。<span class="arithmatex">\(p\)</span>-判别曲线是不是奇解，需要进一步验证。</p>
-<h3 id="_41">定理<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<h3 id="_39">定理<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
 <p><strong>克莱罗(Clairaut,1713-1765)方程</strong>
 $$
 x = tx^{'} + g(x^{'})
 $$
 恒有奇解，这里函数 <span class="arithmatex">\(g(p)\)</span> 两次连续可微，且 <span class="arithmatex">\(g^{''}(p) \neq 0\)</span>。</p>
-<h2 id="_42">佩亚诺存在定理<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h2>
-<h3 id="_43">定理<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h3>
+<h2 id="_40">佩亚诺存在定理<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h2>
+<h3 id="_41">定理<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(f(t,x)\)</span> 于闭域 <span class="arithmatex">\(R = \{(t,x) | |t - \tau| \leq a, |x -\xi| \leq b\}\)</span> 上连续，则初值问题有定义于区间 <span class="arithmatex">\(I_0 = \{t | |t - \tau| \leq h\}\)</span> 上的解，其中 <span class="arithmatex">\(h = min\{a, \frac{b}{M}\}\)</span>，<span class="arithmatex">\(M\)</span> 是 <span class="arithmatex">\(|f(t,x)|\)</span> 在 <span class="arithmatex">\(R\)</span> 上的一个上界。</p>
 <h3 id="arzela-ascoli">阿尔泽拉(Arzela)-阿斯科利(Ascoli)引理<a class="headerlink" href="#arzela-ascoli" title="Permanent link">&para;</a></h3>
 <p>意义与证明方法类似数学分析中的聚点原理。</p>
-<h4 id="_44">定义<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h4>
+<h4 id="_42">定义<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h4>
 <p>若存在常数 <span class="arithmatex">\(M_0 &gt; 0\)</span>，使得对任意 <span class="arithmatex">\(f(t) \in F\)</span>，都有
 $<span class="arithmatex">\(|f(t)| \leq M_0, t \in I,\)</span>$
 则称函数族 <span class="arithmatex">\(F\)</span> 在区间 <span class="arithmatex">\(I\)</span> 上是 <strong>一致有界</strong> 的。</p>
-<h4 id="_45">定义<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h4>
+<h4 id="_43">定义<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h4>
 <p>若对任意 <span class="arithmatex">\(\epsilon &gt; 0\)</span>，都存在只与 <span class="arithmatex">\(\epsilon\)</span> 相关的常数 <span class="arithmatex">\(\delta &gt; 0\)</span>，使得对任意 <span class="arithmatex">\(f(t) \in F\)</span>，只要 <span class="arithmatex">\(t_1,t_2 \in I, |t_1 - t_2| \leq \delta\)</span>，就有 $<span class="arithmatex">\(|f(t_1) - f(t_2)| \leq \epsilon\)</span>$，则称函数族 <span class="arithmatex">\(F\)</span> 在区间 <span class="arithmatex">\(I\)</span> 上是 <strong>等度连续</strong> 的。</p>
-<h4 id="_46">引理<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h4>
+<h4 id="_44">引理<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h4>
 <p>假设 <span class="arithmatex">\(F = \{f(t)\}\)</span> 是有限区间 <span class="arithmatex">\(I = [c, d]\)</span> 上一致有界，等度连续的函数族，则 <span class="arithmatex">\(F\)</span> 必有于区间 <span class="arithmatex">\(I\)</span> 上一致收敛的子序列。</p>
 <h4 id="31">推论 3.1<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
 <p>若函数 <span class="arithmatex">\(f(t,x)\)</span> 于 <span class="arithmatex">\((t,x)\)</span> 空间的域 <span class="arithmatex">\(G\)</span> 内连续，则对任意 <span class="arithmatex">\((\tau, \xi) \in G\)</span>，初值问题有定义于含 <span class="arithmatex">\(\tau\)</span> 的某区间（其长度一般与 <span class="arithmatex">\((\tau, \xi)\)</span> 有关）上的解。</p>
@@ -1583,7 +1586,7 @@ $<span class="arithmatex">\(|f(t)| \leq M_0, t \in I,\)</span>$
 <p>[!tip] 闭包
 [[数学分析]]</p>
 </blockquote>
-<h2 id="_47">解的延展与解的整体存在性<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h2>
+<h2 id="_45">解的延展与解的整体存在性<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h2>
 <h3 id="51_1">定理 5.1<a class="headerlink" href="#51_1" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(f(t,x)\)</span> 于 <span class="arithmatex">\((t,x)\)</span> 空间域 <span class="arithmatex">\(G\)</span> 内连续。若对任意 <span class="arithmatex">\((\tau, \xi) \in G\)</span>，初值问题的解在含 <span class="arithmatex">\(\tau\)</span> 的某一区间上是唯一的（可以使用解的整体唯一性），则 <span class="arithmatex">\(\dot{x} = f(t,x)\)</span> 的任何非饱和解都可以延展成为饱和解。</p>
 <h3 id="52_1">定理 5.2<a class="headerlink" href="#52_1" title="Permanent link">&para;</a></h3>
@@ -1592,9 +1595,9 @@ $<span class="arithmatex">\(|f(t)| \leq M_0, t \in I,\)</span>$
 <p>[!tip]</p>
 <p>使用 引理 3.2 证明（对每个 <span class="arithmatex">\((\tau, \xi) \in D\)</span>, 有 <strong>固定的 <span class="arithmatex">\(h\)</span></strong> 使得方程组有定义在 <span class="arithmatex">\([\tau - h, \tau + h]\)</span> 上的解。）</p>
 </blockquote>
-<h3 id="_48">比较定理<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h3>
+<h3 id="_46">比较定理<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h3>
 <p>解的存在定理告诉我们，微分方程的解的初值问题可以延拓到边界，但是解的存在区间的大小对于具体问题来说还是费解的，有了比较定理之后，我们会收获一个计算解的存在区间的强有力的工具。</p>
-<h4 id="_49">第一比较定理<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h4>
+<h4 id="_47">第一比较定理<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h4>
 <p>设函数 <span class="arithmatex">\(f(x, y)\)</span> 和 <span class="arithmatex">\(F(x, y)\)</span> 均在区域 <span class="arithmatex">\(G\)</span> 内连续，且 $<span class="arithmatex">\(f(x,y) &lt; F(x, y), (x,y) \in G,\)</span>$
 又设函数 <span class="arithmatex">\(y = \phi(x)\)</span> 和 <span class="arithmatex">\(y = \Phi(x)\)</span> 在区间 <span class="arithmatex">\((a,b)\)</span> 上分别是初值问题 $<span class="arithmatex">\(y^{'}=f(x,y),y(x_0)=y_0\)</span>$
 和 $<span class="arithmatex">\(y^{'}=F(x,y),y(x_0) = y_0\)</span>$
@@ -1655,7 +1658,7 @@ $$</p>
 </blockquote>
 <p><img alt="image-20251128130934942" src="C:\Users\浪涛依旧铭记\AppData\Roaming\Typora\typora-user-images\image-20251128130934942.png" /></p>
 <p><img alt="image-20251128130940762" src="C:\Users\浪涛依旧铭记\AppData\Roaming\Typora\typora-user-images\image-20251128130940762.png" /></p>
-<h2 id="_50">解对初值和参数的连续性<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h2>
+<h2 id="_48">解对初值和参数的连续性<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h2>
 <p>以下我们假设 <span class="arithmatex">\(f(t,x)\)</span> 在 <span class="arithmatex">\((t,x)\)</span> 空间的域 <span class="arithmatex">\(G\)</span> 内连续，且局部地满足利氏条件。</p>
 <p>根据推论 2.1 和 定理 5.1，对任意 <span class="arithmatex">\((\tau,\xi) \in G\)</span>，方程组 <span class="arithmatex">\((E) : \dot{x} = f(t,x)\)</span> 的满足初值条件 <span class="arithmatex">\(x(\tau) = \xi\)</span> 的饱和解存在且唯一，记为 $<span class="arithmatex">\(x = \varphi(t, \tau, \xi)\)</span>$，设其存在区间为 <span class="arithmatex">\((a(\tau,\xi),b(\tau,\xi))\)</span>，则 <span class="arithmatex">\(\varphi(t,\tau,\xi)\)</span> 是集合 
 $$
@@ -1695,7 +1698,7 @@ $$</p>
 <p><img alt="image-20251128130801307" src="C:\Users\浪涛依旧铭记\AppData\Roaming\Typora\typora-user-images\image-20251128130801307.png" /></p>
 <p>类似地有推论 6.3 和 推论 6.4</p>
 <p><img alt="image-20251128130736872" src="C:\Users\浪涛依旧铭记\AppData\Roaming\Typora\typora-user-images\image-20251128130736872.png" /></p>
-<h2 id="_51">解对初值和参数的可微性<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h2>
+<h2 id="_49">解对初值和参数的可微性<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h2>
 <h3 id="bellman-gronwall">Bellman-Gronwall 不等式<a class="headerlink" href="#bellman-gronwall" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(x(t)\)</span> 和 <span class="arithmatex">\(f(t)\)</span> 是区间 <span class="arithmatex">\([t_1, t_2]\)</span> 上非负连续的纯量函数。若存在非负常数 <span class="arithmatex">\(k\)</span> 和 <span class="arithmatex">\(\tau \in (t_1， t_2)\)</span>，使得 
 $$
@@ -1743,8 +1746,8 @@ $$
 $$
 的解，其中 <span class="arithmatex">\(\lambda_j\)</span> 是 <span class="arithmatex">\(\lambda\)</span> 的第 <span class="arithmatex">\(j\)</span> 个分量。</p>
 <hr />
-<h1 id="_52">第五章：定性理论初步<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h1>
-<h2 id="_53">解的稳定性<a class="headerlink" href="#_53" title="Permanent link">&para;</a></h2>
+<h1 id="_50">第五章：定性理论初步<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h1>
+<h2 id="_51">解的稳定性<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h2>
 <h3 id="11">定义 1.1 李雅普诺夫稳定<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <p>设方程组 <span class="arithmatex">\((E)\)</span> 的解 <span class="arithmatex">\(x = \varphi(t, \tau, \xi_0)\)</span> 在区间 <span class="arithmatex">\([\tau, +\infty)\)</span> 有定义。若对任给的 <span class="arithmatex">\(\epsilon &gt; 0\)</span>，都存在 <span class="arithmatex">\(\delta &gt; 0\)</span>，使得当 <span class="arithmatex">\(|\xi - \xi_0| &lt; \delta\)</span> 时，解 <span class="arithmatex">\(x = \varphi(t, \tau, \xi)\)</span> 在区间 <span class="arithmatex">\([\tau, +\infty)\)</span> 有定义，且 $<span class="arithmatex">\(|\varphi(t, \tau, \xi) - \varphi(t, \tau, \xi_0)| &lt; \epsilon, \space t \in [\tau, +\infty)\)</span>$，则称 <span class="arithmatex">\(x = \varphi(t, \tau, \xi)\)</span> （在李雅普诺夫意义下）是 <strong>稳定</strong> 的。否则，称 <span class="arithmatex">\(x = \varphi(t, \tau, \xi_0)\)</span> 是 <strong>不稳定</strong> 的。</p>
 <h3 id="12">定义 1.2 渐近稳定和全局渐近稳定<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
@@ -1775,7 +1778,7 @@ $$</p>
 <p>设 <span class="arithmatex">\(A(t)\)</span> 是常矩阵 <span class="arithmatex">\(A\)</span>，
 1. 若 <span class="arithmatex">\(A\)</span> 的全部特征值都有负实部，则方程组 <span class="arithmatex">\((1.2)\)</span> 的零解是渐近稳定的。
 2. 若 <span class="arithmatex">\(A\)</span> 的特征值中至少有一个具有正实部，则方程组 <span class="arithmatex">\((1.2)\)</span> 的零解是不稳定的。</p>
-<h2 id="_54">李雅普诺夫第二方法<a class="headerlink" href="#_54" title="Permanent link">&para;</a></h2>
+<h2 id="_52">李雅普诺夫第二方法<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h2>
 <p>考虑 <strong>自治方程组（注定系统）</strong> 零解的稳定性
 $$
 \frac{dx}{dt} = f(x)
@@ -1796,7 +1799,7 @@ $$
 <p>注意，取不同的李雅普诺夫函数 <span class="arithmatex">\(V(x)\)</span>，得到的结果可能不一样，即可能得到稳定也可能得到渐近稳定。但是稳定和不稳定一定是对立的，即不可能有两个不同的李雅普诺夫函数分别得到稳定和不稳定的结果。</p>
 </li>
 </ol>
-<h2 id="_55">一般定性理论的概念<a class="headerlink" href="#_55" title="Permanent link">&para;</a></h2>
+<h2 id="_53">一般定性理论的概念<a class="headerlink" href="#_53" title="Permanent link">&para;</a></h2>
 <p>考虑自治方程组
 $$
 \frac{dx}{dt} = f(x)
@@ -1826,13 +1829,13 @@ $$
 <p><strong>闭轨的稳定性</strong> 类似李雅普诺夫稳定性，但是和李雅普诺夫稳定性不同，主要体现在 <span class="arithmatex">\(\xi\)</span> 的选取范围上</p>
 </li>
 </ul>
-<h2 id="_56">平面动力系统<a class="headerlink" href="#_56" title="Permanent link">&para;</a></h2>
+<h2 id="_54">平面动力系统<a class="headerlink" href="#_54" title="Permanent link">&para;</a></h2>
 <p>考虑平面动力系统
 $$
 \frac{dx}{dt} = X(x,y), \space \frac{dy}{dt} = Y(x, y), \qquad (3.1)
 $$
 其中 <span class="arithmatex">\(X(x,y)\)</span> 和 <span class="arithmatex">\(Y(x,y)\)</span> 于 <span class="arithmatex">\(\mathbb{R}^2\)</span> 连续可微。</p>
-<h3 id="_57">平面动力系统的奇点<a class="headerlink" href="#_57" title="Permanent link">&para;</a></h3>
+<h3 id="_55">平面动力系统的奇点<a class="headerlink" href="#_55" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(p = tr A, q = det A\)</span>，分类原点作为奇点时的类型</p>
 <ol>
 <li>当 <span class="arithmatex">\(p^2 = 4q\)</span> 时，有两个相同实特征值，如果可对角化（Jordan 块是一阶的），星形节点；如果不可对角化（Jordan 块是二阶的），单向结点</li>
@@ -1850,7 +1853,7 @@ $$
 <li>当 <span class="arithmatex">\(q &gt; 0, p = 0\)</span> 时，有两个纯虚数特征值，为中心点</li>
 </ol>
 <p>此外，在情形 1，2，4 中，奇点 <span class="arithmatex">\((0, 0)\)</span> 的稳定性由 <span class="arithmatex">\(p\)</span> 的符号决定：当 <span class="arithmatex">\(p &lt; 0\)</span> 时稳定，当 <span class="arithmatex">\(p &gt; 0\)</span> 时不稳定（因为 <span class="arithmatex">\(p\)</span> 反应了特征值的实部，矩阵的迹就是所有特征值的和） </p>
-<h3 id="_58">平面动力系统的极限环<a class="headerlink" href="#_58" title="Permanent link">&para;</a></h3>
+<h3 id="_56">平面动力系统的极限环<a class="headerlink" href="#_56" title="Permanent link">&para;</a></h3>
 <p>极限环：孤立闭轨，存在闭轨的一个邻域，在这个邻域内系统无其他闭轨。</p>
 <h3 id="-">庞加莱-本迪克松定理<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(D\)</span> 是由两条简单闭曲线 <span class="arithmatex">\(\Gamma_1\)</span> 和 <span class="arithmatex">\(\Gamma_2\)</span> 所围成的环域，且在 <span class="arithmatex">\(\overline D = \Gamma_1 \cup D \cup \Gamma_2\)</span> 上，系统</p>
@@ -1858,7 +1861,7 @@ $$
 <ul>
 <li>解题方法论<sub>~（背马原背上头了）</sub>~：验证内部无奇点，分析边界速度场。</li>
 </ul>
-<h3 id="_59">本迪克松准则<a class="headerlink" href="#_59" title="Permanent link">&para;</a></h3>
+<h3 id="_57">本迪克松准则<a class="headerlink" href="#_57" title="Permanent link">&para;</a></h3>
 <p>设 <span class="arithmatex">\(X(x,y), Y(x,y)\)</span> 在单连通区域 <span class="arithmatex">\(D\)</span> 上连续可微，若散度 
 $$
 div(X,Y) = \frac{\partial X}{\partial x} + \frac{\partial Y}{\partial y}
@@ -1992,6 +1995,12 @@ $$
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
       
         <script src="../../javascripts/katex.js"></script>
+      
+        <script src="../../javascripts/home-animation.js"></script>
+      
+        <script src="../../javascripts/home-intro-words.js"></script>
+      
+        <script src="../../javascripts/sakura-init.js"></script>
       
     
   </body>
