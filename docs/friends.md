@@ -16,7 +16,7 @@ If you’d like to be added here, feel free to contact me via email or GitHub is
 
 You can reach me via:
 
-- Email: `2400011018@stu.pku.edu.cn`
+- Email: `smingtao00@gmail.com`
 - GitHub: [`Semt0`](https://github.com/Semt0)
 ---
 
