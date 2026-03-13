@@ -27,7 +27,7 @@
     
     
       
-        <title>About - Semt0's Blog</title>
+        <title>Index - Semt0's Blog</title>
       
     
     
@@ -62,6 +62,8 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
@@ -85,11 +87,6 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#about" class="md-skip">
-          跳转至
-        </a>
       
     </div>
     <div data-md-component="announce">
@@ -121,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              About
+              Index
             
           </span>
         </div>
@@ -301,8 +298,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
       <a href="./." class="md-nav__link md-nav__link--active">
         
@@ -459,8 +454,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -483,21 +476,72 @@
                 
                   
 
-<h1 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h1>
-<p>你好，我是Semt0，</p>
-<p>目前就读于北京大学工学院，同时修读cs双学位。</p>
-<p>我的兴趣在 Embodied AI / ML 方向。</p>
-<p>热爱 MC</p>
-<p>不幸染上了米哈游qwq</p>
-<h1 id="education">Education<a class="headerlink" href="#education" title="Permanent link">&para;</a></h1>
-<ul>
-<li>
-<p>2024.09 - Present <strong>Undergraduate in Theoretical and Applied Mechanics &amp; Computer Science and Technology</strong> | <a href="https://www.coe.pku.edu.cn/">College of Engineering, Peking University</a>, <a href="https://eecs.pku.edu.cn/index.htm">School of Electronics Engineering and Computer Science, Peking University</a></p>
-</li>
-<li>
-<p>2021.09 - 2024.06 <strong>GanZhou HouDe ForeignLanguages School</strong> | <a href="https://www.houdeschool.cn/">赣州市厚德外国语学校</a></p>
-</li>
-</ul>
+<div class="home-hero">
+  <p class="home-badge">Semt0 · Blog & Notes</p>
+  <h1 class="home-title">你好，我是 Semt0</h1>
+  <p class="home-subtitle">
+    北京大学工学院本科生 &amp; CS 双学位，关注 <strong>Embodied AI</strong> 与 <strong>Machine Learning</strong>。  
+    热爱 <strong>Minecraft</strong>。
+  </p>
+
+  <div class="home-actions">
+    <a class="home-button primary" href="/blog/">进入博客</a>
+    <a class="home-button ghost" href="/note/">查看笔记</a>
+  </div>
+</div>
+
+<div class="home-grid">
+  <section class="home-card">
+    <h2>👨‍🎓 教育经历</h2>
+    <ul>
+      <li>
+        <span class="home-tag">2024.09 - Now</span>
+        <div>
+          <strong>Theoretical and Applied Mechanics &amp; Computer Science and Technology</strong><br />
+          <a href="https://www.coe.pku.edu.cn/">College of Engineering, PKU</a> ·
+          <a href="https://eecs.pku.edu.cn/index.htm">EECS, PKU</a>
+        </div>
+      </li>
+      <li>
+        <span class="home-tag">2021.09 - 2024.06</span>
+        <div>
+          <strong>GanZhou HouDe Foreign Languages School</strong><br />
+          <a href="https://www.houdeschool.cn/">赣州市厚德外国语学校</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="home-card">
+    <h2>🧠 兴趣方向</h2>
+    <ul class="home-list">
+      <li>Embodied AI</li>
+      <li>Computer Vision</li>
+      <li>Machine Learning</li>
+      <li>数理基础：微分方程、动力系统、以及它们背后的直觉</li>
+    </ul>
+  </section>
+
+  <section class="home-card">
+    <h2>🛠 技术栈</h2>
+    <ul class="home-list home-tech">
+      <li><strong>Languages</strong>：Python / C / C++ / Rust / Matlab</li>
+      <li><strong>ML / DL</strong>：PyTorch</li>
+      <li><strong>Tools</strong>：Git / Linux / VSCode / Cursor / Obsidian / docker</li>
+      <li><strong>Writing</strong>：Markdown / LaTeX / MkDocs / Zensical</li>
+    </ul>
+  </section>
+
+  <section class="home-card">
+    <h2>🔗 一些链接</h2>
+    <ul class="home-list">
+      <li><a href="/blog/">Blogs · 博客文章</a></li>
+      <li><a href="/note/">Notes · 课程 / 自学笔记</a></li>
+      <li><a href="https://github.com/Semt0">GitHub @Semt0</a></li>
+      <li><a href="mailto:2400011018@stu.pku.edu.cn">Email · 2400011018@stu.pku.edu.cn</a></li>
+    </ul>
+  </section>
+</div>
 
 
 
@@ -621,9 +665,11 @@
     
       <script src="./assets/javascripts/bundle.5fcf0de6.min.js"></script>
       
-        <script src="./javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="./javascripts/katex.js"></script>
       
     
   </body>

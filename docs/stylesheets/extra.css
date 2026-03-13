@@ -11,3 +11,177 @@ button.md-top {
     font-size: 16px;
     font-weight: bold;
 }
+
+/* 主页整体背景和布局微调（只影响内容区域，不动导航栏） */
+.md-main__inner {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+}
+
+/* 顶部 Hero 区 */
+.home-hero {
+    max-width: 960px;
+    margin: 0 auto 2.5rem auto;
+    padding: 2.8rem 3.2rem;
+    border-radius: 24px;
+    background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.35), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.35), transparent 55%);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.35),
+        0 0 0 1px rgba(15, 23, 42, 0.4);
+}
+
+.home-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.9rem;
+    margin-bottom: 1.1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(15, 23, 42, 0.75);
+    color: #e5e7eb;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+}
+
+.home-title {
+    margin: 0 0 0.8rem 0;
+    font-size: 2.4rem;
+    line-height: 1.15;
+}
+
+.home-subtitle {
+    margin: 0 0 1.8rem 0;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--md-default-fg-color--light, #64748b);
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.98rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.18s ease-out;
+}
+
+.home-button.primary {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #f9fafb;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.5);
+}
+
+.home-button.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 35px rgba(79, 70, 229, 0.7);
+}
+
+.home-button.ghost {
+    background: rgba(15, 23, 42, 0.2);
+    color: inherit;
+    border-color: rgba(148, 163, 184, 0.8);
+}
+
+.home-button.ghost:hover {
+    background: rgba(15, 23, 42, 0.35);
+}
+
+/* 下方信息卡片栅格 */
+.home-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+}
+
+.home-card {
+    padding: 1.4rem 1.5rem;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(51, 65, 85, 0.9);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.55);
+}
+
+.home-card h2 {
+    margin-top: 0;
+    margin-bottom: 0.9rem;
+    font-size: 1.15rem;
+}
+
+.home-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.home-card li + li {
+    margin-top: 0.65rem;
+}
+
+.home-tag {
+    display: inline-flex;
+    padding: 0.12rem 0.55rem;
+    margin-right: 0.4rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    background: rgba(30, 64, 175, 0.9);
+    color: #e5e7eb;
+}
+
+.home-list {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.home-list a {
+    text-decoration: none;
+}
+
+.home-list a:hover {
+    text-decoration: underline;
+}
+
+/* 响应式：窄屏下改为单列/双列布局 */
+@media (max-width: 960px) {
+    .home-hero {
+        padding: 2.1rem 1.6rem;
+        border-radius: 20px;
+    }
+
+    .home-title {
+        font-size: 2rem;
+    }
+
+    .home-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .home-button {
+        width: 100%;
+    }
+}

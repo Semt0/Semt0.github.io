@@ -21,11 +21,13 @@ nav = [
 extra_css = [
     "stylesheets/extra.css",
     "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css",  # 霞鹜文楷
+    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
 ]
 
 extra_javascript = [
-    "javascripts/mathjax.js",
-    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
+    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js",
+    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js",
+    "javascripts/katex.js",
 ]
 
 [project.theme]
@@ -142,7 +144,7 @@ permalink = true                            # 标题锚点链接
 
 # ===== 数学公式支持 =====
 [project.markdown_extensions."pymdownx.arithmatex"]
-generic = true  # 使用 MathJax 渲染数学公式
+generic = true  # 使用 KaTeX 渲染数学公式（由自定义 JS 处理）
 
 # ===== 文本增强 =====
 [project.markdown_extensions."pymdownx.betterem"]
