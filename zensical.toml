@@ -132,6 +132,9 @@ pagination_url_format = "page/{page}"
 
 authors_file = "blog/.authors.yml"
 
+[project.plugins.sitemap]
+url = "https://semt0.github.io/"
+
 
 
 # ===== 基础扩展 =====
