@@ -14,8 +14,14 @@ nav = [
         "blog/my-first-blog.md"
    ]},
    {"notes" = [
-        "note/ODE.md"
+        {"常微分方程" = "note/ODE.md"},
+        {"计算机视觉" = "note/CV.md"},
+        {"LLM & DeepLearning" = "note/LLM-DL.md"},
+        {"计算方法" = ""},
+        {"算法设计与分析" = ""},
+        {"离散数学" = ""},
    ]},
+   {"Friends" = "friends.md"},
 ]
 
 extra_css = [
