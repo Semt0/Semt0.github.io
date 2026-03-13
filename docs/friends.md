@@ -30,7 +30,7 @@ You can reach me via:
         <img src="https://github.com/vvkahpm.png" alt="vvkahpm" loading="lazy" />
       </div>
       <a href="https://vvkahpm.github.io" target="_blank" rel="noopener noreferrer">
-        vvkahpm's Blog
+        WKAHPM's Blog
       </a>
     </div>
     <div class="friend-card-url">https://vvkahpm.github.io</div>
