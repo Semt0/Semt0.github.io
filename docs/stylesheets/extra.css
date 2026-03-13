@@ -137,6 +137,57 @@ button.md-top {
     background: rgba(148, 163, 184, 0.12);
 }
 
+/* 夜间模式：变量层面也强制黑底白字，避免主题覆盖 */
+[data-md-color-scheme="slate"] {
+    --md-default-bg-color: #0b0f19 !important;        /* 深灰偏黑 */
+    --md-default-bg-color--light: #101624 !important; /* 略浅一点 */
+    --md-default-fg-color: #ffffff !important;
+    --md-default-fg-color--light: #ffffff !important;
+
+    --md-code-bg-color: #050505 !important;
+    --md-code-fg-color: #ffffff !important;
+
+    --md-primary-fg-color: #6366f1;
+    --md-accent-fg-color: #22d3ee;
+}
+
+[data-md-color-scheme="slate"] body {
+    background-color: #0b0f19 !important;
+    color: #ffffff !important;
+}
+
+[data-md-color-scheme="slate"] .home-section {
+    background: #050505;
+    border-color: rgba(148, 163, 184, 0.5);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+[data-md-color-scheme="slate"] .home-section-title {
+    color: rgba(209, 213, 219, 0.9);
+}
+
+[data-md-color-scheme="slate"] .home-subtitle {
+    color: rgba(209, 213, 219, 0.8);
+}
+
+/* 夜间模式下，顶部介绍文字改成高亮白色 */
+[data-md-color-scheme="slate"] .home-title {
+    color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .home-subtitle {
+    color: rgba(229, 231, 235, 0.9); /* 很亮的灰白 */
+}
+
+/* 如果导航栏也看不清，可以加上： */
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-header__inner {
+    background-color: #000000;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link {
+    color: rgba(229, 231, 235, 0.9);
+}
 /* 花瓣层：全局飘落背景 */
 .petals-layer {
     position: fixed;
@@ -149,12 +200,14 @@ button.md-top {
 .petal {
     position: absolute;
     top: -10vh;
-    width: 12px;
-    height: 18px;
+    width: 8px;
+    height: 12px;
     background: radial-gradient(circle at 30% 30%, #fecaca, #fb7185);
     border-radius: 60% 40% 60% 40%;
     opacity: 0.8;
     filter: blur(0.2px);
+    transform-origin: center center;
+    will-change: transform, opacity;
     animation-name: petal-fall;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -162,14 +215,36 @@ button.md-top {
 
 @keyframes petal-fall {
     0% {
-        transform: translate3d(0, -10vh, 0) rotateZ(0deg);
+        transform: translate3d(0, -10vh, 0)
+                   rotateX(0deg)
+                   rotateY(0deg)
+                   rotateZ(0deg);
         opacity: 0;
     }
-    10% {
+    15% {
+        transform: translate3d(12px, 5vh, 0)
+                   rotateX(70deg)
+                   rotateY(40deg)
+                   rotateZ(60deg);
         opacity: 0.9;
     }
+    40% {
+        transform: translate3d(-18px, 35vh, 0)
+                   rotateX(150deg)
+                   rotateY(120deg)
+                   rotateZ(140deg);
+    }
+    70% {
+        transform: translate3d(24px, 75vh, 0)
+                   rotateX(220deg)
+                   rotateY(260deg)
+                   rotateZ(260deg);
+    }
     100% {
-        transform: translate3d(-40px, 110vh, 0) rotateZ(360deg);
+        transform: translate3d(-10px, 110vh, 0)
+                   rotateX(260deg)
+                   rotateY(380deg)
+                   rotateZ(360deg);
         opacity: 0;
     }
 }
@@ -374,4 +449,115 @@ button.md-top {
     .home-button {
         width: 100%;
     }
+}
+
+/* ===== 极简夜间模式：黑底 + 白字，保证绝对可见 ===== */
+/* 注意：Zensical/MkDocs 有时把 data-md-color-scheme 挂在 body 上，所以两种都写 */
+html[data-md-color-scheme="slate"],
+html[data-md-color-scheme="slate"] body,
+body[data-md-color-scheme="slate"],
+body[data-md-color-scheme="slate"] html {
+    background-color: #0b0f19 !important; /* 深灰偏黑 */
+    color: #ffffff !important;
+}
+
+html[data-md-color-scheme="slate"] .md-main,
+html[data-md-color-scheme="slate"] .md-main__inner,
+html[data-md-color-scheme="slate"] .md-content,
+html[data-md-color-scheme="slate"] .md-content__inner,
+html[data-md-color-scheme="slate"] .md-container,
+html[data-md-color-scheme="slate"] .md-container > .md-main,
+html[data-md-color-scheme="slate"] .md-typeset,
+html[data-md-color-scheme="slate"] .md-sidebar,
+html[data-md-color-scheme="slate"] .md-sidebar__inner,
+html[data-md-color-scheme="slate"] .md-sidebar__scrollwrap,
+html[data-md-color-scheme="slate"] .md-nav,
+html[data-md-color-scheme="slate"] .md-nav__item,
+html[data-md-color-scheme="slate"] .md-nav__link,
+html[data-md-color-scheme="slate"] .md-nav--secondary,
+body[data-md-color-scheme="slate"] .md-main,
+body[data-md-color-scheme="slate"] .md-main__inner,
+body[data-md-color-scheme="slate"] .md-content,
+body[data-md-color-scheme="slate"] .md-content__inner,
+body[data-md-color-scheme="slate"] .md-container,
+body[data-md-color-scheme="slate"] .md-container > .md-main,
+body[data-md-color-scheme="slate"] .md-typeset,
+body[data-md-color-scheme="slate"] .md-sidebar,
+body[data-md-color-scheme="slate"] .md-sidebar__inner,
+body[data-md-color-scheme="slate"] .md-sidebar__scrollwrap,
+body[data-md-color-scheme="slate"] .md-nav,
+body[data-md-color-scheme="slate"] .md-nav__item,
+body[data-md-color-scheme="slate"] .md-nav__link,
+body[data-md-color-scheme="slate"] .md-nav--secondary {
+    background-color: #0b0f19 !important;
+    color: #ffffff !important;
+}
+
+/* 所有正文文字元素一律白色 */
+html[data-md-color-scheme="slate"] .md-typeset h1,
+html[data-md-color-scheme="slate"] .md-typeset h2,
+html[data-md-color-scheme="slate"] .md-typeset h3,
+html[data-md-color-scheme="slate"] .md-typeset h4,
+html[data-md-color-scheme="slate"] .md-typeset h5,
+html[data-md-color-scheme="slate"] .md-typeset h6,
+html[data-md-color-scheme="slate"] .md-typeset p,
+html[data-md-color-scheme="slate"] .md-typeset li,
+html[data-md-color-scheme="slate"] .md-typeset span,
+html[data-md-color-scheme="slate"] .md-typeset a,
+html[data-md-color-scheme="slate"] .md-nav__link,
+html[data-md-color-scheme="slate"] .md-nav__title,
+body[data-md-color-scheme="slate"] .md-typeset h1,
+body[data-md-color-scheme="slate"] .md-typeset h2,
+body[data-md-color-scheme="slate"] .md-typeset h3,
+body[data-md-color-scheme="slate"] .md-typeset h4,
+body[data-md-color-scheme="slate"] .md-typeset h5,
+body[data-md-color-scheme="slate"] .md-typeset h6,
+body[data-md-color-scheme="slate"] .md-typeset p,
+body[data-md-color-scheme="slate"] .md-typeset li,
+body[data-md-color-scheme="slate"] .md-typeset span,
+body[data-md-color-scheme="slate"] .md-typeset a,
+body[data-md-color-scheme="slate"] .md-nav__link,
+body[data-md-color-scheme="slate"] .md-nav__title {
+    color: #ffffff !important;
+}
+
+/* 代码块 & 数学公式容器 */
+html[data-md-color-scheme="slate"] pre,
+html[data-md-color-scheme="slate"] code,
+body[data-md-color-scheme="slate"] pre,
+body[data-md-color-scheme="slate"] code {
+    background-color: #050505 !important;
+    color: #ffffff !important;
+}
+
+html[data-md-color-scheme="slate"] .arithmatex,
+html[data-md-color-scheme="slate"] .katex-display,
+html[data-md-color-scheme="slate"] .katex,
+body[data-md-color-scheme="slate"] .arithmatex,
+body[data-md-color-scheme="slate"] .katex-display,
+body[data-md-color-scheme="slate"] .katex {
+    color: #ffffff !important;
+}
+
+/* 夜间模式星空背景（仅在黑色背景上叠加一些星星） */
+html[data-md-color-scheme="slate"] body::before,
+body[data-md-color-scheme="slate"]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        radial-gradient(2px 2px at 10% 20%, rgba(255, 255, 255, 0.55), transparent),
+        radial-gradient(1px 1px at 30% 80%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 70% 30%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 85% 60%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 40% 40%, rgba(255, 255, 255, 0.65), transparent),
+        radial-gradient(1px 1px at 15% 55%, rgba(255, 255, 255, 0.55), transparent),
+        radial-gradient(1px 1px at 55% 15%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.2px 1.2px at 75% 85%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1px 1px at 45% 70%, rgba(255, 255, 255, 0.5), transparent);
+    background-repeat: repeat;
+    background-size: 220px 220px; /* 更密集一点 */
+    opacity: 0.9;
 }

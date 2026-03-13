@@ -1,5 +1,5 @@
 ---
-icon: lucide/rocket
+icon: 
 title: 常微分方程
 date: 2026-02-25
 authors:
