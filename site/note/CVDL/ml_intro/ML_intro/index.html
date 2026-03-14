@@ -1,0 +1,1843 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Blogs from Semt0">
+      
+      
+        <meta name="author" content="Semt0">
+      
+      
+        <link rel="canonical" href="https://semt0.github.io/note/CVDL/ml_intro/ML_intro/">
+      
+      
+        <link rel="prev" href="../../../ODE/">
+      
+      
+        <link rel="next" href="../../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../images/logo.jpg">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>ML intro - Semt0's Blog</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#machine-learning-basics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Semt0&#x27;s Blog" class="md-header__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Semt0's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ML intro
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../blog/my-first-blog/" class="md-tabs__link">
+          
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../ODE/" class="md-tabs__link">
+          
+  
+  notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../friends/" class="md-tabs__link">
+        
+  
+  Friends
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Semt0&#x27;s Blog" class="md-nav__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Semt0's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../blog/my-first-blog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogs
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ODE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常微分方程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CVDL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CVDL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML intro
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#machine-learning-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Machine Learning Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Classifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perceptron
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multivariate-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multivariate Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aside-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aside: Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support Vector Machine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support Vector Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimization-of-svm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization of SVM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoff-of-linear-separability-large-margin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff of Linear Separability / Large Margin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-margin-support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soft-Margin Support Vector Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-deep-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics of Deep Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics of Deep Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xor-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XOR Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-and-chain-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gradient and Chain Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lenet-5-an-exceptional-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LeNet-5: An Exceptional Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LeNet-5: An Exceptional Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-activation-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Activation Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularizing-networks-dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizing Networks: Dropout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentum-and-weight-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentum and Weight Decay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularizing-networks-early-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizing Networks: Early Stopping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../none" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算方法
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../none" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法设计与分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    离散数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../friends/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#machine-learning-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Machine Learning Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Classifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perceptron
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multivariate-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multivariate Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aside-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aside: Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support Vector Machine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support Vector Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimization-of-svm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization of SVM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoff-of-linear-separability-large-margin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff of Linear Separability / Large Margin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-margin-support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soft-Margin Support Vector Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-deep-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics of Deep Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics of Deep Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xor-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XOR Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-and-chain-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gradient and Chain Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lenet-5-an-exceptional-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LeNet-5: An Exceptional Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LeNet-5: An Exceptional Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-activation-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Activation Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularizing-networks-dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizing Networks: Dropout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentum-and-weight-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentum and Weight Decay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularizing-networks-early-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizing Networks: Early Stopping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../ODE/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    notes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    CVDL
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1>ML intro</h1>
+
+<h2 id="machine-learning-basics">Machine Learning Basics<a class="headerlink" href="#machine-learning-basics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Machine learning: (part of ML techniques) learning a predictive model from data
+<img alt="hello" src="../pictures/ml_intro_01.png" width="450" /> </p>
+</li>
+<li>
+<p>An example:</p>
+</li>
+</ul>
+<p><img _="," align="left" alt="p2" src="../pictures/ml_intro_02.png" width="220" /> 
+The objects to be classified are first sensed by a transducer (camera), whose signals are preprocessed.
+Next the features are extracted and finally the classification is emitted, here either "salmon" or "sea bass".
+Although the information flow is often chosen to be from the source to the classifier, some systems
+employ information flow in which earlier levels of processing can be altered based on the tentative or
+preliminary response in later levels (gray arrows)
+Yet others combine two or more stages into a unified step, such as simultaneous segmentation
+and feature extraction.</p>
+<h3 id="linear-classifier">Linear Classifier<a class="headerlink" href="#linear-classifier" title="Permanent link">&para;</a></h3>
+<p><img _="," align="right" alt="03" src="../pictures/03.png" width="200" />
+A linear classifier has the form
+$$
+f(x)=W^Tx+b
+$$</p>
+<ul>
+<li>in 2D the discriminant is a line</li>
+<li><strong>W</strong> is the <mark>normal</mark> to the line, and b the <mark>bias</mark></li>
+<li><strong>W</strong> is known as the <mark>weight vector</mark></li>
+</ul>
+<h3 id="perceptron">Perceptron<a class="headerlink" href="#perceptron" title="Permanent link">&para;</a></h3>
+<p>In the modern sense, the perceptron is an algorithm for learning a binary classifier: a function that maps its input <strong>x</strong> (a real-valued <mark>vector</mark>) to an output value <span class="arithmatex">\(f(x)\)</span> (a single <mark>binary</mark> value):
+$$
+f(x)=
+\begin{cases}
+1 \quad if \space w \cdot x + b &gt; 0 \\
+0 \quad otherwise
+\end{cases}
+$$
+where <em>w</em> is a vector of real-valued weights, <span class="arithmatex">\(w \cdot x\)</span> is the <mark>dot product</mark> <span class="arithmatex">\(\sum\limits_{i=0}^mw_{i}x_{i}\)</span>, where m is the number of inputs to the perceptron and <em>b</em> is the bias. The bias shifts the decision boundary away from the origin and does not depend on any input value.</p>
+<h3 id="multivariate-linear-regression">Multivariate Linear Regression<a class="headerlink" href="#multivariate-linear-regression" title="Permanent link">&para;</a></h3>
+<p>This time, <span class="arithmatex">\(x \in \mathbb{R}^m\)</span> and <span class="arithmatex">\(y \in \mathbb{R}^k\)</span> , and the model is 
+$$
+y = Ax
+$$
+for a <span class="arithmatex">\(k \times m\)</span> matrix <span class="arithmatex">\(A\)</span> .
+We assume the last coordinate of each <em>x</em> vector is 1. Then the last column of <span class="arithmatex">\(A\)</span> acts as the bias vector <span class="arithmatex">\(b\)</span> we had before, simplifying the model.
+The empirical risk is </p>
+<div class="arithmatex">\[
+L = \sum\limits_{i=1}^{N} (Ax_{i}-y_{i})^{2} = \sum\limits_{i=1}^{N} (x_{i}^{T}A^T - y_{i}^T)(Ax_{i} - y_{i})
+\]</div>
+<p>We want to optimize <span class="arithmatex">\(L\)</span> with respect to the model matrix <span class="arithmatex">\(A\)</span>, so this time we need a <mark>gradient</mark>:</p>
+<p>$$
+\nabla_{A} L = 0
+$$
+We are treating the <mark>loss</mark> as a function <span class="arithmatex">\(L(A)\)</span> of the matrix <span class="arithmatex">\(A\)</span> (fixing x's and y's):</p>
+<div class="arithmatex">\[
+L(A) = \sum\limits_{i=1}^{N} (x_{i}^TA^T - y_{i}^T)(Ax_{i} - y_{i})
+\]</div>
+<p>The gradient of the loss is </p>
+<p>$$
+\nabla_{A}L = 2A \sum\limits_{i=1}^{N} x_{i}x_{i}^T - 2 \sum\limits_{i=1}^{N} y_{i}x_{i}^T = 0
+$$
+Which we can write as </p>
+<p>$$
+2AM_{x x} - 2M_{yx} = 0
+$$
+where <span class="arithmatex">\(M_{x x} = \sum\limits_{i=1}^{N}x_{i}x_{i}^T\)</span> and <span class="arithmatex">\(M_{yx} = \sum\limits_{i=1}^{N}y_{i}x_{i}^T\)</span></p>
+<p>The solution for zero loss gradient: </p>
+<p>$$
+\nabla_{A}L(A) = 2A M_{x x} - 2M_{yx} = 0
+$$
+is:</p>
+<p>$$
+A = M_{yx}M_{x x}^{-1}
+$$
+Also works if we define </p>
+<div class="arithmatex">\[
+\begin{align}
+M_{x x} = \frac{1}{n} \sum\limits_{i=1}^{N} x_{i}x_{i}^T  \\\
+M_{yx} = \frac{1}{n} \sum\limits_{i=1}^{N} y_{i}x_{i}^T
+\end{align}
+\]</div>
+<p>These are called <mark>sample moments</mark> , and they converge to the true moments</p>
+<div class="arithmatex">\[
+\begin{align}
+M_{x x} \to \mu_{x x} = \mathbb{E}[x x^T] \\\
+M_{yx} \to \mu_{y x} = \mathbb{E}[yx^T]
+\end{align}
+\]</div>
+<p>So our <mark>empirical risk-minimizing model</mark> <span class="arithmatex">\(A = M_{yx}M_{x x}^{-1}\)</span> converges to the <mark>true risk minimizing model</mark> <span class="arithmatex">\(A_{0} = \mu_{yx}\mu_{x x}^{-1}\)</span></p>
+<h3 id="aside-gradients">Aside: Gradients<a class="headerlink" href="#aside-gradients" title="Permanent link">&para;</a></h3>
+<p>when we write <span class="arithmatex">\(\nabla_{A}L(A)\)</span>, we mean the vector of partial derivatives:</p>
+<div class="arithmatex">\[
+\nabla_{A}L(A) = \left[ \frac{ \partial L }{ \partial A_{11} }, \frac{ \partial L }{ \partial A_{12} } , \frac{ \partial L }{ \partial A_{21} } , \frac{ \partial L }{ \partial A_{22} }   \right]^T
+\]</div>
+<p>Where <span class="arithmatex">\(\frac{ \partial L }{ \partial A_{11} }\)</span> measures how fast the loss changes vs. change in <span class="arithmatex">\(A_{11}\)</span> .</p>
+<p>When <span class="arithmatex">\(\nabla_{A}L(A)=0\)</span> , it means all the partials are zero.</p>
+<p>i.e. the loss is not changing in any direction. Thus we are at a local optimum (or at least a saddle point)</p>
+<p><img alt="04" src="../pictures/04.png" width="400" /></p>
+<h2 id="support-vector-machine">Support Vector Machine<a class="headerlink" href="#support-vector-machine" title="Permanent link">&para;</a></h2>
+<p><img alt="05" src="../pictures/05.png" width="600" /></p>
+<ul>
+<li>
+<p><mark>maximum margin</mark> solution: most stable under perturbations of the inputs</p>
+</li>
+<li>
+<p>Distance from example to the separator is </p>
+</li>
+</ul>
+<div class="arithmatex">\[
+r = y \frac{w^Tx + b}{||w||}
+\]</div>
+<ul>
+<li>Example closest to the hyperplane are <mark>support vectors</mark> .</li>
+<li><mark>Margin</mark> <span class="arithmatex">\(\rho\)</span> of the separator is the width of separation between support vectors of classes</li>
+</ul>
+<p><img _="," align="left" alt="06" src="../pictures/06.png" width="150" />
+<strong>Derivation fo finding r: Dotted line x' -x is perpendicular to decision boundary so parallel to w. Unit vector is w/|w|, so line is rw/|w|. x' = x - yrw/|w|. x' satisfies w^T x' + b = 0. So w^T (x - yrw/|w|) + b = 0 Recall that |w| = sqrt(w^T w). So w^T w - yr|w| + b = 0. So, solving for r gives: r = y(w^T x + b) / |w|</strong></p>
+<ul>
+<li>Since <span class="arithmatex">\(w^T x + b = 0\)</span> and <span class="arithmatex">\(c(w^T x + b) = 0\)</span> define the same plane, we have the freedom to choose the normalization of <span class="arithmatex">\(w\)</span></li>
+<li>Choose normalization such that <span class="arithmatex">\(w^Tx_{+} + b = +1\)</span> and <span class="arithmatex">\(w^Tx_{-} + b = -1\)</span> for the positive and negative support vectors respectively</li>
+<li>Then the <mark>margin</mark> is given by</li>
+</ul>
+<div class="arithmatex">\[
+\frac{w}{||w||} \cdot (x_{+} - x{-}) = \frac{w^T(x_{+} - x_{-})}{||w||} = \frac{2}{||w||}
+\]</div>
+<h3 id="optimization-of-svm">Optimization of SVM<a class="headerlink" href="#optimization-of-svm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Learning the SVM can be formulated as an optimization: </li>
+</ul>
+<p>$$
+\max\limits_{w} \frac{2}{||w||}
+$$
+subject to </p>
+<p>$$
+w^T x_{i} + b
+\begin{cases}
+\geq 1 \quad if \space y_{i} = +1  \\
+\leq -1 \quad if \space y_{i} = -1
+\end{cases}
+$$
+for <span class="arithmatex">\(i = 1\dots N\)</span></p>
+<ul>
+<li>Or equivalently</li>
+</ul>
+<div class="arithmatex">\[
+\min\limits_{w} ||w||^{2}
+\]</div>
+<p>subject to</p>
+<p>$$
+y_{i}(w^{T}x_{i} + b) \geq 1
+$$
+for <span class="arithmatex">\(i = 1\dots N\)</span></p>
+<ul>
+<li>This is a quadratic optimization problem subject to linear constraints and there is a unique minimum</li>
+</ul>
+<h3 id="tradeoff-of-linear-separability-large-margin">Tradeoff of Linear Separability / Large Margin<a class="headerlink" href="#tradeoff-of-linear-separability-large-margin" title="Permanent link">&para;</a></h3>
+<p><img alt="07" src="../pictures/07.png" width="500" /></p>
+<p>In general there is a trade off between the margin and the number of mistakes on the training data</p>
+<h3 id="soft-margin-support-vector-machine">Soft-Margin Support Vector Machine<a class="headerlink" href="#soft-margin-support-vector-machine" title="Permanent link">&para;</a></h3>
+<p><img alt="08" src="../pictures/08.png" width="500" /></p>
+<p>The optimization problem becomes</p>
+<div class="arithmatex">\[
+\min\limits_{w \in \mathbb{R}^{d},\xi_{i} \in \mathbb{R}^{+}} ||w||^{2} + C \sum\limits_{i}^{N} \xi_{i}
+\]</div>
+<p>subject to</p>
+<div class="arithmatex">\[
+y_{i}(w^{T}x_{i} + b) \geq 1 - \xi_{i} , \quad i = 1\dots N
+\]</div>
+<ul>
+<li>Every constraint can be satisfied if <span class="arithmatex">\(\xi_{i}\)</span> is sufficiently large </li>
+<li><span class="arithmatex">\(C\)</span> is a <mark>regularization</mark> parameter:<ul>
+<li>small <span class="arithmatex">\(C\)</span> allows constraints to be easily ignored <span class="arithmatex">\(\to\)</span> large margin</li>
+<li>large <span class="arithmatex">\(C\)</span> makes constraints hard to ignore <span class="arithmatex">\(\to\)</span> narrow margin</li>
+<li><span class="arithmatex">\(C = \infty\)</span> enforces all constraints: hard margin</li>
+</ul>
+</li>
+<li>This is still a quadratic optimization problem and there is a unique minimum. Note, there is only one parameter, <span class="arithmatex">\(C\)</span> .</li>
+</ul>
+<h2 id="basics-of-deep-networks">Basics of Deep Networks<a class="headerlink" href="#basics-of-deep-networks" title="Permanent link">&para;</a></h2>
+<h3 id="xor-problem">XOR Problem<a class="headerlink" href="#xor-problem" title="Permanent link">&para;</a></h3>
+<p><strong>Single-layer cannot solve XOR</strong></p>
+<p><img alt="09" src="../pictures/09.png" width="600" /></p>
+<h3 id="gradient-and-chain-rule">Gradient and Chain Rule<a class="headerlink" href="#gradient-and-chain-rule" title="Permanent link">&para;</a></h3>
+<p><img alt="10" src="../pictures/10.png" width="600" /></p>
+<h3 id="back-propagation">Back Propagation<a class="headerlink" href="#back-propagation" title="Permanent link">&para;</a></h3>
+<p>Anatomy for a unit neuron</p>
+<p><img alt="11" src="../pictures/11.png" width="600" /></p>
+<p><img alt="12" src="../pictures/12.png" width="600" /></p>
+<h3 id="lenet-5-an-exceptional-example">LeNet-5: An Exceptional Example<a class="headerlink" href="#lenet-5-an-exceptional-example" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Supervised deep networks are too difficulty to train (before 2012)</li>
+<li>LeNet-5 is an exception</li>
+</ul>
+<p><img alt="13" src="../pictures/13.png" width="600" /></p>
+<p>确立了现代CNN的基本结构——<strong>卷积层、池化层、全连接层的组合</strong></p>
+<p>LeNet-5 的名字中的“5”意味着它包含5层可训练参数的层（3个卷积层 + 2个全连接层）。其输入是32x32的灰度图像，输出是10个类别（数字0-9）的概率。</p>
+<table>
+<thead>
+<tr>
+<th>层数 (Layer)</th>
+<th>组件</th>
+<th>详情 (输入 → 核大小/步长 → 输出维度)</th>
+<th>参数量 (Parameters)</th>
+<th>简要说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入层</strong></td>
+<td>Input</td>
+<td>32x32 灰度图像</td>
+<td>-</td>
+<td>输入图像比MNIST数据集中的字符大，以便网络能更好地学习边缘、拐角等特征<a href="https://cloud.tencent.cn/developer/article/1435333?from=15425"></a>。</td>
+</tr>
+<tr>
+<td><strong>C1</strong></td>
+<td><strong>卷积层</strong></td>
+<td>32x32x1 → 5x5/1, <strong>6个</strong> 核 → 28x28x6</td>
+<td>(5*5*1+1)*6 = <strong>156</strong></td>
+<td>使用6个5x5卷积核提取基础特征（如边缘、弧线）。输出6张28x28的特征图。</td>
+</tr>
+<tr>
+<td><strong>S2</strong></td>
+<td><strong>池化层</strong></td>
+<td>28x28x6 → 2x2/2 → 14x14x6</td>
+<td>2*6 = <strong>12</strong></td>
+<td>平均池化层（下采样），对特征图进行降维，同时引入非线性（当时使用sigmoid）。</td>
+</tr>
+<tr>
+<td><strong>C3</strong></td>
+<td><strong>卷积层</strong></td>
+<td>14x14x6 → 5x5/1, <strong>16个</strong> 核 → 10x10x16</td>
+<td>根据连接表计算，共 <strong>1,516</strong></td>
+<td>使用16个5x5卷积核提取更复杂的组合特征。其与S2的连接是一种非全连接，旨在打破对称性、丰富特征组合。</td>
+</tr>
+<tr>
+<td><strong>S4</strong></td>
+<td><strong>池化层</strong></td>
+<td>10x10x16 → 2x2/2 → 5x5x16</td>
+<td>2*16 = <strong>32</strong></td>
+<td>再次进行平均池化，进一步降低特征图分辨率。</td>
+</tr>
+<tr>
+<td><strong>C5</strong></td>
+<td><strong>卷积层</strong></td>
+<td>5x5x16 → 5x5/1, <strong>120个</strong> 核 → 1x1x120</td>
+<td>(5*5*16+1)*120 =  48,120</td>
+<td>由于输入尺寸与核大小相同，实际相当于全连接层。将特征图展平成120维的特征向量。</td>
+</tr>
+<tr>
+<td><strong>F6</strong></td>
+<td><strong>全连接层</strong></td>
+<td>120 → 84</td>
+<td>(120+1)*84 = 10,164</td>
+<td>全连接层，输出84维向量。这一设计与输出层的RBF单元编码有关。</td>
+</tr>
+<tr>
+<td><strong>输出层</strong></td>
+<td>Output (RBF)</td>
+<td>84 → 10</td>
+<td>84*10 = <strong>840</strong></td>
+<td>使用径向基函数计算输入与预设编码的欧氏距离，距离最小的类别即为识别结果<a href="https://cloud.tencent.cn/developer/article/1435333?from=15425"></a>。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总参数量</strong>：约 <strong>60,000</strong> ；<strong>总连接数</strong>：约 <strong>340,000</strong> 。</p>
+<h4 id="the-activation-functions">The Activation Functions<a class="headerlink" href="#the-activation-functions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Twist the linear responses</li>
+<li>Avoid numerical overflow</li>
+</ul>
+<p><img alt="14" src="../pictures/14.png" width="500" /></p>
+<h4 id="softmax-layer">Softmax Layer<a class="headerlink" href="#softmax-layer" title="Permanent link">&para;</a></h4>
+<p>Generate probabilistic output</p>
+<div class="arithmatex">\[
+p(y) = \frac{\exp (o)}{1 + \sum\limits_{j=1}^{J - 1} \exp(o)}
+\]</div>
+<h4 id="regularizing-networks-dropout">Regularizing Networks: Dropout<a class="headerlink" href="#regularizing-networks-dropout" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Keeping a neuron active with some probability</li>
+<li>Only in training mode, scaling the weights accordingly</li>
+<li>Google applied for a US patent for dropout in 2014</li>
+</ul>
+<p><img alt="15" src="../pictures/15.png" width="500" /></p>
+<h4 id="momentum-and-weight-decay">Momentum and Weight Decay<a class="headerlink" href="#momentum-and-weight-decay" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The objective often has the form of a long shallow ravine leading to the optimum and steep walls on the sides</li>
+<li>SGD tend to oscillate across the narrow ravine</li>
+</ul>
+<p><strong>SGD:</strong></p>
+<div class="arithmatex">\[
+\theta = \theta - \alpha \nabla_{\theta}J(\theta;x^{(i)}, y^{(i)})
+\]</div>
+<p><strong>Momentum:</strong></p>
+<div class="arithmatex">\[
+\begin{align}
+\upsilon  &amp; = \gamma\upsilon + \alpha \nabla_{\theta}J(\theta; x_{(i)}, y^{(i)}) \\\
+\theta  &amp; = \theta - \upsilon
+\end{align}
+\]</div>
+<ul>
+<li>Weight decay: limit the number of free parameters in your model so as to avoid over-fitting</li>
+</ul>
+<p><img alt="16" src="../pictures/16.png" width="400" /></p>
+<h4 id="regularizing-networks-early-stopping">Regularizing Networks: Early Stopping<a class="headerlink" href="#regularizing-networks-early-stopping" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Training error decreases steadily over time, but validation set error begins to rise again</li>
+<li>We should adopt <strong>Early Stopping!</strong> </li>
+</ul>
+<p><img alt="17" src="../pictures/17.png" width="500" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../../ODE/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 常微分方程">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                常微分方程
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-footer__link md-footer__link--next" aria-label="Next: 误差分析">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                误差分析
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Semt0" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:2400011018@stu.pku.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","header.autohide","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight"],"search":"../../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="../../../../javascripts/home-animation.js"></script>
+      
+        <script src="../../../../javascripts/home-intro-words.js"></script>
+      
+        <script src="../../../../javascripts/sakura-init.js"></script>
+      
+    
+  </body>
+</html>

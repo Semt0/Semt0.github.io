@@ -15,10 +15,18 @@ nav = [
    ]},
    {"notes" = [
         {"常微分方程" = "note/ODE.md"},
-        {"计算机视觉" = "note/CV.md"},
-        {"LLM & DeepLearning" = "note/LLM-DL.md"},
-        {"计算方法" = ""},
-        {"算法设计与分析" = ""},
+        {"CVDL" = [
+            "note/CVDL/ml_intro/ML_intro.md",
+        ]},
+        {"LLM" = [
+            
+        ]},
+        {"计算方法" = [
+            "note/计算方法/误差分析.md",
+        ]},
+        {"算法设计与分析" = [
+
+        ]},
         {"离散数学" = ""},
    ]},
    {"Friends" = "friends.md"},
@@ -45,7 +53,7 @@ extra_javascript = [
 #custom_dir = "overrides"
 
 favicon = "images/logo.jpg"
-language = "zh"
+language = "en"
 features = [
     "announce.dismiss",
     #"content.action.edit",
@@ -65,7 +73,7 @@ features = [
     "navigation.instant.progress",
     "navigation.path",
     "navigation.prune",
-    "navigation.sections",
+    #"navigation.sections",
     "navigation.tabs",
     #"navigation.tabs.sticky",
     "navigation.top",
@@ -184,3 +192,7 @@ custom_checkbox = true
 [project.markdown_extensions."pymdownx.emoji"]        # Emoji 表情
 emoji_generator = "zensical.extensions.emoji.to_svg"
 emoji_index = "zensical.extensions.emoji.twemoji"
+
+# ===== pictures =====
+[project.markdown_extensions.pymdownx.blocks.caption]
+

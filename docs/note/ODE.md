@@ -425,12 +425,12 @@ $$
   - 设非齐次方程的解为 $x = \Phi(t)c(t)$
     $$
     \begin{aligned}
-    \frac{dx}{dt} &= \frac{d \Phi(t)}{dt} c(t) + \Phi(t)\frac{dc(t)}{dt} \\
-    &= A(t)\Phi(t)c(t) + \Phi(t)c^{'}(t) \\
-    &= A(t)x + f(t) \\
-    &= A(t)\Phi(t)c(t) + f(t) \\
+    \frac{dx}{dt} &= \frac{d \Phi(t)}{dt} c(t) + \Phi(t)\frac{dc(t)}{dt} \\\
+    &= A(t)\Phi(t)c(t) + \Phi(t)c^{'}(t) \\\
+    &= A(t)x + f(t) \\\
+    &= A(t)\Phi(t)c(t) + f(t) \\\
     &\Rightarrow c^{'}(t) = \Phi^{-1}(t)f(t)
-    \end{aligned} \\
+    \end{aligned} 
     $$
     求出一组 $c_i(t)$，最后利用通解结构定理写出通解。
 

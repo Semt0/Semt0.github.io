@@ -1,0 +1,2121 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Blogs from Semt0">
+      
+      
+        <meta name="author" content="Semt0">
+      
+      
+        <link rel="canonical" href="https://semt0.github.io/note/%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/">
+      
+      
+        <link rel="prev" href="../../CVDL/ml_intro/ML_intro/">
+      
+      
+        <link rel="next" href="../../..">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.jpg">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>误差分析 - Semt0's Blog</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-header__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Semt0's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              误差分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/my-first-blog/" class="md-tabs__link">
+          
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../ODE/" class="md-tabs__link">
+          
+  
+  notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  Friends
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-nav__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Semt0's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../blog/my-first-blog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogs
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常微分方程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CVDL/ml_intro/ML_intro/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CVDL
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../none" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算方法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算方法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    误差分析
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    误差分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一讲 误差分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一讲 误差分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值分析中的问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值分析中的问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：阿基米德与圆周率
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值分析中的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值分析中的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        适定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一致性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        稳定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        收敛性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先验与后验分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差的定义和来源
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差的定义和来源">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差的来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绝对误差与相对误差
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本算术过程的误差传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效数字
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浮点数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定点数表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE-754 标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在数值计算中需要注意的一些现象
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="在数值计算中需要注意的一些现象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 避免两个相近的数相减
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 防止数量级相差很大的数进行加减运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 注意简化计算步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 选择合适的精度类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 重视累积误差
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../none" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法设计与分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    离散数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一讲 误差分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一讲 误差分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值分析中的问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值分析中的问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：阿基米德与圆周率
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值分析中的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值分析中的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        适定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一致性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        稳定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        收敛性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先验与后验分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差的定义和来源
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差的定义和来源">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差的来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        绝对误差与相对误差
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本算术过程的误差传播
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有效数字
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浮点数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定点数表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE-754 标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在数值计算中需要注意的一些现象
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="在数值计算中需要注意的一些现象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 避免两个相近的数相减
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 防止数量级相差很大的数进行加减运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 注意简化计算步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 选择合适的精度类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 重视累积误差
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../ODE/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    notes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算方法
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1>误差分析</h1>
+
+<h2 id="_1">第一讲 误差分析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">数值分析中的问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>数值计算问题可以写成如下一般化的形式：寻求解 <span class="arithmatex">\(x\)</span>，满足</p>
+<div class="arithmatex">\[
+F(x,d) = 0 \tag{1.1}
+\]</div>
+<p>其中 <span class="arithmatex">\(d\)</span> 是问题所依赖的参数，<span class="arithmatex">\(F\)</span> 是描述解 <span class="arithmatex">\(x\)</span> 和参数 <span class="arithmatex">\(d\)</span> 关系的函数。</p>
+<p>在式 (1.1) 中：</p>
+<ul>
+<li><span class="arithmatex">\(F\)</span> 和 <span class="arithmatex">\(d\)</span> 给定，<span class="arithmatex">\(x\)</span> 待求，称为 <strong>直接问题</strong> ；</li>
+<li><span class="arithmatex">\(F\)</span> 和 <span class="arithmatex">\(x\)</span> 给定，<span class="arithmatex">\(d\)</span> 未知，称为 <strong>反问题/逆问题</strong> ；</li>
+<li><span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(d\)</span> 已知，<span class="arithmatex">\(F\)</span> 未知，称为 <strong>识别问题</strong> 。</li>
+</ul>
+<h4 id="_3">例：阿基米德与圆周率<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>阿基米德通过圆内接正多边形逼近圆周率，得到递推表达式：</p>
+<div class="arithmatex">\[
+a_{n+1} = \sqrt{2 - \sqrt{4 - a_n^2}}, \quad n = 1, 2, \cdots, \quad a_1 = 1
+\]</div>
+<p>圆周率近似为 <span class="arithmatex">\(\pi \approx 3 \cdot 2^{n-1} a_n\)</span>。</p>
+<p>尽管序列 <span class="arithmatex">\(\{3 \cdot 2^{n-1} a_n\}\)</span> 是 <span class="arithmatex">\(\pi\)</span> 的一个很好的估计，但从数值分析的角度，仍然存在以下问题：</p>
+<ul>
+<li>这个方法是在计算圆周率 <span class="arithmatex">\(\pi\)</span> 吗？ <strong>(一致性问题)</strong></li>
+<li>序列收敛吗？ <strong>(收敛性问题)</strong></li>
+<li>序列 <span class="arithmatex">\(\{a_n\}\)</span> 中每一项都有舍入误差，会对结果有影响吗？(例如计算机中采用 <span class="arithmatex">\(0.51763809020504 \ldots\)</span> 近似 <span class="arithmatex">\(a_2 = \sqrt{2 - \sqrt{3}}\)</span>) <strong>(稳定性问题)</strong></li>
+<li>序列要算到第 <span class="arithmatex">\(n\)</span> 项时，与 <span class="arithmatex">\(\pi\)</span> 误差多少？ <strong>(向前先验误差分析)</strong></li>
+<li>序列要算到多少项，才能保证 <span class="arithmatex">\(|3 \cdot 2^{n-1} a_n - \pi| &lt; \epsilon_{tol}\)</span>？ <strong>(向后先验误差分析)</strong></li>
+<li>序列要算到第 <span class="arithmatex">\(n\)</span> 项时，如何根据当前的计算结果评估误差（先验方法可能无效）？ <strong>(后验误差分析)</strong></li>
+<li>这个方法收敛率如何？ <strong>(收敛率分析)</strong></li>
+</ul>
+<h3 id="_4">数值分析中的基本概念<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="_5">问题分类<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>按问题形式分为：</p>
+<ul>
+<li><strong>直接问题</strong>：已知 <span class="arithmatex">\(F\)</span> 和 <span class="arithmatex">\(d\)</span>，求 <span class="arithmatex">\(x\)</span>；</li>
+<li><strong>反问题</strong>：已知 <span class="arithmatex">\(F\)</span> 和 <span class="arithmatex">\(x\)</span>，求 <span class="arithmatex">\(d\)</span>；</li>
+<li><strong>识别问题</strong>：已知 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(d\)</span>，求 <span class="arithmatex">\(F\)</span>。</li>
+</ul>
+<h4 id="_6">适定性<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>如果定解问题的解满足以下三个条件，则称该问题是 <strong>适定的</strong>（well-posed）：</p>
+<ol>
+<li><strong>解存在</strong>：对于给定的定解问题，至少存在一个解；</li>
+<li><strong>解唯一</strong>：在解存在的前提下，解是唯一的；</li>
+<li><strong>解连续依赖于数据</strong>：当参数发生微小变化时，解的变化也很小。</li>
+</ol>
+<p>具体来说，解对参数的连续性可通过参数 <span class="arithmatex">\(d\)</span> 的微扰描述：</p>
+<div class="arithmatex">\[
+F(x + \delta x, d + \delta d) = 0 \tag{1.2}
+\]</div>
+<p>满足：</p>
+<div class="arithmatex">\[
+\forall d,\ \exists \eta_0 = \eta_0(d) &gt; 0,\ \exists K_0 = K_0(\eta_0), \text{ s.t. } \forall \delta d: \|\delta d\| \leqslant \eta_0 \Rightarrow \|\delta x\| \leqslant K_0 \|\delta d\| \tag{1.3}
+\]</div>
+<h5 id="11">例题 1.1<a class="headerlink" href="#11" title="Permanent link">&para;</a></h5>
+<p>求多项式 <span class="arithmatex">\(p(x) = x^4 - (2a - 1)x^2 + a(a - 1)\)</span> 的实根，考察适定性。</p>
+<p><strong>解</strong>：该多项式在 <span class="arithmatex">\(a \geqslant 1\)</span> 时有 4 个实根，在 <span class="arithmatex">\(1 &gt; a \geqslant 0\)</span> 时有 2 个实根，在 <span class="arithmatex">\(a &lt; 0\)</span> 时无实根。解的数量与参数 <span class="arithmatex">\(a\)</span> 没有连续性关系，因此该问题是不适定的。</p>
+<h4 id="_7">条件数<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>由式 (1.2) 可引出度量问题适定性程度的概念—— <strong>条件数</strong> 。</p>
+<p><strong>定义 1.2</strong> 对于问题 (1.1) 及其扰动 (1.2)，定义：</p>
+<ul>
+<li><strong>相对条件数</strong>：</li>
+</ul>
+<div class="arithmatex">\[
+\mathrm{Cond}(d) \equiv \sup_{\delta d \in \mathcal{D}} \frac{\|\delta x\| / \|x\|}{\|\delta d\| / \|d\|} \tag{1.4}
+\]</div>
+<ul>
+<li><strong>绝对条件数</strong>：</li>
+</ul>
+<div class="arithmatex">\[
+\mathrm{Cond}_{\mathrm{abs}}(d) \equiv \sup_{\delta d \in \mathcal{D}} \frac{\|\delta x\|}{\|\delta d\|} \tag{1.5}
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathcal{D}\)</span> 是参数 <span class="arithmatex">\(d\)</span> 的容许扰动空间。</p>
+<h4 id="_8">一致性<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>对于问题 (1.1)，可定义近似问题序列：</p>
+<div class="arithmatex">\[
+F_n(x_n, d_n) = 0, \quad n \geqslant 1 \tag{1.6}
+\]</div>
+<p><strong>定义 1.3</strong> 如果有</p>
+<div class="arithmatex">\[
+F_n(x, d) - F(x, d) \rightarrow 0 \quad \text{当 } n \rightarrow \infty \tag{1.7}
+\]</div>
+<p>其中 <span class="arithmatex">\(x\)</span> 是式 (1.1) 的解，则称近似问题序列 (1.6) 满足 <strong>一致性条件</strong> 。</p>
+<h4 id="_9">稳定性<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><strong>定义 1.1</strong> 对于一个数值方法，如果输入数据的误差不会造成输出数据产生较大的误差，则称该方法是 <strong>稳定</strong> 的；反之，若输入数据的误差会在结果中放大，则称该方法是不稳定的。</p>
+<p>对于近似问题序列，同样可定义解的稳定性：</p>
+<div class="arithmatex">\[
+\forall d_n,\ \exists \eta_0 = \eta_0(d_n) &gt; 0,\ \exists K_0 = K_0(\eta_0), \text{ s.t. } \forall \delta d_n: \|\delta d_n\| \leqslant \eta_0 \Rightarrow \|\delta x_n\| \leqslant K_0 \|\delta d_n\| \tag{1.8}
+\]</div>
+<p>类似地，可定义近似问题的条件数：</p>
+<ul>
+<li>相对条件数：</li>
+</ul>
+<p>[
+  \mathrm{Cond}<em _delta="\delta" _in="\in" _mathcal_D="\mathcal{D" d_n="d_n">n(d_n) \equiv \sup</em>
+  ]}_n} \frac{|\delta x_n| / |x_n|}{|\delta d_n| / |d_n|} \tag{1.9</p>
+<ul>
+<li>绝对条件数：</li>
+</ul>
+<p>[
+  \mathrm{Cond}<em _delta="\delta" _in="\in" _mathcal_D="\mathcal{D" d_n="d_n">{\mathrm{abs}, n}(d_n) \equiv \sup</em>
+  ]}_n} \frac{|\delta x_n|}{|\delta d_n|} \tag{1.10</p>
+<h5 id="12">例题 1.2<a class="headerlink" href="#12" title="Permanent link">&para;</a></h5>
+<p>考察积分 <span class="arithmatex">\(I_n = \int_0^1 \frac{x^n}{x+5} dx\)</span> 的数值解，分析两种方法的稳定性。</p>
+<p><strong>方法 1</strong>：利用递推公式 <span class="arithmatex">\(I_n + 5I_{n-1} = \frac{1}{n}\)</span> 及 <span class="arithmatex">\(I_0 = \ln 1.2\)</span> 逐次计算。</p>
+<p>误差分析：<span class="arithmatex">\(e_n = I_n - I_n^{\ast} = -5 e_{n-1} \Rightarrow e_n = (-5)^n e_0\)</span><br />
+初值误差被不断放大，方法不稳定。</p>
+<p><strong>方法 2</strong>：利用递推公式 <span class="arithmatex">\(I_{k-1} = \frac{1}{5} \left[ \frac{1}{k} - I_k \right]\)</span> 反向计算。</p>
+<p>误差分析：<span class="arithmatex">\(e_{n-1} = -\frac{1}{5} e_n \Rightarrow e_0 = \left( -\frac{1}{5} \right)^n e_n\)</span><br />
+误差不断缩小，方法稳定。</p>
+<h4 id="_10">收敛性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>采用近似问题序列 (1.6) 求解问题 (1.1)，需研究其收敛性。</p>
+<p><strong>定义 1.4</strong> 对于方法 (1.6)，当且仅当满足</p>
+<div class="arithmatex">\[
+\forall \epsilon &gt; 0,\ \exists n_0 = n_0(\epsilon),\ \exists \delta = \delta(n_0, \epsilon), \text{ s.t. } \forall n &gt; n_0,\ \forall \delta d_n: \|\delta d_n\| \leqslant \delta \Rightarrow \|x(d) - x_n(d + \delta d_n)\| \leqslant \epsilon \tag{1.11}
+\]</div>
+<p>时，该方法是**收敛**的。这里 <span class="arithmatex">\(x(d)\)</span> 是 (1.1) 的解，<span class="arithmatex">\(x_n(d + \delta d_n)\)</span> 是 (1.6) 的解。</p>
+<div class="admonition info">
+<p class="admonition-title">定理 1.1 (Lax-Richtmyer 定理)</p>
+</div>
+<p>​    对于一个满足一致性条件的数值问题，其稳定性等价于收敛性。</p>
+<h4 id="_11">先验与后验分析<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>在分析数值方法的稳定性和收敛性时，通常有以下两个策略：</p>
+<ul>
+<li>
+<p><strong>向前分析（forward analysis）</strong>：通过参数 <span class="arithmatex">\(d\)</span> 的扰动和数值方法的方法误差，估计解 <span class="arithmatex">\(x\)</span> 的扰动大小；</p>
+</li>
+<li>
+<p><strong>向后分析（backward analysis）</strong>：通过给定 <span class="arithmatex">\(x\)</span> 的目标扰动大小，基于数值方法的方法误差，估计参数 <span class="arithmatex">\(d\)</span> 的容许扰动范围。</p>
+</li>
+</ul>
+<p>以上两个问题均属于**先验分析（priori analysis）**，通常提供在给定问题条件下数值解与真实解之间误差的上界。</p>
+<p><strong>后验分析（posteriori analysis）</strong> 是在数值求解之后进行的分析，侧重于利用实际计算中获得的信息来评估数值解的质量，其重要作用是进行**自适应误差控制（adaptive error control）**：</p>
+<ul>
+<li>评估当前解的质量；</li>
+<li>确定是否需要改善某些参数 <span class="arithmatex">\(d\)</span> 并重新计算；</li>
+<li>重复直至误差达到预设阈值。</li>
+</ul>
+<h3 id="_12">误差的定义和来源<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h4 id="_13">误差的来源<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>模型误差</strong>：实际问题的解与数学模型的解之差。常见于对物理过程进行必要的简化，例如忽略次要因素（摩擦力、空气阻力等）。</li>
+<li><strong>观测误差</strong>：数学问题中的参量由观测得到，但观测不可能绝对准确，由此产生的误差。</li>
+<li><strong>截断误差（方法误差）</strong>：由于对问题进行简化（如用有限项代替无限项）所引起的误差。例如，Taylor 展开中舍弃高阶项产生的误差。</li>
+<li><strong>舍入误差</strong>：计算机中的实数均为有限位小数，需通过四舍五入略去无法表示的数位，由此产生的误差。</li>
+</ol>
+<h5 id="13">例题 1.3<a class="headerlink" href="#13" title="Permanent link">&para;</a></h5>
+<p>采用球体表面积公式 <span class="arithmatex">\(A = 4\pi r^2\)</span> 计算地球表面积，取地球半径 <span class="arithmatex">\(r \approx 6370\ \mathrm{km}\)</span>，分析误差来源。</p>
+<p><strong>解</strong>：</p>
+<ul>
+<li>用球体近似地球 → <strong>模型误差</strong></li>
+<li>取 <span class="arithmatex">\(r \approx 6370\ \mathrm{km}\)</span> → <strong>观测误差</strong></li>
+<li><span class="arithmatex">\(\pi\)</span> 取有限位、实数乘法 → <strong>舍入误差</strong></li>
+</ul>
+<h5 id="14">例题 1.4<a class="headerlink" href="#14" title="Permanent link">&para;</a></h5>
+<p>对于单摆运动方程 <span class="arithmatex">\(L\frac{d^2\phi}{dt^2} + g\sin\phi + \mu\frac{d\phi}{dt} = 0\)</span>，在小角度下近似为 <span class="arithmatex">\(L\frac{d^2\phi}{dt^2} + g\phi + \mu\frac{d\phi}{dt} = 0\)</span>，分析误差来源。</p>
+<p><strong>解</strong>：</p>
+<ul>
+<li>用常值 <span class="arithmatex">\(\mu\)</span> 表征摩擦力 → <strong>模型误差</strong></li>
+<li>测量 <span class="arithmatex">\(L, g, \mu\)</span> → <strong>观测误差</strong></li>
+<li><span class="arithmatex">\(\sin\phi \approx \phi\)</span> → <strong>截断误差</strong></li>
+<li>数值计算 → <strong>舍入误差</strong></li>
+</ul>
+<h4 id="_14">绝对误差与相对误差<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p><strong>定义 1.5</strong> 设 <span class="arithmatex">\(x\)</span> 为准确值，<span class="arithmatex">\(x^{\ast}\)</span> 为其近似值，称</p>
+<div class="arithmatex">\[
+e(x^{\ast}) = x - x^{\ast}
+\]</div>
+<p>为**误差**，也称为**绝对误差**。</p>
+<p>注意：绝对误差 ≠ 误差的绝对值，绝对误差的符号可以为正或负。</p>
+<p><strong>定义 1.6</strong> 通常无法给出准确的误差值 <span class="arithmatex">\(e(x^{\ast})\)</span>，但可根据测量或计算估计误差绝对值的上界 <span class="arithmatex">\(\epsilon\)</span>：</p>
+<p>[
+|e(x^{\ast})| = |x - x^{\ast}| \leqslant \epsilon \tag{1.13}
+]
+称 <span class="arithmatex">\(\epsilon\)</span> 为近似值 <span class="arithmatex">\(x^{\ast}\)</span> 的__绝对误差限__，且准确值 <span class="arithmatex">\(x\)</span> 满足：
+[
+x^{\ast} - \epsilon \leqslant x \leqslant x^{\ast} + \epsilon \tag{1.14}
+]</p>
+<p>或记为 <span class="arithmatex">\(x = x^{\ast} \pm \epsilon\)</span>。</p>
+<p><strong>定义 1.7</strong> 记</p>
+<div class="arithmatex">\[
+e_{\mathrm{T}}(x^{\ast}) = \frac{e(x^{\ast})}{x} = \frac{x - x^{\ast}}{x}
+\]</div>
+<p>为近似数 <span class="arithmatex">\(x^{\ast}\)</span> 的__相对误差__。</p>
+<p><strong>定义 1.8</strong> 由于准确值 <span class="arithmatex">\(x\)</span> 未知，实际计算中也常用：</p>
+<div class="arithmatex">\[
+e_{\mathrm{T}}(x^{\ast}) = \frac{e(x^{\ast})}{x^{\ast}} = \frac{x - x^{\ast}}{x^{\ast}} \tag{1.16}
+\]</div>
+<p>作为相对误差。两者之差为 <span class="arithmatex">\(\frac{(x - x^{\ast})^2}{x x^{\ast}}\)</span>，是二阶小量，可忽略。</p>
+<p><strong>定义 1.9</strong> 若存在正数 <span class="arithmatex">\(\epsilon_r\)</span> 使得</p>
+<div class="arithmatex">\[
+|e_{\mathrm{r}}(x^{\ast})| = |e(x^{\ast})/x^{\ast}| \leqslant \epsilon_r \tag{1.18}
+\]</div>
+<p>则称 <span class="arithmatex">\(\epsilon_r\)</span> 为 <span class="arithmatex">\(x^{\ast}\)</span> 的__相对误差限__。注意到 <span class="arithmatex">\(\epsilon / |x^{\ast}|\)</span> 是 <span class="arithmatex">\(x^{\ast}\)</span> 的一个相对误差限。</p>
+<h4 id="_15">基本算术过程的误差传播<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(y = f(x_1, x_2, \dots, x_n)\)</span>，近似值为 <span class="arithmatex">\(x_i^{\ast}\)</span>，则近似解为 <span class="arithmatex">\(y^{\ast} = f(x_1^{\ast}, x_2^{\ast}, \dots, x_n^{\ast})\)</span>。</p>
+<p>由微分近似，有：</p>
+<ul>
+<li>绝对误差：</li>
+</ul>
+<p>[
+  e(y^{\ast}) \approx \sum_{i=1}^n \frac{\partial f(x_1^{\ast}, \dots, x_n^{\ast})}{\partial x_i} e(x_i^{\ast}) \tag{1.22}
+  ]</p>
+<ul>
+<li>相对误差：</li>
+</ul>
+<p>[
+  e_{\mathrm{r}}(y^{\ast}) \approx \sum_{i=1}^n \frac{\partial f}{\partial x_i} \frac{x_i<sup _ast="\ast">{\ast}}{y</sup>
+  ]}} e_{\mathrm{r}}(x_i^{\ast}) \tag{1.23</p>
+<h5 id="_16">基本运算的误差传播公式<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h5>
+<ul>
+<li>加减法：<span class="arithmatex">\(f(x_1, x_2) = x_1 \pm x_2\)</span></li>
+</ul>
+<p>[
+  e(x_1 \pm x_2) = e(x_1) \pm e(x_2), \quad e_{\mathrm{r}}(x_1 \pm x_2) = \frac{x_1}{x_1 \pm x_2} e_{\mathrm{r}}(x_1) \pm \frac{x_2}{x_1 \pm x_2} e_{\mathrm{r}}(x_2)
+  ]</p>
+<ul>
+<li>乘法：<span class="arithmatex">\(f(x_1, x_2) = x_1 x_2\)</span></li>
+</ul>
+<p>[
+  e(x_1 x_2) \approx x_2 e(x_1) + x_1 e(x_2), \quad e_{\mathrm{r}}(x_1 x_2) \approx e_{\mathrm{r}}(x_1) + e_{\mathrm{r}}(x_2)
+  ]</p>
+<ul>
+<li>除法：<span class="arithmatex">\(f(x_1, x_2) = x_1 / x_2\)</span></li>
+</ul>
+<p>[
+  e(x_1/x_2) \approx \frac{1}{x_2^2} (x_2 e(x_1) - x_1 e(x_2)), \quad e_{\mathrm{r}}(x_1/x_2) \approx e_{\mathrm{r}}(x_1) - e_{\mathrm{r}}(x_2)
+  ]</p>
+<h5 id="_17">相对误差限分析<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h5>
+<ul>
+<li>加减法（<span class="arithmatex">\(x_1, x_2\)</span> 同号）：</li>
+</ul>
+<p>[
+  |e_{\mathrm{r}}(x_1 + x_2)| \leqslant \max{|e_{\mathrm{r}}(x_1)|, |e_{\mathrm{r}}(x_2)|}
+  ]</p>
+<p>[
+  |e_{\mathrm{r}}(x_1 - x_2)| \leqslant \frac{|x_1 e_{\mathrm{r}}(x_1)| + |x_2 e_{\mathrm{r}}(x_2)|}{|x_1 - x_2|}
+  ]</p>
+<ul>
+<li>乘法：</li>
+</ul>
+<p>[
+  |e_{\mathrm{r}}(x_1 x_2)| \leqslant |e_{\mathrm{r}}(x_1)| + |e_{\mathrm{r}}(x_2)|
+  ]</p>
+<ul>
+<li>除法：</li>
+</ul>
+<p>[
+  |e_{\mathrm{r}}(x_1/x_2)| \leqslant |e_{\mathrm{r}}(x_1)| + |e_{\mathrm{r}}(x_2)|
+  ]</p>
+<h5 id="15">例题 1.5<a class="headerlink" href="#15" title="Permanent link">&para;</a></h5>
+<p>设 <span class="arithmatex">\(y = x^n\)</span>，求 <span class="arithmatex">\(y\)</span> 的相对误差与 <span class="arithmatex">\(x\)</span> 的相对误差之间的关系。</p>
+<p><strong>解</strong>：</p>
+<div class="arithmatex">\[
+e_{\mathrm{r}}(y) \approx d(\ln x^n) = n d(\ln x) = n e_{\mathrm{r}}(x)
+\]</div>
+<p>所以 <span class="arithmatex">\(y = x^n\)</span> 的相对误差是 <span class="arithmatex">\(x\)</span> 的相对误差的 <span class="arithmatex">\(n\)</span> 倍。</p>
+<h4 id="_18">有效数字<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p>有效数字是近似值的一种表示方法，可同时表示近似值的大小与精确程度。</p>
+<p><strong>定义 1.10</strong> 如果近似值 <span class="arithmatex">\(x^{\ast}\)</span> 的误差限是 <span class="arithmatex">\(\frac{1}{2} \times 10^{-n}\)</span>，则称 <span class="arithmatex">\(x^{\ast}\)</span> 准确到小数点后 <span class="arithmatex">\(n\)</span> 位。</p>
+<p>设 <span class="arithmatex">\(x^{\ast}\)</span> 可写成规格化浮点数：</p>
+<p>[
+x^{\ast} = \pm 0.\alpha_1\alpha_2\dots\alpha_n\dots \times 10^m \tag{1.29}
+]
+j
+其中 <span class="arithmatex">\(\alpha_k \in \{0,1,\dots,9\}\)</span>，<span class="arithmatex">\(\alpha_1 \neq 0\)</span>。</p>
+<p><strong>定义 1.11</strong> 若</p>
+<p>[
+|x - x^{\ast}| \leq \frac{1}{2} \times 10^{m - n} \tag{1.30}
+]
+j
+则称 <span class="arithmatex">\(x^{\ast}\)</span> 有 <span class="arithmatex">\(n\)</span> 位__有效数字__，即在四舍五入意义下前 <span class="arithmatex">\(n\)</span> 位都是准确的。此时绝对误差限为 <span class="arithmatex">\(\epsilon = \frac{1}{2} \times 10^{m - n}\)</span>。</p>
+<h5 id="16">例题 1.6<a class="headerlink" href="#16" title="Permanent link">&para;</a></h5>
+<p>求下列近似值的误差限：</p>
+<ul>
+<li><span class="arithmatex">\(x^{\ast} = 3587.64\)</span> 是具有 6 位有效数字的近似值；</li>
+<li><span class="arithmatex">\(x^{\ast} = 0.0023156\)</span> 是具有 5 位有效数字的近似值。</li>
+</ul>
+<p><strong>解</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x^{\ast} = 0.358764 \times 10^4\)</span>，<span class="arithmatex">\(|x - x^{\ast}| \leqslant \frac{1}{2} \times 10^{4-6} = \frac{1}{2} \times 10^{-2}\)</span></li>
+<li><span class="arithmatex">\(x^{\ast} = 0.23156 \times 10^{-2}\)</span>，<span class="arithmatex">\(|x - x^{\ast}| \leqslant \frac{1}{2} \times 10^{-2-5} = \frac{1}{2} \times 10^{-7}\)</span></li>
+</ul>
+<h5 id="_19">有效数字与相对误差的关系<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h5>
+<p><strong>定理 1.2</strong> 若 <span class="arithmatex">\(x^{\ast} \neq 0\)</span> 有 <span class="arithmatex">\(n\)</span> 位有效数字，则其相对误差限满足：</p>
+<div class="arithmatex">\[
+\frac{|x - x^{\ast}|}{|x^{\ast}|} \leqslant \epsilon_{\mathrm{r}} = \frac{1}{2\alpha_1} \times 10^{-(n-1)} \tag{1.32}
+\]</div>
+<p><strong>定理 1.3</strong> 若 <span class="arithmatex">\(x^{\ast} \neq 0\)</span> 的相对误差限满足：</p>
+<div class="arithmatex">\[
+\epsilon_{\mathrm{r}} \leqslant \frac{1}{2(\alpha_1 + 1)} \times 10^{-(n-1)} \tag{1.33}
+\]</div>
+<p>则 <span class="arithmatex">\(x^{\ast}\)</span> 至少有 <span class="arithmatex">\(n\)</span> 位有效数字。</p>
+<h5 id="17">例题 1.7<a class="headerlink" href="#17" title="Permanent link">&para;</a></h5>
+<p>用 <span class="arithmatex">\(x^{\ast} = 2.72\)</span> 表示具有三位有效数字的自然对数底 <span class="arithmatex">\(e\)</span> 的近似值，计算相对误差限。</p>
+<p><strong>解</strong>：<span class="arithmatex">\(\alpha_1 = 2\)</span>，<span class="arithmatex">\(n = 3\)</span>，相对误差限为 <span class="arithmatex">\(\frac{1}{2 \times 2} \times 10^{-(3-1)} = \frac{1}{4} \times 10^{-2}\)</span>。</p>
+<h5 id="_20">精度与准确度<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>精度</strong>：与有效数字位数有关；</li>
+<li><strong>准确度</strong>：与准确的有效数字位数有关。</li>
+</ul>
+<p>例如，3.14111111 具有 9 位精度，但作为 <span class="arithmatex">\(\pi\)</span> 的近似，只有 4 位准确的有效数字。</p>
+<h3 id="_21">浮点数<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h4 id="_22">定点数表示<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<p>用 <span class="arithmatex">\(N\)</span> 个比特位表示实数，符号位 1 位，整数和小数部分位数固定。设小数部分占 <span class="arithmatex">\(k\)</span> 位，则实数可表示为：</p>
+<div class="arithmatex">\[
+x = (-1)^s \cdot \beta^{-k} \sum_{j=0}^{N-2} a_j \beta^j \quad (\beta = 2, s = 0,1) \tag{1.34}
+\]</div>
+<p>可表示的绝对值范围：</p>
+<div class="arithmatex">\[
+|x|_{\max} = \beta^{-k} \sum_{j=0}^{N-2} \beta^j, \quad |x|_{\min} = \beta^{-k} \tag{1.35}
+\]</div>
+<p>范围非常有限。</p>
+<h4 id="_23">浮点数表示<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
+<p>允许小数点位置变化，表示形式为：</p>
+<div class="arithmatex">\[
+x = (-1)^s \cdot [0.a_1a_2\cdots a_t] \cdot \beta^e = (-1)^s \cdot m \cdot \beta^{e-t} \tag{1.36}
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(t\)</span>：小数部分比特位数；</li>
+<li><span class="arithmatex">\(m\)</span>：尾数，整数，<span class="arithmatex">\(0 \leqslant m \leqslant \beta^t - 1\)</span>；</li>
+<li><span class="arithmatex">\(e\)</span>：指数，整数，范围 <span class="arithmatex">\(L \leqslant e \leqslant U\)</span>，通常 <span class="arithmatex">\(L &lt; 0, U &gt; 0\)</span>。</li>
+</ul>
+<p>为避免表示不唯一，要求 <span class="arithmatex">\(a_1 \neq 0\)</span>，即 <span class="arithmatex">\(\beta^{t-1} \leqslant m \leqslant \beta^t - 1\)</span>。</p>
+<p>浮点数系统可表示的实数集合为：</p>
+<div class="arithmatex">\[
+\mathbb{F}(\beta, t, L, U) \equiv \{0\} \bigcup \left\{ x \in \mathbb{R} \ \middle|\ x = (-1)^s \beta^e \sum_{i=1}^t a_i \beta^{-i}, a_1 \neq 0 \right\} \tag{1.37}
+\]</div>
+<p>改进定义（允许 <span class="arithmatex">\(e = L\)</span> 时 <span class="arithmatex">\(a_1 = 0\)</span>）：</p>
+<div class="arithmatex">\[
+\mathbb{F}_D(\beta, t, L, U) \equiv \{0\} \bigcup \{ x \in \mathbb{R} \ |\ x = (-1)^s \beta^e \sum_{i=1}^t a_i \beta^{-i}, a_1 \neq 0 \text{ if } e &gt; L \}
+\]</div>
+<h4 id="ieee-754">IEEE-754 标准<a class="headerlink" href="#ieee-754" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>符号位 (s)</th>
+<th>指数位 (E)</th>
+<th>尾数位 (M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单精度</td>
+<td>1 位</td>
+<td>8 位</td>
+<td>23 位</td>
+</tr>
+<tr>
+<td>双精度</td>
+<td>1 位</td>
+<td>11 位</td>
+<td>52 位</td>
+</tr>
+</tbody>
+</table>
+<p>实数表示：</p>
+<ul>
+<li>单精度：<span class="arithmatex">\(x = (-1)^s \times (1 + M) \times 2^{E - 127}\)</span></li>
+<li>双精度：<span class="arithmatex">\(x = (-1)^s \times (1 + M) \times 2^{E - 1023}\)</span></li>
+</ul>
+<h5 id="1030">示例：1.0/3.0 的存储<a class="headerlink" href="#1030" title="Permanent link">&para;</a></h5>
+<ul>
+<li>单精度二进制：00111110101010101010101010101011</li>
+<li>单精度实际值：0.333333343267441</li>
+<li>双精度二进制：0011111111010101010101010101010101010101010101010101010101010101</li>
+<li>双精度实际值：0.333333333333333</li>
+</ul>
+<h5 id="vs">纯文本输出 vs. 二进制输出<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h5>
+<ul>
+<li>纯文本输出：如 "3.33333333E-01"，占用 138 字节；</li>
+<li>二进制输出：单精度 4 字节，双精度 8 字节，更紧凑。</li>
+</ul>
+<h3 id="_24">在数值计算中需要注意的一些现象<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<h4 id="1">1. 避免两个相近的数相减<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>由相对误差公式：
+[
+|e_{\mathrm{r}}(x_1 - x_2)| \leqslant \frac{|x_1 e_{\mathrm{r}}(x_1)| + |x_2 e_{\mathrm{r}}(x_2)|}{|x_1 - x_2|} \quad (x_1, x_2 \text{同号})
+]
+若 <span class="arithmatex">\(x_1\)</span> 与 <span class="arithmatex">\(x_2\)</span> 相近，分母很小，相对误差会被放大。</p>
+<h5 id="18">例题 1.8<a class="headerlink" href="#18" title="Permanent link">&para;</a></h5>
+<p>当 <span class="arithmatex">\(x\)</span> 充分大时，计算 <span class="arithmatex">\(\sqrt{x+1} - \sqrt{x}\)</span> 应改为：
+[
+\sqrt{x+1} - \sqrt{x} = \frac{1}{\sqrt{x+1} + \sqrt{x}}
+]
+以减少相对误差。</p>
+<h4 id="2">2. 防止数量级相差很大的数进行加减运算<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>由于浮点数尾数位数有限，数量级相差太大的数相加时，绝对值较小的数可能失效。</p>
+<h5 id="19">例题 1.9<a class="headerlink" href="#19" title="Permanent link">&para;</a></h5>
+<p>假设计算机只能存储 8 位有效数字，用求根公式计算方程 <span class="arithmatex">\(x^2 - (10^9 + 1)x + 10^9 = 0\)</span> 的根（理论解 <span class="arithmatex">\(x_1 = 10^9, x_2 = 1\)</span>）。</p>
+<p><strong>解</strong>：计算 <span class="arithmatex">\(b^2 - 4ac\)</span> 时，<span class="arithmatex">\(b^2\)</span> 与 <span class="arithmatex">\(4ac\)</span> 相差极大，导致 <span class="arithmatex">\(b^2 - 4ac \approx b^2\)</span>，从而 <span class="arithmatex">\(x_2 \approx 0\)</span>。</p>
+<p>改进算法：</p>
+<div class="arithmatex">\[
+x_1 = \frac{-b - \mathrm{sign}(b)\sqrt{b^2 - 4ac}}{2a}, \quad x_2 = \frac{c}{a x_1}
+\]</div>
+<h4 id="3">3. 注意简化计算步骤<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>简化步骤可降低计算复杂度，避免误差累积。</p>
+<h5 id="110">例题 1.10<a class="headerlink" href="#110" title="Permanent link">&para;</a></h5>
+<p>计算多项式 <span class="arithmatex">\(P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0\)</span>。</p>
+<p><strong>解</strong>：依次计算需 <span class="arithmatex">\(\frac{n(n+1)}{2}\)</span> 次乘法与 <span class="arithmatex">\(n\)</span> 次加法。<strong>秦九韶算法</strong>：</p>
+<div class="arithmatex">\[
+P(x) = (\dots((a_n x + a_{n-1})x + a_{n-2})x + \dots)x + a_0
+\]</div>
+<p>只需 <span class="arithmatex">\(n\)</span> 次乘法与 <span class="arithmatex">\(n\)</span> 次加法。</p>
+<h4 id="4">4. 选择合适的精度类型<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>阿丽亚娜5型火箭失事（1996年）</strong>：因 64 位浮点数转换为 16 位有符号整数时溢出，导致惯性导航系统故障，火箭坠毁。</li>
+<li><strong>爱国者导弹拦截失败（1991年）</strong>：计算机开机后时间计算的累积误差导致拦截失败。</li>
+</ul>
+<h4 id="5">5. 重视累积误差<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>长时间运行的计算中，微小误差可能累积到不可接受的程度，需通过算法设计或定期校正来控制。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../CVDL/ml_intro/ML_intro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ML intro">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ML intro
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../.." class="md-footer__link md-footer__link--next" aria-label="Next: 离散数学">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                离散数学
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Semt0" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:2400011018@stu.pku.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","header.autohide","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/home-animation.js"></script>
+      
+        <script src="../../../javascripts/home-intro-words.js"></script>
+      
+        <script src="../../../javascripts/sakura-init.js"></script>
+      
+    
+  </body>
+</html>
