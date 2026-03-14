@@ -27,12 +27,21 @@
     }
 
     var subtitle = hero.querySelector(".home-subtitle");
+    var badgeEndTime = 0;
     if (subtitle && !subtitle.querySelector(".home-intro-word")) {
       var titleWordCount = (title && title.textContent.trim().split(/\s+/).length) || 4;
       var subtitleStart = TEXT_START_DELAY + titleWordCount * WORD_DELAY;
       var result = wrapWordsRecursive(subtitle, subtitleStart, subtitle);
       subtitle.innerHTML = "";
       subtitle.appendChild(result.fragment);
+      badgeEndTime = result.nextDelaySeconds - WORD_DELAY + 0.45;
+    } else if (title) {
+      var titleWordCount = title.textContent.trim().split(/\s+/).length || 4;
+      badgeEndTime = TEXT_START_DELAY + titleWordCount * WORD_DELAY + 0.45;
+    }
+    var badge = hero.querySelector(".home-codetime-badge");
+    if (badge && badgeEndTime > 0) {
+      badge.style.animationDelay = badgeEndTime + "s";
     }
   }
 

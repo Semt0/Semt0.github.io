@@ -98,6 +98,14 @@ button.md-top {
     color: var(--md-default-fg-color--light, #64748b);
 }
 
+/* CodeTime 徽章：文字全部出现后再逐渐淡入 */
+.home-hero .home-codetime-badge {
+    display: block;
+    margin-top: 0.5rem;
+    opacity: 0;
+    animation: home-intro-in 0.45s ease forwards;
+}
+
 .home-actions {
     display: flex;
     flex-wrap: wrap;
