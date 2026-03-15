@@ -17,6 +17,10 @@ button.md-top {
     line-height: 1.75;
 }
 
+/* 正文区数学公式与文字协调（KaTeX 默认 1.21em 会偏大） */
+.md-typeset .katex { font-size: 1em; }
+.md-typeset .katex-display { font-size: 1em; }
+
 /* 主页整体：更满，减少上下左右留白 */
 .md-main__inner {
     padding-top: 1.75rem;
@@ -585,6 +589,44 @@ a.resume-tag:hover {
 }
 
 #waline .wl-power { font-size: 0.7rem; opacity: 0.35; }
+
+/* 评论区数学公式缩小。
+   已发布评论由 Waline 服务端预渲染，可能输出 KaTeX 或 MathJax。 */
+#waline .wl-content .katex {
+    font-size: 0.82em !important;
+}
+
+#waline .wl-content .katex-display,
+#waline .wl-content p.wl-tex {
+    margin: 0.35rem 0 !important;
+    font-size: inherit !important;
+    line-height: 1.4 !important;
+}
+
+#waline .wl-content .katex-display > .katex {
+    font-size: 0.72em !important;
+}
+
+#waline .wl-content mjx-container,
+#waline .wl-content .MathJax,
+#waline .wl-content .MathJax_Display {
+    font-size: 82% !important;
+}
+
+#waline .wl-content mjx-container[display="true"],
+#waline .wl-content .MathJax_Display {
+    margin: 0.35rem 0 !important;
+    font-size: 72% !important;
+    line-height: 1.4 !important;
+}
+
+/* 当前首页评论里的公式实际被渲染成 SVG，且自带 width="100%"，会被拉满整行。 */
+#waline .wl-content svg[role="img"][viewBox] {
+    display: block;
+    width: min(6rem, 100%) !important;
+    height: auto !important;
+    margin: 0.35rem auto !important;
+}
 
 /* 隐藏订阅按钮 */
 #waline .wl-action[title="subscribe"],

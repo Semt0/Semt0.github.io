@@ -13,15 +13,33 @@
 
     if (!el) return;
 
+    // 避免站点的全局 KaTeX 自动扫描误处理评论区内容。
+    el.classList.add("katex-ignore");
+
     // 清空残留内容，确保干净初始化
     el.innerHTML = "";
 
     function doInit(mod) {
       walineModule = mod;
-      walineInstance = mod.init({
+      var walineOptions = {
         el: "#waline",
         serverURL: "https://my-waline-eta-beige.vercel.app",
         path: window.location.pathname,
+      };
+
+      // 显式复用页面已加载的 KaTeX，确保评论区公式渲染稳定一致。
+      if (window.katex && typeof window.katex.renderToString === "function") {
+        walineOptions.texRenderer = function (blockMode, tex) {
+          return window.katex.renderToString(tex, {
+            displayMode: blockMode,
+            throwOnError: false,
+            strict: "ignore",
+          });
+        };
+      }
+
+      walineInstance = mod.init({
+        ...walineOptions,
       });
     }
 
