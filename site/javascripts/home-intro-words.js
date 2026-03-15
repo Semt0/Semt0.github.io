@@ -39,9 +39,9 @@
       var titleWordCount = title.textContent.trim().split(/\s+/).length || 4;
       badgeEndTime = TEXT_START_DELAY + titleWordCount * WORD_DELAY + 0.45;
     }
-    var badge = hero.querySelector(".home-codetime-badge");
-    if (badge && badgeEndTime > 0) {
-      badge.style.animationDelay = badgeEndTime + "s";
+    var socialRow = hero.querySelector(".home-social-row");
+    if (socialRow && badgeEndTime > 0) {
+      socialRow.style.animationDelay = badgeEndTime + "s";
     }
   }
 

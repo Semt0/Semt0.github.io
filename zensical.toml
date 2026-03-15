@@ -40,8 +40,9 @@ nav = [
 
 extra_css = [
     "stylesheets/extra.css",
-    "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css",  # 霞鹜文楷
+    "https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css",
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
+    "https://unpkg.com/@waline/client@v3/dist/waline.css",
 ]
 
 extra_javascript = [
@@ -51,6 +52,7 @@ extra_javascript = [
     "javascripts/home-animation.js",
     "javascripts/home-intro-words.js",
     "javascripts/sakura-init.js",
+    "javascripts/waline-init.js",
 ]
 
 [project.theme]
