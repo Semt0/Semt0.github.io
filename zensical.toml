@@ -13,7 +13,7 @@ nav = [
    {"Blogs" = [
         "blog/my-first-blog.md"
    ]},
-   {"notes" = [
+   {"Notes" = [
         {"常微分方程" = "note/ODE.md"},
         {"CVDL" = [
             "note/CVDL/ml_intro/ML_intro.md",
@@ -31,7 +31,10 @@ nav = [
 
         ]},
         {"AI硬件" = [
-
+            "note/ai硬件/晶体管原理与数字电路基础.md"
+        ]},
+        {"Rust程序设计" = [
+            "note/Rust程序设计/2026-03-16.md"
         ]}
         
    ]},
