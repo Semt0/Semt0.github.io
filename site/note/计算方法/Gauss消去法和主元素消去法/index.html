@@ -12,13 +12,13 @@
         <meta name="author" content="Semt0">
       
       
-        <link rel="canonical" href="https://semt0.github.io/note/ai%E7%A1%AC%E4%BB%B6/%E6%99%B6%E4%BD%93%E7%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/">
+        <link rel="canonical" href="https://semt0.github.io/note/%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/Gauss%E6%B6%88%E5%8E%BB%E6%B3%95%E5%92%8C%E4%B8%BB%E5%85%83%E7%B4%A0%E6%B6%88%E5%8E%BB%E6%B3%95/">
       
       
-        <link rel="prev" href="../../algorithm/DP/">
+        <link rel="prev" href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/">
       
       
-        <link rel="next" href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/">
+        <link rel="next" href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>晶体管原理与数字电路基础 - Semt0's Blog</title>
+        <title>Gauss消去法和主元素消去法 - Semt0's Blog</title>
       
     
     
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              晶体管原理与数字电路基础
+              Gauss消去法和主元素消去法
             
           </span>
         </div>
@@ -613,37 +613,37 @@
                 
   
   
-  
-  
     
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
   
   
   
-    <a href="../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+    
+    
       
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -657,12 +657,394 @@
   
   
 
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算方法
   
 
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    误差分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss消去法和主元素消去法
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss消去法和主元素消去法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线性方程组与问题背景
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一些常见矩阵结构（复习）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上三角方程组与回代
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GAUSS 消去法（不选主元）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GAUSS 消去法（不选主元）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        消元的行变换（核心公式）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-place" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法流程（in-place 版本）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂度（经典结论）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        矩阵解释：消元矩阵、LU 分解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="矩阵解释：消元矩阵、LU 分解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用消元矩阵表示一步消元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LU 分解（不选主元时）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值问题：为什么要选主元
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值问题：为什么要选主元">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型反例（误差很大）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        列主元（部分选主元）消去法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        初等交换矩阵与排列矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#luplu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        带列主元的 LU（PLU）分解
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现要点：用置换向量代替“真的换行”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题摘记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="例题摘记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2.1（手工消元）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-plu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2.3（列主元 + PLU）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LU分解和对称正定矩阵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -729,33 +1111,33 @@
                 
   
   
+  
+  
     
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
   
   
   
-    
-    
+    <a href="../../ai%E7%A1%AC%E4%BB%B6/%E6%99%B6%E4%BD%93%E7%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/" class="md-nav__link">
       
-        
-      
-    
-    
-    
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
-            
   
   
   <span class="md-ellipsis">
@@ -769,200 +1151,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    AI硬件
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    晶体管原理与数字电路基础
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    晶体管原理与数字电路基础
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        晶体管与逻辑门电路基础
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="晶体管与逻辑门电路基础">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mosfet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MOSFET 晶体——现代芯片的基石
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nmos-pmos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NMOS 和 PMOS
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NMOS 和 PMOS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pun-pdn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PUN 和 PDN
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        电路延迟分析与功耗分析
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="电路延迟分析与功耗分析">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transistor-sizing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        逻辑电路的Transistor Sizing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        逻辑电路功耗
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        数据量化与逻辑单元设计
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1090,55 +1284,10 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        晶体管与逻辑门电路基础
+        线性方程组与问题背景
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="晶体管与逻辑门电路基础">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mosfet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MOSFET 晶体——现代芯片的基石
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nmos-pmos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NMOS 和 PMOS
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NMOS 和 PMOS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pun-pdn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PUN 和 PDN
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1146,19 +1295,41 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        电路延迟分析与功耗分析
+        一些常见矩阵结构（复习）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="电路延迟分析与功耗分析">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上三角方程组与回代
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GAUSS 消去法（不选主元）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GAUSS 消去法（不选主元）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#transistor-sizing" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路的Transistor Sizing
+        消元的行变换（核心公式）
       
     </span>
   </a>
@@ -1166,10 +1337,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#in-place" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路功耗
+        算法流程（in-place 版本）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂度（经典结论）
       
     </span>
   </a>
@@ -1182,10 +1364,160 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#lu" class="md-nav__link">
     <span class="md-ellipsis">
       
-        数据量化与逻辑单元设计
+        矩阵解释：消元矩阵、LU 分解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="矩阵解释：消元矩阵、LU 分解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用消元矩阵表示一步消元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LU 分解（不选主元时）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值问题：为什么要选主元
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数值问题：为什么要选主元">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型反例（误差很大）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        列主元（部分选主元）消去法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        初等交换矩阵与排列矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#luplu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        带列主元的 LU（PLU）分解
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现要点：用置换向量代替“真的换行”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题摘记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="例题摘记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2.1（手工消元）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-plu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2.3（列主元 + PLU）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
       
     </span>
   </a>
@@ -1253,10 +1585,10 @@
     
     
       <li class="md-path__item">
-        <a href="././" class="md-path__link">
+        <a href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-path__link">
           
   <span class="md-ellipsis">
-    AI硬件
+    计算方法
   </span>
 
         </a>
@@ -1273,130 +1605,233 @@
                 
                   
 
-  <h1>晶体管原理与数字电路基础</h1>
+  <h1>Gauss消去法和主元素消去法</h1>
 
-<h2 id="_1">晶体管与逻辑门电路基础<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="mosfet">MOSFET 晶体——现代芯片的基石<a class="headerlink" href="#mosfet" title="Permanent link">&para;</a></h3>
+<h2 id="_1">线性方程组与问题背景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>本讲讨论 <strong>解线性代数方程组的直接法</strong> ，核心是把</p>
+<div class="arithmatex">\[
+A x=b,\quad A\in\mathbb R^{n\times n},\; x,b\in\mathbb R^n
+\]</div>
+<p>通过有限步代数变换化为易解的三角方程组。</p>
+<p>典型来源：</p>
 <ul>
-<li>n 型半导体：半导体内富含 <mark>自由电子</mark>  </li>
-<li>p 型半导体：富含没有电子的 “空穴”</li>
+<li><strong>基尔霍夫定律电路方程</strong> 可写成矩阵形式 <span class="arithmatex">\(Ax=b\)</span>。</li>
+<li><strong>线性积分方程离散化</strong> ：例如</li>
 </ul>
-<p><img alt="01" src="../pictures/01.png" width="500" /></p>
-<p><img alt="02" src="../pictures/02.png" width="500" /></p>
+<div class="arithmatex">\[
+\phi(x)-\int_0^1 K(x,y)\phi(y)\,dy=f(x)
+\]</div>
+<p>取网格点 <span class="arithmatex">\(x_j=j/n\)</span>，并用求积公式近似积分，可得到线性方程组</p>
+<div class="arithmatex">\[
+\phi_j-\frac1n\sum_{k=1}^n K_{jk}\phi_k=f_j,\quad j=1,\dots,n.
+\]</div>
+<h2 id="_2">一些常见矩阵结构（复习）<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>MOSFET 结的概念——珊极（gate），漏极（drain）和源极（source）</li>
+<li><strong>对角矩阵</strong> ：<span class="arithmatex">\(i\neq j\Rightarrow a_{ij}=0\)</span>，记 <span class="arithmatex">\(A=\mathrm{diag}\{a_{11},\dots,a_{nn}\}\)</span>。</li>
+<li><strong>三对角矩阵</strong> ：<span class="arithmatex">\(|i-j|&gt;1\Rightarrow a_{ij}=0\)</span>。</li>
+<li><strong>上/下三角矩阵</strong> ：上三角 <span class="arithmatex">\(i&gt;j\Rightarrow a_{ij}=0\)</span>；下三角 <span class="arithmatex">\(i&lt;j\Rightarrow a_{ij}=0\)</span>。</li>
+<li><strong>三角矩阵性质</strong> ：</li>
+<li>上（下）三角矩阵的逆仍为上（下）三角矩阵；</li>
+<li>两个上（下）三角矩阵乘积仍为上（下）三角矩阵；</li>
+<li>若对角线全为 1（单位三角矩阵），上述性质同样成立且逆仍为单位三角矩阵。</li>
+<li><strong>对称矩阵</strong> ：<span class="arithmatex">\(A^T=A\)</span>。</li>
+<li><strong>对称正定</strong> ：<span class="arithmatex">\(A^T=A\)</span> 且 <span class="arithmatex">\(\forall x\neq 0,\; x^TAx&gt;0\)</span>；半正定则为 <span class="arithmatex">\(\ge 0\)</span>。</li>
+<li><strong>正交矩阵</strong> ：<span class="arithmatex">\(A^T=A^{-1}\)</span>。</li>
 </ul>
-<p><img alt="03" src="../pictures/03.png" width="500" /></p>
-<p><img alt="04" src="../pictures/04.png" width="500" /></p>
-<ul>
-<li>MOSFET 的制造过程总结：</li>
-</ul>
-<p><img alt="05" src="../pictures/05.png" width="500" /></p>
-<h3 id="nmos-pmos">NMOS 和 PMOS<a class="headerlink" href="#nmos-pmos" title="Permanent link">&para;</a></h3>
-<p><img alt="06" src="../pictures/06.png" width="500" /></p>
-<p><img alt="07" src="../pictures/07.png" width="500" /></p>
-<p><img alt="08" src="../pictures/08.png" width="500" /></p>
-<h4 id="pun-pdn">PUN 和 PDN<a class="headerlink" href="#pun-pdn" title="Permanent link">&para;</a></h4>
-<p><strong>PUN (Pull-Up Network) — 上拉网络</strong></p>
-<ul>
-<li>
-<p>由 PMOS 晶体管组成</p>
-</li>
-<li>
-<p>连接在 VDD（电源）和输出节点之间</p>
-</li>
-<li>
-<p>作用：当输入满足特定条件时，将输出"拉高"到逻辑 1（VDD）</p>
-</li>
-<li>
-<p>PMOS 在栅极为低电平时导通，所以 PUN 在输入为 0 时提供通路</p>
-</li>
-</ul>
-<p><strong>PDN</strong> <strong>(Pull-Down</strong> <strong>Network)</strong> <strong>—</strong> <strong>下拉网络</strong></p>
-<ul>
-<li>由 NMOS 晶体管组成</li>
-<li>连接在输出节点和 GND（地）之间</li>
-<li>作用：当输入满足特定条件时，将输出"拉低"到逻辑 0（GND）</li>
-<li>NMOS 在栅极为高电平时导通，所以 PDN 在输入为 1 时提供通路</li>
-</ul>
-<p><strong>两者的关系</strong>
-  PUN 和 PDN 是互补的：</p>
-<div class="highlight"><pre><span></span><code>          VDD
-
-           |
-
-        [ PUN ]  ← PMOS 组成
-
-           |
-
-           +——→ Output
-
-           |
-
-        [ PDN ]  ← NMOS 组成
-
-           |
-
-          GND
+<h2 id="_3">上三角方程组与回代<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>若已经得到上三角方程组 <span class="arithmatex">\(Ux=\tilde b\)</span>：</p>
+<div class="arithmatex">\[
+\begin{cases}
+u_{11}x_1+\cdots+u_{1n}x_n=\tilde b_1\\
+u_{22}x_2+\cdots+u_{2n}x_n=\tilde b_2\\
+\vdots\\
+u_{nn}x_n=\tilde b_n
+\end{cases}
+\]</div>
+<p>只要满足 <span class="arithmatex">\(u_{ii}\neq 0\)</span>，就可以按 <span class="arithmatex">\(x_n,x_{n-1},\dots,x_1\)</span> <strong>回代</strong> 求解。</p>
+<p>回代伪代码（解向量覆盖右端向量）：</p>
+<div class="highlight"><pre><span></span><code>for i = n, n-1, ..., 1:
+    for j = n, n-1, ..., i+1:
+        b[i] = b[i] - a[i,j] * b[j]
+    b[i] = b[i] / a[i,i]
 </code></pre></div>
-<p>关键原则：</p>
+<h2 id="gauss">GAUSS 消去法（不选主元）<a class="headerlink" href="#gauss" title="Permanent link">&para;</a></h2>
+<p>目标：通过消元把 <span class="arithmatex">\(Ax=b\)</span> 化为等价的上三角系统 <span class="arithmatex">\(Ux=\tilde b\)</span>。</p>
+<h3 id="_4">消元的行变换（核心公式）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>第 1 步把第 1 列下面的元素消成 0：假设 <span class="arithmatex">\(a^{(1)}_{11}\neq 0\)</span>，对 <span class="arithmatex">\(k=2,\dots,n\)</span> 做</p>
+<div class="arithmatex">\[
+\text{row}_k \leftarrow \text{row}_k + \text{row}_1\cdot\left(-\frac{a^{(1)}_{k1}}{a^{(1)}_{11}}\right).
+\]</div>
+<p>得到新矩阵 <span class="arithmatex">\(A^{(2)}\)</span>。之后对第 2 列、…、第 <span class="arithmatex">\(n-1\)</span> 列重复，总共 <span class="arithmatex">\(n-1\)</span> 次，最终得到上三角 <span class="arithmatex">\(A^{(n)}=U\)</span>，以及对应右端项 <span class="arithmatex">\(\tilde b\)</span>。</p>
+<h3 id="in-place">算法流程（in-place 版本）<a class="headerlink" href="#in-place" title="Permanent link">&para;</a></h3>
+<p>消元阶段伪代码：</p>
+<div class="highlight"><pre><span></span><code>for k = 1,2,...,n-1:
+    for i = k+1,...,n:
+        c = -a[i,k] / a[k,k]
+        for j = k+1,...,n:
+            a[i,j] = a[i,j] + c * a[k,j]
+        b[i] = b[i] + c * b[k]
+</code></pre></div>
+<p>要点：</p>
 <ul>
-<li>PUN 和 PDN 互为对偶（dual）——PUN 导通时 PDN 截止，反之亦然</li>
-<li>串联 NMOS（PDN 中实现 AND）对应并联 PMOS（PUN 中实现同一逻辑的补）</li>
-<li>并联 NMOS（PDN 中实现 OR）对应串联 PMOS</li>
+<li>通常 <strong>不做对角元归一化</strong> （避免额外除法）。</li>
+<li>为减少不必要计算/写入，程序实现里常只更新 <span class="arithmatex">\(j\ge k+1\)</span> 的部分；左下角最终不会用于回代。</li>
 </ul>
-<p><strong>举个例子：NAND</strong> <strong>门（与非门）</strong></p>
-<p>Y = ~(A · B)</p>
-<p>PUN: A 和 B 的 PMOS 并联（任一输入为 0 → 输出拉高）</p>
-<p>PDN: A 和 B 的 NMOS 串联（两个输入都为 1 → 输出拉低）</p>
-<p>简单记忆：PDN 决定什么时候输出 0，PUN 决定什么时候输出 1，两者始终一个通一个断。</p>
-<h2 id="_2">电路延迟分析与功耗分析<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_5">复杂度（经典结论）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>以浮点运算计：</p>
 <ul>
-<li>什么是电路的延迟：以 Inverter 反向器为例</li>
+<li><strong>除法次数</strong> ：<span class="arithmatex">\((n-1)+(n-2)+\cdots+1=\frac{n(n-1)}2\)</span>。</li>
+<li><strong>乘法次数</strong> ：主导项约为 <span class="arithmatex">\(n^3/3\)</span>；加法同阶约 <span class="arithmatex">\(n^3/3\)</span>。</li>
+<li><strong>空间复杂度</strong> ：直接覆盖修改 <span class="arithmatex">\(A\)</span> 与 <span class="arithmatex">\(b\)</span>，额外存储可做到 <span class="arithmatex">\(O(n^2)\)</span>（矩阵本身占用）。</li>
 </ul>
-<p><img alt="09" src="../pictures/09.png" width="600" /></p>
+<h2 id="lu">矩阵解释：消元矩阵、LU 分解<a class="headerlink" href="#lu" title="Permanent link">&para;</a></h2>
+<h3 id="_6">用消元矩阵表示一步消元<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>第 1 步消元可写成</p>
+<div class="arithmatex">\[
+A^{(2)} = M_1 A^{(1)},
+\]</div>
+<p>其中</p>
+<div class="arithmatex">\[
+M_1=
+\begin{bmatrix}
+1\\
+-m_{21} &amp; 1\\
+\vdots &amp;&amp; \ddots\\
+-m_{n1} &amp; 0 &amp; \cdots &amp; 1
+\end{bmatrix},\quad
+m_{i1}=\frac{a^{(1)}_{i1}}{a^{(1)}_{11}}.
+\]</div>
+<p>一般第 <span class="arithmatex">\(k\)</span> 步：</p>
+<div class="arithmatex">\[
+A^{(k+1)}=M_kA^{(k)},\quad
+m_{j,k}=\frac{a^{(k)}_{j,k}}{a^{(k)}_{k,k}},\; j=k+1,\dots,n.
+\]</div>
+<p>把 <span class="arithmatex">\(m_k\)</span>（第 <span class="arithmatex">\(k\)</span> 列消元乘子向量）与标准基 <span class="arithmatex">\(e_k\)</span> 写成向量形式，可得</p>
+<div class="arithmatex">\[
+M_k = I - m_k e_k^T.
+\]</div>
+<p>利用 Sherman–Morrison（<span class="arithmatex">\(k=1\)</span> 的 SMW 退化形式）并结合 <span class="arithmatex">\(m_k^T e_k=0\)</span>，有简洁逆：</p>
+<div class="arithmatex">\[
+M_k^{-1} = I + m_k e_k^T.
+\]</div>
+<h3 id="lu_1">LU 分解（不选主元时）<a class="headerlink" href="#lu_1" title="Permanent link">&para;</a></h3>
+<p>连乘得到</p>
+<div class="arithmatex">\[
+U=A^{(n)}=M_{n-1}\cdots M_2 M_1 A,\qquad
+L=M_1^{-1}M_2^{-1}\cdots M_{n-1}^{-1}.
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+A=LU,
+\]</div>
+<p>其中 <span class="arithmatex">\(L\)</span> 是 <strong>单位下三角矩阵</strong> （对角线为 1），<span class="arithmatex">\(U\)</span> 是上三角矩阵。</p>
+<p>用 LU 解方程组的视角：</p>
+<p>1) 先解 <span class="arithmatex">\(Ly=b\)</span>（前代）；2) 再解 <span class="arithmatex">\(Ux=y\)</span>（回代）。</p>
+<h2 id="_7">数值问题：为什么要选主元<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>GAUSS 消去法要求每一步主元 <span class="arithmatex">\(a^{(k)}_{kk}\neq 0\)</span>。即便不为 0，但若 <span class="arithmatex">\(|a^{(k)}_{kk}|\)</span> 很小，会导致</p>
 <ul>
-<li>一阶 RC 延迟分析</li>
+<li><strong>除以接近 0 的数</strong> 使消元乘子很大；</li>
+<li>放大舍入误差，出现严重数值不稳定。</li>
 </ul>
-<p><img alt="10" src="../pictures/10.png" width="600" /></p>
-<p><img alt="jtg11" src="../pictures/jtg11.png" width="600" /></p>
+<h3 id="_8">典型反例（误差很大）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>考虑</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+\varepsilon &amp; 1\\
+1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}x_1\\x_2\end{bmatrix}
+=
+\begin{bmatrix}1\\\varepsilon\end{bmatrix},\quad
+\varepsilon&gt;0\ \text{很小}.
+\]</div>
+<p>真解为 <span class="arithmatex">\(x_1=-1,\; x_2=1+\varepsilon\)</span>。</p>
+<p>若直接以 <span class="arithmatex">\(\varepsilon\)</span> 为首主元做消元，会产生形如 <span class="arithmatex">\(1-1/\varepsilon\)</span> 的灾难性量级；当 <span class="arithmatex">\(\varepsilon\)</span> 小到接近机器精度时，浮点表示会把一些“1 与巨大数相减”的结果近似为 <span class="arithmatex">\(-1/\varepsilon\)</span>，最终得到明显错误的解（课件中示例出现 <span class="arithmatex">\(x_1=0,x_2=1\)</span> 这种错误）。</p>
+<h2 id="_9">列主元（部分选主元）消去法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>处理第 <span class="arithmatex">\(k\)</span> 步主元时，在当前列 <span class="arithmatex">\(k\)</span> 的行 <span class="arithmatex">\(k,\dots,n\)</span> 中选择绝对值最大的元素作为主元：</p>
+<div class="arithmatex">\[
+|a^{(k)}_{p,k}|=\max_{k\le i\le n}|a^{(k)}_{i,k}|.
+\]</div>
+<p>然后 <strong>交换第 <span class="arithmatex">\(p\)</span> 行与第 <span class="arithmatex">\(k\)</span> 行</strong> ，再继续消元。</p>
+<p>这样能显著提高稳定性，并避免除以接近 0 的数。</p>
+<h2 id="_10">初等交换矩阵与排列矩阵<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>交换两行可表示为左乘一个初等交换矩阵 <span class="arithmatex">\(P_k\)</span>。它满足：</p>
 <ul>
-<li>利用较小的电容——降低 C<ul>
-<li>版图紧凑，布局合理</li>
-<li>保持较短走线 &amp; 减少 diffusion routing</li>
+<li><span class="arithmatex">\(P_k=P_k^T\)</span>（对称）</li>
+<li><span class="arithmatex">\(P_k^{-1}=P_k\)</span>，即 <span class="arithmatex">\(P_kP_k=I\)</span>（交换两次恢复原状）</li>
 </ul>
-</li>
-<li>增加晶体管尺寸——降低 R<ul>
-<li>避免 self-loading 出现，否则会导致寄生电容增大</li>
-</ul>
-</li>
-<li>增加电源电压<ul>
-<li>同时会影响可靠性与功耗，因而一般不采用</li>
-</ul>
-</li>
-</ul>
-<p><img alt="jtg12" src="../pictures/jtg12.png" width="600" /></p>
+<p>把所有交换连乘得到一个排列矩阵</p>
+<div class="arithmatex">\[
+P = P_{n-1}P_{n-2}\cdots P_1,
+\]</div>
+<p>其性质：</p>
 <ul>
-<li>拓展多级的 RC 模型</li>
+<li><span class="arithmatex">\(P^{-1}=P^T\)</span>（正交矩阵）</li>
+<li>每个元素为 0 或 1，且 <strong>每行每列恰有一个 1</strong> 。</li>
 </ul>
-<p><img alt="jtg13" src="../pictures/jtg13.png" width="600" /></p>
-<h3 id="transistor-sizing">逻辑电路的Transistor Sizing<a class="headerlink" href="#transistor-sizing" title="Permanent link">&para;</a></h3>
-<p>目标是将 PDN 和 PUN 的 worst-case 延迟进行匹配</p>
-<p><img alt="jtg14" src="../pictures/jtg14.png" width="600" /></p>
-<h3 id="_3">逻辑电路功耗<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p><img alt="jtg15" src="../pictures/jtg15.png" width="600" /></p>
-<p><span class="arithmatex">\(\alpha\)</span> 是翻转率， <span class="arithmatex">\(f\)</span> 是电路的频率</p>
-<p>一次完整的翻转：</p>
-<p><img alt="jtg16" src="../pictures/jtg16.png" width="600" /></p>
-<h2 id="_4">数据量化与逻辑单元设计<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="luplu">带列主元的 LU（PLU）分解<a class="headerlink" href="#luplu" title="Permanent link">&para;</a></h2>
+<p>列主元消去的整体过程可写成</p>
+<div class="arithmatex">\[
+U=A^{(n)}=M_{n-1}P_{n-1}\cdots M_1P_1A,
+\]</div>
+<p>经过整理可得</p>
+<div class="arithmatex">\[
+PA=LU.
+\]</div>
+<p>也就是常见的 <strong>PLU 分解</strong> （或称带置换的 LU 分解）。</p>
+<h2 id="_11">实现要点：用置换向量代替“真的换行”<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>实际编程时，为了避免频繁搬动整行数据，可维护一个置换向量 <span class="arithmatex">\(p\)</span>：</p>
 <ul>
-<li>原码，反码，补码</li>
+<li>初始 <span class="arithmatex">\(p=[1,2,\dots,n]\)</span>；</li>
+<li>每次交换两行 <span class="arithmatex">\(s,t\)</span>，只交换 <span class="arithmatex">\(p[s]\)</span> 与 <span class="arithmatex">\(p[t]\)</span>；</li>
+<li>访问矩阵第 <span class="arithmatex">\(k\)</span> 行时用 <span class="arithmatex">\(p[k]\)</span> 映射到真实行号。</li>
 </ul>
-<p>计概和 ics 都有，不再写了</p>
+<p>由 <span class="arithmatex">\(p\)</span> 可以构造排列矩阵：</p>
+<div class="arithmatex">\[
+P_{ij}=
+\begin{cases}
+1,&amp; j=p[i]\\
+0,&amp; j\ne p[i]
+\end{cases}
+\]</div>
+<p>列主元消去法伪代码（课件版本）：</p>
+<div class="highlight"><pre><span></span><code>p[i] = i, i=1..n
+for k = 1..n-1:
+    s = argmax_{i=k..n} |a[p[i], k]|
+    swap(p[s], p[k])
+    for i = k+1..n:
+        c = -a[p[i], k] / a[p[k], k]
+        for j = k+1..n:
+            a[p[i], j] = a[p[i], j] + c * a[p[k], j]
+        b[p[i]] = b[p[i]] + c * b[p[k]]
+</code></pre></div>
+<p>复杂度与不选主元的 Gauss 消去同阶：乘加主导项仍为 <span class="arithmatex">\(O(n^3)\)</span>，但会多出比较操作。</p>
+<h2 id="_12">例题摘记<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="21">例 2.1（手工消元）<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>方程组（课件给出）通过对增广矩阵做行变换，最终得到上三角后回代，结论：</p>
 <ul>
-<li>浮点数，IEEE-754 标准</li>
+<li><span class="arithmatex">\(x_3=1\)</span></li>
+<li><span class="arithmatex">\(x_2=-1\)</span></li>
+<li><span class="arithmatex">\(x_1=0\)</span></li>
 </ul>
-<p>计算方法和 ics 都有，不写了</p>
+<p>（这类题复习重点： <strong>每步消元的“消元乘子”与行变换写法</strong> ，以及最终回代。）</p>
+<h3 id="23-plu">例 2.3（列主元 + PLU）<a class="headerlink" href="#23-plu" title="Permanent link">&para;</a></h3>
+<p>对</p>
+<div class="arithmatex">\[
+A=\begin{bmatrix}
+1&amp;2&amp;2\\
+4&amp;4&amp;2\\
+4&amp;6&amp;4
+\end{bmatrix}
+\]</div>
+<p>按列主元策略进行两次行交换与消元，可得到 <span class="arithmatex">\(PA=LU\)</span>（课件给出了具体的 <span class="arithmatex">\(P,L,U\)</span>）。</p>
+<h2 id="_13">小结<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Gauss 消去</strong> ：消元 + 回代，计算量主导为 <span class="arithmatex">\(O(n^3)\)</span>。</li>
+<li><strong>矩阵视角</strong> ：消元矩阵 <span class="arithmatex">\(M_k\)</span> 使得 <span class="arithmatex">\(A\)</span> 逐步变上三角；不选主元时得到 <span class="arithmatex">\(A=LU\)</span>。</li>
+<li><strong>数值稳定性</strong> ：主元过小会放大舍入误差；用 <strong>列主元（部分选主元）</strong> 更稳健。</li>
+<li><strong>带主元的分解</strong> ：最终得到 <span class="arithmatex">\(PA=LU\)</span>，实现时常用置换向量 <span class="arithmatex">\(p\)</span> 降低交换成本。</li>
+</ul>
 
 
 
@@ -1436,7 +1871,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../algorithm/DP/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DP">
+          <a href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 误差分析">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
@@ -1446,20 +1881,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                DP
+                误差分析
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/" class="md-footer__link md-footer__link--next" aria-label="Next: 2026 03 16">
+          <a href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/" class="md-footer__link md-footer__link--next" aria-label="Next: LU分解和对称正定矩阵">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                2026 03 16
+                LU分解和对称正定矩阵
               </div>
             </div>
             <div class="md-footer__button md-icon">
