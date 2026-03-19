@@ -106,6 +106,98 @@ for k = 1..n:
 2\sum_{k=1}^{n-1}(n-k)k + n \approx \frac{n^3}{3} .
 \]
 
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def lu_explicit(A):
+        """
+        LU 分解 - 显式存储 L 和 U
+        
+        参数:
+            A: n×n 系数矩阵 (numpy array)
+        返回:
+            L: 单位下三角矩阵
+            U: 上三角矩阵
+        """
+        n = A.shape[0]
+        L = np.eye(n)  # L 初始化为单位矩阵
+        U = np.zeros((n, n))
+        
+        for k in range(n):
+            # 计算 U 的第 k 行
+            for j in range(k, n):
+                U[k, j] = A[k, j]
+                for m in range(k):
+                    U[k, j] -= L[k, m] * U[m, j]
+            
+            # 计算 L 的第 k 列（对角线以下）
+            for i in range(k + 1, n):
+                L[i, k] = A[i, k]
+                for m in range(k):
+                    L[i, k] -= L[i, m] * U[m, k]
+                L[i, k] /= U[k, k]  # 除以主元
+        
+        return L, U
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * LU 分解 - 显式存储 L 和 U
+     * 
+     * 参数:
+     *   A: n×n 系数矩阵 (按值传递，不会被修改)
+     *   L: 输出参数，单位下三角矩阵
+     *   U: 输出参数，上三角矩阵
+     * 返回:
+     *   成功返回 true，若遇到零主元返回 false
+     */
+    bool luExplicit(const Matrix& A, Matrix& L, Matrix& U) {
+        int n = A.size();
+        L.assign(n, std::vector<double>(n, 0.0));
+        U.assign(n, std::vector<double>(n, 0.0));
+        
+        // L 初始化为单位矩阵
+        for (int i = 0; i < n; ++i) {
+            L[i][i] = 1.0;
+        }
+        
+        for (int k = 0; k < n; ++k) {
+            // 计算 U 的第 k 行
+            for (int j = k; j < n; ++j) {
+                U[k][j] = A[k][j];
+                for (int m = 0; m < k; ++m) {
+                    U[k][j] -= L[k][m] * U[m][j];
+                }
+            }
+            
+            // 检查主元
+            if (std::abs(U[k][k]) < 1e-15) {
+                return false;  // 遇到奇异矩阵
+            }
+            
+            // 计算 L 的第 k 列（对角线以下）
+            for (int i = k + 1; i < n; ++i) {
+                L[i][k] = A[i][k];
+                for (int m = 0; m < k; ++m) {
+                    L[i][k] -= L[i][m] * U[m][k];
+                }
+                L[i][k] /= U[k][k];
+            }
+        }
+        
+        return true;
+    }
+    ```
+
 #### 原位存储（把 \(L\) 与 \(U\) 塞回 \(A\) 里）
 
 由于 \(L\) 的对角线全为 1，可以不存；把
@@ -124,7 +216,379 @@ l_{n1} & l_{n2} & \cdots & u_{nn}
 \end{bmatrix}.
 \]
 
-课件给出原位版本伪代码（算法 3.2）以及一个更适合向量化的改进流程（算法 3.3 / 3.4 / 3.5）。
+算法 3.2（原位存储）：
+
+```text
+for k = 1, 2, ..., n do
+    // 计算 U 的第 k 行（已在上三角位置）
+    for j = k, k+1, ..., n do
+        for m = 1, 2, ..., k-1 do
+            a[k,j] ← a[k,j] - a[k,m] * a[m,j]
+    end for
+    // 计算 L 的第 k 列（存储到下三角位置）
+    for i = k+1, k+2, ..., n do
+        for m = 1, 2, ..., k-1 do
+            a[i,k] ← a[i,k] - a[i,m] * a[m,k]
+        a[i,k] ← a[i,k] / a[k,k]
+    end for
+end for
+```
+
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def lu_inplace(A):
+        """
+        LU 分解 - 原位存储（Doolittle 算法）
+        
+        参数:
+            A: n×n 系数矩阵 (会被修改，存储 L 和 U)
+        返回:
+            A: 修改后的矩阵，其中:
+               - 上三角部分（含对角线）存储 U
+               - 严格下三角部分存储 L（对角线隐含为 1）
+        """
+        n = A.shape[0]
+        
+        for k in range(n):
+            # 计算 U 的第 k 行（已在上三角位置）
+            for j in range(k, n):
+                for m in range(k):
+                    A[k, j] -= A[k, m] * A[m, j]
+            
+            # 计算 L 的第 k 列（存储到下三角位置）
+            for i in range(k + 1, n):
+                for m in range(k):
+                    A[i, k] -= A[i, m] * A[m, k]
+                A[i, k] /= A[k, k]
+        
+        return A
+    
+    def solve_lu_inplace(A_lu, b):
+        """
+        利用原位存储的 LU 分解求解 Ax = b
+        
+        参数:
+            A_lu: 经过 lu_inplace 处理后的矩阵
+            b: 右端向量
+        返回:
+            x: 解向量
+        """
+        n = len(b)
+        x = np.zeros(n)
+        y = np.zeros(n)
+        
+        # 前代：解 Ly = b（L 对角线隐含为 1）
+        for i in range(n):
+            y[i] = b[i]
+            for j in range(i):
+                y[i] -= A_lu[i, j] * y[j]  # L[i,j] 存储在 A_lu 的下三角
+        
+        # 回代：解 Ux = y
+        for i in range(n - 1, -1, -1):
+            x[i] = y[i]
+            for j in range(i + 1, n):
+                x[i] -= A_lu[i, j] * x[j]  # U[i,j] 存储在 A_lu 的上三角
+            x[i] /= A_lu[i, i]  # U[i,i] 在对角线上
+        
+        return x
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * LU 分解 - 原位存储（Doolittle 算法）
+     * 
+     * 参数:
+     *   A: n×n 矩阵，会被原地修改为:
+     *      - 上三角部分（含对角线）存储 U
+     *      - 严格下三角部分存储 L（对角线隐含为 1）
+     * 返回:
+     *   成功返回 true，若遇到零主元返回 false
+     */
+    bool luInPlace(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n; ++k) {
+            // 计算 U 的第 k 行
+            for (int j = k; j < n; ++j) {
+                for (int m = 0; m < k; ++m) {
+                    A[k][j] -= A[k][m] * A[m][j];
+                }
+            }
+            
+            // 检查主元
+            if (std::abs(A[k][k]) < 1e-15) {
+                return false;
+            }
+            
+            // 计算 L 的第 k 列（存储到下三角）
+            for (int i = k + 1; i < n; ++i) {
+                for (int m = 0; m < k; ++m) {
+                    A[i][k] -= A[i][m] * A[m][k];
+                }
+                A[i][k] /= A[k][k];
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 利用原位存储的 LU 分解求解 Ax = b
+     * 
+     * 参数:
+     *   A_lu: 经过 luInPlace 处理后的矩阵
+     *   b: 右端向量
+     * 返回:
+     *   x: 解向量
+     */
+    std::vector<double> solveLuInPlace(const Matrix& A_lu, 
+                                       const std::vector<double>& b) {
+        int n = b.size();
+        std::vector<double> x(n), y(n);
+        
+        // 前代：解 Ly = b（L 对角线隐含为 1）
+        for (int i = 0; i < n; ++i) {
+            y[i] = b[i];
+            for (int j = 0; j < i; ++j) {
+                y[i] -= A_lu[i][j] * y[j];  // L[i][j] 在下三角
+            }
+        }
+        
+        // 回代：解 Ux = y
+        for (int i = n - 1; i >= 0; --i) {
+            x[i] = y[i];
+            for (int j = i + 1; j < n; ++j) {
+                x[i] -= A_lu[i][j] * x[j];  // U[i][j] 在上三角
+            }
+            x[i] /= A_lu[i][i];  // U[i][i] 在对角线上
+        }
+        
+        return x;
+    }
+    ```
+
+#### 改进版本（向量化优化）
+
+算法 3.3（改进原位，适合按行存储）：
+
+```text
+for k = 1, 2, ..., n-1 do
+    // 计算 L 的第 k 列乘子
+    for i = k+1, k+2, ..., n do
+        a[i,k] ← a[i,k] / a[k,k]
+    end for
+    // 更新 Schur 补（右下角子矩阵）
+    for i = k+1, k+2, ..., n do
+        for j = k+1, k+2, ..., n do
+            a[i,j] ← a[i,j] - a[i,k] * a[k,j]
+        end for
+    end for
+end for
+```
+
+算法 3.4（向量化版本，适合按行存储）：
+
+```text
+for k = 1, 2, ..., n-1 do
+    a[k+1:n,k] ← a[k+1:n,k] / a[k,k]           // 向量除法
+    for i = k+1, k+2, ..., n do
+        a[i,k+1:n] ← a[i,k+1:n] - a[i,k] * a[k,k+1:n]  // 向量减向量乘标量
+    end for
+end for
+```
+
+算法 3.5（向量化版本，适合按列存储）：
+
+```text
+for k = 1, 2, ..., n-1 do
+    a[k+1:n,k] ← a[k+1:n,k] / a[k,k]           // 向量除法
+    for j = k+1, k+2, ..., n do
+        a[k+1:n,j] ← a[k+1:n,j] - a[k+1:n,k] * a[k,j]  // 向量减向量乘标量
+    end for
+end for
+```
+
+=== "Python（向量化版本）"
+
+    ```python
+    import numpy as np
+    
+    def lu_inplace_optimized(A):
+        """
+        LU 分解 - 改进原位算法（向量化优化）
+        
+        参数:
+            A: n×n 系数矩阵 (numpy array, 会被修改)
+        返回:
+            A: 修改后的矩阵，存储 L 和 U
+        """
+        n = A.shape[0]
+        
+        for k in range(n - 1):
+            # 计算 L 的第 k 列（向量化除法）
+            A[k+1:n, k] /= A[k, k]
+            
+            # 更新 Schur 补（向量化操作）
+            # A[i,j] = A[i,j] - A[i,k] * A[k,j]
+            # 使用外积更新子矩阵
+            A[k+1:n, k+1:n] -= np.outer(A[k+1:n, k], A[k, k+1:n])
+        
+        return A
+    
+    def lu_row_oriented(A):
+        """
+        按行存储优化的 LU 分解（算法 3.4）
+        
+        参数:
+            A: n×n 系数矩阵 (numpy array)
+        返回:
+            A: 修改后的矩阵
+        """
+        n = A.shape[0]
+        
+        for k in range(n - 1):
+            # 向量除法：计算乘子
+            A[k+1:n, k] = A[k+1:n, k] / A[k, k]
+            
+            # 按行更新（适合行存储内存布局）
+            for i in range(k + 1, n):
+                # 向量减向量乘标量
+                A[i, k+1:n] = A[i, k+1:n] - A[i, k] * A[k, k+1:n]
+        
+        return A
+    
+    def lu_col_oriented(A):
+        """
+        按列存储优化的 LU 分解（算法 3.5）
+        
+        参数:
+            A: n×n 系数矩阵 (numpy array)
+        返回:
+            A: 修改后的矩阵
+        """
+        n = A.shape[0]
+        
+        for k in range(n - 1):
+            # 向量除法：计算乘子
+            A[k+1:n, k] = A[k+1:n, k] / A[k, k]
+            
+            # 按列更新（适合列存储内存布局，如 Fortran）
+            for j in range(k + 1, n):
+                # 向量减向量乘标量
+                A[k+1:n, j] = A[k+1:n, j] - A[k+1:n, k] * A[k, j]
+        
+        return A
+    ```
+
+=== "C++（向量化版本）"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * LU 分解 - 改进原位算法（算法 3.3）
+     * 
+     * 参数:
+     *   A: n×n 矩阵，会被原地修改
+     * 返回:
+     *   成功返回 true
+     */
+    bool luInPlaceOptimized(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n - 1; ++k) {
+            // 检查主元
+            if (std::abs(A[k][k]) < 1e-15) {
+                return false;
+            }
+            
+            // 计算 L 的第 k 列乘子
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 更新 Schur 补（右下角子矩阵）
+            for (int i = k + 1; i < n; ++i) {
+                for (int j = k + 1; j < n; ++j) {
+                    A[i][j] -= A[i][k] * A[k][j];
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 按行存储优化的 LU 分解（算法 3.4）
+     * 内存访问模式更适合 C/C++ 的行主序数组
+     */
+    bool luRowOriented(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n - 1; ++k) {
+            if (std::abs(A[k][k]) < 1e-15) {
+                return false;
+            }
+            
+            // 计算乘子
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 按行更新（内层循环访问连续内存）
+            for (int i = k + 1; i < n; ++i) {
+                double lik = A[i][k];
+                for (int j = k + 1; j < n; ++j) {
+                    A[i][j] -= lik * A[k][j];
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 按列存储优化的 LU 分解（算法 3.5）
+     * 内存访问模式更适合 Fortran 的列主序数组
+     */
+    bool luColOriented(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n - 1; ++k) {
+            if (std::abs(A[k][k]) < 1e-15) {
+                return false;
+            }
+            
+            // 计算乘子
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 按列更新（内层循环访问连续内存）
+            for (int j = k + 1; j < n; ++j) {
+                double akj = A[k][j];
+                for (int i = k + 1; i < n; ++i) {
+                    A[i][j] -= A[i][k] * akj;
+                }
+            }
+        }
+        
+        return true;
+    }
+    ```
 
 #### LU 分解与 Gauss 消去的关系
 
@@ -223,6 +687,40 @@ l & B
 B - \frac{l u^T}{a_{11}} = B - \left(\frac{l}{a_{11}}\right)u^T .
 \]
 
+如果能得到 Schur 补的 $LU$ 分解形式， 
+
+$$
+B - \frac{lu^{T}}{a_{11}} = L_{n - 1} U_{n - 1}
+$$
+
+那么
+
+$$
+\begin{bmatrix}
+1 & 0 \\\
+\frac{l}{a_{11}}  &  I_{n - 1}
+\end{bmatrix}
+\begin{bmatrix}
+1  & 0 \\\
+0  &  B - \frac{lu^{T}}{a_{11}}
+\end{bmatrix}
+\begin{bmatrix}
+a_{11} & u^{T}  \\\
+0 & I_{n - 1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\\
+\frac{l}{a_{}} & L_{n - 1}
+\end{bmatrix}
+\begin{bmatrix}
+a_{11} &  u^{T}  \\\
+0 & U_{n -1}
+\end{bmatrix}
+\equiv LU
+$$
+
+
 这也解释了“先算乘子，再更新右下角子块”的改进原位算法（课件算法 3.3）。
 
 ### 带状矩阵的 LU 分解
@@ -241,7 +739,250 @@ B - \frac{l u^T}{a_{11}} = B - \left(\frac{l}{a_{11}}\right)u^T .
 
 定理 **带宽在 LU 中保持** ：若 \(A=L U\)，且 \(A\) 上带宽为 \(q\)、下带宽为 \(p\)，则 \(U\) 的上带宽为 \(q\)，\(L\) 的下带宽为 \(p\)。
 
-带状矩阵的原位 LU 算法（课件算法 3.6）在 \(n\gg p,q\) 时，乘除与加减大约都是 \(O(n p q)\)，远小于满矩阵的 \(O(n^3)\)。
+!!! note "证明（数学归纳法）"
+
+    对矩阵阶数 \(n\) 作归纳。
+
+    - **基础情形** （\(n=1\)）：\(A=[a_{11}]\)，\(L=[1]\)，\(U=[a_{11}]\)，带宽显然保持（\(p=q=0\) 或根据 \(a_{11}\) 位置确定）。
+
+    - **归纳假设** ：假设对任意 \((n-1)\times(n-1)\) 阶矩阵，定理成立。
+
+    - **归纳步骤** ：考察 \(n\) 阶矩阵 \(A\)。将 \(A\) 写成分块形式：
+
+    \[
+    A=\begin{bmatrix}a_{11}&u^T\\l&B\end{bmatrix},
+    \]
+
+      其中 \(a_{11}\in\mathbb R\)，\(l\in\mathbb R^{n-1}\)，\(B\in\mathbb R^{(n-1)\times(n-1)}\)。
+
+      由于 \(A\) 的下带宽为 \(p\)，则 \(l\) 的非零元最多只有前 \(p\) 个（即 \(l_i=0\) 对 \(i>p+1\)）。同理，\(u^T\) 的非零元最多只有前 \(q\) 个。
+
+      LU 分解的第一步给出：
+
+    \[
+    A=\begin{bmatrix}1&0\\l/a_{11}&I_{n-1}\end{bmatrix}
+    \begin{bmatrix}a_{11}&u^T\\0&B-lu^T/a_{11}\end{bmatrix}.
+    \]
+
+      这里：
+
+      - 乘子向量 \(l/a_{11}\) 的非零结构继承 \(l\) 的结构，最多前 \(p\) 个非零；
+      - Schur 补 \(\widehat B=B-lu^T/a_{11}\) 的 \((i,j)\) 元为 \(b_{ij}-l_i u_j/a_{11}\)。当 \(i>j+p\) 或 \(j>i+q\) 时，原 \(b_{ij}=0\)，且 \(l_i u_j=0\)（因超出带宽），故 \(\widehat B\) 保持带宽 \((p,q)\)。
+
+      对 \((n-1)\times(n-1)\) 的 \(\widehat B\) 应用归纳假设，其 LU 分解 \(\widehat B=L_{n-1}U_{n-1}\) 保持带宽。最终拼得的 \(L\) 与 \(U\) 也保持原带宽 \(p,q\)。\(\square\)
+
+### 算法 3.6：带状矩阵 LU 分解（原位存储）
+
+**输入** ：带状矩阵 \(A\in\mathbb R^{n\times n}\)，压缩存储于 `a[i,j]`，上带宽 \(q\)，下带宽 \(p\)  
+**输出** ：单位下三角矩阵 \(L\)（存 `a[i,j], i>j`）与上三角矩阵 \(U\)（存 `a[i,j], i\le j`），使 \(A=LU\)
+
+```text
+for k = 1, 2, ..., n-1 do
+    // 计算 L 的第 k 列（乘子），只计算带宽范围内的行
+    for i = k+1, k+2, ..., min{k+p, n} do
+        a[i,k] ← a[i,k] / a[k,k];
+    end for
+    // 更新 Schur 补，只更新带宽范围内的子矩阵
+    for i = k+1, k+2, ..., min{k+q, n} do
+        for j = k+1, k+2, ..., min{k+p, n} do
+            a[i,j] ← a[i,j] - a[i,k] * a[k,j];
+        end for
+    end for
+end for
+```
+
+**算法要点** ：
+
+
+- 循环边界用 \(\min\{k+p,n\}\) 和 \(\min\{k+q,n\}\) 限制，只处理带宽内的元素；
+- 当 \(n\gg p,q\) 时，内层循环长度由 \(O(n)\) 降为 \(O(p)\) 或 \(O(q)\)；
+- 总运算量：乘除法与加减法各约 \(n p q\) 次，远小于满矩阵的 \(n^3/3\)。
+
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def lu_banded(A, p, q):
+        """
+        带状矩阵 LU 分解 - 原位存储
+        
+        参数:
+            A: n×n 带状系数矩阵 (numpy array, 会被修改)
+            p: 下带宽
+            q: 上带宽
+        返回:
+            A: 修改后的矩阵，其中:
+               - 上三角部分（含对角线）存储 U
+               - 严格下三角部分存储 L
+        注意:
+            此实现假设 A 已经是完整矩阵，实际应用中应使用压缩存储
+        """
+        n = A.shape[0]
+        
+        for k in range(n - 1):
+            # 计算 L 的第 k 列乘子（只计算带宽范围内的行）
+            i_max = min(k + p + 1, n)  # 行索引范围 [k+1, min(k+p, n-1)]
+            for i in range(k + 1, i_max):
+                if abs(A[k, k]) < 1e-15:
+                    raise ValueError("Zero pivot encountered")
+                A[i, k] /= A[k, k]
+            
+            # 更新 Schur 补（只更新带宽范围内的子矩阵）
+            i_max = min(k + q + 1, n)  # 行索引受上带宽限制
+            j_max = min(k + p + 1, n)  # 列索引受下带宽限制
+            for i in range(k + 1, i_max):
+                for j in range(k + 1, j_max):
+                    A[i, j] -= A[i, k] * A[k, j]
+        
+        return A
+    
+    def lu_banded_compressed(A_band, p, q, n):
+        """
+        带状矩阵 LU 分解 - 压缩存储版本
+        
+        参数:
+            A_band: (p+q+1)×n 压缩存储矩阵
+                   行 0 到 q: 上对角线
+                   行 q: 主对角线
+                   行 q+1 到 p+q: 下对角线
+            p: 下带宽
+            q: 上带宽
+            n: 原矩阵阶数
+        返回:
+            A_band: 修改后的压缩存储矩阵，包含 L 和 U
+        """
+        # 压缩存储索引映射: A[i,j] -> A_band[q+i-j, j] (当 |i-j| <= max(p,q))
+        for k in range(n - 1):
+            # 计算乘子并存储到下对角线位置
+            i_max = min(k + p, n - 1)
+            for i in range(k + 1, i_max + 1):
+                # 获取 A[k,k] 和 A[i,k]
+                akk = A_band[q, k]
+                aik = A_band[q + i - k, k] if (i - k) <= p else 0
+                
+                if abs(akk) < 1e-15:
+                    raise ValueError("Zero pivot encountered")
+                
+                # 计算乘子 l_ik = a_ik / a_kk
+                lik = aik / akk
+                # 存储回下对角线位置
+                A_band[q + i - k, k] = lik
+            
+            # 更新 Schur 补
+            i_max = min(k + q, n - 1)
+            for i in range(k + 1, i_max + 1):
+                for j in range(k + 1, min(k + p, n - 1) + 1):
+                    # 获取 A[i,j], A[i,k], A[k,j]
+                    aij = A_band[q + i - j, j] if abs(i - j) <= p + q else 0
+                    aik = A_band[q + i - k, k]  # 已存储的乘子
+                    akj = A_band[q + k - j, j] if (j - k) <= q else 0
+                    
+                    # 更新: A[i,j] = A[i,j] - A[i,k] * A[k,j]
+                    A_band[q + i - j, j] = aij - aik * akj
+        
+        return A_band
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    #include <algorithm>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * 带状矩阵 LU 分解 - 原位存储
+     * 
+     * 参数:
+     *   A: n×n 带状矩阵，会被原地修改
+     *   p: 下带宽
+     *   q: 上带宽
+     * 返回:
+     *   成功返回 true
+     */
+    bool luBanded(Matrix& A, int p, int q) {
+        int n = A.size();
+        
+        for (int k = 0; k < n - 1; ++k) {
+            // 检查主元
+            if (std::abs(A[k][k]) < 1e-15) {
+                return false;
+            }
+            
+            // 计算 L 的第 k 列乘子（只计算带宽范围内的行）
+            int i_max = std::min(k + p + 1, n);
+            for (int i = k + 1; i < i_max; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 更新 Schur 补（只更新带宽范围内的子矩阵）
+            i_max = std::min(k + q + 1, n);  // 行索引受上带宽限制
+            int j_max = std::min(k + p + 1, n);  // 列索引受下带宽限制
+            for (int i = k + 1; i < i_max; ++i) {
+                for (int j = k + 1; j < j_max; ++j) {
+                    A[i][j] -= A[i][k] * A[k][j];
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 带状矩阵 LU 分解 - 压缩存储版本
+     * 
+     * 压缩存储方案: A[i,j] 存储在 band[q + i - j][j] (0 <= q+i-j < p+q+1)
+     * 其中 band[0..q-1] 存上对角线，band[q] 存主对角线，
+     * band[q+1..p+q] 存下对角线
+     * 
+     * 参数:
+     *   band: (p+q+1)×n 压缩存储矩阵
+     *   p, q: 下、上带宽
+     *   n: 原矩阵阶数
+     */
+    bool luBandedCompressed(std::vector<std::vector<double>>& band, 
+                             int p, int q, int n) {
+        int diag_row = q;  // 主对角线在压缩矩阵中的行索引
+        
+        for (int k = 0; k < n - 1; ++k) {
+            double akk = band[diag_row][k];
+            
+            if (std::abs(akk) < 1e-15) {
+                return false;
+            }
+            
+            // 计算乘子（只计算下带宽范围内的行）
+            int i_max = std::min(k + p + 1, n);
+            for (int i = k + 1; i < i_max; ++i) {
+                int row_idx = diag_row + i - k;  // 在压缩矩阵中的行索引
+                band[row_idx][k] /= akk;  // 存储乘子 l_ik
+            }
+            
+            // 更新 Schur 补
+            i_max = std::min(k + q + 1, n);
+            for (int i = k + 1; i < i_max; ++i) {
+                int row_ik = diag_row + i - k;
+                double lik = band[row_ik][k];
+                
+                for (int j = k + 1; j < std::min(k + p + 1, n); ++j) {
+                    // 获取 A[i,j] 的压缩存储位置
+                    int row_ij = diag_row + i - j;
+                    int row_kj = diag_row + k - j;
+                    
+                    if (row_ij >= 0 && row_ij < p + q + 1 &&
+                        row_kj >= 0 && row_kj < p + q + 1) {
+                        band[row_ij][j] -= lik * band[row_kj][j];
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+    ```
 
 ## 对称正定矩阵与 Cholesky / LDLT
 
@@ -301,6 +1042,160 @@ for k = 1..n:
         l[j,k] = l[j,k] / l[k,k]
 ```
 
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def cholesky(A):
+        """
+        Cholesky 分解: A = L L^T
+        
+        参数:
+            A: n×n 对称正定矩阵 (numpy array)
+        返回:
+            L: 下三角矩阵，满足 A = L @ L.T
+        异常:
+            ValueError: 若矩阵不是正定（遇到非正主元）
+        """
+        n = A.shape[0]
+        L = np.zeros((n, n))
+        
+        for k in range(n):
+            # 计算对角元 L[k,k]
+            L[k, k] = A[k, k]
+            for j in range(k):
+                L[k, k] -= L[k, j] ** 2
+            
+            if L[k, k] <= 0:
+                raise ValueError("Matrix is not positive definite")
+            
+            L[k, k] = np.sqrt(L[k, k])
+            
+            # 计算第 k 列的非对角元
+            for j in range(k + 1, n):
+                L[j, k] = A[j, k]
+                for i in range(k):
+                    L[j, k] -= L[j, i] * L[k, i]
+                L[j, k] /= L[k, k]
+        
+        return L
+    
+    def cholesky_solve(L, b):
+        """
+        利用 Cholesky 分解求解 Ax = b
+        
+        参数:
+            L: Cholesky 分解得到的下三角矩阵
+            b: 右端向量
+        返回:
+            x: 解向量
+        """
+        n = len(b)
+        
+        # 前代：解 L y = b
+        y = np.zeros(n)
+        for i in range(n):
+            y[i] = b[i]
+            for j in range(i):
+                y[i] -= L[i, j] * y[j]
+            y[i] /= L[i, i]
+        
+        # 回代：解 L^T x = y
+        x = np.zeros(n)
+        for i in range(n - 1, -1, -1):
+            x[i] = y[i]
+            for j in range(i + 1, n):
+                x[i] -= L[j, i] * x[j]  # 注意：L^T[i,j] = L[j,i]
+            x[i] /= L[i, i]
+        
+        return x
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    #include <stdexcept>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * Cholesky 分解: A = L L^T
+     * 
+     * 参数:
+     *   A: n×n 对称正定矩阵
+     *   L: 输出参数，下三角矩阵
+     * 返回:
+     *   成功返回 true，若遇到非正主元返回 false
+     */
+    bool cholesky(const Matrix& A, Matrix& L) {
+        int n = A.size();
+        L.assign(n, std::vector<double>(n, 0.0));
+        
+        for (int k = 0; k < n; ++k) {
+            // 计算对角元 L[k,k]
+            double sum = A[k][k];
+            for (int j = 0; j < k; ++j) {
+                sum -= L[k][j] * L[k][j];
+            }
+            
+            if (sum <= 0) {
+                return false;  // 矩阵不是正定
+            }
+            
+            L[k][k] = std::sqrt(sum);
+            
+            // 计算第 k 列的非对角元
+            for (int j = k + 1; j < n; ++j) {
+                double s = A[j][k];
+                for (int i = 0; i < k; ++i) {
+                    s -= L[j][i] * L[k][i];
+                }
+                L[j][k] = s / L[k][k];
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 利用 Cholesky 分解求解 Ax = b
+     * 
+     * 参数:
+     *   L: Cholesky 分解得到的下三角矩阵
+     *   b: 右端向量
+     * 返回:
+     *   x: 解向量
+     */
+    std::vector<double> choleskySolve(const Matrix& L, 
+                                      const std::vector<double>& b) {
+        int n = b.size();
+        std::vector<double> y(n), x(n);
+        
+        // 前代：解 L y = b
+        for (int i = 0; i < n; ++i) {
+            y[i] = b[i];
+            for (int j = 0; j < i; ++j) {
+                y[i] -= L[i][j] * y[j];
+            }
+            y[i] /= L[i][i];
+        }
+        
+        // 回代：解 L^T x = y
+        for (int i = n - 1; i >= 0; --i) {
+            x[i] = y[i];
+            for (int j = i + 1; j < n; ++j) {
+                x[i] -= L[j][i] * x[j];  // L^T[i][j] = L[j][i]
+            }
+            x[i] /= L[i][i];
+        }
+        
+        return x;
+    }
+    ```
+
 #### Cholesky 的再思考（分块 / 递归）
 
 把对称正定矩阵写为
@@ -319,7 +1214,162 @@ l & B
 B-\frac{l l^T}{a_{11}}
 \]
 
-仍为正定；若它可 Cholesky 分解，则可递归构造 \(A\) 的 Cholesky 分解。对应改进原位算法见课件算法 3.8。
+仍为正定；若它可 Cholesky 分解，则可递归构造 \(A\) 的 Cholesky 分解。对应改进原位算法如下：
+
+#### 算法 3.8：改进 Cholesky（原位存储）
+
+```text
+for k = 1, 2, ..., n do
+    a[k,k] ← sqrt(a[k,k])           // 计算 L[k,k]
+    for i = k+1, k+2, ..., n do
+        a[i,k] ← a[i,k] / a[k,k]    // 计算 L[i,k]
+    end for
+    for i = k+1, k+2, ..., n do
+        for j = i, i+1, ..., n do
+            a[j,i] ← a[j,i] - a[i,k] * a[j,k]  // 更新 Schur 补
+        end for
+    end for
+end for
+```
+
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def cholesky_inplace(A):
+        """
+        Cholesky 分解 - 原位存储（改进算法）
+        
+        参数:
+            A: n×n 对称正定矩阵 (numpy array, 会被修改)
+        返回:
+            A: 修改后的矩阵，下三角部分存储 L
+        """
+        n = A.shape[0]
+        
+        for k in range(n):
+            # 检查并计算对角元
+            if A[k, k] <= 0:
+                raise ValueError("Matrix is not positive definite")
+            A[k, k] = np.sqrt(A[k, k])
+            
+            # 计算第 k 列的非对角元（乘子）
+            for i in range(k + 1, n):
+                A[i, k] /= A[k, k]
+            
+            # 更新 Schur 补（右下角子矩阵）
+            for i in range(k + 1, n):
+                for j in range(i, n):  # 从 i 开始，利用对称性
+                    A[j, i] -= A[i, k] * A[j, k]
+        
+        return A
+    
+    def cholesky_inplace_optimized(A):
+        """
+        Cholesky 分解 - 原位存储（向量化优化版本）
+        
+        利用 numpy 的向量化操作提高效率
+        """
+        n = A.shape[0]
+        
+        for k in range(n):
+            # 计算对角元
+            if A[k, k] <= 0:
+                raise ValueError("Matrix is not positive definite")
+            A[k, k] = np.sqrt(A[k, k])
+            
+            # 计算乘子（向量化）
+            A[k+1:n, k] /= A[k, k]
+            
+            # 更新 Schur 补（向量化外积）
+            if k + 1 < n:
+                # A[k+1:n, k+1:n] -= np.outer(A[k+1:n, k], A[k+1:n, k])
+                # 更高效的实现：只更新下三角部分
+                for i in range(k + 1, n):
+                    A[i:n, i] -= A[i, k] * A[i:n, k]
+        
+        return A
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    #include <stdexcept>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * Cholesky 分解 - 原位存储（改进算法 3.8）
+     * 
+     * 参数:
+     *   A: n×n 对称正定矩阵，会被原地修改
+     *      下三角部分存储 L，上三角部分保持原值（未使用）
+     * 返回:
+     *   成功返回 true
+     */
+    bool choleskyInPlace(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n; ++k) {
+            // 检查并计算对角元
+            if (A[k][k] <= 0) {
+                return false;
+            }
+            A[k][k] = std::sqrt(A[k][k]);
+            
+            // 计算第 k 列的非对角元（乘子）
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 更新 Schur 补（只更新下三角部分）
+            for (int i = k + 1; i < n; ++i) {
+                for (int j = i; j < n; ++j) {
+                    A[j][i] -= A[i][k] * A[j][k];
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Cholesky 分解 - 按行存储优化版本（算法 3.4 的 Cholesky 版本）
+     * 
+     * 内存访问模式更适合 C/C++ 的行主序数组
+     */
+    bool choleskyRowOriented(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n; ++k) {
+            if (A[k][k] <= 0) {
+                return false;
+            }
+            
+            // 计算对角元
+            double lkk = std::sqrt(A[k][k]);
+            A[k][k] = lkk;
+            
+            // 计算乘子
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= lkk;
+            }
+            
+            // 按行更新 Schur 补
+            for (int i = k + 1; i < n; ++i) {
+                double lik = A[i][k];
+                for (int j = k + 1; j <= i; ++j) {  // 只更新下三角
+                    A[i][j] -= lik * A[j][k];
+                }
+            }
+        }
+        
+        return true;
+    }
+    ```
 
 ### \(L D L^T\) 分解（改进 Cholesky）
 
@@ -333,7 +1383,261 @@ A = L D L^T ,
 
 与 Cholesky 相比，它避免了约 \(n\) 次开方操作；乘除与加减的主导项仍为 \(n^3/6\) 量级，因此也常称为 **改进 Cholesky 法** 。
 
-课件给出分块推导与原位改进伪代码（算法 3.9），其中 \(D\) 存在对角 `a[i,i]`，\(L\) 存在严格下三角 `a[i,j] (i>j)`。
+算法 3.9：LDLT 分解改进算法（原位存储）
+
+```text
+for k = 1, 2, ..., n do
+    // 利用对称性，复制下三角到上三角
+    for i = k+1, k+2, ..., n do
+        a[k,i] ← a[i,k]
+    end for
+    // 计算 L 的第 k 列（乘子）
+    for i = k+1, k+2, ..., n do
+        a[i,k] ← a[i,k] / a[k,k]
+    end for
+    // 更新 Schur 补
+    for i = k+1, k+2, ..., n do
+        for j = i, i+1, ..., n do
+            a[j,i] ← a[j,i] - a[i,k] * a[k,j]
+        end for
+    end for
+end for
+```
+
+说明：
+
+
+- 算法结束后，\(D\) 的对角元 \(d_{kk}\) 存储在 `a[k,k]`；
+- \(L\) 的严格下三角元素 \(l_{ik}\)（\(i>k\)）存储在 `a[i,k]`；
+- 对角线 \(l_{kk}=1\) 隐式存储，不占用空间。
+
+=== "Python"
+
+    ```python
+    import numpy as np
+    
+    def ldlt_inplace(A):
+        """
+        LDL^T 分解 - 原位存储（改进算法）
+        
+        参数:
+            A: n×n 对称正定矩阵 (numpy array, 会被修改)
+        返回:
+            A: 修改后的矩阵，其中:
+               - 对角线 a[k,k] 存储 D[k,k]
+               - 严格下三角 a[i,k] (i>k) 存储 L[i,k]
+               - L 对角线隐式为 1
+        注意:
+            此实现不处理选主元，假设矩阵良好条件
+        """
+        n = A.shape[0]
+        
+        for k in range(n):
+            # 检查主元（D[k,k] 必须为正）
+            if A[k, k] <= 0:
+                raise ValueError("Matrix is not positive definite")
+            
+            # 利用对称性，先把下三角复制到上三角（可选，取决于实现）
+            for i in range(k + 1, n):
+                A[k, i] = A[i, k]
+            
+            # 计算 L 的第 k 列乘子（严格下三角部分）
+            for i in range(k + 1, n):
+                A[i, k] /= A[k, k]
+            
+            # 更新 Schur 补（右下角子矩阵）
+            for i in range(k + 1, n):
+                for j in range(i, n):  # 从 i 开始，利用对称性只更新下三角
+                    A[j, i] -= A[i, k] * A[k, j]
+        
+        return A
+    
+    def ldlt_solve_inplace(A_ldlt, b):
+        """
+        利用原位存储的 LDL^T 分解求解 Ax = b
+        
+        参数:
+            A_ldlt: 经过 ldlt_inplace 处理后的矩阵
+            b: 右端向量
+        返回:
+            x: 解向量
+        """
+        n = len(b)
+        y = np.zeros(n)
+        x = np.zeros(n)
+        
+        # 前代：解 L y = b（L 对角线隐式为 1）
+        for i in range(n):
+            y[i] = b[i]
+            for j in range(i):
+                y[i] -= A_ldlt[i, j] * y[j]  # L[i,j] 在下三角
+        
+        # 解 D z = y（对角方程）
+        for i in range(n):
+            y[i] /= A_ldlt[i, i]  # D[i,i] 在对角线上
+        
+        # 回代：解 L^T x = z（L^T 对角线隐式为 1）
+        for i in range(n - 1, -1, -1):
+            x[i] = y[i]
+            for j in range(i + 1, n):
+                x[i] -= A_ldlt[j, i] * x[j]  # L^T[i,j] = L[j,i]
+        
+        return x
+    
+    def ldlt_explicit(A):
+        """
+        LDL^T 分解 - 显式存储 L 和 D
+        
+        返回显式的单位下三角矩阵 L 和对角矩阵 D
+        """
+        n = A.shape[0]
+        L = np.eye(n)  # 单位下三角
+        D = np.zeros(n)
+        
+        for k in range(n):
+            # D[k,k] = A[k,k] - sum(L[k,j]^2 * D[j,j])
+            D[k] = A[k, k]
+            for j in range(k):
+                D[k] -= L[k, j] ** 2 * D[j]
+            
+            if D[k] <= 0:
+                raise ValueError("Matrix is not positive definite")
+            
+            # L[i,k] = (A[i,k] - sum(L[i,j]*L[k,j]*D[j,j])) / D[k,k]
+            for i in range(k + 1, n):
+                L[i, k] = A[i, k]
+                for j in range(k):
+                    L[i, k] -= L[i, j] * L[k, j] * D[j]
+                L[i, k] /= D[k]
+        
+        return L, np.diag(D)
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <vector>
+    #include <cmath>
+    #include <stdexcept>
+    
+    using Matrix = std::vector<std::vector<double>>;
+    
+    /**
+     * LDL^T 分解 - 原位存储（改进算法 3.9）
+     * 
+     * 参数:
+     *   A: n×n 对称正定矩阵，会被原地修改
+     *      - 对角线 A[k,k] 存储 D[k,k]
+     *      - 严格下三角 A[i,k] (i>k) 存储 L[i,k]
+     *      - L 对角线隐式为 1
+     * 返回:
+     *   成功返回 true
+     */
+    bool ldltInPlace(Matrix& A) {
+        int n = A.size();
+        
+        for (int k = 0; k < n; ++k) {
+            // 检查主元
+            if (A[k][k] <= 0) {
+                return false;
+            }
+            
+            // 计算 L 的第 k 列乘子
+            for (int i = k + 1; i < n; ++i) {
+                A[i][k] /= A[k][k];
+            }
+            
+            // 更新 Schur 补（只更新下三角部分）
+            for (int i = k + 1; i < n; ++i) {
+                for (int j = i; j < n; ++j) {
+                    A[j][i] -= A[i][k] * A[k][j];
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 利用原位存储的 LDL^T 分解求解 Ax = b
+     * 
+     * 参数:
+     *   A_ldlt: 经过 ldltInPlace 处理后的矩阵
+     *   b: 右端向量
+     * 返回:
+     *   x: 解向量
+     */
+    std::vector<double> ldltSolveInPlace(const Matrix& A_ldlt,
+                                        const std::vector<double>& b) {
+        int n = b.size();
+        std::vector<double> y(n), x(n);
+        
+        // 前代：解 L y = b（L 对角线隐式为 1）
+        for (int i = 0; i < n; ++i) {
+            y[i] = b[i];
+            for (int j = 0; j < i; ++j) {
+                y[i] -= A_ldlt[i][j] * y[j];
+            }
+        }
+        
+        // 解 D z = y
+        for (int i = 0; i < n; ++i) {
+            y[i] /= A_ldlt[i][i];
+        }
+        
+        // 回代：解 L^T x = z
+        for (int i = n - 1; i >= 0; --i) {
+            x[i] = y[i];
+            for (int j = i + 1; j < n; ++j) {
+                x[i] -= A_ldlt[j][i] * x[j];
+            }
+        }
+        
+        return x;
+    }
+    
+    /**
+     * LDL^T 分解 - 显式存储版本
+     * 
+     * 参数:
+     *   A: 输入对称正定矩阵
+     *   L: 输出单位下三角矩阵
+     *   D: 输出对角矩阵（以一维向量形式返回对角元）
+     */
+    bool ldltExplicit(const Matrix& A, Matrix& L, std::vector<double>& D) {
+        int n = A.size();
+        L.assign(n, std::vector<double>(n, 0.0));
+        D.assign(n, 0.0);
+        
+        // L 初始化为单位矩阵
+        for (int i = 0; i < n; ++i) {
+            L[i][i] = 1.0;
+        }
+        
+        for (int k = 0; k < n; ++k) {
+            // D[k] = A[k,k] - sum(L[k,j]^2 * D[j])
+            D[k] = A[k][k];
+            for (int j = 0; j < k; ++j) {
+                D[k] -= L[k][j] * L[k][j] * D[j];
+            }
+            
+            if (D[k] <= 0) {
+                return false;
+            }
+            
+            // L[i,k] = (A[i,k] - sum(L[i,j]*L[k,j]*D[j])) / D[k]
+            for (int i = k + 1; i < n; ++i) {
+                L[i][k] = A[i][k];
+                for (int j = 0; j < k; ++j) {
+                    L[i][k] -= L[i][j] * L[k][j] * D[j];
+                }
+                L[i][k] /= D[k];
+            }
+        }
+        
+        return true;
+    }
+    ```
 
 ## Schur 补回顾
 
