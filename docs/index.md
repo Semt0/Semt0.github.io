@@ -17,7 +17,7 @@ icon: lucide/home
       </div>
     </header>
     <div class="home-avatar-wrap">
-      <img src="https://github.com/Semt0.png" alt="Semt0" class="home-avatar-img" width="280" height="280" />
+      <img src="https://github.com/Semt0.png" alt="Semt0" class="home-avatar-img" width="280" height="280" loading="eager" fetchpriority="high" decoding="async" />
     </div>
   </div>
 

@@ -1,5 +1,41 @@
-/* 首页四个栏目：滚动进入视口时淡入 + 上移 - 性能优化版 */
+/* 首页性能优化：头像预加载 + 栏目动画 */
 (function () {
+  // ===== 头像预加载优化 =====
+  (function preloadAvatar() {
+    // 提前建立连接，减少 DNS 和 TCP 握手时间
+    var linkPreconnect = document.createElement('link');
+    linkPreconnect.rel = 'preconnect';
+    linkPreconnect.href = 'https://github.com';
+    linkPreconnect.crossOrigin = 'anonymous';
+    document.head.appendChild(linkPreconnect);
+
+    // 预加载头像图片
+    var linkPreload = document.createElement('link');
+    linkPreload.rel = 'preload';
+    linkPreload.as = 'image';
+    linkPreload.href = 'https://github.com/Semt0.png';
+    linkPreload.type = 'image/png';
+    document.head.appendChild(linkPreload);
+
+    // 确保头像完全加载后再显示，防止露出背景色
+    var avatarImg = document.querySelector('.home-avatar-img');
+    if (avatarImg) {
+      // 如果图片已经缓存完成，直接显示
+      if (avatarImg.complete && avatarImg.naturalWidth > 0) {
+        avatarImg.style.opacity = '1';
+      } else {
+        // 等待图片加载完成
+        avatarImg.addEventListener('load', function() {
+          avatarImg.style.opacity = '1';
+        });
+        // 加载失败时也显示（显示备用背景）
+        avatarImg.addEventListener('error', function() {
+          avatarImg.style.opacity = '1';
+        });
+      }
+    }
+  })();
+
   // 存储已观察的元素，避免重复处理
   var observedElements = new WeakSet();
 

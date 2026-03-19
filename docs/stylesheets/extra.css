@@ -38,6 +38,23 @@ button.md-top {
     line-height: 1.75;
 }
 
+/* Admonition (tip/note/warning等) 块字号调回正常 */
+.md-typeset .admonition {
+    font-size: inherit;
+}
+
+.md-typeset .admonition p,
+.md-typeset .admonition ul,
+.md-typeset .admonition ol,
+.md-typeset .admonition li {
+    font-size: inherit;
+}
+
+.md-typeset .admonition-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 /* 正文区数学公式与文字协调（KaTeX 默认 1.21em 会偏大） */
 .md-typeset .katex { font-size: 1em; }
 .md-typeset .katex-display { font-size: 1em; }
@@ -129,9 +146,17 @@ button.md-top {
     align-items: center;
     gap: 0.65rem;
     margin-top: 0.5rem;
+    /* 初始完全隐藏，防止预加载闪烁 */
     opacity: 0;
-    animation: home-intro-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    visibility: hidden;
+    /* 动画由 JS 动态设置 animation-delay 后添加 */
     will-change: opacity, transform;
+}
+
+/* JS 添加此类后触发动画 */
+.home-social-row.social-row-animate {
+    visibility: visible;
+    animation: home-intro-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .home-hero .home-codetime-badge {
@@ -191,11 +216,17 @@ button.md-top {
     background: rgba(148, 163, 184, 0.12);
 }
 
-/* 右侧大头像 */
+/* 右侧大头像 - 加载优化 */
 .home-avatar-wrap {
     flex: 0 0 auto;
     width: 220px;
     height: 220px;
+    /* 防止加载期间布局偏移 */
+    contain: layout style;
+    border-radius: 999px;
+    /* 使用页面背景色作为占位，避免蓝底露出 */
+    background: #f3f4f6;
+    overflow: hidden;
 }
 
 @media (min-width: 900px) {
@@ -208,6 +239,18 @@ button.md-top {
     height: 100%;
     border-radius: 999px;
     object-fit: cover;
+    /* 平滑加载过渡效果 */
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    /* 确保图片在上层，背景在下层 */
+    position: relative;
+    z-index: 1;
+    background: #f3f4f6;
+}
+
+/* 图片加载完成后显示 */
+.home-avatar-img[src] {
+    opacity: 1;
 }
 
 /* ===== 花瓣层 ===== */
