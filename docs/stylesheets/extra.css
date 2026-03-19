@@ -7,7 +7,7 @@ html {
 body {
     font-family: "LXGW WenKai Screen";
     font-weight: normal;
-    background: #f9fafb;
+    background: #f3faf9;
     /* 优化文字渲染 */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -260,43 +260,128 @@ button.md-top {
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
-    /* 优化渲染性能 */
     contain: strict;
 }
 
 .petal {
     position: absolute;
-    top: -20px;
-    width: 8px;
-    height: 12px;
-    background: radial-gradient(circle at 30% 30%, #fecaca, #fb7185);
-    border-radius: 60% 40% 60% 40%;
-    opacity: 0.75;
-    /* 移除模糊滤镜以提升性能 */
-    transform-origin: center center;
-    /* 强制 GPU 加速 */
-    will-change: transform;
-    transform: translateZ(0);
+    top: -30px;
+    transform-origin: 30% 40%;
+    will-change: transform, opacity;
     backface-visibility: hidden;
-    /* 使用 CSS 变量控制漂移 */
+    contain: layout style;
     --drift: 0px;
-    animation-name: petal-fall;
+    --swing: 15px;
+    --petal-alpha: 0.7;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    /* 优化渲染层 */
-    contain: layout style;
 }
 
-/* 简化的花瓣飘落动画 - 只使用 translate3d 和 rotateZ，避免复杂的 3D 变换 */
-@keyframes petal-fall {
-    0%   { transform: translate3d(0, -20px, 0) rotateZ(0deg); opacity: 0; }
-    10%  { transform: translate3d(calc(var(--drift) * 0.3), 10vh, 0) rotateZ(45deg); opacity: 0.85; }
-    50%  { transform: translate3d(var(--drift), 50vh, 0) rotateZ(180deg); opacity: 0.9; }
-    90%  { transform: translate3d(calc(var(--drift) * -0.3), 90vh, 0) rotateZ(315deg); opacity: 0.6; }
-    100% { transform: translate3d(calc(var(--drift) * -0.1), calc(100vh + 20px), 0) rotateZ(360deg); opacity: 0; }
+/* 花瓣形状 A — 带缺口的经典樱花瓣 */
+.petal--shape-a {
+    border-radius: 0;
+    clip-path: polygon(
+        50% 0%, 3% 30%, 2% 65%, 15% 87%,
+        40% 100%, 50% 90%, 60% 100%,
+        85% 87%, 98% 65%, 97% 30%
+    );
 }
 
-/* 低性能设备使用更简单的动画 */
+/* 花瓣形状 B — 更圆润的花瓣 */
+.petal--shape-b {
+    border-radius: 0;
+    clip-path: polygon(
+        50% 2%, 5% 35%, 4% 70%, 20% 90%,
+        43% 100%, 50% 93%, 57% 100%,
+        80% 90%, 96% 70%, 95% 35%
+    );
+}
+
+/* 近景层：大、快、清晰 */
+.petal--near {
+    width: 14px;
+    height: 18px;
+    --petal-alpha: 0.88;
+    z-index: 2;
+}
+
+/* 中景层：中等 */
+.petal--mid {
+    width: 9px;
+    height: 13px;
+    --petal-alpha: 0.6;
+    z-index: 1;
+}
+
+/* 远景层：小、慢、淡 */
+.petal--far {
+    width: 5px;
+    height: 8px;
+    --petal-alpha: 0.35;
+    z-index: 0;
+}
+
+/* 3D 翻转飘落 A — 前倾翻滚 */
+@keyframes petal-3d-a {
+    0% {
+        transform: translate3d(0, -30px, 0)
+                   rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        opacity: 0;
+    }
+    6%  { opacity: var(--petal-alpha); }
+    20% {
+        transform: translate3d(var(--swing), 20vh, 0)
+                   rotateX(60deg) rotateY(25deg) rotateZ(72deg);
+    }
+    40% {
+        transform: translate3d(calc(var(--drift) * 0.6 - var(--swing) * 0.7), 40vh, 0)
+                   rotateX(150deg) rotateY(70deg) rotateZ(144deg);
+    }
+    60% {
+        transform: translate3d(calc(var(--drift) + var(--swing) * 0.5), 60vh, 0)
+                   rotateX(230deg) rotateY(110deg) rotateZ(216deg);
+    }
+    80% {
+        transform: translate3d(calc(var(--drift) * 0.3 - var(--swing) * 0.3), 80vh, 0)
+                   rotateX(310deg) rotateY(155deg) rotateZ(288deg);
+    }
+    94% { opacity: calc(var(--petal-alpha) * 0.3); }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.1), calc(100vh + 30px), 0)
+                   rotateX(360deg) rotateY(180deg) rotateZ(360deg);
+        opacity: 0;
+    }
+}
+
+/* 3D 翻转飘落 B — 侧翻旋转 */
+@keyframes petal-3d-b {
+    0% {
+        transform: translate3d(0, -30px, 0)
+                   rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        opacity: 0;
+    }
+    6%  { opacity: var(--petal-alpha); }
+    25% {
+        transform: translate3d(calc(var(--swing) * -0.8), 22vh, 0)
+                   rotateX(40deg) rotateY(80deg) rotateZ(65deg);
+    }
+    50% {
+        transform: translate3d(calc(var(--drift) * 0.8 + var(--swing) * 0.6), 50vh, 0)
+                   rotateX(120deg) rotateY(180deg) rotateZ(150deg);
+    }
+    75% {
+        transform: translate3d(calc(var(--drift) * 0.4 - var(--swing) * 0.5), 75vh, 0)
+                   rotateX(240deg) rotateY(270deg) rotateZ(250deg);
+    }
+    94% { opacity: calc(var(--petal-alpha) * 0.3); }
+    100% {
+        transform: translate3d(calc(var(--drift) * 0.15), calc(100vh + 30px), 0)
+                   rotateX(320deg) rotateY(360deg) rotateZ(340deg);
+        opacity: 0;
+    }
+}
+
+/* 低性能设备 / 减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
     .petal {
         animation: none;
@@ -640,8 +725,8 @@ a.resume-tag:hover {
     --waline-active-color: #219a52;
     --waline-avatar-radius: 50%;
     --waline-box-shadow: none;
-    max-width: 780px;
-    margin: 2rem auto 1rem;
+    max-width: 680px;
+    margin: 2rem 0 1rem;
     padding: 0;
     border: none;
     background: none;
@@ -675,10 +760,14 @@ a.resume-tag:hover {
     border-radius: 6px;
 }
 
-#waline .wl-card { padding: 0.65rem 0; }
-#waline .wl-card .wl-head .wl-nick { font-size: 0.82rem; font-weight: 600; }
-#waline .wl-card .wl-content { font-size: 0.82rem; line-height: 1.6; }
-#waline .wl-card .wl-meta { font-size: 0.7rem; }
+#waline .wl-card {
+    padding: 0.25rem 0;
+    border-bottom: 1.5px dashed rgba(120, 130, 150, 0.55);
+}
+#waline .wl-card:last-child { border-bottom: none; }
+#waline .wl-card .wl-head .wl-nick { font-size: 0.78rem; font-weight: 600; }
+#waline .wl-card .wl-content { font-size: 0.78rem; line-height: 1.4; margin-top: 0.1rem; }
+#waline .wl-card .wl-meta { font-size: 0.68rem; }
 
 #waline .wl-count {
     font-size: 0.95rem;
@@ -735,8 +824,8 @@ a.resume-tag:hover {
 
 /* ===== 夜间模式 ===== */
 [data-md-color-scheme="slate"] {
-    --md-default-bg-color: #0b0f19 !important;
-    --md-default-bg-color--light: #101624 !important;
+    --md-default-bg-color: #0b0f1a !important;
+    --md-default-bg-color--light: #090c16 !important;
     --md-default-fg-color: #ffffff !important;
     --md-default-fg-color--light: #ffffff !important;
     --md-code-bg-color: #050505 !important;
@@ -746,8 +835,8 @@ a.resume-tag:hover {
 }
 
 [data-md-color-scheme="slate"] body {
-    background-color: #0b0f19 !important;
-    color: #ffffff !important;
+    background-color: #131722 !important;
+    color: #fbf7f7 !important;
 }
 
 /* 框架容器背景 & 文字 */
@@ -891,6 +980,10 @@ a.resume-tag:hover {
 }
 
 /* 夜间：Waline 评论区 — 纯 CSS 变量覆盖（参考官方文档） */
+[data-md-color-scheme="slate"] #waline .wl-card {
+    border-bottom-color: rgba(100, 116, 139, 0.6);
+}
+
 [data-md-color-scheme="slate"] #waline {
     --waline-white: #000;
     --waline-light-grey: #666;
