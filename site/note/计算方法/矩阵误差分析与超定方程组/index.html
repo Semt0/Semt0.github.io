@@ -1,0 +1,2768 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Blogs from Semt0">
+      
+      
+        <meta name="author" content="Semt0">
+      
+      
+        <link rel="canonical" href="https://semt0.github.io/note/%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E7%9F%A9%E9%98%B5%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90%E4%B8%8E%E8%B6%85%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%BB%84/">
+      
+      
+        <link rel="prev" href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/">
+      
+      
+        <link rel="next" href="../../algorithm/DP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.jpg">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>矩阵误差分析与超定方程组 - Semt0's Blog</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-header__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Semt0's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              矩阵误差分析与超定方程组
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/my-first-blog/" class="md-tabs__link">
+          
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../ODE/" class="md-tabs__link">
+          
+  
+  Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  Friends
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-nav__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Semt0's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blogs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/my-first-blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    我的第一篇博客文章
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常微分方程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CVDL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CVDL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CVDL/ml_intro/ML_intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLM/Transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../none" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS231n
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算方法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算方法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    误差分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Gauss%E6%B6%88%E5%8E%BB%E6%B3%95%E5%92%8C%E4%B8%BB%E5%85%83%E7%B4%A0%E6%B6%88%E5%8E%BB%E6%B3%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss消去法和主元素消去法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LU分解和对称正定矩阵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵误差分析与超定方程组
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵误差分析与超定方程组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差分析与超定方程组
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简介：扰动从哪里来
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简介：扰动从哪里来">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：病态方程组
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        向量范数与矩阵范数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="向量范数与矩阵范数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        向量范数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范数等价
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        矩阵范数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        诱导矩阵范数与谱半径
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差分析：扰动如何放大
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差分析：扰动如何放大">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅右端项扰动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅系数矩阵扰动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        综合扰动结论（先验估计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数的估计与再思考
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件数的估计与再思考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何估计条件数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆矩阵计算算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆矩阵计算算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法复杂度分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法伪代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数估计的替代方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数的几何意义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        超定方程组与最小二乘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="超定方程组与最小二乘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        残差与目标函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正规方程（Normal Equation）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法设计与分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法设计与分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithm/DP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI硬件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI硬件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai%E7%A1%AC%E4%BB%B6/%E6%99%B6%E4%BD%93%E7%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    晶体管原理与数字电路基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust程序设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust程序设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03 16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差分析与超定方程组
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简介：扰动从哪里来
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简介：扰动从哪里来">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：病态方程组
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        向量范数与矩阵范数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="向量范数与矩阵范数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        向量范数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范数等价
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        矩阵范数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        诱导矩阵范数与谱半径
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        误差分析：扰动如何放大
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="误差分析：扰动如何放大">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅右端项扰动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅系数矩阵扰动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        综合扰动结论（先验估计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数的估计与再思考
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件数的估计与再思考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何估计条件数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆矩阵计算算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆矩阵计算算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法复杂度分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法伪代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数估计的替代方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件数的几何意义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        超定方程组与最小二乘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="超定方程组与最小二乘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        残差与目标函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正规方程（Normal Equation）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../ODE/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Notes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算方法
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1>矩阵误差分析与超定方程组</h1>
+
+<h2 id="_1">误差分析与超定方程组<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>参考：计算方法 (00330050) 第 4 讲《解线性方程组的直接法 (误差分析, 超定方程组)》</p>
+<p><img alt="课程封面" src="../pictures/lecture04_01_cover.png" width="520" /></p>
+<hr />
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>简介</li>
+<li>向量范数与矩阵范数</li>
+<li>误差分析</li>
+<li>条件数的估计</li>
+<li>条件数的再思考</li>
+<li>超定方程组与最小二乘</li>
+</ul>
+<hr />
+<h2 id="_3">简介：扰动从哪里来<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>在计算机中，实数以浮点数形式存储，因此会产生舍入误差。<br />
+对数学上精确给定的线性方程组</p>
+<div class="arithmatex">\[
+A x = b
+\]</div>
+<p>输入计算机后通常变为</p>
+<div class="arithmatex">\[
+(A + \delta A)(x + \delta x) = b + \delta b
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(\delta A\)</span> 是系数矩阵扰动</li>
+<li><span class="arithmatex">\(\delta b\)</span> 是右端项扰动</li>
+<li><span class="arithmatex">\(\delta x\)</span> 是解的变化（误差传播结果）</li>
+</ul>
+<p>如果很小的输入扰动会导致很大的解变化，则称该问题为 <strong>病态问题</strong>（矩阵是 <strong>病态矩阵</strong>）；反之称为 <strong>良态问题</strong>。</p>
+<p><img alt="病态方程组例题" src="../pictures/lecture04_02_ill_conditioned_example.png" width="520" /></p>
+<h3 id="_4">例：病态方程组<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>考虑</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; 1.0001
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 \\
+2
+\end{bmatrix}
+\]</div>
+<p>原解为</p>
+<div class="arithmatex">\[
+x =
+\begin{bmatrix}
+2 \\
+0
+\end{bmatrix}
+\]</div>
+<p>若右端项微扰为 <span class="arithmatex">\(\delta b = [0,\, 0.0001]^T\)</span>，则新解变成</p>
+<div class="arithmatex">\[
+x + \delta x =
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix}
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\delta x =
+\begin{bmatrix}
+-1 \\
+1
+\end{bmatrix}
+\]</div>
+<p>说明右端极小变化引起解的大幅变化，该系统病态。</p>
+<hr />
+<h2 id="_5">向量范数与矩阵范数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">向量范数定义<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>向量范数 <span class="arithmatex">\(\|x\|\)</span> 需要满足：</p>
+<ul>
+<li>正定性：<span class="arithmatex">\(\|x\| \ge 0\)</span>，且 <span class="arithmatex">\(\|x\|=0 \Leftrightarrow x=0\)</span></li>
+<li>齐次性：<span class="arithmatex">\(\|\alpha x\| = |\alpha| \|x\|\)</span></li>
+<li>三角不等式：<span class="arithmatex">\(\|x+y\| \le \|x\|+\|y\|\)</span></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">为什么需要三角不等式</p>
+<ul>
+<li><strong>确保极限唯一性</strong>：若向量序列 <span class="arithmatex">\(x_n\)</span> 同时收敛到 <span class="arithmatex">\(a,b\)</span>，则由</li>
+</ul>
+<div class="arithmatex">\[
+\|a-b\|
+\le
+\|x_n-a\|+\|x_n-b\|
+\to 0
+\]</div>
+<p>可得 <span class="arithmatex">\(a=b\)</span>。</p>
+<ul>
+<li><strong>保证线性运算连续性</strong>：若 <span class="arithmatex">\(x_n\to x,\ y_n\to y\)</span>，则</li>
+</ul>
+<div class="arithmatex">\[
+\|(x_n+y_n)-(x+y)\|
+\le
+\|x_n-x\|+\|y_n-y\|
+\to 0
+\]</div>
+<p>从而 <span class="arithmatex">\(x_n+y_n\to x+y\)</span>。</p>
+</div>
+<p>常见向量范数：</p>
+<div class="arithmatex">\[
+\|x\|_1 = \sum_{i=1}^{n} |x_i|
+\]</div>
+<div class="arithmatex">\[
+\|x\|_2 = \left( \sum_{i=1}^{n} x_i^2 \right)^{1/2} = \sqrt{x^T x}
+\]</div>
+<div class="arithmatex">\[
+\|x\|_{\infty} = \max_{1 \le i \le n} |x_i|
+\]</div>
+<div class="arithmatex">\[
+\|x\|_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}, \quad p \ge 1
+\]</div>
+<p><img alt="向量范数定义与常见形式" src="../pictures/lecture04_03_vector_norms.png" width="520" /></p>
+<h3 id="_7">范数等价<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>在有限维空间 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中，任意两个范数等价。典型不等式：</p>
+<div class="arithmatex">\[
+\|x\|_2 \le \|x\|_1 \le \sqrt{n}\|x\|_2
+\]</div>
+<div class="arithmatex">\[
+\|x\|_{\infty} \le \|x\|_2 \le \sqrt{n}\|x\|_{\infty}
+\]</div>
+<div class="arithmatex">\[
+\|x\|_{\infty} \le \|x\|_1 \le n\|x\|_{\infty}
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>如果</p>
+<div class="arithmatex">\[
+lim_{k -&gt; \infty} \|x^{(k)} - x \| = 0
+\]</div>
+<p>则称 <span class="arithmatex">\(n\)</span> 维向量序列 <span class="arithmatex">\(\{x^{(k)}\}\)</span> 收敛到 <span class="arithmatex">\(x\)</span> 。根据范数的等价性可知：<span class="arithmatex">\(\mathbb{R}^n\)</span> 中序列的收敛性并不依赖于某个具体的范数。</p>
+</div>
+<h3 id="_8">矩阵范数定义<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>矩阵范数 <span class="arithmatex">\(\|A\|\)</span> 除了正定性、齐次性、三角不等式外，还需满足相容性：</p>
+<div class="arithmatex">\[
+\|AB\| \le \|A\| \|B\|
+\]</div>
+<p>常见矩阵范数：</p>
+<div class="arithmatex">\[
+\|A\|_1 = \max_{1 \le j \le n} \sum_{i=1}^{n} |a_{ij}|
+\]</div>
+<div class="arithmatex">\[
+\|A\|_2 = \sqrt{\rho(A^T A)}
+\]</div>
+<div class="arithmatex">\[
+\|A\|_{\infty} = \max_{1 \le i \le n} \sum_{j=1}^{n} |a_{ij}|
+\]</div>
+<div class="arithmatex">\[
+\|A\|_F = \left( \sum_{i,j=1}^{n} a_{ij}^2 \right)^{1/2} = \sqrt{\mathrm{tr}(A^T A)}
+\]</div>
+<p><img alt="矩阵范数与谱半径" src="../pictures/lecture04_04_matrix_norms.png" width="520" /></p>
+<h3 id="_9">诱导矩阵范数与谱半径<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>由向量范数诱导的矩阵范数定义为</p>
+<div class="arithmatex">\[
+\|A\| = \max_{x \ne 0} \frac{\|Ax\|}{\|x\|} = \max_{\|x\|=1} \|Ax\|
+\]</div>
+<p>谱半径定义：</p>
+<div class="arithmatex">\[
+\rho(A) = \max_i |\lambda_i|
+\]</div>
+<blockquote>
+<p>这里 <span class="arithmatex">\(\lambda_i\)</span> 为矩阵的特征值</p>
+</blockquote>
+<p>并有一般结论</p>
+<div class="arithmatex">\[
+\rho(A) \le \|A\|
+\]</div>
+<p>如果对 <span class="arithmatex">\(\forall A \in \mathbb{R}^{n \times n}\)</span> 与 <span class="arithmatex">\(\forall x \in \mathbb{R}^n\)</span>，都有</p>
+<div class="arithmatex">\[
+\|Ax\| \leq \|A\|\|x\|
+\]</div>
+<p>那么，称式中的矩阵范数与向量范数 <strong>相容</strong>。</p>
+<hr />
+<h2 id="_10">误差分析：扰动如何放大<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p><img alt="误差传播推导" src="../pictures/lecture04_05_error_analysis.png" width="520" /></p>
+<h3 id="_11">仅右端项扰动<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>若</p>
+<div class="arithmatex">\[
+A(x+\delta x) = b+\delta b
+\]</div>
+<p>则</p>
+<div class="arithmatex">\[
+\delta x = A^{-1}\delta b
+\]</div>
+<p>从而</p>
+<div class="arithmatex">\[
+\|\delta x\| \le \|A^{-1}\|\,\|\delta b\|
+\]</div>
+<p>结合 <span class="arithmatex">\(b=Ax\)</span> 可得</p>
+<div class="arithmatex">\[
+\|b\| \le \|A\|\,\|x\|
+\]</div>
+<p>最终得到相对误差估计</p>
+<div class="arithmatex">\[
+\frac{\|\delta x\|}{\|x\|} \le \|A\|\,\|A^{-1}\| \frac{\|\delta b\|}{\|b\|}
+\]</div>
+<p>即解 <span class="arithmatex">\(x\)</span> 的相对误差不会超过 <span class="arithmatex">\(b\)</span> 的相对误差的 <span class="arithmatex">\(\|A\|\|A^{-1}\|\)</span> 倍</p>
+<h3 id="_12">仅系数矩阵扰动<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>若</p>
+<div class="arithmatex">\[
+(A+\delta A)(x+\delta x)=b
+\]</div>
+<p>整理得</p>
+<div class="arithmatex">\[
+\delta x = -A^{-1}\delta A\,x - A^{-1}\delta A\,\delta x
+\]</div>
+<p>进一步可得</p>
+<div class="arithmatex">\[
+\frac{\|\delta x\|}{\|x\|}
+\le
+\frac{\|A^{-1}\|\,\|\delta A\|}{1-\|A^{-1}\|\,\|\delta A\|}
+\]</div>
+<p>当 <span class="arithmatex">\(\|A^{-1}\|\,\|\delta A\|&lt;1\)</span> 时成立。</p>
+<h3 id="_13">综合扰动结论（先验估计）<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>若同时有 <span class="arithmatex">\(\delta A,\delta b\)</span>，并且 <span class="arithmatex">\(\|A^{-1}\|\,\|\delta A\|&lt;1\)</span>，则</p>
+<div class="arithmatex">\[
+\frac{\|\delta x\|}{\|x\|}
+\le
+\frac{\mathrm{Cond}(A)}{1-\mathrm{Cond}(A)\frac{\|\delta A\|}{\|A\|}}
+\left(
+\frac{\|\delta A\|}{\|A\|}+\frac{\|\delta b\|}{\|b\|}
+\right)
+\]</div>
+<hr />
+<h2 id="_14">条件数<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>定义（对非奇异矩阵）：</p>
+<div class="arithmatex">\[
+\mathrm{Cond}(A) = \|A\|\,\|A^{-1}\|
+\]</div>
+<p>按不同范数记为</p>
+<div class="arithmatex">\[
+\mathrm{Cond}_p(A) = \|A\|_p\,\|A^{-1}\|_p,\quad p=1,2,\infty
+\]</div>
+<p><img alt="条件数定义与性质" src="../pictures/lecture04_06_condition_number.png" width="520" /></p>
+<h3 id="_15">条件数性质<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="arithmatex">\(\mathrm{Cond}(A)\ge 1\)</span></li>
+<li>若 <span class="arithmatex">\(A\)</span> 为正交矩阵（2 范数下），则 <span class="arithmatex">\(\mathrm{Cond}_2(A)=1\)</span>，也就是正交矩阵是一种典型的良态矩阵。</li>
+<li>对任意 <span class="arithmatex">\(\alpha \ne 0\)</span>，有 <span class="arithmatex">\(\mathrm{Cond}(\alpha A)=\mathrm{Cond}(A)\)</span></li>
+<li>在 2 范数下：</li>
+</ul>
+<div class="arithmatex">\[
+\mathrm{Cond}_2(A)=\sqrt{\frac{\lambda_{\max}(A^T A)}{\lambda_{\min}(A^T A)}}
+\]</div>
+<p>不同范数下的条件数在有限维空间中等价。</p>
+<hr />
+<h2 id="_16">条件数的估计与再思考<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="_17">如何估计条件数<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>直接算 <span class="arithmatex">\(A^{-1}\)</span> 代价高。下面给出基于 <strong>LU分解</strong> 求逆的算法及复杂度分析。</p>
+<h3 id="_18">逆矩阵计算算法<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>对于非奇异矩阵 <span class="arithmatex">\(A \in \mathbb{R}^{n \times n}\)</span>，利用 LU 分解 <span class="arithmatex">\(A = LU\)</span> 求逆：</p>
+<ul>
+<li>先对 <span class="arithmatex">\(A\)</span> 进行 LU 分解（带部分主元），得到 <span class="arithmatex">\(PA = LU\)</span></li>
+<li>然后逐列求解 <span class="arithmatex">\(AX = I\)</span>，即求解 <span class="arithmatex">\(n\)</span> 个线性方程组</li>
+</ul>
+<div class="arithmatex">\[
+A x_i = e_i, \quad i = 1, 2, \dots, n
+\]</div>
+<p>其中 <span class="arithmatex">\(e_i\)</span> 是第 <span class="arithmatex">\(i\)</span> 个标准基向量。</p>
+<h4 id="_19">算法复杂度分析<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LU分解</td>
+<td><span class="arithmatex">\(PA = LU\)</span></td>
+<td><span class="arithmatex">\(\frac{2}{3}n^3\)</span></td>
+</tr>
+<tr>
+<td>解 <span class="arithmatex">\(n\)</span> 个三角方程组</td>
+<td>前代 + 回代</td>
+<td><span class="arithmatex">\(2n \cdot n^2 = 2n^3\)</span></td>
+</tr>
+<tr>
+<td><strong>总计</strong></td>
+<td></td>
+<td><strong><span class="arithmatex">\(O(n^3)\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p>因此直接求逆的总复杂度约为 <span class="arithmatex">\(\frac{8}{3}n^3\)</span>，远高于求解单个方程组的 <span class="arithmatex">\(\frac{2}{3}n^3\)</span>。</p>
+<h4 id="_20">算法伪代码<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>输入: A ∈ R^(n×n) (非奇异)
+输出: A^(-1)
+
+1. 对 A 进行 LU 分解（带部分主元）:  PA = LU
+2. 初始化 X = 0 ∈ R^(n×n)
+3. for j = 1 to n:
+4.     令 e_j = [0,...,1,...,0]^T  (第j个为1)
+5.     解 Ly = P*e_j      (前代)
+6.     解 Ux_j = y       (回代)
+7.     X(:,j) = x_j
+8. return X
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label><label for="__tabbed_1_2">C++</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">lu_factor</span><span class="p">,</span> <span class="n">lu_solve</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">matrix_inverse_lu</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    利用 LU 分解求逆矩阵</span>
+
+<span class="sd">    参数:</span>
+<span class="sd">        A: n×n 非奇异矩阵</span>
+<span class="sd">    返回:</span>
+<span class="sd">        A^{-1}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># LU 分解（带部分主元）</span>
+    <span class="n">lu</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">lu_factor</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># 构造单位矩阵的各列</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">e_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">e_j</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="c1"># 解 Ax = e_j</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">lu_solve</span><span class="p">((</span><span class="n">lu</span><span class="p">,</span> <span class="n">piv</span><span class="p">),</span> <span class="n">e_j</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X</span>
+
+<span class="c1"># 示例</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">A_inv</span> <span class="o">=</span> <span class="n">matrix_inverse_lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^{-1} =&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">A_inv</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;验证: A @ A^{-1} =&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">A_inv</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Eigen/Dense&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Eigen/LU&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Eigen</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="n">MatrixXd</span><span class="w"> </span><span class="nf">matrixInverseLU</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">MatrixXd</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="n">利用</span><span class="w"> </span><span class="n">LU</span><span class="w"> </span><span class="n">分解求逆矩阵</span>
+
+<span class="w">    </span><span class="nl">参数</span><span class="p">:</span>
+<span class="w">        </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">n</span><span class="err">×</span><span class="n">n</span><span class="w"> </span><span class="n">非奇异矩阵</span>
+<span class="w">    </span><span class="nl">返回</span><span class="p">:</span>
+<span class="w">        </span><span class="n">A</span><span class="o">^</span><span class="p">{</span><span class="mi">-1</span><span class="p">}</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">rows</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// LU 分解（带部分主元）</span>
+<span class="w">    </span><span class="n">PartialPivLU</span><span class="o">&lt;</span><span class="n">MatrixXd</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 求解 n 个右端项（单位矩阵各列）</span>
+<span class="w">    </span><span class="n">MatrixXd</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MatrixXd</span><span class="o">::</span><span class="n">Identity</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="n">MatrixXd</span><span class="w"> </span><span class="n">A_inv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lu</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="n">I</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">A_inv</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">MatrixXd</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">         </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">MatrixXd</span><span class="w"> </span><span class="n">A_inv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrixInverseLU</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A^{-1} =&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">A_inv</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;验证: A * A^{-1} =&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A_inv</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="_21">条件数估计的替代方法<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>由</p>
+<div class="arithmatex">\[
+Ay=d
+\]</div>
+<p>可得</p>
+<div class="arithmatex">\[
+\|A^{-1}\| \ge \frac{\|y\|}{\|d\|}
+\]</div>
+<p>通过选取合适 <span class="arithmatex">\(d\)</span>，让 <span class="arithmatex">\(\|y\|\)</span> 尽量大，可以构造 <span class="arithmatex">\(\|A^{-1}\|\)</span> 的下界估计。实际计算中常用 <strong>Hager 估计法</strong> 或 <strong>条件数迭代估计</strong>，避免显式求逆。</p>
+<h3 id="_22">条件数的几何意义<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(S\)</span> 为奇异矩阵集合。对诱导范数有：</p>
+<div class="arithmatex">\[
+\frac{1}{\mathrm{Cond}(A)}=
+\min_{A+\delta A\in S}\frac{\|\delta A\|}{\|A\|}
+\]</div>
+<p>这说明：</p>
+<ul>
+<li>条件数大 <span class="arithmatex">\(\Rightarrow\)</span> <span class="arithmatex">\(A\)</span> 离奇异矩阵集合很近（病态）</li>
+<li>条件数小 <span class="arithmatex">\(\Rightarrow\)</span> <span class="arithmatex">\(A\)</span> 离奇异集合较远（良态）</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">定理证明</p>
+<p><strong>定理</strong>：设 <span class="arithmatex">\(A \in \mathbb{R}^{n \times n}\)</span> 可逆，矩阵范数为诱导范数，则</p>
+<div class="arithmatex">\[
+\min_{A+\delta A \in S} \frac{\|\delta A\|}{\|A\|} = \frac{1}{\|A\|\,\|A^{-1}\|} = \frac{1}{\mathrm{Cond}(A)}
+\]</div>
+<p><strong>证明</strong> 分为两部分：</p>
+<p><strong>第一部分：证明 <span class="arithmatex">\(\min \frac{\|\delta A\|}{\|A\|} \geq \frac{1}{\mathrm{Cond}(A)}\)</span></strong></p>
+<p>设 <span class="arithmatex">\(A + \delta A \in S\)</span>（奇异），则存在非零向量 <span class="arithmatex">\(x\)</span> 使得</p>
+<div class="arithmatex">\[
+(A + \delta A)x = 0
+\]</div>
+<p>即</p>
+<div class="arithmatex">\[
+Ax = -\delta A x
+\]</div>
+<p>两边取范数并利用诱导范数性质：</p>
+<div class="arithmatex">\[
+\|Ax\| = \|\delta A x\| \leq \|\delta A\|\,\|x\|
+\]</div>
+<p>另一方面，由 <span class="arithmatex">\(\|Ax\| \geq \frac{\|x\|}{\|A^{-1}\|}\)</span>（因为 <span class="arithmatex">\(\|x\| = \|A^{-1}Ax\| \leq \|A^{-1}\|\,\|Ax\|\)</span>），得</p>
+<div class="arithmatex">\[
+\frac{\|x\|}{\|A^{-1}\|} \leq \|\delta A\|\,\|x\|
+\]</div>
+<p>消去 <span class="arithmatex">\(\|x\| \neq 0\)</span>：</p>
+<div class="arithmatex">\[
+\frac{1}{\|A^{-1}\|} \leq \|\delta A\|
+\]</div>
+<p>因此</p>
+<div class="arithmatex">\[
+\frac{\|\delta A\|}{\|A\|} \geq \frac{1}{\|A\|\,\|A^{-1}\|} = \frac{1}{\mathrm{Cond}(A)}
+\]</div>
+<p>这说明：<strong>任何使 <span class="arithmatex">\(A\)</span> 变为奇异的扰动 <span class="arithmatex">\(\delta A\)</span> 都必须满足 <span class="arithmatex">\(\|\delta A\| \geq \frac{\|A\|}{\mathrm{Cond}(A)}\)</span></strong>。</p>
+<hr />
+<p><strong>第二部分：证明等号可以达到</strong></p>
+<p>我们需要构造一个特定的 <span class="arithmatex">\(\delta A\)</span>，使得 <span class="arithmatex">\(A + \delta A\)</span> 奇异且 <span class="arithmatex">\(\frac{\|\delta A\|}{\|A\|} = \frac{1}{\mathrm{Cond}(A)}\)</span>。</p>
+<p>由诱导范数定义，存在单位向量 <span class="arithmatex">\(x\)</span>（<span class="arithmatex">\(\|x\| = 1\)</span>）使得</p>
+<div class="arithmatex">\[
+\|A^{-1}x\| = \|A^{-1}\|
+\]</div>
+<p>令 <span class="arithmatex">\(y = A^{-1}x\)</span>，则 <span class="arithmatex">\(\|y\| = \|A^{-1}\|\)</span> 且 <span class="arithmatex">\(Ay = x\)</span>。</p>
+<p>构造秩一扰动矩阵：</p>
+<div class="arithmatex">\[
+\delta A = -\frac{x y^T}{\|y\|^2}
+\]</div>
+<p>验证：</p>
+<div class="arithmatex">\[
+(A + \delta A)y = Ay + \delta A \cdot y = x - \frac{x y^T y}{\|y\|^2} = x - x = 0
+\]</div>
+<p>所以 <span class="arithmatex">\(A + \delta A\)</span> 是奇异矩阵（<span class="arithmatex">\(y \neq 0\)</span> 在零空间中）。</p>
+<p>计算 <span class="arithmatex">\(\|\delta A\|\)</span>（对诱导范数）：</p>
+<div class="arithmatex">\[
+\|\delta A\| = \max_{\|z\|=1} \|\delta A \cdot z\| = \max_{\|z\|=1} \frac{|y^T z|}{\|y\|^2} \|x\|
+\]</div>
+<p>当范数为 2-范数时（<span class="arithmatex">\(\|x\|_2 = 1\)</span>），由 Cauchy-Schwarz：</p>
+<div class="arithmatex">\[
+|y^T z| \leq \|y\|_2 \|z\|_2 = \|y\|_2
+\]</div>
+<p>等号当 <span class="arithmatex">\(z = y/\|y\|_2\)</span> 时成立。因此</p>
+<div class="arithmatex">\[
+\|\delta A\|_2 = \frac{\|y\|_2}{\|y\|_2^2} = \frac{1}{\|y\|_2} = \frac{1}{\|A^{-1}\|_2}
+\]</div>
+<p>于是</p>
+<div class="arithmatex">\[
+\frac{\|\delta A\|_2}{\|A\|_2} = \frac{1}{\|A\|_2 \|A^{-1}\|_2} = \frac{1}{\mathrm{Cond}_2(A)}
+\]</div>
+<p>对一般诱导范数，类似可构造达到下界的扰动。</p>
+<hr />
+<p><strong>结论</strong>：条件数的倒数正好是矩阵 <span class="arithmatex">\(A\)</span> 到最近奇异矩阵的相对距离。因此：</p>
+<ul>
+<li>当 <span class="arithmatex">\(\mathrm{Cond}(A) \gg 1\)</span> 时，<span class="arithmatex">\(\frac{1}{\mathrm{Cond}(A)} \ll 1\)</span>，说明只需很小的扰动就能使 <span class="arithmatex">\(A\)</span> 变为奇异矩阵（病态）</li>
+<li>当 <span class="arithmatex">\(\mathrm{Cond}(A) \approx 1\)</span> 时，<span class="arithmatex">\(\frac{1}{\mathrm{Cond}(A)} \approx 1\)</span>，说明需要很大的扰动才能使 <span class="arithmatex">\(A\)</span> 奇异（良态）</li>
+</ul>
+</div>
+<p><img alt="条件数与奇异集合距离" src="../pictures/lecture04_08_cond_distance.png" width="520" /></p>
+<hr />
+<h2 id="_23">超定方程组与最小二乘<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<p>当方程数 <span class="arithmatex">\(m\)</span> 大于未知数数 <span class="arithmatex">\(n\)</span> 时，得到线性超定方程组：</p>
+<div class="arithmatex">\[
+A x = b,\quad A\in\mathbb{R}^{m\times n},\ m&gt;n
+\]</div>
+<p>一般情况下无精确解，因此转化为优化问题。</p>
+<p><img alt="超定方程组定义" src="../pictures/lecture04_09_overdetermined.png" width="520" /></p>
+<h3 id="_24">残差与目标函数<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<p>定义残差（余值）</p>
+<div class="arithmatex">\[
+r_i = b_i - \sum_{j=1}^{n}a_{ij}x_j,\quad i=1,2,\dots,m
+\]</div>
+<p>残差向量（余向量）</p>
+<div class="arithmatex">\[
+r=b-Ax
+\]</div>
+<p>由于一个向量本身不具备大小的可比性，因此，我们需要引入一个实函数 <span class="arithmatex">\(F(x)\)</span>，使得</p>
+<div class="arithmatex">\[
+x = Arg_x \space min \space F(x) 
+\]</div>
+<p>定义最小二乘目标函数</p>
+<div class="arithmatex">\[
+F(x)=r^T r = \|b-Ax\|_2^2
+\]</div>
+<p><img alt="最小二乘目标函数" src="../pictures/lecture04_10_least_squares_objective.png" width="520" /></p>
+<h3 id="normal-equation">正规方程（Normal Equation）<a class="headerlink" href="#normal-equation" title="Permanent link">&para;</a></h3>
+<p>为求 <span class="arithmatex">\(F(x) = (b-Ax)^T(b-Ax)\)</span> 的极小值，令梯度 <span class="arithmatex">\(\nabla F(x)=0\)</span>。</p>
+<p><strong>详细推导过程：</strong></p>
+<p><strong>第一步：展开目标函数</strong></p>
+<p>令残差向量 <span class="arithmatex">\(r = b - Ax\)</span>，则：</p>
+<div class="arithmatex">\[
+F(x) = r^T r = (b-Ax)^T(b-Ax)
+\]</div>
+<p><strong>第二步：展开矩阵乘法</strong></p>
+<div class="arithmatex">\[
+\begin{aligned}
+(b-Ax)^T(b-Ax) 
+&amp;= b^T b - b^T(Ax) - (Ax)^T b + (Ax)^T(Ax) \\
+&amp;= b^T b - x^T A^T b - b^T A x + x^T A^T A x
+\end{aligned}
+\]</div>
+<blockquote>
+<p><strong>注释 1</strong>：注意到 <span class="arithmatex">\(b^T A x\)</span> 是一个标量（<span class="arithmatex">\(1 \times 1\)</span> 矩阵），而标量的转置等于自身，即 <span class="arithmatex">\((b^T A x)^T = x^T A^T b = b^T A x\)</span>。因此中间两项相等：<span class="arithmatex">\(b^T A x = x^T A^T b\)</span>。</p>
+</blockquote>
+<p><strong>第三步：合并并简化</strong></p>
+<div class="arithmatex">\[
+F(x) = b^T b - 2x^T A^T b + x^T A^T A x
+\]</div>
+<p><strong>第四步：对 <span class="arithmatex">\(x\)</span> 求梯度</strong></p>
+<p>利用矩阵求导的基本公式：</p>
+<ul>
+<li><span class="arithmatex">\(\frac{\partial}{\partial x}(c^T x) = c\)</span>（线性项）</li>
+<li><span class="arithmatex">\(\frac{\partial}{\partial x}(x^T Q x) = 2Qx\)</span>（二次项，当 <span class="arithmatex">\(Q\)</span> 对称时）</li>
+</ul>
+<blockquote>
+<p><strong>注释 2</strong>：这里 <span class="arithmatex">\(A^T A\)</span> 是对称矩阵（因为 <span class="arithmatex">\((A^T A)^T = A^T A\)</span>），所以二次项求导直接得到 <span class="arithmatex">\(2A^T A x\)</span>。</p>
+</blockquote>
+<p>逐项求导：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{\partial F}{\partial x} 
+&amp;= \frac{\partial}{\partial x}(b^T b) - 2\frac{\partial}{\partial x}(x^T A^T b) + \frac{\partial}{\partial x}(x^T A^T A x) \\
+&amp;= 0 - 2A^T b + 2A^T A x \\
+&amp;= 2(A^T A x - A^T b)
+\end{aligned}
+\]</div>
+<p><strong>第五步：令梯度为零</strong></p>
+<div class="arithmatex">\[
+2(A^T A x - A^T b) = 0
+\]</div>
+<p>约去因子 2，得到 <strong>正规方程</strong>：</p>
+<div class="arithmatex">\[
+A^T A x = A^T b
+\]</div>
+<p><strong>第六步：解的存在性与唯一性</strong></p>
+<p>若 <span class="arithmatex">\(\mathrm{rank}(A)=n\)</span>（<span class="arithmatex">\(A\)</span> 列满秩），则：</p>
+<ul>
+<li><span class="arithmatex">\(A^T A\)</span> 是 <span class="arithmatex">\(n \times n\)</span> 对称矩阵</li>
+<li><span class="arithmatex">\(A^T A\)</span> 正定（因为对任意非零 <span class="arithmatex">\(y\)</span>，<span class="arithmatex">\(y^T A^T A y = \|Ay\|_2^2 &gt; 0\)</span>）</li>
+<li>故 <span class="arithmatex">\(A^T A\)</span> 可逆，解唯一：<span class="arithmatex">\(x = (A^T A)^{-1} A^T b\)</span></li>
+</ul>
+<p><img alt="正规方程推导" src="../pictures/lecture04_11_normal_equation.png" width="520" /></p>
+<hr />
+<h2 id="_25">小结<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
+<ul>
+<li>误差分析核心：看输入扰动如何通过 <span class="arithmatex">\(A^{-1}\)</span> 放大到解误差</li>
+<li>条件数是衡量问题敏感性的核心量</li>
+<li>条件数可解释为“到奇异矩阵集合的相对距离倒数”</li>
+<li>超定问题通常用最小二乘，最终化为正规方程 <span class="arithmatex">\(A^T A x=A^T b\)</span></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LU分解和对称正定矩阵">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                LU分解和对称正定矩阵
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../algorithm/DP/" class="md-footer__link md-footer__link--next" aria-label="Next: DP">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                DP
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Semt0" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:2400011018@stu.pku.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","header.autohide","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.tabs","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/home-animation.js"></script>
+      
+        <script src="../../../javascripts/home-intro-words.js"></script>
+      
+        <script src="../../../javascripts/sakura-init.js"></script>
+      
+        <script src="../../../javascripts/waline-init.js"></script>
+      
+    
+  </body>
+</html>

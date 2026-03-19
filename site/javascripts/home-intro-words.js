@@ -66,9 +66,14 @@
       badgeEndTime = TEXT_START_DELAY + titleWordCount * WORD_DELAY + 0.35;
     }
 
+    // 社交图标行：等待所有文字淡入完成后再整体淡入
     var socialRow = hero.querySelector(".home-social-row");
     if (socialRow && badgeEndTime > 0) {
-      socialRow.style.animationDelay = badgeEndTime.toFixed(3) + "s";
+      // 使用 setTimeout 在文字动画完成后触发动画
+      var delayMs = Math.round(badgeEndTime * 1000);
+      setTimeout(function() {
+        socialRow.classList.add("social-row-animate");
+      }, delayMs);
     }
   }
 

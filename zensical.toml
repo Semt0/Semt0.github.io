@@ -19,7 +19,7 @@ nav = [
             "note/CVDL/ml_intro/ML_intro.md",
         ]},
         {"LLM" = [
-            
+            "note/LLM/Transformer.md", 
         ]},
         {"CS231n" = [
 
@@ -28,6 +28,7 @@ nav = [
             "note/计算方法/误差分析.md",
             "note/计算方法/Gauss消去法和主元素消去法.md",
             "note/计算方法/LU分解和对称正定矩阵.md",
+            "note/计算方法/矩阵误差分析与超定方程组.md",
         ]},
         {"算法设计与分析" = [
             "note/algorithm/DP.md",
