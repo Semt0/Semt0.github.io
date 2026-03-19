@@ -11,7 +11,8 @@ Copyright &copy; 2026 The authors
 nav = [
    {"Home" = "index.md"},
    {"Blogs" = [
-        "blog/my-first-blog.md"
+        "blog/2026-03-19.md",
+        "blog/my-first-blog.md",
    ]},
    {"Notes" = [
         {"常微分方程" = "note/ODE.md"},
@@ -64,7 +65,7 @@ extra_javascript = [
 [project.theme]
 
 #variant = "classic"
-#custom_dir = "overrides"
+custom_dir = "overrides"
 
 favicon = "images/logo.jpg"
 language = "en"

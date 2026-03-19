@@ -38,6 +38,24 @@ button.md-top {
     line-height: 1.75;
 }
 
+/* 页面日期标签 */
+.page-date {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: -0.5rem 0 1.2rem;
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light, #64748b);
+}
+
+.page-date svg {
+    opacity: 0.6;
+}
+
+[data-md-color-scheme="slate"] .page-date {
+    color: rgba(148, 163, 184, 0.85);
+}
+
 /* Admonition (tip/note/warning等) 块字号调回正常 */
 .md-typeset .admonition {
     font-size: inherit;
