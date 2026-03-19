@@ -914,6 +914,44 @@ a.resume-tag:hover {
     --waline-box-shadow: none;
 }
 
+/* ===== Recent Updates 紧凑卡片 ===== */
+.recent-updates .resume-content {
+    gap: 0.4rem;
+}
+
+.recent-updates .resume-card {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+}
+
+.recent-updates .resume-card-body {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.recent-updates .resume-card-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.recent-updates .resume-card-sub {
+    font-size: 0.78rem;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.recent-updates .resume-card-date {
+    margin: 0;
+    margin-left: auto;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
     .home-hero {

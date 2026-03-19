@@ -1,3 +1,7 @@
+---
+date: 2026-03-19
+---
+
 ## Machine Learning Basics
 
 - Machine learning: (part of ML techniques) learning a predictive model from data
