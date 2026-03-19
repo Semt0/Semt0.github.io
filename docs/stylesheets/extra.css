@@ -1,7 +1,28 @@
+/* 全局性能优化 */
+html {
+    /* 启用平滑滚动 */
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "LXGW WenKai Screen";
     font-weight: normal;
     background: #f9fafb;
+    /* 优化文字渲染 */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* 返回顶部按钮字体 */
@@ -63,16 +84,24 @@ button.md-top {
     box-shadow: none;
 }
 
-/* 个人介绍：每个单词依次淡入 */
+/* 个人介绍：每个单词依次淡入 - 性能优化 */
 @keyframes home-intro-in {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
 .home-hero .home-intro-word {
     opacity: 0;
-    animation: home-intro-in 0.45s ease forwards;
+    animation: home-intro-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     display: inline-block;
+    /* GPU 加速 */
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+}
+
+/* 动画完成后移除 will-change 以释放资源 */
+.home-hero .home-intro-word[style*="animation-delay"] {
+    animation-fill-mode: both;
 }
 
 .home-hero .home-avatar-wrap {
@@ -101,7 +130,8 @@ button.md-top {
     gap: 0.65rem;
     margin-top: 0.5rem;
     opacity: 0;
-    animation: home-intro-in 0.45s ease forwards;
+    animation: home-intro-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: opacity, transform;
 }
 
 .home-hero .home-codetime-badge {
@@ -187,30 +217,48 @@ button.md-top {
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
+    /* 优化渲染性能 */
+    contain: strict;
 }
 
 .petal {
     position: absolute;
-    top: -10vh;
+    top: -20px;
     width: 8px;
     height: 12px;
     background: radial-gradient(circle at 30% 30%, #fecaca, #fb7185);
     border-radius: 60% 40% 60% 40%;
-    opacity: 0.8;
-    filter: blur(0.2px);
+    opacity: 0.75;
+    /* 移除模糊滤镜以提升性能 */
     transform-origin: center center;
-    will-change: transform, opacity;
+    /* 强制 GPU 加速 */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* 使用 CSS 变量控制漂移 */
+    --drift: 0px;
     animation-name: petal-fall;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    /* 优化渲染层 */
+    contain: layout style;
 }
 
+/* 简化的花瓣飘落动画 - 只使用 translate3d 和 rotateZ，避免复杂的 3D 变换 */
 @keyframes petal-fall {
-    0%   { transform: translate3d(0, -10vh, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); opacity: 0; }
-    15%  { transform: translate3d(12px, 5vh, 0) rotateX(70deg) rotateY(40deg) rotateZ(60deg); opacity: 0.9; }
-    40%  { transform: translate3d(-18px, 35vh, 0) rotateX(150deg) rotateY(120deg) rotateZ(140deg); }
-    70%  { transform: translate3d(24px, 75vh, 0) rotateX(220deg) rotateY(260deg) rotateZ(260deg); }
-    100% { transform: translate3d(-10px, 110vh, 0) rotateX(260deg) rotateY(380deg) rotateZ(360deg); opacity: 0; }
+    0%   { transform: translate3d(0, -20px, 0) rotateZ(0deg); opacity: 0; }
+    10%  { transform: translate3d(calc(var(--drift) * 0.3), 10vh, 0) rotateZ(45deg); opacity: 0.85; }
+    50%  { transform: translate3d(var(--drift), 50vh, 0) rotateZ(180deg); opacity: 0.9; }
+    90%  { transform: translate3d(calc(var(--drift) * -0.3), 90vh, 0) rotateZ(315deg); opacity: 0.6; }
+    100% { transform: translate3d(calc(var(--drift) * -0.1), calc(100vh + 20px), 0) rotateZ(360deg); opacity: 0; }
+}
+
+/* 低性能设备使用更简单的动画 */
+@media (prefers-reduced-motion: reduce) {
+    .petal {
+        animation: none;
+        display: none;
+    }
 }
 
 /* ===== 主页栏目 ===== */
@@ -231,15 +279,22 @@ button.md-top {
     writing-mode: horizontal-tb;
     min-width: 0;
     overflow-wrap: break-word;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease,
-                opacity 0.55s ease-out, transform 0.55s ease-out;
+    /* 优化过渡性能 - 只动画 transform 和 opacity */
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(20px);
+    /* 初始状态优化 */
+    will-change: transform, opacity;
+    contain: layout style paint;
 }
 
 .home-section.home-section-visible {
     opacity: 1;
     transform: translateY(0);
+    /* 动画完成后释放 will-change */
+    will-change: auto;
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .home-section:hover {

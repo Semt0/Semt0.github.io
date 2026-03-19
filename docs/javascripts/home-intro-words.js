@@ -1,47 +1,74 @@
-/* 个人介绍：先显示头像，再每个单词依次淡入 */
+/* 个人介绍：先显示头像，再每个单词依次淡入 - 性能优化版 */
 (function () {
-  var WORD_DELAY = 0.065;
-  var AVATAR_DURATION = 0.5;
-  var AVATAR_DELAY = 0.1;
-  var TEXT_START_DELAY = AVATAR_DELAY + AVATAR_DURATION + 0.15;
+  var WORD_DELAY = 0.055; // 稍微缩短间隔
+  var AVATAR_DURATION = 0.4;
+  var AVATAR_DELAY = 0.08;
+  var TEXT_START_DELAY = AVATAR_DELAY + AVATAR_DURATION + 0.12;
+
+  // 使用 requestIdleCallback 或 setTimeout 延迟执行，避免阻塞首屏
+  function scheduleWork(fn) {
+    if (typeof requestIdleCallback !== 'undefined') {
+      requestIdleCallback(fn, { timeout: 100 });
+    } else {
+      setTimeout(fn, 50);
+    }
+  }
 
   function run() {
     var hero = document.querySelector(".home-hero");
     if (!hero) return;
 
+    // 使用 requestAnimationFrame 确保在下一帧执行 DOM 操作
+    requestAnimationFrame(function () {
+      processHero(hero);
+    });
+  }
+
+  function processHero(hero) {
     var title = hero.querySelector(".home-title");
+    var wordIndex = 0;
+
     if (title && !title.querySelector(".home-intro-word")) {
       var parts = title.textContent.trim().split(/(\s+)/);
-      var wordIndex = 0;
-      var html = parts
-        .map(function (p) {
-          if (/\S/.test(p)) {
-            var delay = TEXT_START_DELAY + wordIndex * WORD_DELAY;
-            wordIndex++;
-            return '<span class="home-intro-word" style="animation-delay:' + delay + 's">' + escapeHtml(p) + "</span>";
-          }
-          return escapeHtml(p);
-        })
-        .join("");
-      title.innerHTML = html;
+      var fragment = document.createDocumentFragment();
+
+      parts.forEach(function (p) {
+        if (/\S/.test(p)) {
+          var span = document.createElement("span");
+          span.className = "home-intro-word";
+          span.style.animationDelay = (TEXT_START_DELAY + wordIndex * WORD_DELAY).toFixed(3) + "s";
+          span.textContent = p;
+          // 使用 GPU 加速
+          span.style.transform = "translateZ(0)";
+          fragment.appendChild(span);
+          wordIndex++;
+        } else {
+          fragment.appendChild(document.createTextNode(p));
+        }
+      });
+
+      title.textContent = "";
+      title.appendChild(fragment);
     }
 
     var subtitle = hero.querySelector(".home-subtitle");
     var badgeEndTime = 0;
+
     if (subtitle && !subtitle.querySelector(".home-intro-word")) {
-      var titleWordCount = (title && title.textContent.trim().split(/\s+/).length) || 4;
+      var titleWordCount = wordIndex || ((title && title.textContent.trim().split(/\s+/).length) || 4);
       var subtitleStart = TEXT_START_DELAY + titleWordCount * WORD_DELAY;
       var result = wrapWordsRecursive(subtitle, subtitleStart, subtitle);
-      subtitle.innerHTML = "";
+      subtitle.textContent = "";
       subtitle.appendChild(result.fragment);
-      badgeEndTime = result.nextDelaySeconds - WORD_DELAY + 0.45;
+      badgeEndTime = result.nextDelaySeconds - WORD_DELAY + 0.35;
     } else if (title) {
-      var titleWordCount = title.textContent.trim().split(/\s+/).length || 4;
-      badgeEndTime = TEXT_START_DELAY + titleWordCount * WORD_DELAY + 0.45;
+      var titleWordCount = wordIndex || (title.textContent.trim().split(/\s+/).length || 4);
+      badgeEndTime = TEXT_START_DELAY + titleWordCount * WORD_DELAY + 0.35;
     }
+
     var socialRow = hero.querySelector(".home-social-row");
     if (socialRow && badgeEndTime > 0) {
-      socialRow.style.animationDelay = badgeEndTime + "s";
+      socialRow.style.animationDelay = badgeEndTime.toFixed(3) + "s";
     }
   }
 
@@ -57,7 +84,8 @@
           if (/\S/.test(p)) {
             var span = document.createElement("span");
             span.className = "home-intro-word";
-            span.style.animationDelay = delaySeconds + "s";
+            span.style.animationDelay = delaySeconds.toFixed(3) + "s";
+            span.style.transform = "translateZ(0)";
             span.textContent = p;
             fragment.appendChild(span);
             delaySeconds += WORD_DELAY;
@@ -83,17 +111,12 @@
     return { fragment: fragment, nextDelaySeconds: delaySeconds };
   }
 
-  function escapeHtml(s) {
-    var div = document.createElement("div");
-    div.textContent = s;
-    return div.innerHTML;
-  }
-
+  // 延迟执行动画初始化
   if (typeof document$ !== "undefined" && document$.subscribe) {
-    document$.subscribe(run);
+    document$.subscribe(function () { scheduleWork(run); });
   } else if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run);
+    document.addEventListener("DOMContentLoaded", function () { scheduleWork(run); });
   } else {
-    run();
+    scheduleWork(run);
   }
 })();
