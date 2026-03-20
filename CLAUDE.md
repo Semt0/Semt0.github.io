@@ -50,3 +50,16 @@ GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`ma
 - Dark mode (`[data-md-color-scheme="slate"]`) uses CSS variables extensively and adds a radial-gradient starfield background.
 - The homepage (`docs/index.md`) uses raw HTML with CSS classes defined in `extra.css` — it is not standard Markdown content.
 - When editing `docs/` files, the corresponding `site/` files are generated output and should be rebuilt, not manually edited.
+
+## Note-Writing Conventions
+
+When creating or editing learning notes under `docs/note/`, follow these rules:
+
+- **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
+- **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
+- **Bold text spacing**: Bold text (`**text**`) must have a space before and after (e.g., `我是 **秦始皇** 吗`).
+- **List spacing**: The first bullet point of a list must have a blank line separating it from the preceding text.
+- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="550" }`.
+- **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
+- **List numbering**: Do not mix bullet markers with numbers inside list items. Use either `- item` or `1. item`, never `- (1) item`.
+- **Markdown syntax**: Follow Zensical (Material for MkDocs fork) conventions. Refer to the official MkDocs Material documentation for details.

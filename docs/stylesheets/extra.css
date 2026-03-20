@@ -73,6 +73,44 @@ button.md-top {
     font-weight: 600;
 }
 
+/* 折叠类型的 Details 块 (???+ example/question 等) */
+.md-typeset details {
+    font-size: inherit;
+}
+
+.md-typeset details summary {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.md-typeset details p,
+.md-typeset details ul,
+.md-typeset details ol,
+.md-typeset details li {
+    font-size: inherit;
+}
+
+/* 具体类型的 Details (example, question, info, warning 等) */
+.md-typeset details.example,
+.md-typeset details.question,
+.md-typeset details.info,
+.md-typeset details.warning,
+.md-typeset details.danger,
+.md-typeset details.success,
+.md-typeset details.note {
+    font-size: inherit;
+}
+
+.md-typeset details.example p,
+.md-typeset details.question p,
+.md-typeset details.info p,
+.md-typeset details.warning p,
+.md-typeset details.danger p,
+.md-typeset details.success p,
+.md-typeset details.note p {
+    font-size: inherit;
+}
+
 /* 正文区数学公式与文字协调（KaTeX 默认 1.21em 会偏大） */
 .md-typeset .katex { font-size: 1em; }
 .md-typeset .katex-display { font-size: 1em; }

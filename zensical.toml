@@ -15,7 +15,13 @@ nav = [
         "blog/my-first-blog.md",
    ]},
    {"Notes" = [
-        {"常微分方程" = "note/ODE.md"},
+        {"复变函数" = [
+            "note/复变函数/复变数函数.md",
+            "note/复变函数/解析函数的积分表示.md",
+        ]},
+        {"常微分方程" = [
+            "note/ODE.md",
+        ]},
         {"CVDL" = [
             "note/CVDL/ml_intro/ML_intro.md",
         ]},

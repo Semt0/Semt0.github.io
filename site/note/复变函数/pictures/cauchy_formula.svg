@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" font-family="serif">
+  <defs><marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#333"/></marker></defs>
+  <!-- axes -->
+  <line x1="40" y1="260" x2="380" y2="260" stroke="#333" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="200" y1="280" x2="200" y2="20" stroke="#333" stroke-width="1.5" marker-end="url(#a2)"/>
+  <text x="375" y="278" font-size="16" font-style="italic">x</text>
+  <text x="185" y="25" font-size="16" font-style="italic">y</text>
+  <!-- domain -->
+  <path d="M90,220 Q60,130 130,60 Q210,10 310,70 Q370,130 340,210 Q300,265 200,265 Q120,260 90,220Z" fill="#e8f4e8" stroke="#2a7a2a" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="310" y="230" font-size="16" font-weight="bold" fill="#2a7a2a">B</text>
+  <!-- closed curve l -->
+  <path d="M140,200 Q110,140 150,100 Q200,65 270,90 Q320,120 300,180 Q280,220 210,225 Q160,225 140,200Z" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="120,155 115,165 128,163" fill="#c0392b"/>
+  <polygon points="290,85 298,80 293,93" fill="#c0392b"/>
+  <text x="130" y="115" font-size="14" font-style="italic" fill="#c0392b">l</text>
+  <!-- point alpha inside -->
+  <circle cx="210" cy="150" r="5" fill="#8e44ad"/>
+  <text x="220" y="148" font-size="16" font-style="italic" fill="#8e44ad">α</text>
+  <!-- small circle C_ε -->
+  <circle cx="210" cy="150" r="25" fill="none" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="185,148 187,140 183,150" fill="#e67e22"/>
+  <text x="238" y="140" font-size="12" font-style="italic" fill="#e67e22">Cε</text>
+  <text x="225" y="168" font-size="12" fill="#e67e22">R</text>
+  <line x1="210" y1="150" x2="235" y2="150" stroke="#e67e22" stroke-width="1" stroke-dasharray="3,2"/>
+</svg>
