@@ -1011,6 +1011,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补充例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三角函数与双曲三角函数公式汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函数与双曲三角函数公式汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 复变量定义（指数形式）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 和差公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-zxiy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 复数参数展开（\(z=x+iy\)）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-xiy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 商函数在 \(x+iy\) 处的常用形式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2150,6 +2222,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补充例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三角函数与双曲三角函数公式汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函数与双曲三角函数公式汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 复变量定义（指数形式）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 和差公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-zxiy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 复数参数展开（\(z=x+iy\)）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-xiy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 商函数在 \(x+iy\) 处的常用形式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2331,6 +2475,10 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 <div class="arithmatex">\[
 \oint_l f(z)\mathrm{d}z = 0
 \]</div>
+<div class="admonition tip">
+<p class="admonition-title">单联通区域</p>
+<p>在复平面 <span class="arithmatex">\(\mathbb{C}\)</span> 上，一个区域 <span class="arithmatex">\(D\)</span> 称为 <strong>单联通区域</strong>，如果对于 <span class="arithmatex">\(D\)</span> 内的任意一条简单闭曲线(即不自交的闭合曲线)，其内部全部包含在 <span class="arithmatex">\(D\)</span> 内。</p>
+</div>
 <details class="note">
 <summary>证明思路</summary>
 <p>利用 <span class="arithmatex">\(f(z) = u(x,y) + iv(x,y)\)</span>，将复积分拆为实部和虚部两个实曲线积分，再用 <strong>格林公式</strong> 化为面积分，最后利用 <strong>柯西—黎曼方程</strong> 证明被积函数为零。</p>
@@ -2338,6 +2486,14 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 \oint_l f(z)\mathrm{d}z = \oint_l [u\mathrm{d}x - v\mathrm{d}y] + i\oint_l [v\mathrm{d}x + u\mathrm{d}y]
 \]</div>
 <p>由格林公式和 C-R 条件 <span class="arithmatex">\(\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\)</span>，<span class="arithmatex">\(\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}\)</span>，两部分均为零。</p>
+<div class="admonition tip">
+<p class="admonition-title">格林公式</p>
+<p>设平面有界区域 <span class="arithmatex">\(D\)</span> 的边界 <span class="arithmatex">\(l\)</span> 分段光滑、取 <strong>正向</strong>（逆时针），若 <span class="arithmatex">\(P(x,y)\)</span>、<span class="arithmatex">\(Q(x,y)\)</span> 在 <span class="arithmatex">\(\bar{D}\)</span> 上有一阶连续偏导数，则</p>
+<div class="arithmatex">\[
+\oint_l P\,\mathrm{d}x + Q\,\mathrm{d}y = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\mathrm{d}x\,\mathrm{d}y.
+\]</div>
+<p>对 <span class="arithmatex">\(\oint_l [u\mathrm{d}x - v\mathrm{d}y]\)</span> 取 <span class="arithmatex">\(P=u\)</span>，<span class="arithmatex">\(Q=-v\)</span>，得 <span class="arithmatex">\(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = -\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\)</span>；对 <span class="arithmatex">\(\oint_l [v\mathrm{d}x + u\mathrm{d}y]\)</span> 取 <span class="arithmatex">\(P=v\)</span>，<span class="arithmatex">\(Q=u\)</span>，得 <span class="arithmatex">\(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = \frac{\partial u}{\partial x} - \frac{\partial v}{\partial y}\)</span>。代入 C-R 条件，两式右端均为 <span class="arithmatex">\(0\)</span>，故相应线积分为 <span class="arithmatex">\(0\)</span>。</p>
+</div>
 </details>
 <p><strong>推论</strong> ：单连通域的积分只与各积分曲线的 <strong>起点和终点</strong> 有关：</p>
 <div class="arithmatex">\[
@@ -2355,6 +2511,42 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 \oint_l f(z)\mathrm{d}z = \oint_{l_1} f(z)\mathrm{d}z
 \]</div>
 <p>其中 <span class="arithmatex">\(l\)</span> 和 <span class="arithmatex">\(l_1\)</span> 取相同方向（均为逆时针）。</p>
+<details class="note">
+<summary>证明</summary>
+<p><strong>1. 割线构造</strong></p>
+<p>设 <span class="arithmatex">\(l\)</span> 为外边界（逆时针），<span class="arithmatex">\(l_1\)</span> 为内边界（包围奇点）。在 <span class="arithmatex">\(l\)</span> 和 <span class="arithmatex">\(l_1\)</span> 之间作一条光滑 <strong>割线</strong> <span class="arithmatex">\(AB\)</span>，连接外边界上一点 <span class="arithmatex">\(A\)</span> 到内边界上一点 <span class="arithmatex">\(B\)</span>。</p>
+<p><strong>2. 转化为单连通域</strong></p>
+<p>割线将复连通域的边界变为一条简单闭曲线：</p>
+<div class="arithmatex">\[
+\Gamma = l + \overrightarrow{AB} + (-l_1) + \overrightarrow{BA}
+\]</div>
+<p>其中 <span class="arithmatex">\(-l_1\)</span> 表示 <span class="arithmatex">\(l_1\)</span> 的反向（顺时针）。新区域是以 <span class="arithmatex">\(\Gamma\)</span> 为边界的单连通域。</p>
+<p><strong>3. 应用单连通域柯西定理</strong></p>
+<p>由于 <span class="arithmatex">\(f(z)\)</span> 在割线后的区域内解析，由单连通域柯西定理：</p>
+<div class="arithmatex">\[
+\oint_\Gamma f(z)\,\mathrm{d}z = 0
+\]</div>
+<p>将 <span class="arithmatex">\(\Gamma\)</span> 分解为各段积分：
+$$
+\oint_\Gamma f(z)\,\mathrm{d}z = \oint_l f(z)\,\mathrm{d}z + \int_{\overrightarrow{AB}} f(z)\,\mathrm{d}z + \oint_{-l_1} f(z)\,\mathrm{d}z + \int_{\overrightarrow{BA}} f(z)\,\mathrm{d}z
+$$</p>
+<p><strong>4. 割线积分相消</strong></p>
+<p>注意到 <span class="arithmatex">\(\overrightarrow{BA}\)</span> 是 <span class="arithmatex">\(\overrightarrow{AB}\)</span> 的反向路径，因此：
+$$
+\int_{\overrightarrow{AB}} f(z)\,\mathrm{d}z + \int_{\overrightarrow{BA}} f(z)\,\mathrm{d}z = 0
+$$</p>
+<p>同时 <span class="arithmatex">\(\oint_{-l_1} f(z)\,\mathrm{d}z = -\oint_{l_1} f(z)\,\mathrm{d}z\)</span>（反向积分变号）。</p>
+<p><strong>5. 得到结论</strong></p>
+<p>代入得：
+$$
+\oint_l f(z)\,\mathrm{d}z - \oint_{l_1} f(z)\,\mathrm{d}z = 0
+$$</p>
+<p>即：
+$$
+\oint_l f(z)\,\mathrm{d}z = \oint_{l_1} f(z)\,\mathrm{d}z
+$$</p>
+<p>证毕。</p>
+</details>
 <div class="admonition info">
 <p class="admonition-title">闭路变形原理</p>
 <p>在区域内的一个解析函数沿着闭曲线的积分，不因闭曲线在区域内部作连续变形而改变它的值，只要在变形过程中曲线 <strong>不经过函数的奇点</strong> 。</p>
@@ -2363,7 +2555,7 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 <div class="arithmatex">\[
 \oint_C f(z)\mathrm{d}z = 0
 \]</div>
-<p>其中 <span class="arithmatex">\(C\)</span> 取关于区域 <span class="arithmatex">\(B\)</span> 的正向，或等价地写为：</p>
+<p>其中 <span class="arithmatex">\(C\)</span> 取关于区域 <span class="arithmatex">\(B\)</span> 的正向（即沿任意边界方向行进，区域总是在左侧），或等价地写为：</p>
 <div class="arithmatex">\[
 \oint_l f(z)\mathrm{d}z = \sum_{k=1}^{n} \oint_{l_k} f(z)\mathrm{d}z
 \]</div>
@@ -2371,10 +2563,21 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 <details class="example" open="open">
 <summary>例3：求 <span class="arithmatex">\(\oint_l \frac{1}{(z-a)^{n+1}}\mathrm{d}z\)</span>，<span class="arithmatex">\(l\)</span> 为含 <span class="arithmatex">\(a\)</span> 的任一简单闭路，<span class="arithmatex">\(n\)</span> 为整数</summary>
 <p>因为 <span class="arithmatex">\(a\)</span> 在 <span class="arithmatex">\(l\)</span> 内部，取小圆 <span class="arithmatex">\(l_1: |z-a| = \rho\)</span> 含在 <span class="arithmatex">\(l\)</span> 内，<span class="arithmatex">\(\frac{1}{(z-a)^{n+1}}\)</span> 在以 <span class="arithmatex">\(l\)</span> 和 <span class="arithmatex">\(l_1\)</span> 为边界的复连通域内处处解析。由复合闭路定理：</p>
+<div class="admonition warning">
+<p class="admonition-title">为什么不能直接用单连通域柯西定理？</p>
+<p>被积函数 <span class="arithmatex">\(f(z) = \frac{1}{(z-a)^{n+1}}\)</span> 在 <span class="arithmatex">\(z=a\)</span> 处有奇点。由于 <span class="arithmatex">\(a\)</span> 在闭曲线 <span class="arithmatex">\(l\)</span> 内部，以 <span class="arithmatex">\(l\)</span> 为边界的区域 <strong>不是单连通域</strong>（包含奇点），不满足单连通域柯西定理的条件。因此 <strong>不能直接得到积分等于零</strong> 的结论，必须通过复连通域柯西定理处理。</p>
+</div>
 <div class="arithmatex">\[
 \oint_l \frac{1}{(z-a)^{n+1}}\mathrm{d}z = \oint_{l_1} \frac{1}{(z-a)^{n+1}}\mathrm{d}z = \begin{cases} 2\pi i, &amp; n = 0 \\ 0, &amp; n \neq 0 \end{cases}
 \]</div>
 <p>此结论非常重要——闭曲线不必是圆，<span class="arithmatex">\(a\)</span> 也不必是圆心，只要 <span class="arithmatex">\(a\)</span> 在简单闭曲线内即可。</p>
+</details>
+<details class="question" open="open">
+<summary>思考题：复函数积分与一元函数定积分的关系</summary>
+<p>复函数 <span class="arithmatex">\(f(z)\)</span> 的积分定义式 <span class="arithmatex">\(\displaystyle\oint_l f(z)\mathrm{d}z\)</span> 与一元函数定积分是否一致？</p>
+<p><strong>答</strong>：</p>
+<p>若 <span class="arithmatex">\(l\)</span> 是实轴上区间 <span class="arithmatex">\([\alpha, \beta]\)</span>，则 <span class="arithmatex">\(\displaystyle\oint_l f(z)\mathrm{d}z = \int_\alpha^\beta f(x)\mathrm{d}x\)</span>，如果 <span class="arithmatex">\(f(x)\)</span> 是实值的，即为一元实函数的定积分。</p>
+<p>一般不能把起点为 <span class="arithmatex">\(\alpha\)</span>，终点为 <span class="arithmatex">\(\beta\)</span> 的函数 <span class="arithmatex">\(f(z)\)</span> 的积分记作 <span class="arithmatex">\(\displaystyle\int_\alpha^\beta f(z)\mathrm{d}z\)</span>，因为这是一个 <strong>线积分</strong> ，要受积分路线的限制，必须记作 <span class="arithmatex">\(\displaystyle\oint_l f(z)\mathrm{d}z\)</span>。</p>
 </details>
 <h3 id="_8">（三）柯西定理小结<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <ol>
@@ -2389,6 +2592,15 @@ S_n = \sum_{k=1}^{n} f(\zeta_k)(z_k - z_{k-1}) = \sum_{k=1}^{n} f(\zeta_k) \Delt
 <li>注意定理的条件 <strong>"单连通域"</strong></li>
 <li>定理不能反过来用：不能由 <span class="arithmatex">\(\oint_C f(z)\mathrm{d}z = 0\)</span> 而说 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(C\)</span> 内处处解析</li>
 </ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">积分路径无关的条件</p>
+<p>若函数 <span class="arithmatex">\(f(z)\)</span> 在 <strong>单连通域</strong> <span class="arithmatex">\(B\)</span> 内 <strong>处处解析</strong>，则积分 <span class="arithmatex">\(\displaystyle\int_{z_0}^{z} f(\zeta)\mathrm{d}\zeta\)</span> <strong>与积分路径无关</strong>，只与起点 <span class="arithmatex">\(z_0\)</span> 和终点 <span class="arithmatex">\(z\)</span> 有关。</p>
+<p>这是单连通域柯西定理的直接推论：设 <span class="arithmatex">\(l_1\)</span> 和 <span class="arithmatex">\(l_2\)</span> 为 <span class="arithmatex">\(B\)</span> 内从 <span class="arithmatex">\(z_0\)</span> 到 <span class="arithmatex">\(z\)</span> 的任意两条路径，则 <span class="arithmatex">\(l = l_1 + (-l_2)\)</span> 构成闭曲线，由柯西定理
+$$
+\oint_l f(z)\mathrm{d}z = \int_{l_1} f(z)\mathrm{d}z - \int_{l_2} f(z)\mathrm{d}z = 0
+$$
+故 <span class="arithmatex">\(\displaystyle\int_{l_1} f(z)\mathrm{d}z = \int_{l_2} f(z)\mathrm{d}z\)</span>，即积分与路径选择无关。</p>
 </div>
 <hr />
 <h2 id="33">3.3 不定积分<a class="headerlink" href="#33" title="Permanent link">&para;</a></h2>
@@ -2409,6 +2621,7 @@ F(z + \Delta z) - F(z) = \int_z^{z+\Delta z} f(\zeta)\mathrm{d}\zeta
 \frac{F(z+\Delta z) - F(z)}{\Delta z} - f(z) = \frac{1}{\Delta z}\int_z^{z+\Delta z}[f(\zeta) - f(z)]\mathrm{d}\zeta
 \]</div>
 <p>由 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(B\)</span> 内连续，<span class="arithmatex">\(|f(\zeta) - f(z)| &lt; \varepsilon\)</span>，故上式模 <span class="arithmatex">\(\le \varepsilon\)</span>，令 <span class="arithmatex">\(\Delta z \to 0\)</span> 即得 <span class="arithmatex">\(F'(z) = f(z)\)</span>。</p>
+<p><em>此定理与数学分析中对变上限积分的求导定理完全类似。</em></p>
 </details>
 <h3 id="2_1">2. 不定积分的定义<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
 <p>称 <span class="arithmatex">\(f(z)\)</span> 的原函数的一般表达式 <span class="arithmatex">\(F(z) + c\)</span>（<span class="arithmatex">\(c\)</span> 为任意常数）为 <span class="arithmatex">\(f(z)\)</span> 的 <strong>不定积分</strong> ，记作：</p>
@@ -2460,17 +2673,28 @@ f(\alpha) = \frac{1}{2\pi i}\oint_l \frac{f(z)}{z - \alpha}\mathrm{d}z
 <p>称为 <strong>柯西积分公式</strong> 。</p>
 <details class="note">
 <summary>证明思路</summary>
-<p>由闭路变形原理，将 <span class="arithmatex">\(l\)</span> 上的积分变为以 <span class="arithmatex">\(\alpha\)</span> 为中心、半径为 <span class="arithmatex">\(R\)</span> 的小圆 <span class="arithmatex">\(C_\varepsilon\)</span> 上的积分：</p>
+<p>由闭路变形原理，将 <span class="arithmatex">\(l\)</span> 上的积分变为以 <span class="arithmatex">\(\alpha\)</span> 为中心、半径为 <span class="arithmatex">\(\rho\)</span> 的小圆 <span class="arithmatex">\(C_\varepsilon\)</span> 上的积分：</p>
 <div class="arithmatex">\[
 \oint_l \frac{f(z)}{z-\alpha}\mathrm{d}z = \oint_{C_\varepsilon} \frac{f(\alpha)}{z-\alpha}\mathrm{d}z + \oint_{C_\varepsilon} \frac{f(z) - f(\alpha)}{z - \alpha}\mathrm{d}z = 2\pi i f(\alpha) + \oint_{C_\varepsilon}\frac{f(z)-f(\alpha)}{z-\alpha}\mathrm{d}z
 \]</div>
-<p>由 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(\alpha\)</span> 处连续，第二个积分的模 <span class="arithmatex">\(\le 2\pi\varepsilon \to 0\)</span>，故 <span class="arithmatex">\(\oint_l \frac{f(z)}{z-\alpha}\mathrm{d}z = 2\pi i f(\alpha)\)</span>。</p>
+<p>第一项中 <span class="arithmatex">\(f(\alpha)\)</span> 为常数，即为例 3 中 <span class="arithmatex">\(n=0\)</span> 的情形，故 <span class="arithmatex">\(\displaystyle\oint_{C_\varepsilon} \frac{f(\alpha)}{z-\alpha}\mathrm{d}z = f(\alpha) \cdot 2\pi i\)</span>。</p>
+<p><strong>第二项为何趋于零</strong> ：被积函数在 <span class="arithmatex">\(z = \alpha\)</span> 处原先形如 <span class="arithmatex">\(\frac{0}{0}\)</span>，直接代入无意义；把分子写成 <span class="arithmatex">\(f(z) - f(\alpha)\)</span> 后，剩下的正是 <strong>连续性与小圆上的积分估计</strong> 。</p>
+<p>设 <span class="arithmatex">\(C_\varepsilon\)</span> 的半径为 <span class="arithmatex">\(\rho\)</span>，<span class="arithmatex">\(z\)</span> 在 <span class="arithmatex">\(C_\varepsilon\)</span> 上时恒有 <span class="arithmatex">\(|z - \alpha| = \rho\)</span>。由 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(\alpha\)</span> 处连续：对任意给定的 <span class="arithmatex">\(\varepsilon &gt; 0\)</span>，只要 <span class="arithmatex">\(\rho\)</span> 取得足够小，当 <span class="arithmatex">\(z\)</span> 在 <span class="arithmatex">\(C_\varepsilon\)</span> 上时就有 <span class="arithmatex">\(|f(z) - f(\alpha)| &lt; \varepsilon\)</span>。于是</p>
+<div class="arithmatex">\[
+\left|\frac{f(z) - f(\alpha)}{z - \alpha}\right| = \frac{|f(z) - f(\alpha)|}{\rho} &lt; \frac{\varepsilon}{\rho}.
+\]</div>
+<p>注意：分子变小（<span class="arithmatex">\(\varepsilon\)</span>）的同时分母也是 <span class="arithmatex">\(\rho\)</span> 量级，两者 <strong>相除后</strong> 在圆周上被 <span class="arithmatex">\(\varepsilon/\rho\)</span> 控制；再用 <strong>积分估计不等式</strong> （ML 不等式）：闭路长为 <span class="arithmatex">\(2\pi\rho\)</span>，故</p>
+<div class="arithmatex">\[
+\left|\oint_{C_\varepsilon}\frac{f(z)-f(\alpha)}{z-\alpha}\mathrm{d}z\right| \le \frac{\varepsilon}{\rho} \cdot 2\pi\rho = 2\pi\varepsilon.
+\]</div>
+<p>半径 <span class="arithmatex">\(\rho\)</span> 在分子分母中 <strong>恰好相消</strong> ，估计中不再含 <span class="arithmatex">\(\rho\)</span>：对 <strong>每一个</strong> 事先给定的 <span class="arithmatex">\(\varepsilon\)</span>，只要把圆取得足够小，第二项的模就不超过 <span class="arithmatex">\(2\pi\varepsilon\)</span>。由于 <span class="arithmatex">\(\varepsilon\)</span> 任意，第二项只能为 <span class="arithmatex">\(0\)</span>。</p>
+<p>合起来得 <span class="arithmatex">\(\displaystyle\oint_l \frac{f(z)}{z-\alpha}\mathrm{d}z = 2\pi i f(\alpha)\)</span>。</p>
 </details>
 <div class="admonition info">
 <p class="admonition-title">柯西公式的意义</p>
 <ul>
-<li>把函数在 <span class="arithmatex">\(l\)</span> 内部任一点的值用它在 <strong>边界上的积分值</strong> 表示（解析函数的特征）</li>
-<li>提供了计算某些复变函数沿闭路积分的方法，也给出了解析函数的积分表达式</li>
+<li>把函数在 <span class="arithmatex">\(l\)</span> 内部任一点的值用它在 <strong>边界上的积分值</strong> 表示（解析函数的又一特征）</li>
+<li>提供了计算某些复变函数沿闭路积分的方法，而且给出了解析函数的积分表达式（这是研究解析函数的有力工具）</li>
 <li>一个解析函数在圆心处的值等于它在圆周上的 <strong>平均值</strong></li>
 </ul>
 </div>
@@ -2488,6 +2712,52 @@ f(z) = \frac{1}{2\pi i}\oint_l \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta + f(\in
 <div class="arithmatex">\[
 f(z) = \frac{1}{2\pi i}\oint_l \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta
 \]</div>
+<details class="note">
+<summary>证明</summary>
+<p><strong>步骤 1：构造复连通区域</strong></p>
+<p>以原点 <span class="arithmatex">\(O\)</span> 为圆心作大圆周 <span class="arithmatex">\(C_R\)</span>，半径为 <span class="arithmatex">\(R\)</span>，使其包含闭曲线 <span class="arithmatex">\(l\)</span> 和点 <span class="arithmatex">\(z\)</span>。由于 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(l\)</span> 外部解析，故在 <span class="arithmatex">\(l\)</span> 与 <span class="arithmatex">\(C_R\)</span> 构成的复连通区域内，由复连通区域的柯西积分公式得：</p>
+<div class="arithmatex">\[
+f(z) = \frac{1}{2\pi i}\oint_l \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta + \frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta
+\]</div>
+<p><strong>步骤 2：分析第二个积分</strong></p>
+<p>由于 <span class="arithmatex">\(f(z)\)</span> 在无穷远处连续，即任给 <span class="arithmatex">\(\varepsilon &gt; 0\)</span>，总可以找到以 <span class="arithmatex">\(O\)</span> 为中心、半径为 <span class="arithmatex">\(R_1\)</span> 的圆，使得当 <span class="arithmatex">\(|z| &gt; R_1\)</span> 时，<span class="arithmatex">\(|f(z) - f(\infty)| &lt; \varepsilon\)</span>，其中 <span class="arithmatex">\(f(\infty)\)</span> 有界。</p>
+<p>考虑积分 <span class="arithmatex">\(\displaystyle\frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta\)</span> 与 <span class="arithmatex">\(f(\infty)\)</span> 的差：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\left|\frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta - f(\infty)\right|
+&amp;= \left|\frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta - \frac{1}{2\pi i}\oint_{C_R} \frac{f(\infty)}{\zeta - z}\mathrm{d}\zeta\right| \\[6pt]
+&amp;= \frac{1}{2\pi}\left|\oint_{C_R} \frac{f(\zeta) - f(\infty)}{\zeta - z}\mathrm{d}\zeta\right| \\[6pt]
+&amp;\le \frac{1}{2\pi}\oint_{C_R} \frac{|f(\zeta) - f(\infty)|}{|\zeta - z|}|\mathrm{d}\zeta| \\[6pt]
+&amp;\le \frac{1}{2\pi}\oint_{C_R} \frac{\varepsilon}{|\zeta - z|}|\mathrm{d}\zeta|
+\end{aligned}
+\]</div>
+<p><strong>步骤 3：估计积分</strong></p>
+<p>在 <span class="arithmatex">\(C_R\)</span> 上，<span class="arithmatex">\(|\zeta| = R\)</span>，且 <span class="arithmatex">\(z\)</span> 在 <span class="arithmatex">\(C_R\)</span> 内部，故 <span class="arithmatex">\(|\zeta - z| \ge R - |z|\)</span>。因此：</p>
+<div class="arithmatex">\[
+\frac{1}{2\pi}\oint_{C_R} \frac{\varepsilon}{|\zeta - z|}|\mathrm{d}\zeta|
+\le \frac{1}{2\pi} \cdot \frac{\varepsilon}{R - |z|} \cdot 2\pi R
+= \frac{\varepsilon}{1 - \frac{|z|}{R}}
+\]</div>
+<p><strong>步骤 4：取极限</strong></p>
+<p>对于有限远点 <span class="arithmatex">\(z\)</span>，显然 <span class="arithmatex">\(\displaystyle\lim_{R \to \infty}\frac{|z|}{R} = 0\)</span>，从而：</p>
+<div class="arithmatex">\[
+\lim_{R \to \infty}\left|\frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta - f(\infty)\right| = 0
+\]</div>
+<p>即：
+$$
+\lim_{R \to \infty}\frac{1}{2\pi i}\oint_{C_R} \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta = f(\infty)
+$$</p>
+<p><strong>步骤 5：得到结论</strong></p>
+<p>令 <span class="arithmatex">\(R \to \infty\)</span>，代入步骤 1 的公式即得：
+$$
+f(z) = \frac{1}{2\pi i}\oint_l \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta + f(\infty)
+$$</p>
+<p>证毕。</p>
+<p><strong>说明</strong>：特别地，当 <span class="arithmatex">\(|z| \to \infty\)</span> 时 <span class="arithmatex">\(f(z) \to 0\)</span>，即 <span class="arithmatex">\(f(\infty) = 0\)</span>，则有特殊形式
+$$
+f(z) = \frac{1}{2\pi i}\oint_l \frac{f(\zeta)}{\zeta - z}\mathrm{d}\zeta
+$$</p>
+</details>
 <h3 id="_12">（三）高阶导数<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>解析函数 <span class="arithmatex">\(f(z)\)</span> 的导数仍为解析函数，它的 <span class="arithmatex">\(n\)</span> 阶导数为：</p>
 <div class="arithmatex">\[
@@ -2536,9 +2806,133 @@ f^{(n)}(z) = \frac{n!}{2\pi i}\oint_l \frac{f(\zeta)}{(\zeta - z)^{n+1}}\mathrm{
 \]</div>
 <details class="question" open="open">
 <summary>思考题</summary>
-<p><strong>复函数积分与实函数定积分是否一致？</strong></p>
-<p>若 <span class="arithmatex">\(l\)</span> 是实轴上区间 <span class="arithmatex">\([\alpha, \beta]\)</span>，则 <span class="arithmatex">\(\int_l f(z)\mathrm{d}z = \int_\alpha^\beta f(x)\mathrm{d}x\)</span>。如果 <span class="arithmatex">\(f(x)\)</span> 是实值的，即为一元实函数的定积分。但一般不能把积分记作 <span class="arithmatex">\(\int_\alpha^\beta f(z)\mathrm{d}z\)</span>，因为这是一个 <strong>线积分</strong> ，要受积分路线的限制，必须记作 <span class="arithmatex">\(\int_l f(z)\mathrm{d}z\)</span>。</p>
+<p>柯西积分公式是对有界区域而言的，能否推广到无界区域中？</p>
+<details class="note" open="open">
+<summary>思考题答案</summary>
+<p><strong>可以</strong>。但对函数 <span class="arithmatex">\(f(z)\)</span> 要做一些限制：设 <span class="arithmatex">\(f(z)\)</span> 在 <span class="arithmatex">\(B\)</span> 及边界 <span class="arithmatex">\(l\)</span> 上解析，并且当 <span class="arithmatex">\(z \to \infty\)</span> 时，<span class="arithmatex">\(f(z)\)</span> <strong>一致趋于零</strong>（即 <span class="arithmatex">\(\forall \varepsilon &gt; 0\)</span>，<span class="arithmatex">\(\exists R &gt; 0\)</span>，使当 <span class="arithmatex">\(|z| &gt; R\)</span> 时，<span class="arithmatex">\(|f(z)| &lt; \varepsilon\)</span>）。</p>
+<p>则对 <span class="arithmatex">\(B\)</span> 内任意一点 <span class="arithmatex">\(\beta\)</span>，有
+$$
+f(\beta) = \frac{1}{2\pi i}\oint_l \frac{f(z)}{z-\beta}\mathrm{d}z
+$$
+其中积分方向应是 <strong>顺时针方向</strong>。</p>
 </details>
+</details>
+<hr />
+<h2 id="_15">补充例题<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<details class="example" open="open">
+<summary>例：计算 <span class="arithmatex">\(\cos(2+i)\)</span>，<span class="arithmatex">\(\sin 2i\)</span>，<span class="arithmatex">\(\ctg\left(\frac{\pi}{4}-i\ln 2\right)\)</span>，<span class="arithmatex">\(\cth(2+i)\)</span></summary>
+<p><strong>解</strong> ：用到下列恒等式：</p>
+<div class="arithmatex">\[
+\cos(x+iy)=\cos x \cosh y-i\sin x \sinh y,\qquad \sin(iy)=i\sinh y
+\]</div>
+<div class="arithmatex">\[
+\cot(x+iy)=\frac{\sin 2x}{\cosh 2y-\cos 2x}-i\frac{\sinh 2y}{\cosh 2y-\cos 2x}
+\]</div>
+<div class="arithmatex">\[
+\coth(x+iy)=\frac{\sinh 2x}{\cosh 2x-\cos 2y}-i\frac{\sin 2y}{\cosh 2x-\cos 2y}
+\]</div>
+<ol>
+<li>计算 <span class="arithmatex">\(\cos(2+i)\)</span>：</li>
+</ol>
+<div class="arithmatex">\[
+\cos(2+i)=\cos 2 \cosh 1-i\sin 2 \sinh 1 \approx -0.642148-1.068607i
+\]</div>
+<ol>
+<li>计算 <span class="arithmatex">\(\sin 2i\)</span>：</li>
+</ol>
+<div class="arithmatex">\[
+\sin 2i=i\sinh 2 \approx 3.626860i
+\]</div>
+<ol>
+<li>计算 <span class="arithmatex">\(\ctg\left(\frac{\pi}{4}-i\ln 2\right)\)</span>：</li>
+</ol>
+<p>先算正切再取倒数：</p>
+<div class="arithmatex">\[
+\tan\left(\frac{\pi}{4}-i\ln 2\right)
+=\frac{\sin\frac{\pi}{2}+i\sinh(-2\ln2)}{\cos\frac{\pi}{2}+\cosh(2\ln2)}
+=\frac{1-i\cdot\frac{15}{8}}{\frac{17}{8}}
+=\frac{8-15i}{17}
+\]</div>
+<p>因而</p>
+<div class="arithmatex">\[
+\ctg\left(\frac{\pi}{4}-i\ln 2\right)
+=\frac{1}{\tan\left(\frac{\pi}{4}-i\ln 2\right)}
+=\frac{8+15i}{17}
+\]</div>
+<ol>
+<li>计算 <span class="arithmatex">\(\cth(2+i)\)</span>：</li>
+</ol>
+<div class="arithmatex">\[
+\cth(2+i)=\frac{\sinh4}{\cosh4-\cos2}-i\frac{\sin2}{\cosh4-\cos2}
+\approx 0.984332-0.032800i
+\]</div>
+</details>
+<hr />
+<h2 id="_16">三角函数与双曲三角函数公式汇总<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="1_3">1. 复变量定义（指数形式）<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\sin z=\frac{e^{iz}-e^{-iz}}{2i},\qquad
+\cos z=\frac{e^{iz}+e^{-iz}}{2},\qquad
+\tan z=\frac{\sin z}{\cos z},\qquad
+\cot z=\frac{\cos z}{\sin z}
+\]</div>
+<div class="arithmatex">\[
+\sinh z=\frac{e^z-e^{-z}}{2},\qquad
+\cosh z=\frac{e^z+e^{-z}}{2},\qquad
+\tanh z=\frac{\sinh z}{\cosh z},\qquad
+\coth z=\frac{\cosh z}{\sinh z}
+\]</div>
+<h3 id="2_3">2. 和差公式<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\sin(x\pm y)=\sin x\cos y\pm \cos x\sin y
+\]</div>
+<div class="arithmatex">\[
+\cos(x\pm y)=\cos x\cos y\mp \sin x\sin y
+\]</div>
+<div class="arithmatex">\[
+\tan(x\pm y)=\frac{\tan x\pm \tan y}{1\mp \tan x\tan y}
+\]</div>
+<div class="arithmatex">\[
+\sinh(x\pm y)=\sinh x\cosh y\pm \cosh x\sinh y
+\]</div>
+<div class="arithmatex">\[
+\cosh(x\pm y)=\cosh x\cosh y\pm \sinh x\sinh y
+\]</div>
+<div class="arithmatex">\[
+\tanh(x\pm y)=\frac{\tanh x\pm \tanh y}{1\pm \tanh x\tanh y}
+\]</div>
+<h3 id="3-zxiy">3. 复数参数展开（<span class="arithmatex">\(z=x+iy\)</span>）<a class="headerlink" href="#3-zxiy" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\sin(x+iy)=\sin x\cosh y+i\cos x\sinh y
+\]</div>
+<div class="arithmatex">\[
+\cos(x+iy)=\cos x\cosh y-i\sin x\sinh y
+\]</div>
+<div class="arithmatex">\[
+\sinh(x+iy)=\sinh x\cos y+i\cosh x\sin y
+\]</div>
+<div class="arithmatex">\[
+\cosh(x+iy)=\cosh x\cos y+i\sinh x\sin y
+\]</div>
+<div class="arithmatex">\[
+\sin(iy)=i\sinh y,\qquad
+\cos(iy)=\cosh y,\qquad
+\sinh(iy)=i\sin y,\qquad
+\cosh(iy)=\cos y
+\]</div>
+<h3 id="4-xiy">4. 商函数在 <span class="arithmatex">\(x+iy\)</span> 处的常用形式<a class="headerlink" href="#4-xiy" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\tan(x+iy)=\frac{\sin 2x}{\cos 2x+\cosh 2y}+i\frac{\sinh 2y}{\cos 2x+\cosh 2y}
+\]</div>
+<div class="arithmatex">\[
+\cot(x+iy)=\frac{\sin 2x}{\cosh 2y-\cos 2x}-i\frac{\sinh 2y}{\cosh 2y-\cos 2x}
+\]</div>
+<div class="arithmatex">\[
+\tanh(x+iy)=\frac{\sinh 2x}{\cosh 2x+\cos 2y}+i\frac{\sin 2y}{\cosh 2x+\cos 2y}
+\]</div>
+<div class="arithmatex">\[
+\coth(x+iy)=\frac{\sinh 2x}{\cosh 2x-\cos 2y}-i\frac{\sin 2y}{\cosh 2x-\cos 2y}
+\]</div>
 
 
 
