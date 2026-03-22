@@ -5,7 +5,7 @@ site_description = "Blogs from Semt0"
 site_author = "Semt0"
 site_url = "https://semt0.github.io/"
 copyright = """
-Copyright &copy; 2026 The authors
+Copyright &copy; 2026 Semt0
 """
 
 nav = [
