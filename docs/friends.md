@@ -1,26 +1,26 @@
 ---
 icon: lucide/users
-title: Friends
+title: 友链
 ---
 
-# Friends
+# 友链
 
-Welcome to exchange blogroll links.  
-If you'd like to be added here, feel free to contact me via email or GitHub issues.
+欢迎交换友链！
+如果你想出现在这里，欢迎通过邮件或 GitHub Issues 联系我。
 
-## How to apply
+## 申请格式
 
-- **Site name**: the title of your blog  
-- **Site URL**: full URL   
-- **One-line description**: a short sentence about your site
+- **站点名称**：你的博客标题
+- **站点链接**：完整 URL
+- **一句话介绍**：关于你站点的简短描述
 
-You can reach me via:
+联系方式：
 
-- Email: `smingtao00@gmail.com`
-- GitHub: [`Semt0`](https://github.com/Semt0)
+- 邮箱：`smingtao00@gmail.com`
+- GitHub：[`Semt0`](https://github.com/Semt0)
 ---
 
-## Friend sites
+## 友情链接
 
 <div class="friend-grid">
 
@@ -31,11 +31,11 @@ You can reach me via:
     <div class="friend-card-content">
       <div class="friend-card-title">
         <a href="https://vvkahpm.github.io" target="_blank" rel="noopener noreferrer">
-          WKAHPM's Blog
+          WKAHPM 的博客
         </a>
       </div>
       <div class="friend-card-desc">
-        Personal blog by WKAHPM.
+        WKAHPM 的个人博客
       </div>
     </div>
   </div>
