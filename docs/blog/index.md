@@ -1,3 +1,9 @@
 ---
-icon: lucide/rocket
+icon: lucide/pen-line
 ---
+
+# 博客
+
+这里记录我的想法、学习笔记和生活点滴。
+
+欢迎阅读和交流！

@@ -11,9 +11,11 @@ Copyright &copy; 2026 Semt0
 nav = [
    {"Home" = "index.md"},
    {"Blogs" = [
+        "blog/index.md",
         "blog/2026-03-19.md",
    ]},
    {"Notes" = [
+        "note/index.md",
         {"复变函数" = [
             "note/复变函数/复变数函数.md",
             "note/复变函数/解析函数的积分表示.md",
@@ -25,7 +27,7 @@ nav = [
             "note/CVDL/ml_intro/ML_intro.md",
         ]},
         {"LLM" = [
-            "note/LLM/Transformer.md", 
+            "note/LLM/Transformer.md",
         ]},
         {"CS231n" = [
             "note/cs231n/Image Classification with Linear Classifiers.md",
@@ -46,7 +48,7 @@ nav = [
         {"Rust程序设计" = [
             "note/Rust程序设计/2026-03-16.md"
         ]}
-        
+
    ]},
    {"Friends" = "friends.md"},
 ]
