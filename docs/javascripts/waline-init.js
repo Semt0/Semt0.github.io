@@ -25,6 +25,7 @@
         el: "#waline",
         serverURL: "https://my-waline-eta-beige.vercel.app",
         path: window.location.pathname,
+        dark: '[data-md-color-scheme="slate"]',
       };
 
       // 显式复用页面已加载的 KaTeX，确保评论区公式渲染稳定一致。
