@@ -20,7 +20,7 @@ title: 友链
 - GitHub：[`Semt0`](https://github.com/Semt0)
 ---
 
-## 友情链接
+## 友链
 
 <div class="friend-grid">
 
