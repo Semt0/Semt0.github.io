@@ -1,0 +1,3876 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Blogs from Semt0">
+      
+      
+        <meta name="author" content="Semt0">
+      
+      
+        <link rel="canonical" href="https://semt0.github.io/note/ai%E7%A1%AC%E4%BB%B6/%E5%A4%8D%E6%9D%82%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E4%B8%8E%E6%8C%87%E4%BB%A4%E9%9B%86/">
+      
+      
+        <link rel="prev" href="../%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <link rel="next" href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/logo.jpg">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>复杂计算单元与指令集 - Semt0's Blog</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-header__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Semt0's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              复杂计算单元与指令集
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="cyan"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  Friends
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Semt0&#x27;s Blog" class="md-nav__button md-logo" aria-label="Semt0's Blog" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    Semt0's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../blog/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-pen-line" viewBox="0 0 24 24"><path d="M13 21h8M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Blogs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blogs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/2026-03-19/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-calendar" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    开学三周漫谈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复变函数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复变函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/%E5%A4%8D%E5%8F%98%E6%95%B0%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章 复变数函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 解析函数的积分表示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常微分方程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常微分方程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ODE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常微分方程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CVDL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CVDL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CVDL/ml_intro/ML_intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLM/Transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS231n
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CS231n
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs231n/Image%20Classification%20with%20Linear%20Classifiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture 2: Image Classification with Linear Classifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs231n/Regularization%20and%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture 3: Regularization and Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算方法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算方法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    误差分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/Gauss%E6%B6%88%E5%8E%BB%E6%B3%95%E5%92%8C%E4%B8%BB%E5%85%83%E7%B4%A0%E6%B6%88%E5%8E%BB%E6%B3%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss消去法和主元素消去法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/LU%E5%88%86%E8%A7%A3%E5%92%8C%E5%AF%B9%E7%A7%B0%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LU分解和对称正定矩阵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/%E7%9F%A9%E9%98%B5%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90%E4%B8%8E%E8%B6%85%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵误差分析与超定方程组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法设计与分析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法设计与分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithm/DP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI硬件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI硬件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数字逻辑与计算单元设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复杂计算单元与指令集
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复杂计算单元与指令集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据格式与复杂计算单元
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据格式与复杂计算单元">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加法器设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加法器设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ripple-carry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ripple Carry 加法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pgk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于 PGK 的加法器设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从单比特到多比特：组合 PG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PG 合并的三种基本单元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂 PG 树加法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法器设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="乘法器设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本原理：为什么乘法比加法难
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阵列乘法器：最直接的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要减少部分积数量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix 编码：分组减少部分积
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码的核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radix-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix-4 布斯编码推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码计算实例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法器设计总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位移器设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂模块电路设计 1：卷积加速（Winograd）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂模块电路设计 1：卷积加速（Winograd）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        卷积基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1d-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1D Winograd：减少乘法的原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Winograd 矩阵形式与变换矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winograd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Winograd 复杂度分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Winograd：嵌套的一维算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvdla-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NVDLA 中的 Winograd 实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2cordic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂模块电路设计 2：CORDIC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂模块电路设计 2：CORDIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        伪旋转
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择旋转角度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cordic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORDIC 迭代
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling Factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cordic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORDIC 硬件架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制单元设计与时序分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制单元设计与时序分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机（FSM）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="状态机（FSM）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机设计实例：红绿灯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机设计步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电路时序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电路时序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么需要时钟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        同步时序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时钟不稳定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指令集设计与微架构基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令集设计与微架构基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么需要指令集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cisc-vs-risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CISC vs RISC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        冯诺依曼架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        寄存器的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指令集操作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust程序设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust程序设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03 16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据格式与复杂计算单元
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据格式与复杂计算单元">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加法器设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加法器设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ripple-carry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ripple Carry 加法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pgk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于 PGK 的加法器设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从单比特到多比特：组合 PG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PG 合并的三种基本单元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pg_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂 PG 树加法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法器设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="乘法器设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本原理：为什么乘法比加法难
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阵列乘法器：最直接的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要减少部分积数量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix 编码：分组减少部分积
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码的核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radix-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix-4 布斯编码推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        布斯编码计算实例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法器设计总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位移器设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂模块电路设计 1：卷积加速（Winograd）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂模块电路设计 1：卷积加速（Winograd）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        卷积基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1d-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1D Winograd：减少乘法的原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Winograd 矩阵形式与变换矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winograd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Winograd 复杂度分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Winograd：嵌套的一维算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvdla-winograd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NVDLA 中的 Winograd 实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2cordic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂模块电路设计 2：CORDIC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂模块电路设计 2：CORDIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        伪旋转
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择旋转角度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cordic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORDIC 迭代
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling Factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cordic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORDIC 硬件架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制单元设计与时序分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制单元设计与时序分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机（FSM）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="状态机（FSM）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机设计实例：红绿灯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态机设计步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        电路时序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="电路时序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么需要时钟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        同步时序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时钟不稳定性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指令集设计与微架构基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令集设计与微架构基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么需要指令集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cisc-vs-risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CISC vs RISC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        冯诺依曼架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        寄存器的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指令集操作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Notes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E8%AE%BE%E8%AE%A1/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AI硬件
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1>复杂计算单元与指令集</h1>
+
+
+<div class="page-date">
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  <time>2026-03-26</time>
+</div>
+
+<h2 id="_1">数据格式与复杂计算单元<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">加法器设计<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="ripple-carry">Ripple Carry 加法器<a class="headerlink" href="#ripple-carry" title="Permanent link">&para;</a></h4>
+<p><img alt="Ripple Carry加法器" src="../pictures/lec4_13_ripple_carry.png" width="550" /></p>
+<p>将多个 1-bit 全加器串联，前一级的 <span class="arithmatex">\(C_{out}\)</span> 作为下一级的 <span class="arithmatex">\(C_{in}\)</span>。</p>
+<ul>
+<li>最差延迟与比特数呈 <strong>线性关系</strong> ：<span class="arithmatex">\(t_d = O(N)\)</span></li>
+<li><span class="arithmatex">\(t_{adder} = (N-1) \cdot t_{carry} + t_{sum}\)</span></li>
+<li>目标：设计拥有最快可能进位路径的电路</li>
+</ul>
+<h4 id="pgk">基于 PGK 的加法器设计<a class="headerlink" href="#pgk" title="Permanent link">&para;</a></h4>
+<p><img alt="PGK加法器" src="../pictures/lec4_14_pgk.png" width="550" /></p>
+<p>Ripple Carry 加法器的瓶颈在于 <strong>进位链</strong> ——每一位的进位都依赖前一位的结果，必须串行等待。PGK 方法的核心思想是：<strong>预先判断每一位会如何处理进位</strong> ，从而打破串行依赖。</p>
+<p>对每一位，根据输入 <span class="arithmatex">\(A_i\)</span> 和 <span class="arithmatex">\(B_i\)</span> 的值，进位行为只有三种可能：</p>
+<ul>
+<li><strong>Generate</strong> （<span class="arithmatex">\(G_i = A_i \cdot B_i\)</span>）：当 <span class="arithmatex">\(A_i = B_i = 1\)</span> 时，无论进位输入 <span class="arithmatex">\(C_{in}\)</span> 是什么，一定会 <strong>产生</strong> 进位 <span class="arithmatex">\(C_{out} = 1\)</span></li>
+<li><strong>Propagate</strong> （<span class="arithmatex">\(P_i = A_i \oplus B_i\)</span>）：当 <span class="arithmatex">\(A_i \neq B_i\)</span> 时，进位输出 <strong>等于</strong> 进位输入，即 <span class="arithmatex">\(C_{out} = C_{in}\)</span>，进位被"传播"</li>
+<li><strong>Kill</strong> （<span class="arithmatex">\(K_i = \overline{A_i} \cdot \overline{B_i}\)</span>）：当 <span class="arithmatex">\(A_i = B_i = 0\)</span> 时，无论 <span class="arithmatex">\(C_{in}\)</span> 是什么，进位一定被 <strong>消灭</strong> ，<span class="arithmatex">\(C_{out} = 0\)</span></li>
+</ul>
+<p>注意 G、P、K 三者互斥且完备（恰好覆盖所有情况），因此只需要 G 和 P 就能完全确定进位行为（<span class="arithmatex">\(K = \overline{G} \cdot \overline{P}\)</span>）。</p>
+<p>利用 G 和 P，进位和求和可以统一表达为：</p>
+<div class="arithmatex">\[
+C_o(G, P) = G + P \cdot C_i, \quad S(G, P) = P \oplus C_i
+\]</div>
+<p>直观理解：要么自己产生进位（G），要么把别人的进位传过来（<span class="arithmatex">\(P \cdot C_i\)</span>）。</p>
+<h4 id="pg">从单比特到多比特：组合 PG<a class="headerlink" href="#pg" title="Permanent link">&para;</a></h4>
+<p><img alt="Carry-Ripple PG" src="../pictures/lec4_15_carry_ripple_pg.png" width="550" /></p>
+<p>单比特的 G 和 P 可以 <strong>逐级合并</strong> ，得到覆盖多位范围的"组合 PG"。定义 <span class="arithmatex">\(G_{i:0}\)</span> 表示"第 0 位到第 <span class="arithmatex">\(i\)</span> 位这个范围内，是否会产生进位"：</p>
+<div class="arithmatex">\[
+C_{i:0} = G_i + P_i \cdot C_{i-1:0}
+\]</div>
+<p>展开递推可以得到：</p>
+<ul>
+<li><span class="arithmatex">\(G_{1:0} = G_1 + P_1 \cdot G_0\)</span>（含义：第 1 位自己产生进位，或者第 1 位传播、且第 0 位产生进位）</li>
+<li><span class="arithmatex">\(G_{2:0} = G_2 + P_2 \cdot G_{1:0}\)</span></li>
+</ul>
+<p>初始条件 <span class="arithmatex">\(G_{0:0} = C_{in}\)</span>，<span class="arithmatex">\(P_{0:0} = 0\)</span>。最终每一位的进位输出 <span class="arithmatex">\(C_{out,i} = G_{i:0}\)</span>。</p>
+<p>如果仍然逐级串行计算 <span class="arithmatex">\(G_{i:0}\)</span>，延迟还是 <span class="arithmatex">\(O(N)\)</span>，但关键在于：<strong>合并操作满足结合律</strong> ，可以用树形结构并行计算！</p>
+<p>延迟：<span class="arithmatex">\(t_{adder} = t_{setup} + (N-1) \cdot t_{carry} + \max(t_{carry}, t_{sum})\)</span></p>
+<h4 id="pg_1">PG 合并的三种基本单元<a class="headerlink" href="#pg_1" title="Permanent link">&para;</a></h4>
+<p><img alt="PG生成逻辑" src="../pictures/lec4_16_pg_cells.png" width="550" /></p>
+<p>为了构建树形结构，定义三种基本硬件单元：</p>
+<ul>
+<li><strong>Black cell</strong> ：将两个相邻区间的 PG 合并为一个更大区间的 PG<ul>
+<li>输入：左区间 <span class="arithmatex">\((P_{j:i}, G_{j:i})\)</span> 和右区间 <span class="arithmatex">\((P_{k:j+1}, G_{k:j+1})\)</span></li>
+<li>输出：合并区间 <span class="arithmatex">\((P_{k:i}, G_{k:i})\)</span></li>
+<li>公式：<span class="arithmatex">\(P_{k:i} = P_{k:j+1} \cdot P_{j:i}\)</span>，<span class="arithmatex">\(G_{k:i} = G_{k:j+1} + P_{k:j+1} \cdot G_{j:i}\)</span></li>
+<li>直观理解：大区间的 Propagate 要求每一位都 Propagate；大区间的 Generate 要么右半产生，要么右半传播且左半产生</li>
+</ul>
+</li>
+<li><strong>Gray cell</strong> ：只输出 <span class="arithmatex">\(G_{k:i}\)</span>（不计算 <span class="arithmatex">\(P_{k:i}\)</span>），用于最终进位输出的位置（因为最终只需要 <span class="arithmatex">\(G_{i:0}\)</span> 来得到进位，不再需要向后传播 P）</li>
+<li><strong>Buffer</strong> ：简单转发 <span class="arithmatex">\(G_{k:i}\)</span> 和 <span class="arithmatex">\(P_{k:i}\)</span>，用于对齐延迟</li>
+</ul>
+<h4 id="pg_2">复杂 PG 树加法器<a class="headerlink" href="#pg_2" title="Permanent link">&para;</a></h4>
+<p><img alt="PG树加法器" src="../pictures/lec4_17_pg_tree.png" width="550" /></p>
+<p>有了可结合的合并操作和基本单元，就可以构建 <strong>树形结构</strong> 并行计算所有 <span class="arithmatex">\(G_{i:0}\)</span>，将进位延迟从 <span class="arithmatex">\(O(N)\)</span> 降低到 <span class="arithmatex">\(O(\log N)\)</span>。</p>
+<p>以 16 位加法器为例，树的工作过程：</p>
+<ol>
+<li><strong>第 1 层（2's）</strong> ：每两个相邻位合并，得到 <span class="arithmatex">\(G_{1:0}, G_{3:2}, G_{5:4}, \ldots\)</span></li>
+<li><strong>第 2 层（4's）</strong> ：每两个 2-bit 区间合并，得到 <span class="arithmatex">\(G_{3:0}, G_{7:4}, \ldots\)</span></li>
+<li><strong>第 3 层（8's）</strong> ：合并为 8-bit 区间，得到 <span class="arithmatex">\(G_{7:0}, G_{15:8}\)</span></li>
+<li><strong>第 4 层</strong> ：最终合并得到 <span class="arithmatex">\(G_{15:0}\)</span></li>
+</ol>
+<p>每一层只需 1 级门延迟，总共 <span class="arithmatex">\(\log_2(16) = 4\)</span> 层，远快于 Ripple Carry 的 15 级。</p>
+<p>但不同的树形拓扑在 <strong>逻辑层数、扇出（fanout）和布线复杂度</strong> 之间存在不同的权衡：</p>
+<p><img alt="PG树变体" src="../pictures/lec4_18_pg_variants.png" width="550" /></p>
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>逻辑层数</th>
+<th>Fanout</th>
+<th>布线复杂度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kogge-Stone</strong></td>
+<td><span class="arithmatex">\(\log_2(N)\)</span></td>
+<td>低</td>
+<td>高</td>
+<td>每一层每个位置都有 black cell，布线最密集但延迟最低</td>
+</tr>
+<tr>
+<td><strong>Brent-Kung</strong></td>
+<td><span class="arithmatex">\(2\log_2(N)\)</span></td>
+<td>低</td>
+<td>低</td>
+<td>先向上合并（forward tree）再向下分发（backward tree），节省面积</td>
+</tr>
+<tr>
+<td><strong>Sklansky</strong></td>
+<td><span class="arithmatex">\(\log_2(N)\)</span></td>
+<td>高</td>
+<td>低</td>
+<td>布线简单但高层的 fanout 指数增长，需要更大的驱动</td>
+</tr>
+<tr>
+<td><strong>Han-Carlson</strong></td>
+<td><span class="arithmatex">\(\log_2(N)+1\)</span></td>
+<td>低</td>
+<td>中</td>
+<td>Kogge-Stone 的隔一取一 + 1 级 ripple，布线减半，功耗约为 Kogge-Stone 一半</td>
+</tr>
+</tbody>
+</table>
+<p>实际设计中的选择取决于具体约束：追求极致速度选 Kogge-Stone，面积受限选 Brent-Kung，需要平衡则选 Han-Carlson。</p>
+<h3 id="_3">乘法器设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h4 id="_4">基本原理：为什么乘法比加法难<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p><img alt="乘法器基本原理" src="../pictures/lec4_19_mult_basic.png" width="550" /></p>
+<p>回忆小学学的竖式乘法：把乘数的每一位分别与被乘数相乘，得到多个 <strong>部分乘积（partial products）</strong> ，再对齐相加。二进制乘法完全一样，只是每个部分乘积要么是 0（该位为 0），要么是被乘数本身左移若干位（该位为 1）。</p>
+<p><span class="arithmatex">\(M \times N\)</span> 比特乘法：</p>
+<ul>
+<li>产生 N 个 M 比特部分乘积</li>
+<li>求和得到 <span class="arithmatex">\(M+N\)</span> 比特的结果</li>
+</ul>
+<div class="arithmatex">\[
+P = \left(\sum_{j=0}^{M-1} y_j 2^j\right) \left(\sum_{i=0}^{N-1} x_i 2^i\right) = \sum_{i=0}^{N-1} \sum_{j=0}^{M-1} x_i y_j 2^{i+j}
+\]</div>
+<p><img alt="部分积dot diagram" src="../pictures/lec4_20_mult_dot.png" width="550" /></p>
+<p>上图中每个点代表一个 1-bit 乘积 <span class="arithmatex">\(x_i \cdot y_j\)</span>（即一个 AND 门的输出）。乘法器设计的核心问题就是 <strong>如何高效地把这些点加起来</strong> 。</p>
+<h4 id="_5">阵列乘法器：最直接的实现<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p><img alt="阵列乘法器" src="../pictures/lec4_21_mult_array.png" width="550" /></p>
+<p>最直观的做法：用一行行的加法器，从上到下逐行累加部分积。</p>
+<ul>
+<li><strong>CSA（Carry Save Adder）</strong> ：每个 CSA 接收三个输入（上一行的 Sum、Carry 和新的部分积），输出两个值（新的 Sum 和 Carry），而 <strong>不传播进位</strong> 。这使得每一行的延迟是固定的（一个全加器的延迟），与位宽无关。</li>
+<li><strong>CPA（Carry Propagate Adder）</strong> ：最后一级需要一个普通加法器（如 Ripple Carry 或 PG 树加法器）将最终的 Sum 和 Carry 相加，产生进位传播。</li>
+</ul>
+<p>关键路径延迟 = <span class="arithmatex">\((N-1)\)</span> 行 CSA 延迟 + 1 个 CPA 延迟。CSA 部分是 <span class="arithmatex">\(O(N)\)</span>，CPA 部分取决于加法器类型。</p>
+<h4 id="_6">为什么要减少部分积数量<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>阵列乘法器的 CSA 部分延迟正比于部分积的行数 N。如果能 <strong>减少部分积的行数</strong> ，就能直接减少 CSA 层数，从而降低延迟。</p>
+<h4 id="radix">Radix 编码：分组减少部分积<a class="headerlink" href="#radix" title="Permanent link">&para;</a></h4>
+<p><img alt="Radix编码" src="../pictures/lec4_22_radix_encoding.png" width="550" /></p>
+<p>核心思想：不再逐位查看乘数，而是 <strong>每 <span class="arithmatex">\(r\)</span> 位一组</strong> 。这样部分积从 N 个减少到 <span class="arithmatex">\(N/r\)</span> 个。</p>
+<p>以 <span class="arithmatex">\(r = 2\)</span>（Radix-4）为例：每次看乘数的 2 位，部分积可能是 <span class="arithmatex">\(0, Y, 2Y, 3Y\)</span>。</p>
+<ul>
+<li><span class="arithmatex">\(0\)</span>：直接跳过</li>
+<li><span class="arithmatex">\(Y\)</span>：就是被乘数本身</li>
+<li><span class="arithmatex">\(2Y\)</span>：被乘数左移 1 位（硬件中只需要接线，不需要逻辑门）</li>
+<li><span class="arithmatex">\(3Y\)</span>：这是问题所在——<span class="arithmatex">\(3Y\)</span> 无法通过简单的移位得到，需要一个额外的加法器来算 <span class="arithmatex">\(2Y + Y\)</span></li>
+</ul>
+<p><span class="arithmatex">\(3Y\)</span> 的问题促使了布斯编码的发明。</p>
+<h4 id="_7">布斯编码的核心思想<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>布斯编码的核心洞察是：<span class="arithmatex">\(3 = 4 - 1\)</span>，即 <span class="arithmatex">\(3Y = 4Y - Y\)</span>。</p>
+<p>而 <span class="arithmatex">\(4Y\)</span> 恰好是下一组部分积的权重（左移 2 位），可以 <strong>向下一组"借位"</strong> 。这样所有部分积都只需要 <span class="arithmatex">\(0, \pm Y, \pm 2Y\)</span>，全部可以通过 <strong>移位和取反</strong> 实现，不需要额外的加法器！</p>
+<p>类似地，<span class="arithmatex">\(2Y\)</span> 也可以表示为 <span class="arithmatex">\(4Y - 2Y\)</span>，向下一组借位。</p>
+<h4 id="radix-4">Radix-4 布斯编码推导<a class="headerlink" href="#radix-4" title="Permanent link">&para;</a></h4>
+<p>将补码数 <span class="arithmatex">\(y\)</span> 按两位一组重新分组。补码表示下：</p>
+<div class="arithmatex">\[
+y = -2^{n-1}y_{n-1} + 2^{n-2}y_{n-2} + \cdots + 2y_1 + y_0 + y_{-1} \quad (y_{-1} = 0)
+\]</div>
+<p>通过在每两位边界处加减相同的项（配对消去），可以整理为：</p>
+<div class="arithmatex">\[
+y = 2^{n-2}(-2y_{n-1} + y_{n-2} + y_{n-3}) + \cdots + 2(-2y_3 + y_2 + y_1) + (-2y_1 + y_0 + y_{-1})
+\]</div>
+<p>每组括号内 <span class="arithmatex">\((-2y_{2i+1} + y_{2i} + y_{2i-1})\)</span> 的取值范围是 <span class="arithmatex">\(\{-2, -1, 0, 1, 2\}\)</span>，恰好对应 <span class="arithmatex">\(\{-2Y, -Y, 0, Y, 2Y\}\)</span>。</p>
+<h4 id="_8">布斯编码表<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><img alt="布斯编码表" src="../pictures/lec4_25_booth.png" width="550" /></p>
+<p>查看 <span class="arithmatex">\((x_{2i+1}, x_{2i}, x_{2i-1})\)</span> 三位（注意 <span class="arithmatex">\(x_{-1} = 0\)</span>），部分积的选择和控制信号如下：</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(x_{2i+1}\)</span></th>
+<th><span class="arithmatex">\(x_{2i}\)</span></th>
+<th><span class="arithmatex">\(x_{2i-1}\)</span></th>
+<th>部分积 <span class="arithmatex">\(PP_i\)</span></th>
+<th>SINGLE</th>
+<th>DOUBLE</th>
+<th>NEG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>Y</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Y</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2Y</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>-2Y</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>-Y</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>-Y</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-0 (=0)</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>硬件实现只需要 3 个控制信号：</p>
+<ul>
+<li><strong>SINGLE</strong> ：选择 <span class="arithmatex">\(\pm Y\)</span></li>
+<li><strong>DOUBLE</strong> ：选择 <span class="arithmatex">\(\pm 2Y\)</span>（Y 左移 1 位）</li>
+<li><strong>NEG</strong> ：取补码（按位取反加 1）</li>
+</ul>
+<p>布斯编码要求：</p>
+<ul>
+<li>乘数、被乘数、结果均为 <strong>补码</strong></li>
+<li>乘法计算前在乘数末尾补零（<span class="arithmatex">\(x_{-1} = 0\)</span>）</li>
+<li>被乘数使用 <strong>双符号位</strong> （保证 <span class="arithmatex">\(-2Y\)</span> 不溢出）</li>
+<li>符号位参与计算</li>
+</ul>
+<h4 id="_9">布斯编码计算实例<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><strong>例 1：</strong> <span class="arithmatex">\(Y \times Q = -6 \times -7\)</span>（4bit）</p>
+<p><img alt="布斯编码例1" src="../pictures/lec4_26_booth_example1.png" width="550" /></p>
+<ol>
+<li><span class="arithmatex">\(Y = -6 = 1010\)</span>，<span class="arithmatex">\(Q = -7 = 1001\)</span>，<span class="arithmatex">\(-Y = 6 = 0110\)</span></li>
+<li>乘数 Q 后补零：<span class="arithmatex">\(Q = 1001\underline{0}\)</span></li>
+<li>被乘数双符号位：<span class="arithmatex">\(Y = 111010\)</span>，<span class="arithmatex">\(-Y = 000110\)</span></li>
+<li>按两位分组，查表确定每组的部分积：<ul>
+<li>Step 1：查看 <span class="arithmatex">\(Q\)</span> 的 <span class="arithmatex">\((x_1, x_0, x_{-1}) = (0, 1, 0)\)</span> → 部分积 = <span class="arithmatex">\(Y = 111010\)</span>，符号扩展后 <span class="arithmatex">\(A = 11111010\)</span></li>
+<li>Step 2：查看 <span class="arithmatex">\(Q\)</span> 的 <span class="arithmatex">\((x_3, x_2, x_1) = (1, 0, 0)\)</span> → 部分积 = <span class="arithmatex">\(-2Y = 000110\)</span>，左移 2 位后 <span class="arithmatex">\(A = 00110000\)</span></li>
+</ul>
+</li>
+<li>结果：<span class="arithmatex">\(11111010 + 00110000 = 00101010 = 42\)</span></li>
+</ol>
+<p><strong>例 2：</strong> <span class="arithmatex">\(Y \times Q = -6 \times 7\)</span>（6bit）</p>
+<p><img alt="布斯编码例2" src="../pictures/lec4_27_booth_example2.png" width="550" /></p>
+<ol>
+<li><span class="arithmatex">\(Y = -6 = 111010\)</span>，<span class="arithmatex">\(Q = 7 = 000111\)</span>，<span class="arithmatex">\(-Y = 000110\)</span></li>
+<li>乘数后补零：<span class="arithmatex">\(Q = 000111\underline{0}\)</span></li>
+<li>被乘数双符号位：<span class="arithmatex">\(Y = 1111010\)</span>，<span class="arithmatex">\(-Y = 0000110\)</span></li>
+<li>三组部分积：<ul>
+<li>Step 1：<span class="arithmatex">\((1, 1, 0)\)</span> → <span class="arithmatex">\(-Y\)</span>，<span class="arithmatex">\(A = 000000000110\)</span></li>
+<li>Step 2：<span class="arithmatex">\((0, 1, 1)\)</span> → <span class="arithmatex">\(2Y\)</span>，左移后 <span class="arithmatex">\(A = 111111010000\)</span></li>
+<li>Step 3：<span class="arithmatex">\((0, 0, 0)\)</span> → <span class="arithmatex">\(0\)</span></li>
+</ul>
+</li>
+<li>结果：<span class="arithmatex">\(000000000110 + 111111010000 = 111111010110 = -42\)</span></li>
+</ol>
+<h4 id="_10">乘法器设计总结<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>部分积数量</th>
+<th>乘法复杂度</th>
+<th>关键优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接乘法</td>
+<td>N</td>
+<td><span class="arithmatex">\(O(N^2)\)</span></td>
+<td>最简单</td>
+</tr>
+<tr>
+<td>阵列乘法器 (CSA)</td>
+<td>N</td>
+<td><span class="arithmatex">\(O(N)\)</span> 行 CSA + CPA</td>
+<td>规整结构，易于布局</td>
+</tr>
+<tr>
+<td>Radix-4 布斯编码</td>
+<td>N/2</td>
+<td>CSA 行数减半</td>
+<td>部分积只需移位和取反</td>
+</tr>
+<tr>
+<td>Wallace Tree</td>
+<td>N 或 N/2</td>
+<td><span class="arithmatex">\(O(\log N)\)</span> 行 CSA</td>
+<td>用树形压缩代替逐行累加</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">位移器设计<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p><img alt="Barrel Shifter" src="../pictures/lec4_28_barrel_shifter.png" width="550" /></p>
+<p>Barrel Shifter 通过多路选择器实现任意位数的循环移位，用 case 语句根据移位量 <code>amt</code> 选择输出。</p>
+<h3 id="1winograd">复杂模块电路设计 1：卷积加速（Winograd）<a class="headerlink" href="#1winograd" title="Permanent link">&para;</a></h3>
+<h4 id="_12">卷积基础<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p><img alt="卷积介绍" src="../pictures/lec4_29_conv_intro.png" width="550" /></p>
+<p>在深度学习加速器中，卷积是最核心的计算模式。理解卷积的硬件实现是设计AI芯片的基础。</p>
+<p><strong>一维卷积的直观理解</strong>：</p>
+<p>给定输入信号 <span class="arithmatex">\(d = [d_0, d_1, d_2, d_3]\)</span>（4个元素）和卷积核 <span class="arithmatex">\(g = [g_0, g_1, g_2]\)</span>（3个元素），我们希望在输入上滑动卷积核，计算输出。当 <strong>步长（stride）为 1</strong> 时：</p>
+<ul>
+<li>位置 0：卷积核覆盖 <span class="arithmatex">\([d_0, d_1, d_2]\)</span>，输出 <span class="arithmatex">\(r_0 = d_0 \cdot g_0 + d_1 \cdot g_1 + d_2 \cdot g_2\)</span></li>
+<li>位置 1：卷积核覆盖 <span class="arithmatex">\([d_1, d_2, d_3]\)</span>，输出 <span class="arithmatex">\(r_1 = d_1 \cdot g_0 + d_2 \cdot g_1 + d_3 \cdot g_2\)</span></li>
+</ul>
+<p>用矩阵形式表示（记作 <span class="arithmatex">\(F(2, 3)\)</span>，表示输出 2 个值，卷积核大小为 3）：</p>
+<p><strong>为什么输入长度是 <span class="arithmatex">\(m + r - 1\)</span>？</strong></p>
+<p>在 Winograd 记号 <span class="arithmatex">\(F(m, r)\)</span> 中，<span class="arithmatex">\(m\)</span> 是要计算的输出数量，<span class="arithmatex">\(r\)</span> 是卷积核大小。输入信号的长度为 <span class="arithmatex">\(m + r - 1\)</span>，这由卷积的滑动窗口机制决定：</p>
+<ol>
+<li><strong>第一个输出</strong> <span class="arithmatex">\(r_0\)</span> 需要覆盖输入的 <span class="arithmatex">\([d_0, d_1, \ldots, d_{r-1}]\)</span>，共 <span class="arithmatex">\(r\)</span> 个点</li>
+<li><strong>后续每个输出</strong> 滑动 1 位（stride = 1），与前一个窗口重叠 <span class="arithmatex">\(r - 1\)</span> 个点</li>
+<li><strong>最后一个输出</strong> <span class="arithmatex">\(r_{m-1}\)</span> 覆盖 <span class="arithmatex">\([d_{m-1}, d_m, \ldots, d_{m+r-2}]\)</span></li>
+</ol>
+<p>因此，要产生 <span class="arithmatex">\(m\)</span> 个输出，输入总长度为：</p>
+<div class="arithmatex">\[
+\text{输入长度} = r + (m - 1) \times 1 = m + r - 1
+\]</div>
+<p><strong>图示理解</strong>（以 <span class="arithmatex">\(F(2, 3)\)</span> 为例，输入长度 <span class="arithmatex">\(2 + 3 - 1 = 4\)</span>）：</p>
+<div class="highlight"><pre><span></span><code>输入:  [d0] [d1] [d2] [d3]
+        ↑___↑___↑
+        | 窗口1 |  → r0
+           ↑___↑___↑
+           | 窗口2 |  → r1
+</code></pre></div>
+<ul>
+<li>窗口1（位置0）：覆盖 d0, d1, d2 → 产生 r0</li>
+<li>窗口2（位置1）：覆盖 d1, d2, d3 → 产生 r1</li>
+<li>两个窗口重叠 d1, d2（共 <span class="arithmatex">\(r - 1 = 2\)</span> 个点）</li>
+<li>总输入点数 = 窗口大小 + (输出数 - 1) × 步长 = <span class="arithmatex">\(3 + (2-1) \times 1 = 4\)</span></li>
+</ul>
+<div class="arithmatex">\[
+F(2,3) = \begin{bmatrix} d_0 &amp; d_1 &amp; d_2 \\ d_1 &amp; d_2 &amp; d_3 \end{bmatrix} \begin{bmatrix} g_0 \\ g_1 \\ g_2 \end{bmatrix} = \begin{bmatrix} r_0 \\ r_1 \end{bmatrix}
+\]</div>
+<p><strong>直接计算的代价</strong>：</p>
+<p>每个输出需要 3 次乘法和 2 次加法，2 个输出共需要 <strong>6 次乘法</strong> 和 <strong>4 次加法</strong> 。注意到输入矩阵中有重复元素（<span class="arithmatex">\(d_1, d_2\)</span> 各出现两次），这意味着我们 <strong>重复计算</strong> 了某些乘积。</p>
+<p><strong>Winograd 的核心洞察</strong>：</p>
+<p>如果巧妙地重新组织计算，利用中间结果的共享，可以减少乘法次数。乘法在硬件中比加法昂贵得多（面积、功耗、延迟），因此减少乘法能显著提升效率。</p>
+<h4 id="1d-winograd">1D Winograd：减少乘法的原理<a class="headerlink" href="#1d-winograd" title="Permanent link">&para;</a></h4>
+<p><img alt="1D Winograd" src="../pictures/lec4_30_winograd_1d.png" width="550" /></p>
+<p>对于 <span class="arithmatex">\(F(2, 3)\)</span> 卷积，Winograd 算法将乘法次数从 6 次降低到 <strong>4 次</strong> 。下面是完整的推导过程：</p>
+<p><strong>目标</strong>：计算 <span class="arithmatex">\(r_0 = d_0 g_0 + d_1 g_1 + d_2 g_2\)</span> 和 <span class="arithmatex">\(r_1 = d_1 g_0 + d_2 g_1 + d_3 g_2\)</span></p>
+<p><strong>关键观察</strong>：输入数据有重叠。我们可以通过线性变换，让某些乘法结果被两个输出共享。</p>
+<p>定义中间变量（4次乘法）：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+m_1 &amp;= (d_0 - d_2) \cdot g_0 \\
+m_2 &amp;= (d_1 + d_2) \cdot \frac{g_0 + g_1 + g_2}{2} \\
+m_3 &amp;= (d_2 - d_1) \cdot \frac{g_0 - g_1 + g_2}{2} \\
+m_4 &amp;= (d_1 - d_3) \cdot g_2
+\end{aligned}
+\]</div>
+<p>然后通过加减组合得到输出：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+r_0 &amp;= m_1 + m_2 + m_3 \\
+r_1 &amp;= m_2 - m_3 - m_4
+\end{aligned}
+\]</div>
+<p><strong>验证正确性</strong>（展开 <span class="arithmatex">\(r_0\)</span>）：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+r_0 &amp;= (d_0 - d_2)g_0 + (d_1 + d_2)\frac{g_0 + g_1 + g_2}{2} + (d_2 - d_1)\frac{g_0 - g_1 + g_2}{2} \\
+&amp;= d_0 g_0 - d_2 g_0 + \frac{(d_1 + d_2)(g_0 + g_1 + g_2) + (d_2 - d_1)(g_0 - g_1 + g_2)}{2} \\
+&amp;= d_0 g_0 - d_2 g_0 + \frac{d_1 g_0 + d_1 g_1 + d_1 g_2 + d_2 g_0 + d_2 g_1 + d_2 g_2 + d_2 g_0 - d_2 g_1 + d_2 g_2 - d_1 g_0 + d_1 g_1 - d_1 g_2}{2} \\
+&amp;= d_0 g_0 - d_2 g_0 + \frac{2d_1 g_1 + 2d_2 g_0 + 2d_2 g_2}{2} \\
+&amp;= d_0 g_0 - d_2 g_0 + d_1 g_1 + d_2 g_0 + d_2 g_2 \\
+&amp;= d_0 g_0 + d_1 g_1 + d_2 g_2 \quad \checkmark
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(r_1\)</span> 的验证类似。可以看到，通过精心设计的变换，我们用 <strong>4 次乘法</strong> 完成了原本需要 6 次乘法的工作。</p>
+<h4 id="winograd">Winograd 矩阵形式与变换矩阵<a class="headerlink" href="#winograd" title="Permanent link">&para;</a></h4>
+<p><img alt="Winograd矩阵形式" src="../pictures/lec4_31_winograd_matrix.png" width="550" /></p>
+<p>为了硬件实现的统一性和可扩展性，Winograd 算法被表示为统一的矩阵形式：</p>
+<div class="arithmatex">\[
+Y = A^T \left[ (Gg) \odot (B^T d) \right]
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(d\)</span> 是输入向量，维度 <span class="arithmatex">\((m + r - 1) \times 1 = 4 \times 1\)</span></li>
+<li><span class="arithmatex">\(g\)</span> 是卷积核向量，维度 <span class="arithmatex">\(r \times 1 = 3 \times 1\)</span></li>
+<li><span class="arithmatex">\(Y\)</span> 是输出向量，维度 <span class="arithmatex">\(m \times 1 = 2 \times 1\)</span></li>
+<li><span class="arithmatex">\(\odot\)</span> 表示逐元素乘法（Hadamard product）</li>
+</ul>
+<p>对于 <span class="arithmatex">\(F(2, 3)\)</span>，变换矩阵为：</p>
+<p><strong>输入变换矩阵 <span class="arithmatex">\(B^T\)</span></strong>（<span class="arithmatex">\(4 \times 4\)</span>）：</p>
+<div class="arithmatex">\[
+B^T = \begin{bmatrix} 1 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1 \end{bmatrix}
+\]</div>
+<p><strong>卷积核变换矩阵 <span class="arithmatex">\(G\)</span></strong>（<span class="arithmatex">\(4 \times 3\)</span>）：</p>
+<div class="arithmatex">\[
+G = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} \\ \frac{1}{2} &amp; -\frac{1}{2} &amp; \frac{1}{2} \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
+\]</div>
+<p><strong>输出变换矩阵 <span class="arithmatex">\(A^T\)</span></strong>（<span class="arithmatex">\(2 \times 4\)</span>）：</p>
+<div class="arithmatex">\[
+A^T = \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; -1 &amp; -1 \end{bmatrix}
+\]</div>
+<p><strong>计算过程分为 4 步</strong>：</p>
+<ol>
+<li>
+<p><strong>输入变换</strong>：<span class="arithmatex">\(d' = B^T d\)</span></p>
+</li>
+<li>
+<p>维度：<span class="arithmatex">\(4 \times 4\)</span> 矩阵乘 <span class="arithmatex">\(4 \times 1\)</span> 向量 = <span class="arithmatex">\(4 \times 1\)</span> 向量</p>
+</li>
+<li>
+<p>操作：纯加法/减法，无乘法</p>
+</li>
+<li>
+<p><strong>卷积核变换</strong>：<span class="arithmatex">\(g' = Gg\)</span></p>
+</li>
+<li>
+<p>维度：<span class="arithmatex">\(4 \times 3\)</span> 矩阵乘 <span class="arithmatex">\(3 \times 1\)</span> 向量 = <span class="arithmatex">\(4 \times 1\)</span> 向量</p>
+</li>
+<li>
+<p>注意：<span class="arithmatex">\(g\)</span> 是固定的，<span class="arithmatex">\(Gg\)</span> 可以 <strong>离线预计算</strong> 存储在权重缓存中</p>
+</li>
+<li>
+<p><strong>逐元素乘法</strong>（核心计算）：<span class="arithmatex">\(e = g' \odot d'\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(e_i = g'_i \cdot d'_i\)</span>，共 4 次乘法</p>
+</li>
+<li>
+<p>这是唯一需要乘法器的步骤</p>
+</li>
+<li>
+<p><strong>输出变换</strong>：<span class="arithmatex">\(Y = A^T e\)</span></p>
+</li>
+<li>
+<p>维度：<span class="arithmatex">\(2 \times 4\)</span> 矩阵乘 <span class="arithmatex">\(4 \times 1\)</span> 向量 = <span class="arithmatex">\(2 \times 1\)</span> 向量</p>
+</li>
+<li>操作：纯加法/减法</li>
+</ol>
+<p><strong>硬件优势分析</strong>：</p>
+<ul>
+<li>乘法次数：从 6 次降到 4 次，减少 <strong>33%</strong></li>
+<li>卷积核变换 <span class="arithmatex">\(Gg\)</span> 可预计算，运行时只需查表</li>
+<li>输入变换 <span class="arithmatex">\(B^T d\)</span> 只有加减法，可用简单逻辑实现</li>
+<li>对于更大的卷积核，收益更显著（如 <span class="arithmatex">\(F(4, 3)\)</span> 乘法减少 50%）</li>
+</ul>
+<h4 id="winograd_1">Winograd 复杂度分析<a class="headerlink" href="#winograd_1" title="Permanent link">&para;</a></h4>
+<p><img alt="Winograd复杂度" src="../pictures/lec4_32_winograd_complexity.png" width="550" /></p>
+<p><strong>理论下界</strong>：对于一维卷积 <span class="arithmatex">\(F(m, r)\)</span>（输出 <span class="arithmatex">\(m\)</span> 个点，卷积核大小 <span class="arithmatex">\(r\)</span>），最少需要的乘法次数为：</p>
+<div class="arithmatex">\[
+\mu(F(m, r)) = m + r - 1
+\]</div>
+<p>Winograd 算法达到了这个理论下界，因此是 <strong>最优的</strong> 。</p>
+<p><strong>对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>乘法次数</th>
+<th>加法次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接计算</td>
+<td><span class="arithmatex">\(m \times r\)</span></td>
+<td><span class="arithmatex">\(m \times (r-1)\)</span></td>
+</tr>
+<tr>
+<td>Winograd</td>
+<td><span class="arithmatex">\(m + r - 1\)</span></td>
+<td>更多（变换引入）</td>
+</tr>
+</tbody>
+</table>
+<p>以 <span class="arithmatex">\(F(4, 3)\)</span> 为例：</p>
+<ul>
+<li>直接计算：<span class="arithmatex">\(4 \times 3 = 12\)</span> 次乘法</li>
+<li>Winograd：<span class="arithmatex">\(4 + 3 - 1 = 6\)</span> 次乘法，减少 <strong>50%</strong></li>
+</ul>
+<p><strong>二维扩展</strong>：</p>
+<p>二维卷积 <span class="arithmatex">\(F(m \times n, r \times s)\)</span>（输出 <span class="arithmatex">\(m \times n\)</span> 的二维块，卷积核 <span class="arithmatex">\(r \times s\)</span>）：</p>
+<div class="arithmatex">\[
+\mu = (m + r - 1)(n + s - 1)
+\]</div>
+<p>以常见的 3×3 卷积核为例：</p>
+<ul>
+<li><span class="arithmatex">\(F(4 \times 4, 3 \times 3)\)</span>：<span class="arithmatex">\((4+3-1)(4+3-1) = 6 \times 6 = 36\)</span> 次乘法</li>
+<li>直接计算：<span class="arithmatex">\(4 \times 4 \times 3 \times 3 = 144\)</span> 次乘法</li>
+<li>减少 <strong>75%</strong> 的乘法！</li>
+</ul>
+<h4 id="2d-winograd">2D Winograd：嵌套的一维算法<a class="headerlink" href="#2d-winograd" title="Permanent link">&para;</a></h4>
+<p><img alt="2D Winograd" src="../pictures/lec4_34_winograd_2d.png" width="550" /></p>
+<p>2D Winograd 通过 <strong>嵌套</strong> 1D 算法实现。对于图像卷积，我们先在行方向应用 1D Winograd，再在列方向应用。</p>
+<p><strong>矩阵形式</strong>：</p>
+<div class="arithmatex">\[
+Y = A^T \left[ [GgG^T] \odot [B^T dB] \right] A
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(d\)</span> 是输入 tile，维度 <span class="arithmatex">\((m+r-1) \times (n+s-1) = 6 \times 6\)</span>（对于 <span class="arithmatex">\(F(4\times4, 3\times3)\)</span>）</li>
+<li><span class="arithmatex">\(g\)</span> 是卷积核，维度 <span class="arithmatex">\(r \times s = 3 \times 3\)</span></li>
+<li><span class="arithmatex">\(Y\)</span> 是输出 tile，维度 <span class="arithmatex">\(m \times n = 4 \times 4\)</span></li>
+</ul>
+<p><strong>计算步骤详细拆解</strong>：</p>
+<ol>
+<li><strong>输入变换</strong>（<span class="arithmatex">\(B^T d B\)</span>）：</li>
+<li>先对 <span class="arithmatex">\(d\)</span> 的每一行左乘 <span class="arithmatex">\(B^T\)</span>：得到中间结果 <span class="arithmatex">\(d_{\text{row}} = B^T d\)</span></li>
+<li>再对中间结果的每一列右乘 <span class="arithmatex">\(B\)</span>：<span class="arithmatex">\(d' = d_{\text{row}} B = B^T d B\)</span></li>
+<li>
+<p>结果维度：<span class="arithmatex">\((m+r-1) \times (n+s-1) = 6 \times 6\)</span></p>
+</li>
+<li>
+<p><strong>卷积核变换</strong>（<span class="arithmatex">\(G g G^T\)</span>）：</p>
+</li>
+<li>类似地，<span class="arithmatex">\(g' = G g G^T\)</span></li>
+<li>维度：<span class="arithmatex">\((m+r-1) \times (n+s-1) = 6 \times 6\)</span></li>
+<li>
+<p><strong>关键</strong>：可完全预计算</p>
+</li>
+<li>
+<p><strong>逐元素乘法</strong>（核心）：</p>
+</li>
+<li><span class="arithmatex">\(e = g' \odot d'\)</span></li>
+<li><span class="arithmatex">\(6 \times 6 = 36\)</span> 次乘法</li>
+<li>
+<p>每个元素相互独立，可 <strong>完全并行</strong></p>
+</li>
+<li>
+<p><strong>输出变换</strong>（<span class="arithmatex">\(A^T e A\)</span>）：</p>
+</li>
+<li>先对 <span class="arithmatex">\(e\)</span> 的每一行左乘 <span class="arithmatex">\(A^T\)</span>：<span class="arithmatex">\(e_{\text{row}} = A^T e\)</span></li>
+<li>再对中间结果的每一列右乘 <span class="arithmatex">\(A\)</span>：<span class="arithmatex">\(Y = e_{\text{row}} A = A^T e A\)</span></li>
+<li>结果维度：<span class="arithmatex">\(m \times n = 4 \times 4\)</span></li>
+</ol>
+<p><img alt="2D Winograd详细" src="../pictures/lec4_35_winograd_2d_detail.png" width="550" /></p>
+<p><strong>实际硬件数据流</strong>：</p>
+<p>在典型的深度学习加速器（如 NVDLA）中，2D Winograd 的执行流程如下：</p>
+<div class="highlight"><pre><span></span><code>输入特征图 → [Tile 分割] → [输入变换单元] → [逐元素乘阵列] → [输出变换单元] → 输出特征图
+                    ↓                                      ↑
+              权重缓存 (存储预计算的 GgG^T) ------------------┘
+</code></pre></div>
+<ul>
+<li><strong>Tile 分割</strong>：将输入特征图切分成 <span class="arithmatex">\((m+r-1) \times (n+s-1)\)</span> 的 overlapping tiles</li>
+<li><strong>输入变换单元</strong>：专用硬件计算 <span class="arithmatex">\(B^T d B\)</span>，只有加减法</li>
+<li><strong>逐元素乘阵列</strong>：大规模的并行乘法器阵列（MAC 阵列），这是计算密度的核心</li>
+<li><strong>输出变换单元</strong>：计算 <span class="arithmatex">\(A^T e A\)</span>，同样只有加减法</li>
+</ul>
+<h4 id="nvdla-winograd">NVDLA 中的 Winograd 实现<a class="headerlink" href="#nvdla-winograd" title="Permanent link">&para;</a></h4>
+<p><img alt="NVDLA Winograd" src="../pictures/lec4_36_winograd_nvdla.png" width="550" /></p>
+<p>NVIDIA Deep Learning Accelerator (NVDLA) 是一个开源的深度学习推理加速器架构，它支持 Winograd 卷积加速。</p>
+<p><strong>NVDLA 的 Winograd 数据流</strong>：</p>
+<ol>
+<li><strong>权重离线处理</strong>：</li>
+<li>训练好的 3×3 卷积核 <span class="arithmatex">\(g\)</span> 在编译时通过 <span class="arithmatex">\(GgG^T\)</span> 变换</li>
+<li>变换后的权重存储在片外存储器（DDR）中</li>
+<li>
+<p>运行时加载到片内权重缓存</p>
+</li>
+<li>
+<p><strong>输入数据流</strong>：</p>
+</li>
+<li>从特征图加载 <span class="arithmatex">\((m+r-1) \times (n+s-1) = 6 \times 6\)</span> 的 tile</li>
+<li>在输入 datapath 中实时计算 <span class="arithmatex">\(B^T d B\)</span></li>
+<li>
+<p>使用专用加法器网络，延迟小</p>
+</li>
+<li>
+<p><strong>核心计算</strong>：</p>
+</li>
+<li>变换后的输入和权重送入 <strong>MAC 并行计算单元</strong></li>
+<li>通常是大规模的脉动阵列（Systolic Array）或并行乘法器组</li>
+<li>
+<p>每个周期完成 <span class="arithmatex">\((m+r-1)(n+s-1) = 36\)</span> 个元素的逐元素乘</p>
+</li>
+<li>
+<p><strong>结果聚合</strong>：</p>
+</li>
+<li>逐元素乘结果通过 <span class="arithmatex">\(A^T [\cdot] A\)</span> 变换得到最终输出</li>
+<li>写回输出特征图</li>
+</ol>
+<p><strong>Winograd 的局限与适用场景</strong>：</p>
+<p>Winograd 算法并非总是最优选择，需权衡以下因素：</p>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>Winograd 优势</th>
+<th>Winograd 劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>卷积核大小</td>
+<td>小卷积核（3×3）收益大</td>
+<td>大卷积核变换矩阵过大</td>
+</tr>
+<tr>
+<td>步长（Stride）</td>
+<td>Stride=1 完美匹配</td>
+<td>Stride&gt;1 需额外处理</td>
+</tr>
+<tr>
+<td>填充（Padding）</td>
+<td>边界 tile 需特殊处理</td>
+<td>增加控制复杂度</td>
+</tr>
+<tr>
+<td>精度要求</td>
+<td>乘法减少降低累积误差</td>
+<td>变换引入额外舍入误差</td>
+</tr>
+<tr>
+<td>硬件面积</td>
+<td>MAC 阵列面积减小</td>
+<td>需额外的变换单元</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实际部署建议</strong>：</p>
+<ul>
+<li>对于 ResNet、VGG 等以 3×3 卷积为主的网络，Winograd 通常能带来 <strong>2~4 倍</strong> 的加速</li>
+<li>第一/最后一层通常用直接卷积（特征图尺寸特殊）</li>
+<li>1×1 卷积直接用矩阵乘法更高效</li>
+<li>需通过软件栈自动选择最优算法</li>
+</ul>
+<h3 id="2cordic">复杂模块电路设计 2：CORDIC<a class="headerlink" href="#2cordic" title="Permanent link">&para;</a></h3>
+<p>CORDIC（Coordinate Rotation Digital Computer）可以用来实现多种复杂非线性函数（sin、cos、arctan 等）。</p>
+<h4 id="_13">旋转原理<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p><img alt="CORDIC旋转" src="../pictures/lec4_37_cordic_rotation.png" width="550" /></p>
+<p>二维坐标旋转：</p>
+<div class="arithmatex">\[
+x_2 = x_1 \cos\theta - y_1 \sin\theta = \cos\theta(x_1 - y_1 \tan\theta)
+\]</div>
+<div class="arithmatex">\[
+y_2 = x_1 \sin\theta + y_1 \cos\theta = \cos\theta(y_1 + x_1 \tan\theta)
+\]</div>
+<h4 id="_14">伪旋转<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p><img alt="伪旋转" src="../pictures/lec4_38_cordic_pseudo.png" width="550" /></p>
+<p>当 <span class="arithmatex">\(\theta\)</span> 足够小时，忽略 <span class="arithmatex">\(\cos\theta\)</span> 因子（后面通过 Scaling Factor 补偿）：</p>
+<div class="arithmatex">\[
+\hat{x}_2 = x_1 - y_1 \tan\theta, \quad \hat{y}_2 = y_1 + x_1 \tan\theta
+\]</div>
+<p>伪旋转的半径 <span class="arithmatex">\(\hat{R} = R / \cos\theta\)</span> 会被放大。</p>
+<h4 id="_15">选择旋转角度<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p><img alt="角度选择" src="../pictures/lec4_39_cordic_angles.png" width="550" /></p>
+<p>选择 <span class="arithmatex">\(\tan\theta^{(i)} = 2^{-i}\)</span>，使得乘法变为 <strong>移位操作</strong> ：</p>
+<div class="arithmatex">\[
+\hat{x}_2 = x_1 - y_1 \cdot 2^{-i}, \quad \hat{y}_2 = y_1 + x_1 \cdot 2^{-i}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th><span class="arithmatex">\(\theta^{(i)}\)</span> (度)</th>
+<th><span class="arithmatex">\(\tan\theta^{(i)} = 2^{-i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>45.0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>26.565</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>14.036</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7.125</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3.576</td>
+<td>0.0625</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cordic">CORDIC 迭代<a class="headerlink" href="#cordic" title="Permanent link">&para;</a></h4>
+<p><img alt="CORDIC迭代" src="../pictures/lec4_41_cordic_iter.png" width="550" /></p>
+<p>每次迭代的公式：</p>
+<div class="arithmatex">\[
+x^{(i+1)} = x^{(i)} - d_i (2^{-i} y^{(i)})
+\]</div>
+<div class="arithmatex">\[
+y^{(i+1)} = y^{(i)} + d_i (2^{-i} x^{(i)})
+\]</div>
+<div class="arithmatex">\[
+z^{(i+1)} = z^{(i)} - d_i \theta^{(i)} \quad \text{(Angle Accumulator)}
+\]</div>
+<p>其中 <span class="arithmatex">\(d_i = \pm 1\)</span> 为方向决策算子。每次迭代仅需：<strong>2 次移位 + 1 次查表 + 3 次加法</strong> 。</p>
+<h4 id="scaling-factor">Scaling Factor<a class="headerlink" href="#scaling-factor" title="Permanent link">&para;</a></h4>
+<p><img alt="Scaling Factor" src="../pictures/lec4_42_cordic_scaling.png" width="550" /></p>
+<p>由于忽略了 <span class="arithmatex">\(\cos\theta\)</span>，最终需要乘以缩放因子：</p>
+<div class="arithmatex">\[
+K_n = \prod_n \frac{1}{\cos\theta^{(i)}} = \prod_n \sqrt{1 + 2^{-2i}}
+\]</div>
+<p>当 <span class="arithmatex">\(n \to \infty\)</span> 时，<span class="arithmatex">\(K_n \to 1.6476\)</span>，<span class="arithmatex">\(1/K_n \to 0.6073\)</span>。</p>
+<h4 id="cordic_1">CORDIC 硬件架构<a class="headerlink" href="#cordic_1" title="Permanent link">&para;</a></h4>
+<p><img alt="CORDIC硬件" src="../pictures/lec4_43_cordic_hw.png" width="550" /></p>
+<p>硬件包含三个寄存器（x、y、z），每次迭代通过移位器和加减法器更新，角度通过查找表（Lookup Table）获取，<span class="arithmatex">\(d_i\)</span> 控制加/减方向。</p>
+<h2 id="_16">控制单元设计与时序分析<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="fsm">状态机（FSM）<a class="headerlink" href="#fsm" title="Permanent link">&para;</a></h3>
+<p><img alt="状态机结构" src="../pictures/lec4_45_fsm.png" width="550" /></p>
+<p>状态机是控制电路的基石，由三部分组成：</p>
+<ul>
+<li><strong>状态机逻辑</strong> ：根据当前状态和输入，计算输出和下一状态</li>
+<li><strong>触发器</strong> ：存储当前状态（D 触发器）</li>
+<li>输入 / 输出接口</li>
+</ul>
+<h4 id="_17">状态机设计实例：红绿灯<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p><img alt="红绿灯状态转换" src="../pictures/lec4_48_fsm_traffic.png" width="550" /></p>
+<p>2 个状态（NSgreen、EWgreen），2 个输入（NScar、EWcar），2 个输出（NSlite、EWlite）。</p>
+<p>逻辑表达式：</p>
+<div class="arithmatex">\[
+\text{NextState} = (\overline{\text{CurrentState}} \cdot \text{EWcar}) + (\text{CurrentState} \cdot \overline{\text{NScar}})
+\]</div>
+<div class="arithmatex">\[
+\text{NSlite} = \overline{\text{CurrentState}}, \quad \text{EWlite} = \text{CurrentState}
+\]</div>
+<p><img alt="红绿灯电路" src="../pictures/lec4_49_fsm_circuit.png" width="550" /></p>
+<h4 id="_18">状态机设计步骤<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<ol>
+<li>定义状态并画出状态转换图</li>
+<li>给每一个状态赋值并更新状态转换图</li>
+<li>根据状态转换图写出下一状态和输出的逻辑表达式</li>
+<li>画出实际电路图</li>
+</ol>
+<p>状态在每一个 <strong>时钟上升沿</strong> 更新。</p>
+<h3 id="_19">电路时序<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<h4 id="_20">为什么需要时钟<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<p><img alt="时钟的必要性" src="../pictures/lec4_51_timing_why.png" width="550" /></p>
+<ul>
+<li><strong>无时钟</strong> ：非常难以控制每一个信号的有效时间</li>
+<li><strong>引入时钟</strong> ：每隔一段计算将结果同步一次</li>
+</ul>
+<h4 id="_21">同步时序<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
+<p><img alt="Setup/Hold Time" src="../pictures/lec4_52_timing_setup.png" width="550" /></p>
+<ul>
+<li><strong>Setup Time</strong> （<span class="arithmatex">\(t_{su}\)</span>）：数据必须在时钟边沿 <strong>之前</strong> 稳定的最小时间</li>
+<li><strong>Hold Time</strong> （<span class="arithmatex">\(t_{hold}\)</span>）：数据必须在时钟边沿 <strong>之后</strong> 保持稳定的最小时间</li>
+</ul>
+<p><img alt="Timing Metrics" src="../pictures/lec4_53_timing_metrics.png" width="550" /></p>
+<p>时序约束：</p>
+<ul>
+<li><strong>最小周期</strong> ：<span class="arithmatex">\(T \geq t_{c\text{-}q} + t_{plogic,max} + t_{su}\)</span></li>
+<li><strong>Hold 约束</strong> ：<span class="arithmatex">\(T_{c\text{-}q,min} + t_{plogic,min} \geq t_{hold}\)</span></li>
+</ul>
+<h4 id="_22">时钟不稳定性<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<p><img alt="Clock Skew/Jitter" src="../pictures/lec4_54_timing_skew.png" width="550" /></p>
+<ul>
+<li><strong>Skew</strong> （<span class="arithmatex">\(\delta\)</span>）：不同寄存器接收到的时钟边沿存在时间偏差</li>
+<li><strong>Jitter</strong> ：时钟周期本身的抖动</li>
+</ul>
+<p>考虑 Skew 后的约束：</p>
+<ul>
+<li>最小周期：<span class="arithmatex">\(T \geq t_{c\text{-}q} + t_{su} + t_{logic} - \delta\)</span>（最坏情况：接收边沿过早到达，<span class="arithmatex">\(\delta &lt; 0\)</span>）</li>
+<li>Hold 约束：<span class="arithmatex">\(t_{c\text{-}q,cd} + t_{logic,cd} &gt; t_{hold} + \delta\)</span>（最坏情况：接收边沿过晚到达，<span class="arithmatex">\(\delta &gt; 0\)</span>）</li>
+<li><strong>Contamination delay</strong> （Cd）：最快可能延迟，用于检查 hold 违例</li>
+</ul>
+<h2 id="_23">指令集设计与微架构基础<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<h3 id="_24">为什么需要指令集<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<p><img alt="ISA层次" src="../pictures/lec4_56_isa_layers.png" width="550" /></p>
+<p><strong>ISA（Instruction Set Architecture）</strong> 是定义完善的软/硬件接口，是软件与硬件之间的"协议"。</p>
+<p>ISA 定义的内容：</p>
+<ul>
+<li>硬件支持的操作、模式和存储位置的功能定义</li>
+<li>如何调用获取硬件资源的精确描述</li>
+</ul>
+<p>ISA <strong>不</strong> 定义的内容：</p>
+<ul>
+<li>具体如何实现操作</li>
+<li>不同操作的速度和功耗</li>
+</ul>
+<h3 id="cisc-vs-risc">CISC vs RISC<a class="headerlink" href="#cisc-vs-risc" title="Permanent link">&para;</a></h3>
+<p><img alt="CISC vs RISC" src="../pictures/lec4_58_cisc_risc.png" width="550" /></p>
+<p>"Iron" law：<span class="arithmatex">\(\text{Time} = \frac{\text{instructions}}{\text{program}} \times \frac{\text{cycles}}{\text{instruction}} \times \frac{\text{seconds}}{\text{cycle}}\)</span></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CISC</th>
+<th>RISC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代表</td>
+<td>x86</td>
+<td>MIPS / ARM / RISC-V</td>
+</tr>
+<tr>
+<td>思路</td>
+<td>减少 instructions/program</td>
+<td>减少 cycles/instruction</td>
+</tr>
+<tr>
+<td>特点</td>
+<td>指令复杂，代码量小</td>
+<td>单周期指令多，依赖编译器优化</td>
+</tr>
+</tbody>
+</table>
+<p>指令集设计需兼顾三方面：</p>
+<ul>
+<li><strong>Programmability</strong> ：可以高效表达程序</li>
+<li><strong>Implementability</strong> ：能设计出高性能/低功耗/低成本的硬件</li>
+<li><strong>Compatibility</strong> ：在软件迭代后保持兼容性</li>
+</ul>
+<h3 id="_25">冯诺依曼架构<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p><img alt="冯诺依曼架构" src="../pictures/lec4_61_von_neumann.png" width="550" /></p>
+<p>传统冯诺依曼架构需要 3 类指令：读取、写回和运算。</p>
+<p>指令周期：<strong>Fetch</strong>（取指）→ <strong>Decode</strong>（解码）→ <strong>Execute</strong>（执行）</p>
+<p>处理器 3 种主要组成部分：</p>
+<ul>
+<li><strong>ALU</strong> （算术逻辑单元）：执行加减、逻辑运算</li>
+<li><strong>寄存器</strong> ：处理器内部的快速暂存</li>
+<li><strong>控制电路</strong> ：协调各部件工作</li>
+</ul>
+<p>通过地址、数据和控制 <strong>总线（Bus）</strong> 与存储器和 I/O 连接。</p>
+<h3 id="_26">寄存器的作用<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<p><img alt="无寄存器" src="../pictures/lec4_65_register_no.png" width="550" /></p>
+<p><img alt="有寄存器" src="../pictures/lec4_66_register_yes.png" width="550" /></p>
+<p>以计算 <span class="arithmatex">\(F = (X+Y) - (X \times Y)\)</span> 为例：</p>
+<ul>
+<li><strong>无寄存器</strong> ：每次运算都需从存储器加载和存储，共 <strong>9 次访存</strong></li>
+<li><strong>有寄存器</strong> ：先将 X、Y 加载到 R0、R1，中间结果存寄存器，共 <strong>3 次访存</strong></li>
+</ul>
+<p>寄存器还包括 <strong>PC/IP</strong> （程序计数器/指令指针），保存下一条要获取的指令地址。</p>
+<h3 id="_27">指令集操作流程<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<p><img alt="指令集操作流程" src="../pictures/lec4_68_isa_flow.png" width="550" /></p>
+<p>以 ADD 指令为例（机器码 0x0201 表示 R2=R0+R1）：</p>
+<ol>
+<li>PC/IP 指向地址 0，从 Memory 取出指令 0x0201</li>
+<li>控制逻辑解码：选取源寄存器 R0、R1，告诉 ALU 做加法</li>
+<li>ALU 执行 0x0123 + 0x0456 = 0x0579，写入目标寄存器 R2</li>
+<li>PC/IP 自增，进入下一条指令</li>
+</ol>
+<p>数据来源可以是：</p>
+<ul>
+<li><strong>寄存器值</strong> （eg. %rax）</li>
+<li><strong>主存中的值</strong> （eg. 0x0200e8）</li>
+<li><strong>立即数</strong> （immediate，存储在指令内部的常量，eg. ADDI $1, D0）</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E8%AE%BE%E8%AE%A1/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 数字逻辑与计算单元设计">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                数字逻辑与计算单元设计
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2026 03 16">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                2026 03 16
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Semt0
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Semt0" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:2400011018@stu.pku.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","header.autohide","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.tabs","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/home-animation.js"></script>
+      
+        <script src="../../../javascripts/home-intro-words.js"></script>
+      
+        <script src="../../../javascripts/sakura-init.js"></script>
+      
+        <script src="../../../javascripts/sakura-cursor.js"></script>
+      
+        <script src="../../../javascripts/waline-init.js"></script>
+      
+    
+  </body>
+</html>

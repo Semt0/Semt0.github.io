@@ -43,7 +43,8 @@ nav = [
             "note/algorithm/DP.md",
         ]},
         {"AI硬件" = [
-            "note/ai硬件/晶体管原理与数字电路基础.md"
+            "note/ai硬件/数字逻辑与计算单元设计.md",
+            "note/ai硬件/复杂计算单元与指令集.md",
         ]},
         {"Rust程序设计" = [
             "note/Rust程序设计/2026-03-16.md"

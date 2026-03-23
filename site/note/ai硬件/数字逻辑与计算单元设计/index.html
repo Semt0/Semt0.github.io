@@ -12,13 +12,13 @@
         <meta name="author" content="Semt0">
       
       
-        <link rel="canonical" href="https://semt0.github.io/note/ai%E7%A1%AC%E4%BB%B6/%E6%99%B6%E4%BD%93%E7%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/">
+        <link rel="canonical" href="https://semt0.github.io/note/ai%E7%A1%AC%E4%BB%B6/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E8%AE%BE%E8%AE%A1/">
       
       
         <link rel="prev" href="../../algorithm/DP/">
       
       
-        <link rel="next" href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/">
+        <link rel="next" href="../%E5%A4%8D%E6%9D%82%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E4%B8%8E%E6%8C%87%E4%BB%A4%E9%9B%86/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>晶体管原理与数字电路基础 - Semt0's Blog</title>
+        <title>数字逻辑与计算单元设计 - Semt0's Blog</title>
       
     
     
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              晶体管原理与数字电路基础
+              数字逻辑与计算单元设计
             
           </span>
         </div>
@@ -1324,6 +1324,8 @@
       
         
       
+        
+      
     
     
     
@@ -1388,7 +1390,7 @@
   <span class="md-ellipsis">
     
   
-    晶体管原理与数字电路基础
+    数字逻辑与计算单元设计
   
 
     
@@ -1406,7 +1408,7 @@
   <span class="md-ellipsis">
     
   
-    晶体管原理与数字电路基础
+    数字逻辑与计算单元设计
   
 
     
@@ -1462,7 +1464,18 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="NMOS 和 PMOS">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        经典静态逻辑电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="经典静态逻辑电路">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1476,6 +1489,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NAND 门电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂静态逻辑电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简单 1-bit 加法器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1487,7 +1533,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         电路延迟分析与功耗分析
@@ -1499,10 +1545,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#transistor-sizing" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路的Transistor Sizing
+        什么是电路的延迟
       
     </span>
   </a>
@@ -1510,10 +1556,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#rc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路功耗
+        一阶 RC 延迟分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一阶 RC 延迟分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反相器延迟
       
     </span>
   </a>
@@ -1524,9 +1582,97 @@
     </nav>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        降低延迟的设计方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入 Pattern 对延迟的影响
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transistor-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用 Transistor Ordering 提升逻辑速度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elmore-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elmore Delay 模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transistor-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑电路的 Transistor Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑电路功耗
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电路功耗">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态功耗的能量分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         数据量化与逻辑单元设计
@@ -1540,6 +1686,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E6%9D%82%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E4%B8%8E%E6%8C%87%E4%BB%A4%E9%9B%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复杂计算单元与指令集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1736,7 +1910,18 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="NMOS 和 PMOS">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        经典静态逻辑电路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="经典静态逻辑电路">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1750,6 +1935,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NAND 门电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂静态逻辑电路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简单 1-bit 加法器电路
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1761,7 +1979,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         电路延迟分析与功耗分析
@@ -1773,10 +1991,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#transistor-sizing" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路的Transistor Sizing
+        什么是电路的延迟
       
     </span>
   </a>
@@ -1784,10 +2002,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#rc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        逻辑电路功耗
+        一阶 RC 延迟分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一阶 RC 延迟分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反相器延迟
       
     </span>
   </a>
@@ -1798,9 +2028,97 @@
     </nav>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        降低延迟的设计方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入 Pattern 对延迟的影响
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transistor-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用 Transistor Ordering 提升逻辑速度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elmore-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elmore Delay 模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transistor-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑电路的 Transistor Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑电路功耗
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电路功耗">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态功耗的能量分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         数据量化与逻辑单元设计
@@ -1891,7 +2209,7 @@
                 
                   
 
-  <h1>晶体管原理与数字电路基础</h1>
+  <h1>数字逻辑与计算单元设计</h1>
 
 
 <div class="page-date">
@@ -1902,8 +2220,8 @@
 <h2 id="_1">晶体管与逻辑门电路基础<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="mosfet">MOSFET 晶体——现代芯片的基石<a class="headerlink" href="#mosfet" title="Permanent link">&para;</a></h3>
 <ul>
-<li>n 型半导体：半导体内富含 <mark>自由电子</mark>  </li>
-<li>p 型半导体：富含没有电子的 “空穴”</li>
+<li>n 型半导体：半导体内富含 <mark>自由电子</mark></li>
+<li>p 型半导体：富含没有电子的 "空穴"</li>
 </ul>
 <p><img alt="01" src="../pictures/01.png" width="500" /></p>
 <p><img alt="02" src="../pictures/02.png" width="500" /></p>
@@ -1920,99 +2238,193 @@
 <p><img alt="06" src="../pictures/06.png" width="500" /></p>
 <p><img alt="07" src="../pictures/07.png" width="500" /></p>
 <p><img alt="08" src="../pictures/08.png" width="500" /></p>
+<h3 id="_2">经典静态逻辑电路<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <h4 id="pun-pdn">PUN 和 PDN<a class="headerlink" href="#pun-pdn" title="Permanent link">&para;</a></h4>
+<p>NMOS、PMOS 可以组成 PDN（Pull-Down Network）和 PUN（Pull-Up Network）。</p>
+<p><img alt="PUN和PDN结构" src="../pictures/lec3_05_pun_pdn.png" width="550" /></p>
 <p><strong>PUN (Pull-Up Network) — 上拉网络</strong></p>
 <ul>
-<li>
-<p>由 PMOS 晶体管组成</p>
-</li>
-<li>
-<p>连接在 VDD（电源）和输出节点之间</p>
-</li>
-<li>
-<p>作用：当输入满足特定条件时，将输出"拉高"到逻辑 1（VDD）</p>
-</li>
-<li>
-<p>PMOS 在栅极为低电平时导通，所以 PUN 在输入为 0 时提供通路</p>
-</li>
+<li>由 PMOS 晶体管组成</li>
+<li>连接在 VDD（电源）和输出节点之间</li>
+<li>当 <span class="arithmatex">\(F(\text{In1}, \text{In2}, \ldots) = 1\)</span> 时，将输出连接到 <span class="arithmatex">\(V_{DD}\)</span></li>
 </ul>
-<p><strong>PDN</strong> <strong>(Pull-Down</strong> <strong>Network)</strong> <strong>—</strong> <strong>下拉网络</strong></p>
+<p><strong>PDN (Pull-Down Network) — 下拉网络</strong></p>
 <ul>
 <li>由 NMOS 晶体管组成</li>
 <li>连接在输出节点和 GND（地）之间</li>
-<li>作用：当输入满足特定条件时，将输出"拉低"到逻辑 0（GND）</li>
-<li>NMOS 在栅极为高电平时导通，所以 PDN 在输入为 1 时提供通路</li>
+<li>当 <span class="arithmatex">\(F(\text{In1}, \text{In2}, \ldots) = 0\)</span> 时，将输出连接到 GND</li>
 </ul>
-<p><strong>两者的关系</strong>
-  PUN 和 PDN 是互补的：</p>
-<div class="highlight"><pre><span></span><code>          VDD
-
-           |
-
-        [ PUN ]  ← PMOS 组成
-
-           |
-
-           +——→ Output
-
-           |
-
-        [ PDN ]  ← NMOS 组成
-
-           |
-
-          GND
-</code></pre></div>
-<p>关键原则：</p>
+<p><strong>PUN 和 PDN 互为对偶网络（dual networks）：</strong></p>
 <ul>
-<li>PUN 和 PDN 互为对偶（dual）——PUN 导通时 PDN 截止，反之亦然</li>
+<li>PUN 导通时 PDN 截止，反之亦然</li>
 <li>串联 NMOS（PDN 中实现 AND）对应并联 PMOS（PUN 中实现同一逻辑的补）</li>
 <li>并联 NMOS（PDN 中实现 OR）对应串联 PMOS</li>
 </ul>
-<p><strong>举个例子：NAND</strong> <strong>门（与非门）</strong></p>
-<p>Y = ~(A · B)</p>
-<p>PUN: A 和 B 的 PMOS 并联（任一输入为 0 → 输出拉高）</p>
-<p>PDN: A 和 B 的 NMOS 串联（两个输入都为 1 → 输出拉低）</p>
-<p>简单记忆：PDN 决定什么时候输出 0，PUN 决定什么时候输出 1，两者始终一个通一个断。</p>
-<h2 id="_2">电路延迟分析与功耗分析<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h4 id="nand">NAND 门电路<a class="headerlink" href="#nand" title="Permanent link">&para;</a></h4>
+<p><img alt="NAND门电路" src="../pictures/lec3_06_nand.png" width="550" /></p>
+<p>NAND 门 <span class="arithmatex">\(\text{OUT} = \overline{A \cdot B}\)</span> ：</p>
 <ul>
-<li>什么是电路的延迟：以 Inverter 反向器为例</li>
+<li>当 A 和 B 同为 1 时，输出为 0（PDN 导通，NMOS 串联）</li>
+<li>当 A 和 B 有 0 时，输出为 1（PUN 导通，PMOS 并联）</li>
 </ul>
-<p><img alt="09" src="../pictures/09.png" width="600" /></p>
+<p>PDN: 当 <span class="arithmatex">\(A \cdot B = 1\)</span> 时将 OUT 连接到 GND</p>
+<p>PUN: 当 <span class="arithmatex">\(\overline{A} + \overline{B} = 1\)</span> 时将 OUT 连接到 <span class="arithmatex">\(V_{DD}\)</span></p>
+<h4 id="_3">复杂静态逻辑电路<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p><img alt="复杂静态逻辑电路" src="../pictures/lec3_07_complex_logic.png" width="550" /></p>
+<p>以 <span class="arithmatex">\(F = \overline{D + A(B + C)}\)</span> 为例：</p>
 <ul>
-<li>一阶 RC 延迟分析</li>
-</ul>
-<p><img alt="10" src="../pictures/10.png" width="600" /></p>
-<p><img alt="jtg11" src="../pictures/jtg11.png" width="600" /></p>
-<ul>
-<li>利用较小的电容——降低 C<ul>
-<li>版图紧凑，布局合理</li>
-<li>保持较短走线 &amp; 减少 diffusion routing</li>
+<li>什么情况下 F 为 0？当 <span class="arithmatex">\(D + A(B + C) = 1\)</span> 时</li>
+<li><strong>构建 PDN</strong> ：忽略取非操作，直接根据逻辑表达式构建<ul>
+<li><span class="arithmatex">\(D + X\)</span> 意味着 D 与 X <strong>并联</strong></li>
+<li><span class="arithmatex">\(A \cdot X\)</span> 意味着 A 与 X <strong>串联</strong></li>
 </ul>
 </li>
-<li>增加晶体管尺寸——降低 R<ul>
-<li>避免 self-loading 出现，否则会导致寄生电容增大</li>
+<li><strong>构建 PUN</strong> ：PDN 的对偶网络<ul>
+<li>PDN 中并联的，在 PUN 中串联</li>
+<li>PDN 中串联的，在 PUN 中并联</li>
 </ul>
 </li>
-<li>增加电源电压<ul>
-<li>同时会影响可靠性与功耗，因而一般不采用</li>
+<li>自下向上构建</li>
 </ul>
-</li>
-</ul>
-<p><img alt="jtg12" src="../pictures/jtg12.png" width="600" /></p>
+<h4 id="1-bit">简单 1-bit 加法器电路<a class="headerlink" href="#1-bit" title="Permanent link">&para;</a></h4>
+<p><img alt="1-bit全加器" src="../pictures/lec3_08_adder_truth.png" width="550" /></p>
+<p><span class="arithmatex">\(A[n-1:0] + B[n-1:0] = S[n-1:0]\)</span></p>
+<p>单比特全加器（Full Adder）的关键公式：</p>
+<div class="arithmatex">\[
+C_o = AB + BC_i + AC_i = AB + (A + B)C_i
+\]</div>
+<div class="arithmatex">\[
+S = A \oplus B \oplus C_i = ABC_i + \overline{C_o}(A + B + C_i)
+\]</div>
+<p>进位状态（carry status）：</p>
 <ul>
-<li>拓展多级的 RC 模型</li>
+<li><strong>Generate</strong> （<span class="arithmatex">\(G = AB\)</span>）：<span class="arithmatex">\(C_{out} = 1\)</span>，与 <span class="arithmatex">\(C_{in}\)</span> 无关</li>
+<li><strong>Propagate</strong> （<span class="arithmatex">\(P = A \oplus B\)</span>）：<span class="arithmatex">\(C_{out} = C_{in}\)</span>，传播进位</li>
+<li><strong>Kill</strong> （<span class="arithmatex">\(K = \overline{A} \cdot \overline{B}\)</span>）：<span class="arithmatex">\(C_{out} = 0\)</span>，与 <span class="arithmatex">\(C_{in}\)</span> 无关</li>
 </ul>
-<p><img alt="jtg13" src="../pictures/jtg13.png" width="600" /></p>
-<h3 id="transistor-sizing">逻辑电路的Transistor Sizing<a class="headerlink" href="#transistor-sizing" title="Permanent link">&para;</a></h3>
-<p>目标是将 PDN 和 PUN 的 worst-case 延迟进行匹配</p>
-<p><img alt="jtg14" src="../pictures/jtg14.png" width="600" /></p>
-<h3 id="_3">逻辑电路功耗<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p><img alt="jtg15" src="../pictures/jtg15.png" width="600" /></p>
-<p><span class="arithmatex">\(\alpha\)</span> 是翻转率， <span class="arithmatex">\(f\)</span> 是电路的频率</p>
-<p>一次完整的翻转：</p>
-<p><img alt="jtg16" src="../pictures/jtg16.png" width="600" /></p>
-<h2 id="_4">数据量化与逻辑单元设计<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>全加器的晶体管实现共需 <strong>28 个晶体管</strong> ：</p>
+<p><img alt="1-bit全加器晶体管电路" src="../pictures/lec3_09_adder_circuit.png" width="550" /></p>
+<h2 id="_4">电路延迟分析与功耗分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">什么是电路的延迟<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>以 Inverter 反相器为例：</p>
+<p><img alt="反相器延迟" src="../pictures/lec3_11_inverter_delay.png" width="550" /></p>
+<ul>
+<li><span class="arithmatex">\(t_{pHL}\)</span> ：输出从高到低的传播延迟（50% 点测量）</li>
+<li><span class="arithmatex">\(t_{pLH}\)</span> ：输出从低到高的传播延迟</li>
+<li><span class="arithmatex">\(t_f\)</span> ：下降时间（90% → 10%）</li>
+<li><span class="arithmatex">\(t_r\)</span> ：上升时间（10% → 90%）</li>
+</ul>
+<h3 id="rc">一阶 RC 延迟分析<a class="headerlink" href="#rc" title="Permanent link">&para;</a></h3>
+<p><img alt="一阶RC延迟" src="../pictures/lec3_12_rc_delay.png" width="550" /></p>
+<p>对于一阶 RC 网络：</p>
+<div class="arithmatex">\[
+V_{out}(t) = (1 - e^{-t/\tau}) V_{DD}
+\]</div>
+<p>其中时间常数 <span class="arithmatex">\(\tau = R \times C\)</span> 。当输出达到 50% <span class="arithmatex">\(V_{DD}\)</span> 时：</p>
+<div class="arithmatex">\[
+t_p = \ln(2) \cdot \tau = 0.69 R \times C
+\]</div>
+<h4 id="_6">反相器延迟<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p><img alt="反相器RC延迟" src="../pictures/lec3_13_inverter_rc.png" width="550" /></p>
+<p>利用一阶 RC 模型分析反相器：</p>
+<ul>
+<li><strong>High-to-Low</strong> （<span class="arithmatex">\(V_{in} = V_{DD}\)</span>）：NMOS 导通，<span class="arithmatex">\(t_{pHL} = 0.69 R_N \times C_L\)</span></li>
+<li><strong>Low-to-High</strong> （<span class="arithmatex">\(V_{in} = 0\)</span>）：PMOS 导通，<span class="arithmatex">\(t_{pLH} = 0.69 R_P \times C_L\)</span></li>
+</ul>
+<h3 id="_7">降低延迟的设计方法<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>降低电容 C</strong> ：版图紧凑，布局合理；保持较短走线 &amp; 减少 diffusion routing</li>
+<li><strong>降低电阻 R（增加晶体管尺寸）</strong> ：需避免 self-loading，否则会导致寄生电容增大</li>
+<li><strong>增加电源电压</strong> ：同时会影响可靠性与功耗，因而一般不采用</li>
+</ul>
+<h3 id="pattern">输入 Pattern 对延迟的影响<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h3>
+<p><img alt="输入Pattern对延迟的影响" src="../pictures/lec3_15_input_pattern.png" width="550" /></p>
+<p>电路延迟与输入的顺序有关！以 NAND 门（忽略 <span class="arithmatex">\(C_{int}\)</span>）为例：</p>
+<ul>
+<li><strong>Low-to-High 转换</strong> ：<ul>
+<li>两个输入都变低：延迟为 <span class="arithmatex">\(0.69 \frac{R_p}{2} C_L\)</span>（PMOS 并联，电阻减半）</li>
+<li>一个输入变低：延迟为 <span class="arithmatex">\(0.69 R_p C_L\)</span></li>
+</ul>
+</li>
+<li><strong>High-to-Low 转换</strong> ：<ul>
+<li>两个输入都变高：延迟为 <span class="arithmatex">\(0.69 \cdot 2R_n \cdot C_L\)</span>（NMOS 串联，电阻翻倍）</li>
+</ul>
+</li>
+</ul>
+<h3 id="transistor-ordering">利用 Transistor Ordering 提升逻辑速度<a class="headerlink" href="#transistor-ordering" title="Permanent link">&para;</a></h3>
+<p><img alt="Transistor Ordering" src="../pictures/lec3_16_transistor_order.png" width="550" /></p>
+<p>当串联晶体管的输入到达顺序不同时，延迟也不同：</p>
+<ul>
+<li><strong>较晚到达的信号放在靠近输出端的晶体管</strong> ：此时内部电容 <span class="arithmatex">\(C_1\)</span> 已被提前放电，延迟仅由 <span class="arithmatex">\(C_L\)</span> 放电决定</li>
+<li><strong>较晚到达的信号放在远离输出端</strong> ：<span class="arithmatex">\(C_L\)</span> 和 <span class="arithmatex">\(C_1\)</span> 都需要放电，延迟更大</li>
+</ul>
+<h3 id="elmore-delay">Elmore Delay 模型<a class="headerlink" href="#elmore-delay" title="Permanent link">&para;</a></h3>
+<p><img alt="Elmore Delay" src="../pictures/lec3_17_elmore.png" width="550" /></p>
+<p>将导通晶体管看作电阻，电路网络建模为 RC 阶梯（RC ladder），Elmore 延迟公式为：</p>
+<div class="arithmatex">\[
+t_{pd} \approx 0.69 \sum_{\text{nodes } i} R_{i\text{-to-source}} \cdot C_i
+\]</div>
+<div class="arithmatex">\[
+= 0.69 \left( R_1 C_1 + (R_1 + R_2) C_2 + \cdots + (R_1 + R_2 + \cdots + R_N) C_N \right)
+\]</div>
+<p>适用于复杂门电路（如晶体管堆叠）和互连线的延迟估计。</p>
+<h3 id="transistor-sizing">逻辑电路的 Transistor Sizing<a class="headerlink" href="#transistor-sizing" title="Permanent link">&para;</a></h3>
+<p><img alt="Transistor Sizing" src="../pictures/lec3_18_sizing.png" width="550" /></p>
+<p>目标是将 PDN 和 PUN 的 worst-case 延迟进行匹配。</p>
+<ul>
+<li>沟道长度由制程决定，沟道宽度由设计决定</li>
+<li><span class="arithmatex">\(R(\text{NMOS/PMOS}) \sim \frac{1}{W \cdot L}\)</span></li>
+<li>假设相同的 <span class="arithmatex">\(W \times L\)</span> ，PMOS 的电阻是 NMOS 电阻的 <strong>2 倍</strong> ：<span class="arithmatex">\(R_{pe} = 2 R_{ne}\)</span>（由半导体载流子迁移率决定）</li>
+</ul>
+<p>因此在设计中，PMOS 的宽度通常是 NMOS 的 2 倍，以匹配上拉和下拉延迟。对于串联晶体管，需要按串联级数成倍增大宽度。</p>
+<h3 id="_8">逻辑电路功耗<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><img alt="逻辑电路功耗" src="../pictures/lec3_19_power.png" width="550" /></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>静态功耗</th>
+<th>动态功耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>电路处于稳态时消耗的功率</td>
+<td>电路状态翻转时消耗的功率</td>
+</tr>
+<tr>
+<td>来源</td>
+<td>亚阈值漏电流、栅极漏电流、结反向偏置漏电流</td>
+<td>负载电容充放电、短路电流</td>
+</tr>
+<tr>
+<td>公式</td>
+<td><span class="arithmatex">\(P_{static} = V_{DD} \times I_{leak}\)</span></td>
+<td><span class="arithmatex">\(P_{dyn} = \alpha \cdot C_L \cdot V_{DD}^2 \cdot f\)</span></td>
+</tr>
+<tr>
+<td>优化</td>
+<td>先进工艺节点中占比持续上升</td>
+<td>降低电压、减小电容、降频、减少翻转率 <span class="arithmatex">\(\alpha\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>总功耗：<span class="arithmatex">\(P_{total} = P_{static} + P_{dynamic}\)</span></p>
+<h4 id="_9">动态功耗的能量分析<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><img alt="动态功耗充放电" src="../pictures/lec3_20_power_detail.png" width="550" /></p>
+<p><strong>充电过程</strong> <span class="arithmatex">\(0 \to V_{DD}\)</span> ：</p>
+<ul>
+<li>电源提供总能量：<span class="arithmatex">\(E_{supply} = C_L \cdot V_{DD}^2\)</span></li>
+<li>电容实际储存：<span class="arithmatex">\(E_{stored} = \frac{1}{2} C_L \cdot V_{DD}^2\)</span></li>
+<li>差值 <span class="arithmatex">\(\frac{1}{2} C_L V_{DD}^2\)</span> 在 PMOS 管上以热耗散</li>
+</ul>
+<p><strong>放电过程</strong> <span class="arithmatex">\(V_{DD} \to 0\)</span> ：</p>
+<ul>
+<li>电容释放的 <span class="arithmatex">\(\frac{1}{2} C_L \cdot V_{DD}^2\)</span> 全部通过 NMOS 管以热耗散</li>
+</ul>
+<p>一次完整翻转（<span class="arithmatex">\(0 \to 1 \to 0\)</span>）总耗能：<span class="arithmatex">\(E_{total} = C_L \cdot V_{DD}^2\)</span></p>
+<h2 id="_10">数据量化与逻辑单元设计<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>原码，反码，补码</li>
 </ul>
@@ -2080,13 +2492,13 @@
         
         
           
-          <a href="../../Rust%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/2026-03-16/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2026 03 16">
+          <a href="../%E5%A4%8D%E6%9D%82%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83%E4%B8%8E%E6%8C%87%E4%BB%A4%E9%9B%86/" class="md-footer__link md-footer__link--next" aria-label="下一页: 复杂计算单元与指令集">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                2026 03 16
+                复杂计算单元与指令集
               </div>
             </div>
             <div class="md-footer__button md-icon">
