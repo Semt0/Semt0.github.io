@@ -57,7 +57,10 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
 
 - **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
 - **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
-- **Bold text spacing**: Bold text (`**text**`) must have a space before and after (e.g., `我是 **秦始皇** 吗`).
+- **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗`).
+- **Bold next to Chinese / Latin**: After `**...**`, if the sentence continues (e.g. 约、同、时), insert a **space** between the closing `**` and that character (`**模型** 约`, not `**模型**约`). Same before opening `**` when it follows a word: `FP32 **模型**`, not `FP32**模型**`.
+- **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**`. Use `$x$` for formulas and `**词**` for emphasis separately.
+- **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas or fewer emphasized spans for reliable rendering in Zensical/Material.
 - **List spacing**: The first bullet point of a list must have a blank line separating it from the preceding text.
 - **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="550" }`.
 - **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
