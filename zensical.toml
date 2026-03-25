@@ -13,6 +13,7 @@ nav = [
    {"Blogs" = [
         "blog/index.md",
         "blog/2026-03-19.md",
+        "blog/cs231n_01.md",
    ]},
    {"Notes" = [
         "note/index.md",
