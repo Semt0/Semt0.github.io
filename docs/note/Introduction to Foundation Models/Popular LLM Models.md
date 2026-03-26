@@ -1,8 +1,8 @@
 ---
+title: 主流大语言模型概览：BERT、GPT 与 DeepSeek
 date: 2026-03-24
 ---
 
-# 主流大语言模型概览：BERT、GPT 与 DeepSeek
 
 参考：北京大学机器学习研究中心 Kun Yuan 讲义 *BERT and GPTs*、*A Brief Introduction to DeepSeek*；Transformer 基础见 [Transformer](Transformer.md)，参数量与显存量级见 [Parameters, Computations, and Memories in Language Models](<Parameters, Computations, and Memories in Language Models.md>)。部分材料引用 Stanford CS224n、DeepSeek-MoE 相关公开讲解与论文。
 
@@ -201,13 +201,86 @@ KV Cache 显存量级与 batch、序列长度、层数、隐层维度、头数�
 
 ### MQA、GQA 与 MLA
 
-为压缩 KV，业界有 **MQA**（多 Query 共享 K/V）、**GQA**（分组共享）等方案，推理更省显存，但可能损伤精度，需训练适配。
+标准 **Multi-Head Attention（MHA）** 中，每个注意力头拥有独立的 Q、K、V 投影。KV Cache 大小与头数 $h$、每头维度 $d$、序列长度成正比。当模型很大、序列很长时，KV Cache 成为推理阶段的显存瓶颈。MQA、GQA、MLA 三者的核心目标都是 **压缩 KV Cache**，思路各异。
+
+#### MQA（Multi-Query Attention）
+
+**MQA** 保留多个独立的 Q 头，但让 **所有头共享同一份 K 和 V**（即只有 1 个 K head 和 1 个 V head）。KV Cache 从 $2hd$ 降为 $2d$，缩减为 MHA 的 $1/h$（例如 $h = 32$ 时减少 32 倍）。
+
+代价是所有 Q 头被迫匹配同一组 KV，**表达能力下降**，在部分任务上可能出现质量损失。代表模型包括 PaLM、Falcon、StarCoder 等。
+
+#### GQA（Grouped-Query Attention）
+
+**GQA** 是 MQA 与 MHA 的折中：将 $h$ 个 Q 头分成 $g$ 组，每组共享一个 K/V 头。当 $g = h$ 时退化为 MHA，当 $g = 1$ 时退化为 MQA，因此 GQA 是二者的统一框架。
+
+KV Cache 大小为 $2gd$，在保留更多表达能力的同时仍显著节省显存。此外，GQA 支持从已有 MHA 模型上采样转换得到，工程友好。代表模型包括 LLaMA 2（70B）、LLaMA 3、Mistral 等。
 
 ![MQA / GQA：在 heads 间共享 KV（讲义）](pictures/popular_mqa_gqa.png){ width="550" }
 
-**Multi-head Latent Attention（MLA）** 的思路：K、V 在隐空间存在低秩结构，可只缓存低维压缩表示 $c_t$，需要时再恢复 $k_t$、$v_t$，从而减小 KV Cache；若朴素实现带来额外计算，可通过推理前合并等变换（如讲义中的 $W_Q U_K = W_Q W_K^T$ 一类）减少在线开销。
+#### MLA（Multi-head Latent Attention）
+
+MLA 的思路与 MQA / GQA **完全不同**：不减少 KV 头的数量，而是利用 K、V 在隐空间的 **低秩结构**，将完整 KV 投影到一个低维的 **潜在向量（latent vector）** $c_t^{KV}$ 中缓存，需要时再还原。
+
+具体地，对每个 token 的隐状态 $h_t$，先做下投影压缩：
+
+$$c_t^{KV} = W_{DKV} \cdot h_t$$
+
+KV Cache 中只存 $c_t^{KV}$（维度 $d_c \ll 2hd$）。需要计算注意力时，再用上投影还原完整的 K 和 V：
+
+$$K_t = W_{UK} \cdot c_t^{KV}, \quad V_t = W_{UV} \cdot c_t^{KV}$$
 
 ![MLA：Key-Value 联合低秩压缩（讲义）](pictures/popular_mla_lowrank.png){ width="550" }
+
+**矩阵吸收（Absorb）技巧**：朴素实现下推理时需先从 $c_t^{KV}$ 还原 K 和 V 再做注意力，增加了计算量。MLA 的关键在于上投影矩阵可以被吸收进 Q 的投影或输出投影中，使推理时直接用 $c_t^{KV}$ 参与计算，**不需要真正还原 K 和 V**，在线开销增加很小。
+
+具体推导如下：
+
+- **吸收 K 的上投影**：
+
+$$
+QK^T = Q(W_{UK} \cdot c_t^{KV})^T = \underbrace{Q \cdot W_{UK}}_{\tilde{Q}} \cdot c_t^{KV,T}
+$$
+  
+  将 $W_{UK}$ 吸收进 $W_Q$（离线预融合 $\tilde{W}_Q = W_Q \cdot W_{UK}$），则注意力分数直接通过 $\tilde{Q}$ 与 $c_t^{KV}$ 计算，无需还原 K。
+
+- **吸收 V 的上投影**：
+
+$$
+\text{Output} = \text{softmax}(\text{scores}) \cdot \underbrace{V}_{W_{UV} c_t^{KV}} \cdot W_O = \underbrace{\text{softmax}(\text{scores}) \cdot c_t^{KV}}_{\text{加权求和，结果为 } d_c \text{ 维向量}} \cdot \underbrace{W_{UV} W_O}_{\text{离线预融合}}
+$$
+  
+  将 $W_{UV}$ 与 $W_O$ 离线融合，注意力输出只需与融合后的矩阵相乘，无需还原 V。
+
+**整个流程总结**：
+
+```
+# 预计算（离线）
+W_Q_new = W_Q @ W_UK          # 吸收 K 的上投影
+W_O_new = W_UV @ W_O          # 吸收 V 的上投影
+
+# 推理时（在线）
+c_KV = W_DKV @ h_t            # 只存这个，维度 d_c << hidden_size
+Q_new = x @ W_Q_new           # 新的 Q 投影
+scores = Q_new @ c_KV.T / sqrt(d_k)
+attn = softmax(scores)
+output = attn @ c_KV @ W_O_new   # 不需要还原 K 或 V！
+```
+
+这样，推理过程中 KV Cache 只需存储低维的 $c_t^{KV}$，且在线计算不涉及高维 K、V 的还原，实现了高压缩率与低计算开销的平衡。
+
+**RoPE 的处理**：RoPE 是位置相关的，无法被吸收进静态矩阵。MLA 将 Q 和 K 各拆出一小部分专门携带 RoPE（记为 $q_R$、$k_R$），$k_R$ 单独缓存（维度很小），其余部分通过潜在向量压缩。因此最终每个 token 的 KV Cache 为 $c_t^{KV}$（压缩的 KV）加上 $k_{R,t}$（RoPE 部分），总维度仍远小于 $2hd$。
+
+MLA 在 **几乎不损失多头注意力表达能力** 的前提下实现了极高压缩率（DeepSeek-V2 中压缩到 MHA 的约 5%–13%），代价是实现复杂度较高。代表模型包括 DeepSeek-V2、DeepSeek-V3。
+
+#### 三者对比
+
+| | MHA | MQA | GQA | MLA |
+|---|-----|-----|-----|-----|
+| 方法 | 每头独立 KV | 所有头共享 1 个 KV | 分组共享 KV | 低秩压缩 KV 到潜在向量 |
+| KV Cache（per token） | $2hd$ | $2d$ | $2gd$ | $d_c + d_R$（远小于 $2hd$） |
+| 表达能力 | 最强 | 最弱 | 中等 | 接近 MHA |
+| 实现难度 | 基准 | 简单 | 简单 | 较复杂 |
+| 代表模型 | GPT-3、BERT | PaLM、Falcon | LLaMA 2/3、Mistral | DeepSeek-V2/V3 |
 
 DeepSeek-V2 一类结构：MLA 与 MoE 等组合。
 

@@ -1,8 +1,8 @@
 ---
+title: Regularization and Optimization
 date: 2026-03-22
 ---
 
-# Lecture 3: Regularization and Optimization
 
 参考：Stanford CS231n 10th Anniversary, Lecture 3, April 8, 2025
 

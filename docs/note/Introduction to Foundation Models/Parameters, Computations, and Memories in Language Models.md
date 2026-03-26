@@ -1,8 +1,8 @@
 ---
+title: 语言模型中的参数量、计算量与显存
 date: 2026-03-24
 ---
 
-# 语言模型中的参数量、计算量与显存
 
 参考：北京大学机器学习研究中心 **Kun Yuan** 讲义 *Parameters, Memories, and Computations in Transformers*、*Memory Analysis in Transformers*。分析对象为 **Decoder-only Transformer**（如 GPT），与 [Transformer](Transformer.md) 中介绍的自注意力与解码器结构一致，本文侧重 **量级估计** 与 **工程预算**（训练显存、FLOPs）。
 

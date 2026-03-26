@@ -1,8 +1,8 @@
 ---
+title: Image Classification with Linear Classifiers
 date: 2026-03-22
 ---
 
-# Lecture 2: Image Classification with Linear Classifiers
 
 参考：Stanford CS231n 10th Anniversary, Lecture 2, April 3, 2025
 

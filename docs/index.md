@@ -26,40 +26,39 @@ icon: lucide/home
       <section class="home-section resume-section recent-updates">
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
-          <a class="resume-card" href="note/计算方法/矩阵误差分析与超定方程组/">
+          <a class="resume-card" href="note/Introduction to Foundation Models/Gradient descent/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">矩阵误差分析与超定方程组</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span class="resume-card-date">2026-03-19</span>
+              <h3 class="resume-card-title">Gradient Descent</h3>
+              <p class="resume-card-sub">Introduction to Foundation Models</p>
+              <span class="resume-card-date">2026-03-26</span>
             </div>
           </a>
-          <a class="resume-card" href="note/计算方法/LU分解和对称正定矩阵/">
+          <a class="resume-card" href="note/Rust程序设计/所有权与所有权转移/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">LU 分解和对称正定矩阵</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span
-              class="resume-card-date">2026-03-19</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/LLM/Transformer/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Transformer</h3>
-              <p class="resume-card-sub">LLM</p>
-              <span class="resume-card-date">2026-03-19</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Rust程序设计/2026-03-16/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Rust 程序设计</h3>
+              <h3 class="resume-card-title">所有权与所有权转移</h3>
               <p class="resume-card-sub">Rust程序设计</p>
-              <span class="resume-card-date">2026-03-16</span>
+              <span class="resume-card-date">2026-03-26</span>
             </div>
           </a>
-          <a class="resume-card" href="note/ai硬件/晶体管原理与数字电路基础/">
+          <a class="resume-card" href="note/复变函数/级数/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">晶体管原理与数字电路基础</h3>
-              <p class="resume-card-sub">AI硬件</p>
-              <span class="resume-card-date">2026-03-16</span>
+              <h3 class="resume-card-title">级数</h3>
+              <p class="resume-card-sub">复变函数</p>
+              <span class="resume-card-date">2026-03-24</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/cs231n/Regularization and Optimization/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Regularization and Optimization</h3>
+              <p class="resume-card-sub">cs231n</p>
+              <span class="resume-card-date">2026-03-22</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/cs231n/Image Classification with Linear Classifiers/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Image Classification with Linear Classifiers</h3>
+              <p class="resume-card-sub">cs231n</p>
+              <span class="resume-card-date">2026-03-22</span>
             </div>
           </a>
         </div>
