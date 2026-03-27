@@ -40,6 +40,13 @@ icon: lucide/home
               <span class="resume-card-date">2026-03-26</span>
             </div>
           </a>
+          <a class="resume-card" href="note/ai硬件/复杂计算单元与指令集/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">复杂计算单元与指令集</h3>
+              <p class="resume-card-sub">ai硬件</p>
+              <span class="resume-card-date">2026-03-26</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/复变函数/级数/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">级数</h3>
@@ -47,18 +54,11 @@ icon: lucide/home
               <span class="resume-card-date">2026-03-24</span>
             </div>
           </a>
-          <a class="resume-card" href="note/cs231n/Regularization and Optimization/">
+          <a class="resume-card" href="note/Introduction to Foundation Models/Popular LLM Models/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">Regularization and Optimization</h3>
-              <p class="resume-card-sub">cs231n</p>
-              <span class="resume-card-date">2026-03-22</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/cs231n/Image Classification with Linear Classifiers/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Image Classification with Linear Classifiers</h3>
-              <p class="resume-card-sub">cs231n</p>
-              <span class="resume-card-date">2026-03-22</span>
+              <h3 class="resume-card-title">Popular LLM Models</h3>
+              <p class="resume-card-sub">Introduction to Foundation Models</p>
+              <span class="resume-card-date">2026-03-24</span>
             </div>
           </a>
         </div>

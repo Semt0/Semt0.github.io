@@ -31,6 +31,7 @@ nav = [
         ]},
         {"CVDL" = [
             "note/CVDL/ml_intro/ML_intro.md",
+            "note/CVDL/Recognition-1.md",
         ]},
         {"Introduction to Foundation Models" = [
             "note/Introduction to Foundation Models/Gradient descent.md",
@@ -47,6 +48,7 @@ nav = [
             "note/计算方法/Gauss消去法和主元素消去法.md",
             "note/计算方法/LU分解和对称正定矩阵.md",
             "note/计算方法/矩阵误差分析与超定方程组.md",
+            "note/计算方法/解线性方程组的迭代法.md",
         ]},
         {"算法设计与分析" = [
             "note/algorithm/DP.md",
@@ -60,7 +62,11 @@ nav = [
             "note/Rust程序设计/所有权与所有权转移.md"
         ]},
         {"OJ复习" = [
-            "note/OJ复习/OJ.md" 
+            "note/OJ复习/基础数据结构.md",
+            "note/OJ复习/图论基础.md",
+            "note/OJ复习/图论算法.md",
+            "note/OJ复习/最近公共祖先.md",
+            "note/OJ复习/字符串算法.md",
         ]}
 
    ]},

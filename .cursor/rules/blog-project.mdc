@@ -1,5 +1,5 @@
 ---
-description: Personal blog and learning notes site built with Zensical
+description: 博客项目架构、开发规范和笔记写作约定
 alwaysApply: true
 ---
 
@@ -43,6 +43,7 @@ GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`ma
     - `waline-init.js` — Waline v3 comment system (server: Vercel-hosted)
 - **`site/`** — Generated output (committed to repo, also built in CI)
 - **`scripts/`** — Python utilities for extracting PDF lecture slides to PNG (uses PyMuPDF)
+- **Source PDFs** — 笔记对应的 PDF 源文件存放在 `/Users/semt0/Downloads` 目录下
 
 ## Key Patterns
 
@@ -56,14 +57,206 @@ GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`ma
 
 When creating or editing learning notes under `docs/note/`, follow these rules:
 
+- **Images are required**: 笔记默认必须包含必要的插图。可以：
+  - 从 PDF 源文件截取关键图表/示意图
+  - 使用 matplotlib 绘制算法流程图、几何示意图、收敛曲线等
+  - 所有图片存放在 `pictures/` 子目录中
+  - 引用格式：`![描述](pictures/filename.png){ width="550" }`
 - **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
 - **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
 - **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗`).
-- **Bold next to Chinese / Latin**: After `**...**`, if the sentence continues (e.g. 约、同、时), insert a **space** between the closing `**` and that character so Markdown does not glue tokens (`**模型** 约`, not `**模型**约`). Same rule before opening `**` when it follows a word: `FP32 **模型**`, not `FP32**模型**`.
-- **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**` (breaks parsers). Use `$x$` for formulas and `**词**` for emphasis separately; e.g. `当 $h$ 很大时` or **再乘以** $b$, not `**$h$ 很大**`.
-- **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas, short clauses, or fewer emphasized spans so Zensical/Material renders reliably.
-- **List spacing**: The first bullet point of a list must have a blank line separating it from the preceding text.
+- **Bold next to Chinese / Latin**: After `**...**`, if the sentence continues (e.g. 约、同、时), insert a **space** between the closing `**` and that character (`**模型** 约`, not `**模型**约`). Same before opening `**` when it follows a word: `FP32 **模型**`, not `FP32**模型**`.
+- **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**`. Use `$x$` for formulas and `**词**` for emphasis separately.
+- **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas or fewer emphasized spans for reliable rendering in Zensical/Material.
+- **List spacing**:
+  - **Admonition 内列表前必须有空行**：在 `!!!` 或 `???` admonition 中，标题行、段落文本、或 `:` 结尾的句子与列表的第一个条目之间必须有空行
+  - 正确示例：
+    ```markdown
+    !!! abstract "定义 X（Name）"
+        定义的正式内容：
+
+        - 第一个列表项
+        - 第二个列表项
+    ```
+  - 错误示例（以下情况均违反规则）：
+    ```markdown
+    !!! warning "标题后直接跟列表"
+        - 列表项 1  ← 标题后直接跟列表，错误
+        - 列表项 2
+
+    !!! abstract "定义 X（Name）"
+        段落文本后直接跟列表：
+        - 列表项 1  ← 冒号后直接跟列表，错误
+        - 列表项 2
+    ```
 - **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="550" }`.
 - **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
 - **List numbering**: Do not mix bullet markers with numbers inside list items. Use either `- item` or `1. item`, never `- (1) item`.
 - **Markdown syntax**: Follow Zensical (Material for MkDocs fork) conventions. Refer to the official MkDocs Material documentation for details.
+- **Navigation**: After creating a new note, add its path to `zensical.toml` under the correct subject in `nav`.
+- **Algorithms/Pseudocode**: All algorithms must be written in LaTeX format using the `aligned` environment, not Markdown lists. See template in "Note Template & Admonition Style" section.
+
+## Note Template & Admonition Style
+
+When writing learning notes (especially math/CS theory), use the following structure and admonition patterns:
+
+!!! warning "重要：笔记不需要手动目录"
+    **不要在笔记开头添加 `## 目录` 章节**。Zensical 会自动生成右侧目录导航。
+    
+    直接以 `## 1 Section Title` 开始正文即可。
+
+```markdown
+---
+title: 简短概述本章内容。
+date: YYYY-MM-DD
+---
+
+## 1 Section Title
+
+### 1.1 Subsection
+
+正文内容...
+
+!!! abstract "定义 X（Name）"
+    定义的正式内容，使用 block formula：
+
+    $$
+    formula
+    $$
+
+直观理解或补充说明放在 admonition 外面。
+
+!!! abstract "定理 X / 引理 X（Name）"
+    定理的正式陈述。
+
+    $$
+    formula
+    $$
+
+??? note "证明"
+    证明过程（可折叠）。最后用 $\square$ 结尾。
+
+!!! tip "提示标题"
+    重要的直觉或记忆技巧。
+
+!!! warning "注意标题"
+    容易出错的地方。
+
+!!! info "信息标题"
+    补充性说明。
+
+!!! note "假设 X"
+    定理所需的假设条件。
+
+---
+
+## N 总结
+
+总结表格或核心公式。
+```
+
+### Admonition usage rules
+
+- **Definitions**: `!!! abstract "定义 X（Name）"` — always visible
+- **Theorems / Lemmas / Corollaries**: `!!! abstract "定理 X / 引理 X / 推论 X（Name）"` — always visible
+- **Proofs**: `??? note "证明"` — collapsible (closed by default), end with `$\square$`
+- **Assumptions**: `!!! note "假设 X"` — always visible
+- **Tips / Intuition**: `!!! tip` — always visible
+- **Warnings**: `!!! warning` — always visible
+- **Supplementary info**: `!!! info` — always visible
+- **Examples**: `???+ example "例X：..."` — collapsible (open by default)
+- **Algorithms**: **不要**使用 `!!! abstract` 包裹伪代码块。直接使用 `##` 小标题 + LaTeX `aligned` 环境
+- Admonition body is indented by **4 spaces**. Block formulas inside admonitions also need blank lines before and after `$$`.
+
+### Pseudocode Format
+
+All algorithms must use LaTeX `aligned` environment. Use `###` subheading for algorithm title, not admonition:
+
+```markdown
+### 算法 X.X（算法名称）
+
+$$
+\begin{aligned}
+& \textbf{算法: } \text{AlgorithmName} \\
+& \textbf{输入: } A \in \mathbb{R}^{n \times n}, \quad x^{(0)} \in \mathbb{R}^n, \quad b \in \mathbb{R}^n, \quad N, \quad \varepsilon \\
+& \textbf{输出: } x \approx A^{-1}b \\
+& 1. \quad k \leftarrow 0 \\
+& 2. \quad \textbf{while } k < N \textbf{ do} \\
+& 3. \quad \quad \text{// 循环体} \\
+& 4. \quad \quad k \leftarrow k + 1 \\
+& 5. \quad \textbf{end while} \\
+& 6. \quad \textbf{return } x
+\end{aligned}
+$$
+```
+
+**Key formatting rules:**
+- Use `\begin{aligned}` environment with `&` for alignment
+- Line numbers: `1. \quad`, `2. \quad`, etc.
+- Keywords: `\textbf{while}`, `\textbf{do}`, `\textbf{end while}`, `\textbf{if}`, `\textbf{then}`, `\textbf{end if}`, `\textbf{for}`, `\textbf{end for}`, `\textbf{return}`
+- Assignment: `\leftarrow`
+- Comments: `\text{// comment}`
+- Input/Output labels: `\textbf{输入: }`, `\textbf{输出: }`
+
+## Image Generation Workflow
+
+When creating learning notes that need illustrations (e.g., algorithm flowcharts, convergence plots, geometric diagrams), follow this workflow:
+
+### 1. Setup
+
+Ensure `numpy` and `matplotlib` are installed (if not, add them via `uv add numpy matplotlib`).
+
+### 2. Create Generation Script
+
+Create a Python script in `scripts/` directory (e.g., `generate_<topic>_plots.py`) using this template:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Use DejaVu Sans for better compatibility
+plt.rcParams['font.family'] = 'DejaVu Sans'
+plt.rcParams['axes.unicode_minus'] = False
+
+def plot_example():
+    fig, ax = plt.subplots(figsize=(9, 6))
+    # ... plotting code ...
+    plt.tight_layout()
+    plt.savefig('docs/note/<subject>/pictures/filename.png',
+                dpi=150, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+if __name__ == '__main__':
+    plot_example()
+```
+
+### 3. Important Guidelines
+
+- **Font**: Use only **English labels** in plots (matplotlib has limited CJK font support in this environment)
+- **Resolution**: Use `dpi=150` for clear web display
+- **Background**: Set `facecolor='white'` for consistent appearance
+- **Format**: Save as PNG
+- **Location**: Store in `docs/note/<subject>/pictures/`
+- **Width**: Reference images with `{ width="550" }` for consistent sizing
+
+### 4. Run Script
+
+```bash
+uv run python scripts/generate_<topic>_plots.py
+```
+
+### 5. Insert into Note
+
+Add image reference in the Markdown:
+
+```markdown
+![Description](pictures/filename.png){ width="550" }
+```
+
+### Example Reference
+
+See `scripts/generate_iterative_method_plots.py` for a complete example covering:
+- Flowcharts (iteration process)
+- Comparison diagrams (Jacobi vs Gauss-Seidel)
+- Convergence plots (SOR omega effect)
+- Geometric visualizations (A-conjugate directions, steepest descent paths)
