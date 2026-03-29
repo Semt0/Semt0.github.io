@@ -298,7 +298,7 @@ Adam 维护两个指数移动平均：
 - **一阶矩 (First Moment)**：梯度的均值（类似 Momentum）
 - **二阶矩 (Second Moment)**：梯度平方的均值（类似 RMSProp）
 
-并加入 **偏差校正 (Bias Correction)**，修正初始阶段因矩估计从零开始导致的偏差。
+并加入 **偏差校正 (Bias Correction)**，修正初始阶段因矩估计从零开始导致的偏差（初始状态 second_moment = 0, beta2 接近 1, 导致 second_moment 初始阶段接近 0）。
 
 ```python
 first_moment = 0
