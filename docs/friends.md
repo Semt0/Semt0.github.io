@@ -1,6 +1,7 @@
 ---
 icon: lucide/users
 title: 友链
+comments: false
 ---
 
 # 友链

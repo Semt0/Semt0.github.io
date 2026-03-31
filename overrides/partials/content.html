@@ -21,7 +21,9 @@
     {# Render page content #}
     {{ page.content }}
 
-    {# Waline 评论区 #}
+    {# Waline 评论区 - 可通过 frontmatter comments: false 禁用 #}
+    {% if page.meta.comments is not defined or page.meta.comments != false %}
     <div id="waline"></div>
+    {% endif %}
   </article>
 </div>
