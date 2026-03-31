@@ -1,0 +1,27 @@
+{#
+  Override of partials/content.html to add Waline comment section.
+#}
+
+{% if "navigation.comments" in features %}
+  {% set disqus = config.extra.disqus %}
+  {% set cusdis = config.extra.cusdis %}
+{% endif %}
+
+<!-- Page content -->
+{% if page.meta and page.meta.search and page.meta.search.exclude %}
+  {% set hidden = "hidden" %}
+{% elif page.meta and page.meta.search and not page.meta.search.exclude %}
+  {% set hidden = "" %}
+{% else %}
+  {% set hidden = "" %}
+{% endif %}
+
+<div class="md-content" data-md-component="content" {% if hidden %}hidden{% endif %}>
+  <article class="md-content__inner md-typeset">
+    {# Render page content #}
+    {{ page.content }}
+
+    {# Waline 评论区 #}
+    <div id="waline"></div>
+  </article>
+</div>
