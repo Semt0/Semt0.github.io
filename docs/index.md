@@ -26,41 +26,43 @@ icon: lucide/home
       <section class="home-section resume-section recent-updates">
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
-          <a class="resume-card" href="note/Introduction to Foundation Models/Gradient descent/">
+<!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/复变函数/拉普拉斯变换/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">Gradient Descent</h3>
-              <p class="resume-card-sub">Introduction to Foundation Models</p>
-              <span class="resume-card-date">2026-03-26</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Rust程序设计/所有权与所有权转移/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">所有权与所有权转移</h3>
-              <p class="resume-card-sub">Rust程序设计</p>
-              <span class="resume-card-date">2026-03-26</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/ai硬件/复杂计算单元与指令集/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">复杂计算单元与指令集</h3>
-              <p class="resume-card-sub">ai硬件</p>
-              <span class="resume-card-date">2026-03-26</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/复变函数/级数/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">级数</h3>
+              <h3 class="resume-card-title">第七章 拉普拉斯变换</h3>
               <p class="resume-card-sub">复变函数</p>
-              <span class="resume-card-date">2026-03-24</span>
+              <span class="resume-card-date">2026-03-31</span>
             </div>
           </a>
-          <a class="resume-card" href="note/Introduction to Foundation Models/Popular LLM Models/">
+          <a class="resume-card" href="note/复变函数/保形变换/">
             <div class="resume-card-body">
-              <h3 class="resume-card-title">Popular LLM Models</h3>
-              <p class="resume-card-sub">Introduction to Foundation Models</p>
-              <span class="resume-card-date">2026-03-24</span>
+              <h3 class="resume-card-title">第六章 保形变换</h3>
+              <p class="resume-card-sub">复变函数</p>
+              <span class="resume-card-date">2026-03-31</span>
             </div>
           </a>
+          <a class="resume-card" href="note/复变函数/留数/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">第五章 留数</h3>
+              <p class="resume-card-sub">复变函数</p>
+              <span class="resume-card-date">2026-03-31</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/复变函数/解析函数的级数表示/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">第四章 解析函数的级数表示</h3>
+              <p class="resume-card-sub">复变函数</p>
+              <span class="resume-card-date">2026-03-31</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/复变函数/复数与平面点集/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">第一章 复数与平面点集</h3>
+              <p class="resume-card-sub">复变函数</p>
+              <span class="resume-card-date">2026-03-31</span>
+            </div>
+          </a>
+<!-- home-recent:auto-end -->
         </div>
       </section>
       <section class="home-section resume-section">

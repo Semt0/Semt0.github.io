@@ -15,7 +15,19 @@ uv sync
 # Local development server
 zensical serve
 
-# Production build
+# 更新主页 Recent 列表（按笔记 frontmatter 的 date，默认最新 5 篇）
+uv run python scripts/update_home_recent.py
+
+# 更新笔记首页的栏目卡片数量统计
+uv run python scripts/update_note_counts.py
+
+# 更新 blog 和 note 首页的时间线布局
+uv run python scripts/update_timeline.py
+
+# Production build（自动执行所有更新脚本）
+uv run python scripts/update_home_recent.py
+uv run python scripts/update_note_counts.py
+uv run python scripts/update_timeline.py
 zensical build --clean
 ```
 
@@ -23,7 +35,7 @@ zensical build --clean
 
 ## Deployment
 
-GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`master`. The workflow runs `zensical build --clean` and publishes the `site/` directory to GitHub Pages.
+GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`master`. The workflow runs `scripts/update_home_recent.py`, `scripts/update_note_counts.py`, and `scripts/update_timeline.py` then `zensical build --clean`, and publishes the `site/` directory to GitHub Pages.
 
 ## Architecture
 
@@ -41,7 +53,11 @@ GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`ma
     - `katex.js` — KaTeX math rendering integration
     - `waline-init.js` — Waline v3 comment system (server: Vercel-hosted)
 - **`site/`** — Generated output (committed to repo, also built in CI)
-- **`scripts/`** — Python utilities for extracting PDF lecture slides to PNG (uses PyMuPDF)
+- **`scripts/`** —
+  - `update_home_recent.py` — 按笔记 frontmatter 的 `date` 更新主页 Recent 列表
+  - `update_note_counts.py` — 扫描笔记目录，自动更新 note 首页的栏目卡片数量统计
+  - `update_timeline.py` — 扫描 blog 和 note 目录，按日期排序更新时间线布局
+  - 另有 PDF 转图等脚本（PyMuPDF）
 - **Source PDFs** — 笔记对应的 PDF 源文件存放在 `/Users/semt0/Downloads` 目录下
 
 ## Key Patterns
