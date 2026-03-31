@@ -61,7 +61,7 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
   - 从 PDF 源文件截取关键图表/示意图
   - 使用 matplotlib 绘制算法流程图、几何示意图、收敛曲线等
   - 所有图片存放在 `pictures/` 子目录中
-  - 引用格式：`![描述](pictures/filename.png){ width="550" }`
+  - 引用格式：`![描述](pictures/filename.png){ width="800" }`
 - **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
 - **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
 - **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗`).
