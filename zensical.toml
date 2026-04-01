@@ -12,6 +12,7 @@ nav = [
    {"Home" = "index.md"},
    {"Blogs" = [
         "blog/index.md",
+        "blog/Verilog学习.md",
         "blog/2026-03-19.md",
         "blog/cs231n_01.md",
    ]},

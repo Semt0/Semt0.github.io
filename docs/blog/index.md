@@ -13,6 +13,12 @@ icon: lucide/pen-line
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-01</div>
+    <div class="timeline-content">
+      <a href="Verilog学习/">Verilog 语言速通</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-03-24</div>
     <div class="timeline-content">
       <a href="cs231n_01/">cs231n 学习之旅（一）</a>
