@@ -77,6 +77,7 @@ nav = [
         ]}
 
    ]},
+   {"Essay" = "essay/index.md"},
    {"Friends" = "friends.md"},
 ]
 

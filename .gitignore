@@ -8,5 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
+
+# AI tools files
 .claude
+.cursor
+.trae
+
+# Site files
 site/
