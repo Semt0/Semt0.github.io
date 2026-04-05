@@ -13,6 +13,12 @@ icon: lucide/sticky-note
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-05</div>
+    <div class="timeline-content">
+      <a href="2026-04-05/">传统 cv 方法 review</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-03</div>
     <div class="timeline-content">
       <a href="2026-04-03/">现代 CNN 架构：ResNet、DenseNet 与关键设计</a>

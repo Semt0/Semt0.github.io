@@ -105,6 +105,7 @@ custom_dir = "overrides"
 logo = "images/logo.jpg"
 favicon = "images/logo.jpg"
 language = "zh"
+font = false
 features = [
     "announce.dismiss",
     "content.code.annotate",
@@ -146,11 +147,6 @@ scheme = "slate"
 primary = "deep-purple"
 accent = "purple"
 toggle = { icon = "lucide/moon", name = "切换到浅色模式" }
-
-# 字体设置
-[project.theme.font]
-text = "Noto Sans SC"
-code = "JetBrains Mono"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"

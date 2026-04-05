@@ -2,8 +2,6 @@
  Semt0 博客：日间浅蓝 · 夜间深紫（基于 zhangpl24.github.io 配置）
  -------------------------------------------------------------------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Sans+SC:wght@400;500;700&display=swap");
-
 /* 顶栏头像圆角 */
 .md-header__button.md-logo {
   border-radius: 50%;
@@ -20,6 +18,15 @@
   --zen-surface-raised: #ffffff;
   --zen-surface-muted: #e2e8f0;
   --zen-border: rgba(20, 80, 120, 0.08);
+
+  --zen-card-radius: 12px;
+  --zen-card-bg: rgba(255, 255, 255, 0.86);
+  --zen-card-bg-hover: rgba(255, 255, 255, 0.93);
+  --zen-card-border: color-mix(in srgb, var(--md-typeset-a-color) 10%, rgba(15, 45, 70, 0.12));
+  --zen-card-border-hover: color-mix(in srgb, var(--md-typeset-a-color) 36%, rgba(15, 45, 70, 0.14));
+  --zen-card-shadow: 0 0.12rem 0.42rem rgba(10, 40, 70, 0.06);
+  --zen-card-shadow-hover: 0 0.28rem 0.9rem rgba(10, 50, 85, 0.14);
+  --zen-card-ring: color-mix(in srgb, var(--md-typeset-a-color) 45%, transparent);
 
   --md-default-bg-color: var(--zen-surface);
   --md-default-bg-color--light: #ffffff;
@@ -213,6 +220,15 @@
   --zen-slate-main-bg: hsla(var(--md-hue), 14%, 15.5%, 1);
   --zen-slate-sidebar-bg: hsla(var(--md-hue), 16%, 11%, 1);
   --zen-slate-border: hsla(var(--md-hue), 18%, 22%, 0.35);
+
+  --zen-card-radius: 12px;
+  --zen-card-bg: hsla(var(--md-hue), 15%, 18%, 0.66);
+  --zen-card-bg-hover: hsla(var(--md-hue), 15%, 22%, 0.68);
+  --zen-card-border: hsla(var(--md-hue), 18%, 28%, 0.55);
+  --zen-card-border-hover: hsla(var(--md-hue), 60%, 68%, 0.55);
+  --zen-card-shadow: 0 0.22rem 0.7rem rgba(0, 0, 0, 0.28);
+  --zen-card-shadow-hover: 0 0.38rem 1.05rem rgba(0, 0, 0, 0.45);
+  --zen-card-ring: hsla(var(--md-hue), 60%, 70%, 0.6);
 }
 
 /* 优化主题切换性能：禁用颜色属性的过渡效果 */
@@ -322,21 +338,35 @@ body {
 .zen-post-card {
   display: block;
   padding: 1.15rem 1.35rem;
-  border-radius: 0.5rem;
+  border-radius: var(--zen-card-radius);
   text-decoration: none !important;
   color: inherit !important;
-  background: var(--md-default-bg-color--light);
-  border: 1px solid var(--md-default-fg-color--lightest);
-  box-shadow: 0 0.08rem 0.35rem rgba(10, 50, 80, 0.06);
+  background: var(--zen-card-bg);
+  background-image: radial-gradient(
+    120% 85% at 18% 12%,
+    color-mix(in srgb, var(--md-typeset-a-color) 12%, transparent) 0%,
+    transparent 62%
+  );
+  border: 1px solid var(--zen-card-border);
+  box-shadow: var(--zen-card-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition:
+    background 0.25s ease,
     border-color 0.2s ease,
     box-shadow 0.25s ease,
     transform 0.25s ease;
 }
 
 .zen-post-card:hover {
-  border-color: color-mix(in srgb, var(--md-typeset-a-color) 45%, transparent);
-  box-shadow: 0 0.2rem 0.65rem rgba(10, 60, 100, 0.12);
+  background: var(--zen-card-bg-hover);
+  border-color: var(--zen-card-border-hover);
+  box-shadow: var(--zen-card-shadow-hover);
+}
+
+.zen-post-card:focus-visible {
+  outline: 2px solid var(--zen-card-ring);
+  outline-offset: 3px;
 }
 
 .zen-post-card__title {
@@ -358,14 +388,6 @@ body {
   .zen-post-card:hover {
     transform: translateY(-3px);
   }
-}
-
-[data-md-color-scheme="slate"] .zen-post-card {
-  box-shadow: 0 0.12rem 0.45rem rgba(0, 0, 0, 0.28);
-}
-
-[data-md-color-scheme="slate"] .zen-post-card:hover {
-  box-shadow: 0 0.25rem 0.85rem rgba(0, 0, 0, 0.45);
 }
 
 /* 首页扉页式导语 */
@@ -1158,19 +1180,37 @@ button.md-top {
   position: relative;
   display: block;
   padding: 0.45rem 0.85rem;
-  border-radius: 8px;
-  border: 1px solid rgba(209, 213, 219, 0.5);
-  background: rgba(229, 231, 235, 0.65);
+  border-radius: var(--zen-card-radius);
+  background: var(--zen-card-bg);
+  background-image: radial-gradient(
+    120% 85% at 18% 12%,
+    color-mix(in srgb, var(--md-typeset-a-color) 12%, transparent) 0%,
+    transparent 62%
+  );
+  border: 1px solid var(--zen-card-border);
+  box-shadow: var(--zen-card-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   text-decoration: none;
   color: inherit;
   overflow: hidden;
-  transition: border-color 0.18s, box-shadow 0.18s;
+  transition:
+    background 0.25s ease,
+    border-color 0.2s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .resume-card:hover {
-  border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  background: var(--zen-card-bg-hover);
+  border-color: var(--zen-card-border-hover);
+  box-shadow: var(--zen-card-shadow-hover);
   text-decoration: none;
+}
+
+.resume-card:focus-visible {
+  outline: 2px solid var(--zen-card-ring);
+  outline-offset: 3px;
 }
 
 .resume-card-body { position: relative; z-index: 1; }
@@ -1273,19 +1313,26 @@ a.resume-tag:hover {
   align-items: flex-start;
   gap: 0.75rem;
   padding: 0.85rem 1rem;
-  border-radius: 14px;
-  border: 1px solid rgba(167, 205, 197, 0.4);
-  background: linear-gradient(135deg, rgba(220, 242, 236, 0.7) 0%, rgba(232, 248, 243, 0.5) 100%);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+  border-radius: var(--zen-card-radius);
+  background: var(--zen-card-bg);
+  background-image: radial-gradient(
+    120% 85% at 18% 12%,
+    color-mix(in srgb, var(--md-typeset-a-color) 12%, transparent) 0%,
+    transparent 62%
+  );
+  border: 1px solid var(--zen-card-border);
+  box-shadow: var(--zen-card-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition: transform 0.18s ease-out, box-shadow 0.18s ease-out,
               border-color 0.18s ease-out, background 0.18s ease-out;
 }
 
 .friend-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
-  border-color: rgba(129, 178, 165, 0.5);
-  background: linear-gradient(135deg, rgba(220, 242, 236, 0.85) 0%, rgba(232, 248, 243, 0.7) 100%);
+  background: var(--zen-card-bg-hover);
+  border-color: var(--zen-card-border-hover);
+  box-shadow: var(--zen-card-shadow-hover);
 }
 
 .friend-avatar {
@@ -1319,6 +1366,13 @@ a.resume-tag:hover {
   text-decoration: none;
   color: inherit;
 }
+
+.friend-card-title a:focus-visible {
+  outline: 2px solid var(--zen-card-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 .friend-card-title a:hover {
   text-decoration: underline;
 }
@@ -1326,7 +1380,7 @@ a.resume-tag:hover {
 .friend-card-desc {
   font-size: 0.82rem;
   line-height: 1.4;
-  color: rgba(100, 116, 139, 0.9);
+  color: var(--md-default-fg-color--light);
 }
 
 .friend-card-url {
@@ -1710,16 +1764,6 @@ a.resume-tag:hover {
 [data-md-color-scheme="slate"] .home-link-icon-github svg { color: #e6edf3; }
 
 /* 夜间：Resume sections */
-[data-md-color-scheme="slate"] .resume-card {
-  background: hsla(278, 15%, 22%, 0.6);
-  border-color: hsla(278, 18%, 30%, 0.5);
-}
-
-[data-md-color-scheme="slate"] .resume-card:hover {
-  border-color: hsla(278, 60%, 65%, 0.5);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
-}
-
 [data-md-color-scheme="slate"] .resume-card-title { color: #f1f5f9; }
 [data-md-color-scheme="slate"] .resume-card-date { color: hsla(278, 20%, 70%, 0.8); }
 
@@ -1736,17 +1780,6 @@ a.resume-tag:hover {
 }
 
 /* 夜间：Friend cards */
-[data-md-color-scheme="slate"] .friend-card {
-  background: linear-gradient(135deg, hsla(278, 15%, 20%, 0.8) 0%, hsla(278, 15%, 12%, 0.9) 100%);
-  border-color: hsla(278, 18%, 35%, 0.4);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-}
-
-[data-md-color-scheme="slate"] .friend-card:hover {
-  background: linear-gradient(135deg, hsla(278, 15%, 25%, 0.8) 0%, hsla(278, 15%, 16%, 0.9) 100%);
-  border-color: hsla(278, 60%, 65%, 0.6);
-}
-
 [data-md-color-scheme="slate"] .friend-card-url { color: hsla(278, 20%, 80%, 0.9); }
 
 /* 夜间：Waline 评论区 */
