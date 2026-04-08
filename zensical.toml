@@ -9,14 +9,14 @@ Copyright &copy; 2026 Semt0
 """
 
 nav = [
-   {"Home" = "index.md"},
-   {"Blogs" = [
+   {"主页" = "index.md"},
+   {"博客" = [
         "blog/index.md",
         "blog/Verilog学习.md",
         "blog/2026-03-19.md",
         "blog/cs231n_01.md",
    ]},
-   {"Notes" = [
+   {"笔记" = [
         "note/index.md",
         {"复变函数" = [
             "note/复变函数/复数与平面点集.md",
@@ -81,8 +81,8 @@ nav = [
         ]}
 
    ]},
-   {"Essay" = "essay/index.md"},
-   {"Friends" = "friends.md"},
+   {"手记" = "essay/index.md"},
+   {"友链" = "friends.md"},
 ]
 
 extra_css = [

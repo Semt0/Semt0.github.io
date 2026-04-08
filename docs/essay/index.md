@@ -2,7 +2,7 @@
 icon: lucide/sticky-note
 ---
 
-# Essay
+# 手记
 
 偶尔的零散笔记，听课速记、随想、碎片化的知识点整理。
 
