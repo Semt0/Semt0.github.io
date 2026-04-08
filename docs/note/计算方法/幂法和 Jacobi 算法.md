@@ -1,6 +1,6 @@
 ---
-title: 特征值和特征向量的计算方法
-date: 2025-03-31
+title: 幂法和 Jacobi 算法
+date: 2026-04-07
 tags:
   - 数值分析
   - 计算方法
@@ -13,7 +13,18 @@ tags:
 
 ## 1 问题简介
 
-### 1.1 特征值问题的背景
+### 1.1 符号约定
+
+在本笔记中，除非另有说明，否则将使用以下符号约定：
+
+- **矩阵与向量**：大写字母 $A, B, \ldots$ 表示矩阵；小写字母 $x, y, u, \ldots$ 表示列向量。
+- **元素表示**：$a_{ij}$ 表示矩阵 $A$ 的第 $i$ 行第 $j$ 列的元素；$x_j$ 表示向量 $x$ 的第 $j$ 个分量。
+- **转置与逆**：$A^T$ 表示矩阵 $A$ 的转置；$A^{-1}$ 表示矩阵 $A$ 的逆。
+- **范数**：$\|\cdot\|_2$ 表示向量的 2-范数或矩阵的谱范数；$\|\cdot\|_F$ 表示矩阵的 Frobenius 范数。
+- **对角化**：$\operatorname{diag}(a_1, \ldots, a_n)$ 表示以 $a_1, \ldots, a_n$ 为对角线元素的对角矩阵。
+- **收敛性**：$S(A) = \sum_{i \neq j} a_{ij}^2$ 表示矩阵 $A$ 的所有非对角线元素的平方和。
+
+### 1.2 特征值问题的背景
 
 特征值问题在工程和物理中有广泛应用。以弹簧-质点系统的共振问题为例：
 
@@ -213,6 +224,73 @@ $$
 
     这里 $(x^{(k)})_j$ 表示 $x^{(k)}$ 的第 $j$ 个分量，而 $j$ 是 $x^{(k+1)}$ 绝对值最大的元素下标。
 
+??? note "证明"
+    假设矩阵 $A$ 具有 $n$ 个线性无关的特征向量 $u_1, u_2, \ldots, u_n$，它们对应于特征值 $\lambda_1, \lambda_2, \ldots, \lambda_n$。
+    
+    由于主特征值 $\lambda_1$ 唯一，我们有：
+    
+    $$
+    |\lambda_1| > |\lambda_2| \ge |\lambda_3| \ge \cdots \ge |\lambda_n|
+    $$
+    
+    因为特征向量组成了 $\mathbb{R}^n$ 的一组基，任何初始向量 $x^{(0)}$ 都可以表示为它们的线性组合：
+    
+    $$
+    x^{(0)} = \alpha_1 u_1 + \alpha_2 u_2 + \cdots + \alpha_n u_n
+    $$
+    
+    假设我们随机选取的 $x^{(0)}$ 在主特征向量方向上的投影非零，即 $\alpha_1 \neq 0$。根据迭代公式 $x^{(k)} = A^k x^{(0)}$，有：
+    
+    $$
+    x^{(k)} = \alpha_1 \lambda_1^k u_1 + \alpha_2 \lambda_2^k u_2 + \cdots + \alpha_n \lambda_n^k u_n
+    $$
+    
+    提取出 $\lambda_1^k \alpha_1$：
+    
+    $$
+    x^{(k)} = \lambda_1^k \alpha_1 \left( u_1 + \frac{\alpha_2}{\alpha_1} \left(\frac{\lambda_2}{\lambda_1}\right)^k u_2 + \cdots + \frac{\alpha_n}{\alpha_1} \left(\frac{\lambda_n}{\lambda_1}\right)^k u_n \right)
+    $$
+    
+    同理，对于 $x^{(k+1)}$：
+    
+    $$
+    x^{(k+1)} = \lambda_1^{k+1} \alpha_1 \left( u_1 + \frac{\alpha_2}{\alpha_1} \left(\frac{\lambda_2}{\lambda_1}\right)^{k+1} u_2 + \cdots + \frac{\alpha_n}{\alpha_1} \left(\frac{\lambda_n}{\lambda_1}\right)^{k+1} u_n \right)
+    $$
+    
+    因为对于所有的 $i \ge 2$，都有 $|\frac{\lambda_i}{\lambda_1}| < 1$，所以当 $k \to \infty$ 时，$(\frac{\lambda_i}{\lambda_1})^k \to 0$。
+    
+    由此可得，在 $k$ 足够大时：
+    
+    $$
+    x^{(k)} \approx \lambda_1^k \alpha_1 u_1
+    $$
+    
+    $$
+    x^{(k+1)} \approx \lambda_1^{k+1} \alpha_1 u_1
+    $$
+    
+    这说明，向量 $x^{(k)}$ 的方向趋近于主特征向量 $u_1$ 的方向，归一化后即收敛于 $u_1$。
+    
+    对于任意非零分量 $j$（为避免除零，通常取绝对值最大的分量），我们考察相邻两次迭代的比值：
+    
+    $$
+    \frac{(x^{(k+1)})_j}{(x^{(k)})_j} = \frac{\lambda_1^{k+1} \alpha_1 (u_1)_j + O\left(\lambda_1^{k+1} \left|\frac{\lambda_2}{\lambda_1}\right|^{k+1}\right)}{\lambda_1^k \alpha_1 (u_1)_j + O\left(\lambda_1^k \left|\frac{\lambda_2}{\lambda_1}\right|^k\right)}
+    $$
+    
+    提取公因子 $\lambda_1^k \alpha_1 (u_1)_j$：
+    
+    $$
+    \frac{(x^{(k+1)})_j}{(x^{(k)})_j} = \lambda_1 \frac{1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^{k+1}\right)}{1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)}
+    $$
+    
+    当 $k \to \infty$ 时，误差项趋于 $0$，因此：
+    
+    $$
+    \lim_{k \to \infty} \frac{(x^{(k+1)})_j}{(x^{(k)})_j} = \lambda_1
+    $$
+    
+    证明完毕。 $\square$
+
 ![幂法收敛原理](pictures/power_method_convergence.png){ width="550" }
 
 上图中展示了幂法的收敛原理：当 $|\lambda_2/\lambda_1|$ 越小，收敛速度越快。
@@ -234,6 +312,70 @@ x^{(k+1)} = A y^{(k)}
 $$
 
 最终，$\lambda_1 \approx \|x^{(k)}\|_\infty$，$u_1 \approx y^{(k)}$。
+
+??? note "证明"
+    由上一节幂法收敛性可知，当 $k$ 足够大时，
+
+    $$
+    x^{(k)} = \lambda_1^k \alpha_1 u_1 + O\left(\lambda_1^k \left|\frac{\lambda_2}{\lambda_1}\right|^k\right)
+    $$
+
+    因此存在常数向量误差项 $\varepsilon^{(k)}$，使得
+
+    $$
+    x^{(k)} = \lambda_1^k \alpha_1 \left(u_1 + \varepsilon^{(k)}\right), \quad \|\varepsilon^{(k)}\|_\infty \to 0
+    $$
+
+    对无穷范数取值：
+
+    $$
+    \|x^{(k)}\|_\infty
+    = |\lambda_1|^k |\alpha_1| \, \|u_1 + \varepsilon^{(k)}\|_\infty
+    $$
+
+    所以归一化向量满足
+
+    $$
+    y^{(k)}
+    = \frac{x^{(k)}}{\|x^{(k)}\|_\infty}
+    = \operatorname{sgn}(\lambda_1^k \alpha_1)\,
+    \frac{u_1 + \varepsilon^{(k)}}{\|u_1 + \varepsilon^{(k)}\|_\infty}
+    $$
+
+    当 $k \to \infty$ 时，由 $\varepsilon^{(k)} \to 0$ 得
+
+    $$
+    y^{(k)} \to \pm \frac{u_1}{\|u_1\|_\infty}
+    $$
+
+    即归一化后的迭代向量与主特征向量同向（差一个符号因子），故可记作 $u_1 \approx y^{(k)}$。
+
+    另一方面，归一化迭代满足
+
+    $$
+    x^{(k+1)} = A y^{(k)}
+    $$
+
+    当 $k$ 足够大时，$y^{(k)} \approx \pm \dfrac{u_1}{\|u_1\|_\infty}$，从而
+
+    $$
+    x^{(k+1)} \approx \pm \frac{A u_1}{\|u_1\|_\infty}
+    = \pm \frac{\lambda_1 u_1}{\|u_1\|_\infty}
+    $$
+
+    取无穷范数即得
+
+    $$
+    \|x^{(k+1)}\|_\infty \approx |\lambda_1|
+    $$
+
+    若主特征值为正（或用带符号分量比值估计），可写成
+
+    $$
+    \lambda_1 \approx \|x^{(k+1)}\|_\infty
+    $$
+
+    这说明归一化处理既避免了上溢出/下溢出，又保留了幂法对主特征对 $(\lambda_1,u_1)$ 的收敛性。 $\square$
 
 ### 2.4 算法流程
 
@@ -445,6 +587,7 @@ Jacobi 算法是用来计算 **实对称矩阵** 的 **所有特征值** 以及�
     $$
 
     其中 $D$ 是对角矩阵，且对角线元素 $D_{ii}$ 即为特征值 $\lambda_i$，而 $Q$ 的第 $i$ 列即为 $\lambda_i$ 对应的特征向量。
+    也即：实对称矩阵存在一组相互正交的单位特征向量，作为它的标准正交基。它告诉我们，实对称矩阵描述的线性变换，本质上只是在某一组相互垂直的方向上进行了拉伸或压缩。
 
 ### 6.2 2x2 矩阵的 Jacobi 旋转
 
@@ -492,10 +635,132 @@ $$
     每次正交变换选择绝对值最大的非对角线元素 $a_{ij}$，构建正交变换矩阵 $Q_{ij}$。则有：
 
     $$
-    \sum_{i \neq j} (a_{ij}^{(k+1)})^2 \leq \left(1 - \frac{2}{n(n-1)}\right) \sum_{i \neq j} (a_{ij}^{(k)})^2
+    S(A^{(k+1)}) \leq \left( 1 - \frac{2}{n(n-1)} \right) S(A^{(k)})
     $$
 
-    当 $k \to \infty$ 时，非对角线元素平方和趋于 0，即 Jacobi 算法收敛。
+    当 $k \to \infty$ 时，非对角线元素平方和趋于 $0$，即 Jacobi 算法收敛。
+
+??? note "证明"
+    为了证明该定理，我们需要先引入一些基本定义与性质。
+
+    **1. 基本定义与性质**
+
+    - **Frobenius 范数**：对于矩阵 $A \in \mathbb{R}^{n \times n}$，其 Frobenius 范数定义为：
+
+      $$
+      \|A\|_F^2 = \sum_{i=1}^n \sum_{j=1}^n a_{ij}^2
+      $$
+
+    - **正交变换的不变性**：Frobenius 范数在正交变换下保持不变。即对任意正交矩阵 $Q$，有 $\|Q^T A Q\|_F = \|A\|_F$。
+    - **非对角元素平方和**：记 $S(A)$ 为矩阵 $A$ 的所有非对角元素的平方和，则有：
+
+      $$
+      S(A) = \|A\|_F^2 - \sum_{i=1}^n a_{ii}^2
+      $$
+
+    **2. 迭代过程的推导**
+
+    考虑在第 $k$ 次迭代中，选择非对角元素 $a_{ij}^{(k)}$（不妨设 $i < j$）进行旋转。变换矩阵为 $Q_{ij}$，变换后的矩阵为 $A^{(k+1)} = Q_{ij}^T A^{(k)} Q_{ij}$。
+
+    由正交变换的不变性，我们有：
+    
+    $$
+    \|A^{(k+1)}\|_F^2 = \|A^{(k)}\|_F^2
+    $$
+    
+    该变换仅改变矩阵的第 $i$ 行、第 $j$ 行、第 $i$ 列和第 $j$ 列。特别地，对于对角元素，我们有如下关系（由 $2 \times 2$ 子矩阵的正交相似变换性质）：
+    
+    $$
+    (a_{ii}^{(k+1)})^2 + (a_{jj}^{(k+1)})^2 + 2(a_{ij}^{(k+1)})^2 = (a_{ii}^{(k)})^2 + (a_{jj}^{(k)})^2 + 2(a_{ij}^{(k)})^2
+    $$
+    
+    由于我们在 Jacobi 旋转中选择 $\theta$ 使得 $a_{ij}^{(k+1)} = 0$，上述等式简化为：
+    
+    $$
+    (a_{ii}^{(k+1)})^2 + (a_{jj}^{(k+1)})^2 = (a_{ii}^{(k)})^2 + (a_{jj}^{(k)})^2 + 2(a_{ij}^{(k)})^2
+    $$
+    
+    对于其他对角元素 $m \neq i, j$，有 $a_{mm}^{(k+1)} = a_{mm}^{(k)}$。因此，所有对角元素的平方和满足：
+    
+    $$
+    \sum_{m=1}^n (a_{mm}^{(k+1)})^2 = \sum_{m=1}^n (a_{mm}^{(k)})^2 + 2(a_{ij}^{(k)})^2
+    $$
+    
+    代入 $S(A)$ 的定义：
+    
+    $$
+    \begin{aligned}
+    S(A^{(k+1)}) &= \|A^{(k+1)}\|_F^2 - \sum_{m=1}^n (a_{mm}^{(k+1)})^2 \\
+    &= \|A^{(k)}\|_F^2 - \left( \sum_{m=1}^n (a_{mm}^{(k)})^2 + 2(a_{ij}^{(k)})^2 \right) \\
+    &= S(A^{(k)}) - 2(a_{ij}^{(k)})^2
+    \end{aligned}
+    $$
+
+    这表明，每一步 Jacobi 旋转都会使非对角元素的平方和减少 $2(a_{ij}^{(k)})^2$。
+
+    **3. 最大元素的选取策略**
+
+    在经典 Jacobi 算法中，我们选择绝对值最大的非对角元素 $a_{ij}^{(k)}$。由于对称矩阵共有 $n(n-1)$ 个非对角元素（计入 $a_{ij}$ 与 $a_{ji}$），即有 $n(n-1)/2$ 对非对角元素。由平均值原理：
+    
+    $$
+    (a_{ij}^{(k)})^2 = \max_{p \neq q} (a_{pq}^{(k)})^2 \geq \frac{1}{n(n-1)} S(A^{(k)})
+    $$
+    
+    将其代入上一步的结论中：
+    
+    $$
+    S(A^{(k+1)}) = S(A^{(k)}) - 2(a_{ij}^{(k)})^2 \leq S(A^{(k)}) - \frac{2}{n(n-1)} S(A^{(k)})
+    $$
+    
+    整理得：
+    
+    $$
+    S(A^{(k+1)}) \leq \left( 1 - \frac{2}{n(n-1)} \right) S(A^{(k)})
+    $$
+
+    **4. 结论与代数解释**
+
+    由于对任意 $n \geq 2$，有 $0 \leq 1 - \frac{2}{n(n-1)} < 1$，由夹逼定理可知：
+    
+    $$
+    \lim_{k \to \infty} S(A^{(k)}) = 0
+    $$
+    
+    这意味着随着迭代次数的增加，非对角元素趋于 $0$，矩阵 $A^{(k)}$ 趋于对角矩阵。 $\square$
+
+???+ example "数值算例验证"
+    考虑对称矩阵 $A = \begin{bmatrix} 4 & 2 \\ 2 & 1 \end{bmatrix}$，其非对角元素平方和 $S(A) = 2^2 + 2^2 = 8$。
+    
+    **第 1 步：计算旋转角度**
+    
+    选择唯一的非对角对 $(1, 2)$，计算 $\theta$：
+    
+    $$
+    \tau = \frac{a_{22} - a_{11}}{2a_{12}} = \frac{1 - 4}{2 \times 2} = -0.75
+    $$
+    
+    计算 $t = \tan\theta = \frac{\operatorname{sgn}(\tau)}{|\tau| + \sqrt{1 + \tau^2}} = \frac{-1}{0.75 + 1.25} = -0.5$。
+    
+    由此得 $\cos\theta = \frac{1}{\sqrt{1 + t^2}} = \frac{2}{\sqrt{5}}$，$\sin\theta = t \cos\theta = -\frac{1}{\sqrt{5}}$。
+    
+    **第 2 步：更新矩阵元素**
+    
+    $$
+    \begin{aligned}
+    a_{11}^{(1)} &= a_{11} - t a_{12} = 4 - (-0.5) \times 2 = 5 \\
+    a_{22}^{(1)} &= a_{22} + t a_{12} = 1 + (-0.5) \times 2 = 0 \\
+    a_{12}^{(1)} &= 0
+    \end{aligned}
+    $$
+    
+    得到对角阵 $A^{(1)} = \begin{bmatrix} 5 & 0 \\ 0 & 0 \end{bmatrix}$。
+    
+    **第 3 步：验证收敛性定理**
+    
+    对于 $n=2$，$1 - \frac{2}{n(n-1)} = 1 - \frac{2}{2 \times 1} = 0$。
+    
+    定理预测 $S(A^{(1)}) \leq 0 \cdot S(A^{(0)}) = 0$，这与我们的计算结果 $S(A^{(1)}) = 0$ 完全吻合。这意味着对于 $2 \times 2$ 矩阵，Jacobi 算法仅需一步即可收敛。
+
 
 ### 6.4 算法流程
 

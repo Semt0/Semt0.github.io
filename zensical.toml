@@ -44,6 +44,8 @@ nav = [
             "note/Introduction to Foundation Models/Transformer.md",
             "note/Introduction to Foundation Models/Parameters, Computations, and Memories in Language Models.md",
             "note/Introduction to Foundation Models/Popular LLM Models.md",
+            "note/Introduction to Foundation Models/Accelerated Gradient Descent.md",
+            "note/Introduction to Foundation Models/Stochastic Gradient Descent.md",
         ]},
         {"CS231n" = [
             "note/cs231n/Image Classification with Linear Classifiers.md",
@@ -55,10 +57,12 @@ nav = [
             "note/计算方法/LU分解和对称正定矩阵.md",
             "note/计算方法/矩阵误差分析与超定方程组.md",
             "note/计算方法/解线性方程组的迭代法.md",
-            "note/计算方法/特征值和特征向量的计算.md",
+            "note/计算方法/幂法和 Jacobi 算法.md",
+            "note/计算方法/QR分解和奇异值分解.md",
         ]},
         {"算法设计与分析" = [
-            "note/algorithm/DP.md",
+            "note/算法设计与分析/动态规划.md",
+            "note/算法设计与分析/线性规划.md",
         ]},
         {"AI硬件" = [
             "note/ai硬件/数字逻辑与计算单元设计.md",

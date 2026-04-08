@@ -1,5 +1,5 @@
 ---
-title: 语言模型中的参数量、计算量与显存
+title: Parameters, Computations, and Memories in Language Models
 date: 2026-03-24
 ---
 

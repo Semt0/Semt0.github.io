@@ -38,11 +38,17 @@ class TimelineEntry:
 
 def parse_frontmatter(raw: str) -> dict[str, str]:
     """解析简单 YAML frontmatter（仅收集 title / date 等单行键）。"""
+    # 移除 BOM 并去除首尾空白
+    raw = raw.lstrip('\ufeff').strip()
     if not raw.startswith("---"):
         return {}
-    m = re.match(r"^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n", raw)
+    # 更加宽松的正则匹配
+    m = re.match(r"^---\s*\n([\s\S]*?)\n---\s*(\n|$)", raw)
     if not m:
-        return {}
+        # 如果单行匹配失败，尝试更通用的匹配（忽略换行符差异）
+        m = re.match(r"^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*([\r\n]|$)", raw)
+        if not m:
+            return {}
     block = m.group(1)
     data: dict[str, str] = {}
     for line in block.splitlines():

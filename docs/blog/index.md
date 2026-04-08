@@ -15,7 +15,7 @@ icon: lucide/pen-line
   <div class="timeline-item">
     <div class="timeline-date">2026-04-01</div>
     <div class="timeline-content">
-      <a href="Verilog学习/">Verilog 语言速通</a>
+      <a href="Verilog学习/">Verilog study</a>
     </div>
   </div>
   <div class="timeline-item">

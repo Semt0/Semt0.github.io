@@ -8,16 +8,6 @@ date: 2026-03-26
 
 ---
 
-## 目录
-
-- 凸集、凸函数与凸问题
-- 强凸性与光滑性
-- 梯度下降算法
-- 收敛性分析
-- 实验
-
----
-
 ## 1 问题表述 (Problem Formulation)
 
 本章考虑以下 **无约束优化问题** ：
@@ -117,11 +107,90 @@ $$
 
 换言之，梯度 **不能变化太快** ——梯度的变化量被 $L$ 倍的自变量变化量所约束。
 
-上述不等式等价于以下 **二次上界** 条件（证明见注释）：
+上述不等式等价于以下 **二次上界** 条件（也称 **下降引理**（Descent Lemma）；证明见下方注释）：
 
 $$
 f(y) \le f(x) + \langle \nabla f(x), y - x \rangle + \frac{L}{2} \|y - x\|_2^2
 $$
+
+??? note "证明（下降引理 Descent Lemma）"
+    这个不等式在凸优化中通常被称为 **下降引理**（Descent Lemma）。它是 $L$-光滑（$L$-smooth）函数的核心性质之一。
+
+    **1. $L$-光滑的定义**
+
+    若 $f$ 是 $L$-光滑的，则其梯度 $\nabla f$ 是 $L$-Lipschitz 连续的：对任意 $x, y$，
+
+    $$
+    \|\nabla f(y) - \nabla f(x)\|_2 \le L \|y - x\|_2 .
+    $$
+
+    **2. 线段参数化 + 微积分基本定理**
+
+    定义 $g(t) := f\bigl(x + t(y - x)\bigr)$，其中 $t \in [0, 1]$。由微积分基本定理，
+
+    $$
+    f(y) - f(x) = g(1) - g(0) = \int_{0}^{1} g'(t)\,dt .
+    $$
+
+    由链式法则，
+
+    $$
+    g'(t) = \langle \nabla f\bigl(x + t(y - x)\bigr),\, y - x \rangle .
+    $$
+
+    因此
+
+    $$
+    f(y) = f(x) + \int_{0}^{1} \langle \nabla f\bigl(x + t(y - x)\bigr),\, y - x \rangle \,dt .
+    $$
+
+    **3. 加减 $\nabla f(x)$ 并界定剩余项**
+
+    $$
+    \begin{aligned}
+    f(y)
+    &= f(x)
+       + \int_{0}^{1} \langle \nabla f(x),\, y - x \rangle \, dt \\
+    &\quad + \int_{0}^{1}
+       \left\langle
+         \nabla f\bigl(x + t(y - x)\bigr) - \nabla f(x),\, y - x
+       \right\rangle \, dt \\
+    &= f(x) + \langle \nabla f(x),\, y - x \rangle \\
+    &\quad + \int_{0}^{1}
+       \left\langle
+         \nabla f\bigl(x + t(y - x)\bigr) - \nabla f(x),\, y - x
+       \right\rangle \, dt .
+    \end{aligned}
+    $$
+
+    对最后一个积分项，用 Cauchy–Schwarz 不等式与 $L$-Lipschitz 条件：
+
+    $$
+    \begin{aligned}
+    \left\langle
+      \nabla f\bigl(x + t(y - x)\bigr) - \nabla f(x),\, y - x
+    \right\rangle
+    &\le \|\nabla f\bigl(x + t(y - x)\bigr) - \nabla f(x)\|_2 \cdot \|y - x\|_2 \\
+    &\le L \|t(y - x)\|_2 \cdot \|y - x\|_2 \\
+    &= L t\, \|y - x\|_2^2 .
+    \end{aligned}
+    $$
+
+    因而
+
+    $$
+    \int_{0}^{1} \langle \nabla f\bigl(x + t(y - x)\bigr) - \nabla f(x),\, y - x \rangle \,dt
+    \le \int_{0}^{1} L t\, \|y - x\|_2^2 \,dt
+    = \frac{L}{2}\|y - x\|_2^2 .
+    $$
+
+    代回即得
+
+    $$
+    f(y) \le f(x) + \langle \nabla f(x), y - x \rangle + \frac{L}{2} \|y - x\|_2^2 .
+    $$
+
+    **直观理解：** 这个不等式说明：当梯度变化速度被 $L$ 限制时，函数图像可以被一个开口向上的二次函数从上方“罩住”。这也是梯度下降里选取足够小步长时（例如取 $y = x - \gamma \nabla f(x)$ 且 $0 < \gamma < \frac{2}{L}$）能保证函数值下降的关键原因。
 
 这意味着 $f(y)$ 可以被以 $x$ 为顶点的一个 **二次函数上界** 约束。
 
@@ -133,9 +202,226 @@ $$
 
     函数被这两个二次函数 "夹" 在中间，$\mu$ 和 $L$ 分别控制着函数弯曲程度的下限和上限。
 
+### 2.5 例题
+
+???+ example "例题 4（$f(x)=|Ax|_2^2$ 的强凸与光滑常数）"
+    考虑关于 $x \in \mathbb{R}^n$ 上的函数
+
+    $$
+    f(x) = |Ax|_2^2, \quad A \in \mathbb{R}^{m \times n},\; m \ge n.
+    $$
+
+    1. 若 $A$ 是列满秩矩阵，请判断 $f(x)$ 是否为 $\mu$-强凸函数（$\mu$-strongly convex），是否为 $L$-光滑函数（$L$-smooth），并用与 $A$ 相关的矩阵特征值表示 $\mu, L$ 的具体取值。
+    2. 若 $A$ 不是列满秩矩阵，此时 $f(x)$ 是否为 $\mu$-强凸函数，是否为 $L$-光滑函数？
+
+    提示：矩阵 $AA^T$、$A^T A$ 与 $A$ 有相同的秩。
+
+    **解答与推导：**
+
+    先将目标函数写成二次型：
+
+    $$
+    f(x) = |Ax|_2^2 = (Ax)^T (Ax) = x^T A^T A x.
+    $$
+
+    令 $Q := A^T A$，则 $Q$ 为对称半正定矩阵。
+
+    **(1) 计算梯度并给出一个精确分解**
+
+    对任意方向 $d \in \mathbb{R}^n$，有
+
+    $$
+    \begin{aligned}
+    f(x+d) - f(x)
+    &= (x+d)^T Q (x+d) - x^T Q x \\
+    &= 2 x^T Q d + d^T Q d.
+    \end{aligned}
+    $$
+
+    由可微函数的一阶展开 $f(x+d) = f(x) + \langle \nabla f(x), d \rangle + o(|d|)$ 可知
+
+    $$
+    \nabla f(x) = 2Qx = 2A^T A x.
+    $$
+
+    因而对任意 $x,y$（令 $d=y-x$）进一步得到精确恒等式
+
+    $$
+    \begin{aligned}
+    f(y)
+    &= f(x) + \langle \nabla f(x), y-x \rangle + (y-x)^T Q (y-x) \\
+    &= f(x) + \langle \nabla f(x), y-x \rangle + |A(y-x)|_2^2.
+    \end{aligned}
+    $$
+
+    **(2) $L$-光滑性（引用定义 4：梯度 Lipschitz）**
+
+    由 $\nabla f(x) = 2Qx$，对任意 $x,y$ 有
+
+    $$
+    |\nabla f(x) - \nabla f(y)|_2
+    = 2|Q(x-y)|_2
+    \le 2|Q|_2\,|x-y|_2.
+    $$
+
+    因此 $f$ 是 $L$-光滑的，且可以取
+
+    $$
+    L = 2|Q|_2 = 2\lambda_{\max}(A^T A) = 2\sigma_{\max}(A)^2.
+    $$
+
+    这里 $\lambda_{\max}(\cdot)$ 为最大特征值，$\sigma_{\max}(A)$ 为最大奇异值。
+
+    **(3) $\mu$-强凸性（引用定义 3：二次下界）**
+
+    由上面的精确分解可知：对任意 $x,y$，
+
+    $$
+    f(y) - f(x) - \langle \nabla f(x), y-x \rangle = (y-x)^T Q (y-x).
+    $$
+
+    记 $d:=y-x$。由对称矩阵的谱性质，
+
+    $$
+    d^T Q d \ge \lambda_{\min}(Q)\,|d|_2^2.
+    $$
+
+    因而
+
+    $$
+    f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + \lambda_{\min}(Q)\,|y-x|_2^2.
+    $$
+
+    与定义 3 的形式 $\frac{\mu}{2}|y-x|_2^2$ 对比，可取
+
+    $$
+    \mu = 2\lambda_{\min}(A^T A) = 2\sigma_{\min}(A)^2.
+    $$
+
+    - 若 $A$ **列满秩**（$\mathrm{rank}(A)=n$），则 $\sigma_{\min}(A) > 0$，从而 $\mu>0$，$f$ 是 $\mu$-强凸函数。
+    - 若 $A$ **不是列满秩**，则存在非零向量 $d \ne 0$ 使得 $Ad=0$（零空间非平凡）。取 $x=0, y=d$，则 $f(y)=f(x)=0$ 且 $\nabla f(x)=0$。若存在某个 $\mu>0$ 使定义 3 成立，则应有
+
+      $$
+      0 = f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}|y-x|_2^2 = \frac{\mu}{2}|d| _2^2 > 0,
+      $$
+
+      矛盾。因此当 $A$ 非列满秩时，$f$ **不可能是任何 $\mu>0$ 的强凸函数**（只能取 $\mu=0$ 退化为一般凸）。
+
+    **(4) 与提示的对应关系（用 $AA^T$ 表示）**
+
+    $A^T A$ 与 $AA^T$ 具有相同的非零特征值，且它们都等于 $A$ 的非零奇异值的平方；同时 $\mathrm{rank}(A)=\mathrm{rank}(A^T A)=\mathrm{rank}(AA^T)$。因此也可以写
+
+    $$
+    L = 2\lambda_{\max}(AA^T),
+    $$
+
+    并且当 $A$ 列满秩时
+
+    $$
+    \mu = 2\lambda_{\min}(A^T A) = 2\lambda_{\min}^+(AA^T),
+    $$
+
+    其中 $\lambda_{\min}^+(AA^T)$ 表示 $AA^T$ 的最小非零特征值。
+
 ---
 
 ## 3 梯度下降算法
+
+### 3.0 梯度的计算：雅各比、链式法则与反向传播
+
+梯度下降的核心是每一步都要计算 $\nabla f(x_k)$。在训练 **基础模型** 时，$f$ 往往是由大量的矩阵运算与非线性函数复合而成的目标（例如经验风险 + 正则项），梯度需要通过 **链式法则** 高效计算；在神经网络语境下，这套系统化的链式法则实现就是 **反向传播**（backpropagation）。
+
+![梯度与雅各比矩阵（课件页）](pictures/gd_fbp_02_grad_jacobian.png){ width="850" }
+
+#### 3.0.1 梯度与雅各比（形状约定）
+
+对 $f:\mathbb{R}^d\to \mathbb{R}$，梯度有两种常见约定：
+
+- **数学分析** 常用行向量梯度：$\nabla f(x)\in\mathbb{R}^{1\times d}$，满足 $df=\nabla f(x)\,dx$。
+- **机器学习** 常用列向量梯度：$\nabla f(x)\in\mathbb{R}^{d\times 1}$，满足 $df=dx^\top\nabla f(x)$。
+
+对向量值函数 $g:\mathbb{R}^d\to\mathbb{R}^p$，其雅各比矩阵定义为
+
+$$
+J_g(x) := \frac{\partial g(x)}{\partial x}\in\mathbb{R}^{p\times d}.
+$$
+
+#### 3.0.2 链式法则的矩阵形式
+
+设 $y=g(x):\mathbb{R}^d\to\mathbb{R}^p$，$f=f(y):\mathbb{R}^p\to\mathbb{R}$。用行向量梯度写链式法则最直接：
+
+$$
+\frac{\partial f}{\partial x}
+=
+\frac{\partial f}{\partial y}\cdot \frac{\partial y}{\partial x},
+\qquad
+\frac{\partial f}{\partial y}\in\mathbb{R}^{1\times p},\;
+\frac{\partial y}{\partial x}\in\mathbb{R}^{p\times d}.
+$$
+
+![链式法则的矩阵实现（课件页）](pictures/gd_fbp_04_chain_rule.png){ width="850" }
+
+若采用机器学习常见的列向量梯度，则等价地有
+
+$$
+\nabla_x f
+=
+\left(\frac{\partial y}{\partial x}\right)^\top \nabla_y f.
+$$
+
+#### 3.0.3 标量对矩阵的导数：微分与 Frobenius 内积
+
+当参数是矩阵 $W\in\mathbb{R}^{m\times n}$ 且 $f(W)\in\mathbb{R}$ 时，常用约定是令矩阵梯度与 $W$ 同形，并用 Frobenius 内积表达微分：
+
+$$
+df
+=
+\langle \nabla_W f,\, dW\rangle_F
+=
+\mathrm{tr}\!\left((\nabla_W f)^\top dW\right).
+$$
+
+一个非常常用的结论是：若 $y=Wx$，$f=f(y)$，采用列向量梯度 $\nabla_y f\in\mathbb{R}^{p\times 1}$，则
+
+$$
+\nabla_W f
+=
+\nabla_y f\cdot x^\top.
+$$
+
+#### 3.0.4 反向传播例：三层网络
+
+下图给出一个三层网络的前向与反向量在计算图上的流动方式：
+
+![三层网络的反向传播示意图](pictures/gd_notes2_06_backprop_figure.png){ width="850" }
+
+![矩阵梯度的常用引理与三层网络设定（讲义页）](pictures/gd_notes2_05_backprop_setup.png){ width="850" }
+
+定义前向传播：
+
+$$
+\begin{aligned}
+h_1 &= W_1x, & z_1 &= \phi(h_1),\\
+h_2 &= W_2z_1, & z_2 &= \phi(h_2),\\
+\hat{y} &= W_3z_2, & f &= L(y,\hat{y}).
+\end{aligned}
+$$
+
+需要强调的是：对大规模网络而言，我们并不会、也几乎不可能写出关于所有参数的“完整导函数”。反向传播在每一次前向传播给定 $W_1,W_2,W_3$ 的数值后，计算的是这些点上的 **单点导数值**（也就是当前参数处的梯度）。
+
+令 $\delta_3 := \nabla_{\hat{y}} L(y,\hat{y})$，反向传播可以写成一组递推：
+
+$$
+\begin{aligned}
+\nabla_{W_3} f &= \delta_3 z_2^\top,\\
+\delta_2 &= (W_3^\top \delta_3)\odot \phi'(h_2), & \nabla_{W_2} f &= \delta_2 z_1^\top,\\
+\delta_1 &= (W_2^\top \delta_2)\odot \phi'(h_1), & \nabla_{W_1} f &= \delta_1 x^\top.
+\end{aligned}
+$$
+
+其中 $\odot$ 是逐元素乘法。这个递推把“对每个参数的偏导”转化为“沿计算图从右向左传播误差信号”，从而能在与前向传播同阶的时间复杂度内得到所有参数的梯度。
+
+### 3.1 算法描述
 
 ### 3.1 算法描述
 
