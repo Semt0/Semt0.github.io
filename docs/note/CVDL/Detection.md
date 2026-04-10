@@ -374,6 +374,61 @@ lecture17_hog 强调一个重要等价关系：对每个位置计算 $w^\top x+b
 
 常见 NMS 过程是按分数排序，依次保留最高分框，并抑制与其 IoU 超过阈值的其它框（具体 IoU 定义见 1.3）。
 
+### 3.6 DPM：可形变部件模型（Felzenszwalb et al., PAMI 2010）
+
+课件补充：
+
+[lecture18_dpm](slides/lecture18_dpm.pdf)
+
+HOG 将目标看作一个 “刚性模板”。DPM 的核心思想是：**目标由若干部件组成，部件相对根模板的位置允许有弹性**。
+
+![Objects are composed of deformable parts](pictures/dpm_slide_03.png){ width="800" }
+
+#### 3.6.1 模型结构
+
+- 根滤波器（root filter）：类似 HOG 行人的整体模板（在较粗分辨率上）
+- 部件滤波器（part filters）：在更高分辨率（常为 root 的 2×）的 HOG 上建模每个部件外观
+- 形变代价：当部件偏离其相对期望位置时，引入二次惩罚（典型为二次函数）
+
+![Root and parts](pictures/dpm_slide_06.png){ width="800" }
+
+#### 3.6.2 打分函数（概念式）
+
+对某个金字塔层级 $l$ 和根位置 $p_0$，DPM 的窗口打分可写成：
+
+$$
+\mathrm{score}(l, p_0)
+= F_0 \cdot \mathrm{HOG}(l, p_0)
++ \sum_{i=1}^{n} \max_{p_i}\;\Big[F_i \cdot \mathrm{HOG}(l', p_i) - \mathrm{deform}_i(p_i - \hat p_i)\Big],
+$$
+
+其中 $F_0, F_i$ 分别是根与第 $i$ 个部件的模板（滤波器），$\mathrm{deform}_i(\cdot)$ 是形变代价函数，$\hat p_i$ 是部件的相对期望位置，$l'$ 为更高分辨率层级。
+
+#### 3.6.3 高效评分：相关 + 距离变换（动态规划）
+
+- 与 HOG 一样，$F \cdot \mathrm{HOG}$ 可通过 **互相关/卷积** 高效计算整幅特征图的响应
+- 对形变项的 $\max$（在部件局部邻域内搜索）可通过 **距离变换** 等技巧在格点上高效实现（或用近邻窗口近似）
+
+![DP / distance transform idea](pictures/dpm_slide_28.png){ width="800" }
+
+#### 3.6.4 训练：Latent SVM
+
+部件位置是 **潜变量（latent）**，没有标注。不能直接用标准 SVM 训练。DPM 使用 **latent SVM** 框架：在迭代中交替 “给定参数估计潜变量” 与 “给定潜变量优化参数”。
+
+![Latent parts](pictures/dpm_slide_33.png){ width="800" }
+
+#### 3.6.5 版本演进与效果
+
+- v1：加入部件
+- v2：加入混合组件（mixture/component），兼顾不同姿态（如坐姿）或子类
+- v3：多个混合组件，进一步提升泛化
+
+![DPM versions](pictures/dpm_slide_36.png){ width="800" }
+
+早期在 PASCAL VOC 等基准上，DPM 相较单一 HOG 模板具有显著优势，但 **计算代价** 较大（课件给出约 20–30s/图/类的量级，后续有加速策略）。
+
+![Learned models and results](pictures/dpm_slide_39.png){ width="800" }
+
 ## 4 走向深度学习：从滑窗到特征图上的区域
 
 第一部分课程最后提到 HOG+SVM、DPM 等传统检测路线；第二部分课程转向深度学习检测体系（R-CNN 系列、YOLO/SSD、FPN 等）。
