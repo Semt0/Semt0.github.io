@@ -5,6 +5,12 @@ date: 2026-04-08
 
 ## 1 深度网络训练与优化问题
 
+课件链接:
+
+[slides](slides/06_SGD.pdf)
+
+[notes](slides/Notes_SGD.pdf)
+
 在深度学习中，我们通常把一个深度神经网络（DNN）看作由两部分组成：特征提取器与分类器。给定输入样本 $a$，模型参数为 $x$，网络输出预测分数 $\hat b = h(x; a)$，再用损失函数 $L(\hat b, b)$ 衡量预测与真实标签 $b$ 的差异。
 
 ![A practical DNN example](pictures/sgd_slide_04_practical_example.png){ width="800" }
@@ -103,6 +109,17 @@ $$
     这表示随机梯度是无偏估计，并且条件方差被常数 $\sigma^2$ 上界。
 
 ![Unbiasedness and bounded variance assumption](pictures/sgd_slide_14_assumption_unbiased_variance.png){ width="800" }
+
+??? tip " Filtration 与两个核心假设的直观理解"
+    $x_k$ 表示迭代到第 $k$ 步时优化的参数。
+
+    **Filtration $\mathcal{F}_k$：** 表示第 $k$ 步时的历史信息，包含初始点 $x_0$、历史随机样本 $\xi_0,\dots,\xi_{k-1}$ 及对应迭代点 $x_1,\dots,x_k$。关键在于：$x_k$ 是已确定的，而当前随机样本 $\xi_k$ 是未知的——这在数学上严格表达了"给定当前位置 $x_k$ 时"的条件。
+
+    **假设 1（无偏估计）：** $\mathbb{E}[\nabla F(x_k;\xi_k)\mid\mathcal{F}_k]=\nabla f(x_k)$。随机梯度 $\nabla F(x_k;\xi_k)$ 的期望等于真实梯度 $\nabla f(x_k)$。直观理解：单次随机方向可能有偏差，但无数次尝试的平均方向是正确的——保证了 SGD 的大方向是对的。
+
+    **假设 2（方差有界）：** $\mathbb{E}[\|\nabla F(x_k;\xi_k)-\nabla f(x_k)\|^2\mid\mathcal{F}_k]\le\sigma^2$。这限制了噪声大小，使随机梯度虽然有波动但不会失控。直观理解：虽然每次会走错路，但不会"错得离谱"。$\sigma^2$ 描述了数据本身的噪声水平。
+
+    **两者的协同作用：** 无偏性保证了大方向正确（偏差在平均意义下相互抵消），方差有界保证了不会失控（配合学习率衰减可压制固定噪声 $\sigma^2$，最终收敛）。
 
 在该假设下，还可推出（讲义推导）：
 

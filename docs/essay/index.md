@@ -13,9 +13,21 @@ icon: lucide/sticky-note
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-10</div>
+    <div class="timeline-content">
+      <a href="2026-04-10/">2026-04-10</a>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-09</div>
+    <div class="timeline-content">
+      <a href="2026-04-09/">Intro to LLM：优化器与训练内存速记</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-05</div>
     <div class="timeline-content">
-      <a href="2026-04-05/">传统 cv 方法 review</a>
+      <a href="2026-04-05/">从高斯核到尺度空间：Gaussian / LoG / DoG 与金字塔方法</a>
     </div>
   </div>
   <div class="timeline-item">

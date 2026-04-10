@@ -1,5 +1,5 @@
 ---
-title: 视觉识别 I - Bag-of-Words 模型与局部特征
+title: Recognition
 date: 2026-03-27
 ---
 

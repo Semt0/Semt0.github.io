@@ -27,6 +27,20 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/CVDL/Detection/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Detection</h3>
+              <p class="resume-card-sub">CVDL</p>
+              <span class="resume-card-date">2026-04-10</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/Introduction to Foundation Models/Momentum and Adaptive SGD/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Momentum and Adaptive SGD</h3>
+              <p class="resume-card-sub">Introduction to Foundation Models</p>
+              <span class="resume-card-date">2026-04-09</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/Introduction to Foundation Models/Stochastic Gradient Descent/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">Stochastic Gradient Descent</h3>
@@ -45,20 +59,6 @@ icon: lucide/home
             <div class="resume-card-body">
               <h3 class="resume-card-title">线性规划</h3>
               <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-04-07</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/QR分解和奇异值分解/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">QR分解和奇异值分解</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span class="resume-card-date">2026-04-07</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/幂法和 Jacobi 算法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">幂法和 Jacobi 算法</h3>
-              <p class="resume-card-sub">计算方法</p>
               <span class="resume-card-date">2026-04-07</span>
             </div>
           </a>

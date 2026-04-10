@@ -13,6 +13,20 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-10</div>
+    <div class="timeline-content">
+      <a href="CVDL/Detection/">Detection</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-09</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/Momentum and Adaptive SGD/">Momentum and Adaptive SGD</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-08</div>
     <div class="timeline-content">
       <a href="Introduction to Foundation Models/Stochastic Gradient Descent/">Stochastic Gradient Descent</a>
@@ -50,14 +64,14 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
-      <a href="复变函数/留数/">第五章 留数</a>
+      <a href="复变函数/解析函数的级数表示/">第四章 解析函数的级数表示</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
-      <a href="复变函数/解析函数的级数表示/">第四章 解析函数的级数表示</a>
+      <a href="复变函数/留数/">第五章 留数</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
@@ -85,15 +99,15 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-27</div>
     <div class="timeline-content">
-      <a href="计算方法/解线性方程组的迭代法/">解线性方程组的迭代法</a>
-      <span class="timeline-category">计算方法</span>
+      <a href="CVDL/Recognition-1/">Recognition</a>
+      <span class="timeline-category">CVDL</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-03-27</div>
     <div class="timeline-content">
-      <a href="CVDL/Recognition-1/">视觉识别 I - Bag-of-Words 模型与局部特征</a>
-      <span class="timeline-category">CVDL</span>
+      <a href="计算方法/解线性方程组的迭代法/">解线性方程组的迭代法</a>
+      <span class="timeline-category">计算方法</span>
     </div>
   </div>
   <div class="timeline-item">

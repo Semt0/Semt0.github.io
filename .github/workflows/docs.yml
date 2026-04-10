@@ -21,11 +21,11 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: "3.13"
       - run: pip install zensical
       - run: python3 scripts/update_home_recent.py
-      - run: python3 scripts/update_note_counts.py
       - run: python3 scripts/update_timeline.py
+      - run: python3 scripts/update_essay_timeline.py
       - run: zensical build --clean
       - uses: actions/upload-pages-artifact@v4
         with:
