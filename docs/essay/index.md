@@ -13,9 +13,15 @@ icon: lucide/sticky-note
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-11</div>
+    <div class="timeline-content">
+      <a href="2026-04-11/">Python Bisect, Sys, Iteration 复习</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-10</div>
     <div class="timeline-content">
-      <a href="2026-04-10/">2026-04-10</a>
+      <a href="2026-04-10/">cvdl exam regarding</a>
     </div>
   </div>
   <div class="timeline-item">
