@@ -1,0 +1,608 @@
+PAGES: 39
+
+===== PAGE 1 =====
+FlashAttention
+Kun Yuan (袁 坤)
+Center for Machine Learning Research @ Peking University
+
+===== PAGE 2 =====
+Center of Machine Learning Research
+Self-Attention
+< 2 >
+N is the sequence length
+d is the embedding dimension
+
+===== PAGE 3 =====
+Center of Machine Learning Research
+Self-Attention
+< 3 >
+
+===== PAGE 4 =====
+Center of Machine Learning Research
+Self-Attention
+< 4 >
+(we ignore the scaling for simplicity)
+
+===== PAGE 5 =====
+Center of Machine Learning Research
+Self-Attention
+< 5 >
+0.3
+0.3
+0.2 0.2
+
+===== PAGE 6 =====
+Center of Machine Learning Research
+FLOPS
+< 6 >
+•
+The above attention process incurs 𝑂𝑁2𝑑 FLOPS computation complexity 
+•
+Increases quadratically fast with sequence length 𝑁
+•
+Various methods have been developed to reduce 𝑂𝑁2  to 𝑂𝑁. These methods are 
+not exact attention, and they typically fail to achieve remarkable acceleration
+•
+The fundamental reason is that they cannot reduce Memory Access Cost (MAC)   
+
+===== PAGE 7 =====
+Center of Machine Learning Research
+Memory in GPU
+< 7 >
+[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness]
+Fast but small
+Large but slow
+Execution Model in GPU. Load inputs from HBM to SRAM, computes, then writes outputs to HBM.
+Since HBM is slow, MAC is primarily composed of HBM reads and writes
+
+===== PAGE 8 =====
+Center of Machine Learning Research
+MAC in standard attention implementation
+< 8 >
+Load Q and K 
+Operation
+MAC
+2𝑑𝑁
+Write S
+𝑁2
+Read S
+𝑁2
+Write P
+𝑁2
+Load Q and V 
+𝑁2 + 𝑑𝑁
+Write O 
+𝑑𝑁
+𝟒𝑵𝟐+ 𝟒𝒅𝑵
+MAC cost is
+
+===== PAGE 9 =====
+Center of Machine Learning Research
+MAC consumes significant wall-clock time in transformer 
+< 9 >
+•
+Compute-bound operator: computing time > accessing HBM time 
+•
+Transformer includes many memory-bound operators   
+•
+Memory-bound operator: accessing HBM time > computing time
+Matrix multiplication; convolution
+Element-wise operator (activation, dropout); reduction (sum, softmax) 
+•
+Reducing MAC cost can significantly accelerate attention
+
+===== PAGE 10 =====
+Center of Machine Learning Research
+FlashAttention
+< 10 >
+
+===== PAGE 11 =====
+Center of Machine Learning Research
+Core idea in FlashAttention: Kernal fusion 
+< 11 >
+Vanilla 
+Operator
+HBM
+Comp1
+Comp2
+Comp3
+read
+write
+read
+write
+read
+write
+Fused 
+Operator
+HBM
+Comp1
+Comp2
+Comp3
+read
+write
+Reduce MAC significantly
+
+===== PAGE 12 =====
+Center of Machine Learning Research
+A simplified attention without softmax
+< 12 >
+Q
+K
+V
+O
+𝑆= 𝑄𝐾𝑇
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+Do not consider softmax 
+
+===== PAGE 13 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 13 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂′
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
+Read Q, K, V
+Write O’
+
+===== PAGE 14 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 14 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂′
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
+Read Q
+Write O’
+
+===== PAGE 15 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 15 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂′
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
+Read Q
+Write O’
+
+===== PAGE 16 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 16 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
++
+𝑂′′
+Read Q, K, V,O’
+Write O
+
+===== PAGE 17 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 17 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
++
+𝑂′′
+Read Q, O’
+Write O
+
+===== PAGE 18 =====
+Center of Machine Learning Research
+Kernal fusion in simplified attention 
+< 18 >
+[Bilibili: Flash Attention 为什么那么快? By RethinkFun]
+𝑄
+𝐾𝑇
+𝑉
+𝑂
+HBM
+SRAM
+𝑄
+𝐾𝑇
+𝑆
+𝑉
+𝑂′
++
+𝑂′′
+Read Q, O’
+Write O
+
+===== PAGE 19 =====
+Center of Machine Learning Research
+HBM accessing comparison
+< 19 >
+Vanila Attention
+Flash Attention
+Load Q and K 
+Operation
+MAC
+2𝑑𝑁
+Write S
+𝑁2
+Read S
+𝑁2
+Write P
+𝑁2
+Load Q and V 
+𝑁2 + 𝑑𝑁
+Write O 
+𝑑𝑁
+𝟒𝑵𝟐+ 𝟒𝒅𝑵
+Load Q twice
+Operation
+MAC
+2𝑑𝑁
+Load K, V
+2𝑑𝑁
+Write O’
+𝑑𝑁
+Read O’
+𝑑𝑁
+7𝒅𝑵
+Write O
+𝑑𝑁
+
+===== PAGE 20 =====
+Center of Machine Learning Research
+Kernal fusion significantly saves MAC
+< 20 >
+•
+When 𝑁≫𝑑, FlashAttention significantly saves MAC
+•
+The longer the sequence length is, the better that FlashAttention is
+𝟒𝑵𝟐+ 𝟒𝒅𝑵
+7𝒅𝑵
+≫
+•
+The fundamental reason is that we fusion the intermediate operators, e.g., do not store 𝑺
+•
+But how to handle softmax?
+
+===== PAGE 21 =====
+Center of Machine Learning Research
+Online softmax
+< 21 >
+•
+For numerical stability, the softmax of vector 𝑥∈𝑅𝐵 is computed as
+•
+For vectors 𝑥(1), 𝑥(2), the concatenated 𝑥= 𝑥1  𝑥2
+∈𝑅2𝐵 is computed as follows:
+We can compute softmax one block at a time
+
+===== PAGE 22 =====
+Center of Machine Learning Research
+Flash attention
+< 22 >
+O
+𝑆= 𝑄𝐾𝑇
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+Standard attention needs to access the full matrices 𝐾 and 𝑉
+We can decompose 𝐾 and 𝑉 for kernel fusion 
+
+===== PAGE 23 =====
+Center of Machine Learning Research
+Flash attention
+O
+𝑆= 𝑄𝐾𝑇
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾1
+𝑆1
+𝑃1
+𝑉1
+𝑚𝑠1 , 𝑓𝑠1 , ℓ(𝑠1) 
+𝑜𝑠1 = 𝑝𝑠1  𝑉1/ℓ(𝑠1)
+O
+𝑆2
+𝑃2
+𝑉2
+𝑚𝑠2 , 𝑓𝑠2 , ℓ(𝑠2) 
+𝑝𝑠2 = 𝑓𝑠2
+𝑜𝑠2 = 𝑝𝑠2  𝑉2
+𝐾2
+𝑝𝑠1 = 𝑓𝑠1
+
+===== PAGE 24 =====
+Center of Machine Learning Research
+Flash attention
+𝑜𝑠1 = 𝑝𝑠1  𝑉1/ℓ(𝑠1)
+𝑜𝑠2 = 𝑝𝑠2  𝑉2
++
+𝑂= 𝑃𝑉
+𝑓𝑠= 𝑒𝑚𝑠1 −𝑚𝑠𝑓𝑠1  
+𝑒𝑚𝑠2 −𝑚𝑠𝑓𝑠2
+Recall that 𝑜𝑠1 = 𝑓𝑠1  𝑉1/ℓ(𝑠1) and 𝑜𝑠2 = 𝑓𝑠2  𝑉2
+𝑜= [𝑒𝑚𝑠1 −𝑚𝑠𝑓𝑠1 𝑉1 + 𝑒𝑚𝑠2 −𝑚𝑠𝑓𝑠2 𝑉2]/ℓ(𝑠) 
+ℓ𝑠= 𝑒𝑚𝑠1 −𝑚𝑠𝑓𝑠1 + 𝑒𝑚𝑠2 −𝑚𝑠𝑓𝑠2
+= ℓ𝑠1 𝑒𝑚𝑠1 −𝑚𝑠𝑜𝑠1 + 𝑒𝑚𝑠2 −𝑚𝑠𝑓𝑠2 𝑉2 /ℓ(𝑠)
+No need to store intermediate results 
+such as S and P !
+Only stores 𝒎, ℓ and O
+
+===== PAGE 25 =====
+Center of Machine Learning Research
+Flash attention
+< 25 >
+O
+𝑆= 𝑄𝐾𝑇
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾1
+𝑆1
+𝑃1
+𝑉1
+𝑚𝑠1 , 𝑓𝑠1 , ℓ(𝑠1) 
+𝑜𝑠1 = 𝑝𝑠1  𝑉1/ℓ(𝑠1)
+𝑝𝑠1 = 𝑓𝑠1
+
+===== PAGE 26 =====
+Center of Machine Learning Research
+Flash attention
+< 26 >
+O
+𝑆2
+𝑃2
+𝑉2
+𝑚𝑠2 , 𝑓𝑠2 , ℓ(𝑠2) 
+𝑝𝑠2 = 𝑓𝑠1
+𝑜𝑠2 = 𝑝𝑠2  𝑉2
+𝐾2
+𝑆= 𝑄𝐾𝑇
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+If we fix Q and traverse K and V, we need to access 2Nd HBM
+To save HBM, we can fix K and V but traverse Q, similar to scenarios in Page 13 – Page 18. 
+
+===== PAGE 27 =====
+Center of Machine Learning Research
+Flash attention
+< 27 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾1
+𝑆11
+𝑃11
+𝑉1
+𝑄1
+HBM
+SRAM
+No need to store
+Read 𝑄1
+Write 𝑂1′
+Write 𝑚1 , [ℓ1] 
+
+===== PAGE 28 =====
+Center of Machine Learning Research
+Flash attention
+< 28 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾1
+𝑆21
+𝑃21
+𝑉1
+HBM
+SRAM
+No need to store
+Read 𝑄2
+Write 𝑂2′
+𝑄2
+Write 𝑚1, 𝑚2 , [ℓ1, ℓ2] 
+
+===== PAGE 29 =====
+Center of Machine Learning Research
+Flash attention
+< 29 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾1
+𝑆31
+𝑃31
+𝑉1
+HBM
+SRAM
+No need to store
+Read 𝑄3
+Read 𝐾1
+Read 𝑉1
+Write 𝑂2′
+𝑄3
+Write 𝑚1, 𝑚2, 𝑚3 , [ℓ1, ℓ2, ℓ3] 
+
+===== PAGE 30 =====
+Center of Machine Learning Research
+Flash attention
+< 30 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾2
+𝑆12
+𝑃12
+𝑉2
+𝑄1
+HBM
+SRAM
+No need to store
+Read 𝑄1
+Read 𝐾2
+Read 𝑉2
+Write 𝑂1
+Read 𝑚1 , [ℓ1] 
+𝑂1
+
+===== PAGE 31 =====
+Center of Machine Learning Research
+Flash attention
+< 31 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾2
+𝑆22
+𝑃22
+𝑉2
+HBM
+SRAM
+No need to store
+Read 𝑄2
+Write 𝑂2
+Read 𝑚2 , [ℓ2] 
+𝑂2
+𝑄2
+
+===== PAGE 32 =====
+Center of Machine Learning Research
+Flash attention
+< 32 >
+O
+𝑂= 𝑃𝑉
+𝑃= softmax(𝑆)
+𝑄
+𝐾𝑇
+𝑉
+𝐾2
+𝑆32
+𝑃32
+𝑉2
+HBM
+SRAM
+No need to store
+Read 𝑄3
+Write 𝑂3
+Read 𝑚3 , [ℓ3] 
+𝑂3
+𝑄3
+
+===== PAGE 33 =====
+Center of Machine Learning Research
+Flash attention: HBM cost
+< 33 >
+Fix 𝐾1, traverse 𝑄
+Fix 𝐾2, traverse 𝑄
+Nd parameters
+M parameters
+𝑁𝑑
+𝑀 ×  𝑁𝑑= 𝑁2𝑑2/𝑀
+HBM cost
+
+===== PAGE 34 =====
+Center of Machine Learning Research
+Flash attention: HBM and memory cost
+< 34 >
+𝑵𝟐𝒅𝟐/𝑴
+HBM in flash attention
+HBM in standard attention
+𝑵𝟐+ 𝒅𝑵
+Since 𝑀≫𝑑2, Flash attention saves significant HBM cost; M=106 while 𝑑= 64~128 
+No need to materialize attention score and probability, saves significant memory
+Memory in standard attention
+𝑵𝟐𝒅
+Memory in flash attention
+𝑵𝒅
+
+===== PAGE 35 =====
+Center of Machine Learning Research
+Flash attention: algorithm
+< 35 >
+
+===== PAGE 36 =====
+Center of Machine Learning Research
+Experiments
+< 36 >
+BERT  8 * A100; target accuracy of 72.0%
+
+===== PAGE 37 =====
+Center of Machine Learning Research
+Experiments
+< 37 >
+
+===== PAGE 38 =====
+Center of Machine Learning Research
+Experiments
+< 38 >
+Long range arena
+
+===== PAGE 39 =====
+Thank you!
+Kun Yuan homepage: https://kunyuan827.github.io/

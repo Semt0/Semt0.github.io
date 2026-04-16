@@ -48,6 +48,7 @@ nav = [
            "note/Introduction to Foundation Models/Accelerated Gradient Descent.md",
            "note/Introduction to Foundation Models/Stochastic Gradient Descent.md",
            "note/Introduction to Foundation Models/Momentum and Adaptive SGD.md",
+           "note/Introduction to Foundation Models/FlashAttention.md",
        ]},
        {"CS231n" = [
            "note/cs231n/Image Classification with Linear Classifiers.md",
@@ -60,6 +61,7 @@ nav = [
            "note/计算方法/矩阵误差分析与超定方程组.md",
            "note/计算方法/解线性方程组的迭代法.md",
            "note/计算方法/幂法和 Jacobi 算法.md",
+           "note/计算方法/插值法.md",
            "note/计算方法/QR分解和奇异值分解.md",
        ]},
        {"算法设计与分析" = [

@@ -13,6 +13,30 @@ icon: lucide/sticky-note
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-16</div>
+    <div class="timeline-content">
+      <a href="VLA recent/">VLA 模型</a>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-13</div>
+    <div class="timeline-content">
+      <a href="2026-04-13/">GS-Net 与 Eye-in-Hand 标定速记</a>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-13</div>
+    <div class="timeline-content">
+      <a href="c++ review/">c++ review</a>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-12</div>
+    <div class="timeline-content">
+      <a href="2026-04-12/">python review</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-11</div>
     <div class="timeline-content">
       <a href="2026-04-11/">Python Bisect, Sys, Iteration 复习</a>

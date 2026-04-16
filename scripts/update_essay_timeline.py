@@ -48,13 +48,17 @@ def parse_frontmatter(raw: str) -> dict[str, str]:
             continue
         key, _, rest = line.partition(":")
         key = key.strip()
+        key_norm = key.lower()
         val = rest.strip()
         if val.startswith('"') and val.endswith('"'):
             val = val[1:-1]
         elif val.startswith("'") and val.endswith("'"):
             val = val[1:-1]
-        if key in ("title", "date"):
-            data[key] = val
+        if key_norm in ("title", "date"):
+            data[key_norm] = val
+        elif key_norm == "data":
+            # 容错：部分手记误写为 Data，这里按 date 处理
+            data["date"] = val
     return data
 
 
@@ -110,13 +114,15 @@ def collect_entries() -> list[TimelineEntry]:
         dt = parse_date_str(fm.get("date", ""))
         if dt is None:
             dt = parse_date_str(path.stem)
+
+        mtime = path.stat().st_mtime
         if dt is None:
-            continue
+            # 覆盖所有手记：无 frontmatter/date 文件名时，回退到文件修改时间
+            dt = date_cls.fromtimestamp(mtime)
 
         title = (fm.get("title", "") or "").strip()
         if not title:
             title = extract_first_heading_title(text) or path.stem
-        mtime = path.stat().st_mtime
 
         out.append(
             TimelineEntry(
@@ -179,7 +185,7 @@ def main() -> None:
     html = build_timeline_html(entries)
     text = ESSAY_INDEX.read_text(encoding="utf-8")
     new_text = inject(text, html)
-    ESSAY_INDEX.write_text(new_text, encoding="utf-8", newline="\n")
+    ESSAY_INDEX.write_text(new_text, encoding="utf-8")
     print(f"已更新 {ESSAY_INDEX.relative_to(REPO_ROOT)}（{len(entries)} 条）")
 
 

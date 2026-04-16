@@ -27,6 +27,20 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/Introduction to Foundation Models/FlashAttention/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">FlashAttention</h3>
+              <p class="resume-card-sub">Introduction to Foundation Models</p>
+              <span class="resume-card-date">2026-04-14</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/计算方法/插值法/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">插值法</h3>
+              <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-04-14</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/CVDL/Detection/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">Detection</h3>
@@ -46,20 +60,6 @@ icon: lucide/home
               <h3 class="resume-card-title">Stochastic Gradient Descent</h3>
               <p class="resume-card-sub">Introduction to Foundation Models</p>
               <span class="resume-card-date">2026-04-08</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Introduction to Foundation Models/Accelerated Gradient Descent/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Accelerated Gradient Descent</h3>
-              <p class="resume-card-sub">Introduction to Foundation Models</p>
-              <span class="resume-card-date">2026-04-07</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/算法设计与分析/线性规划/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">线性规划</h3>
-              <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-04-07</span>
             </div>
           </a>
 <!-- home-recent:auto-end -->

@@ -76,7 +76,7 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
   - 从 PDF 源文件截取关键图表/示意图
   - 使用 matplotlib 绘制算法流程图、几何示意图、收敛曲线等
   - 所有图片存放在 `pictures/` 子目录中
-  - 引用格式：`![描述](pictures/filename.png){ width="550" }`
+  - 引用格式：`![描述](pictures/filename.png){ width="800" }`
 - **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
 - **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
 - **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗`).
@@ -84,6 +84,21 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
 - **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**`. Use `$x$` for formulas and `**词**` for emphasis separately.
 - **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas or fewer emphasized spans for reliable rendering in Zensical/Material.
 - **List spacing**:
+  - **列表前必须有空行**：当使用 `-` 创建无序列表时，必须在列表前插入一个完整的空行（即两个连续的换行符），确保列表与上文内容之间有明显视觉分隔。
+  - 正确示例：
+    ```markdown
+    下面是理由：
+
+    - 第一点
+    - 第二点
+    ```
+  - 错误示例（禁止出现）：
+    ```markdown
+    下面是理由：
+    - 第一点
+    - 第二点
+    ```
+  - 此规则适用于所有层级的无序列表，包括 admonition 内和 admonition 外的列表。
   - **Admonition 内列表前必须有空行**：在 `!!!` 或 `???` admonition 中，标题行、段落文本、或 `:` 结尾的句子与列表的第一个条目之间必须有空行
   - 正确示例：
     ```markdown
@@ -104,7 +119,7 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
         - 列表项 1  ← 冒号后直接跟列表，错误
         - 列表项 2
     ```
-- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="550" }`.
+- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="800" }`.
 - **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
 - **List numbering**: Do not mix bullet markers with numbers inside list items. Use either `- item` or `1. item`, never `- (1) item`.
 - **Markdown syntax**: Follow Zensical (Material for MkDocs fork) conventions. Refer to the official MkDocs Material documentation for details.
@@ -115,7 +130,10 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
 
 When writing learning notes (especially math/CS theory), use the following structure and admonition patterns:
 
-**重要：笔记不需要手动目录** — Zensical 会自动生成右侧目录导航，直接以章节标题开始正文即可。
+!!! warning "重要：笔记不需要手动目录"
+    **不要在笔记开头添加 `## 目录` 章节**。Zensical 会自动生成右侧目录导航。
+    
+    直接以 `## 1 Section Title` 开始正文即可。
 
 ```markdown
 ---
@@ -249,7 +267,38 @@ if __name__ == '__main__':
 - **Background**: Set `facecolor='white'` for consistent appearance
 - **Format**: Save as PNG
 - **Location**: Store in `docs/note/<subject>/pictures/`
-- **Width**: Reference images with `{ width="550" }` for consistent sizing
+- **Width**: Reference images with `{ width="800" }` for consistent sizing
+
+### 3.1 PDF 页面导出清晰度（必须遵守）
+
+当需要从 PDF 课件/讲义中截取页面作为笔记插图时，统一使用 **PyMuPDF** 以高分辨率导出，默认倍率固定为：
+
+- `zoom = 6.0`
+- `alpha = False`
+
+导出的 PNG 必须写入当前笔记目录的 `pictures/` 下，优先覆盖同名文件以保持 Markdown 引用不变。
+
+```python
+from pathlib import Path
+
+import fitz
+
+repo_root = Path.cwd()
+pdf_path = repo_root / "docs" / "note" / "<subject>" / "slides" / "<file>.pdf"
+out_dir = repo_root / "docs" / "note" / "<subject>" / "pictures"
+out_dir.mkdir(parents=True, exist_ok=True)
+
+zoom = 6.0
+mat = fitz.Matrix(zoom, zoom)
+
+doc = fitz.open(pdf_path)
+page = doc[page_index]  # 0-based
+pix = page.get_pixmap(matrix=mat, alpha=False)
+pix.save(out_dir / "filename.png")
+doc.close()
+```
+
+如果个别页面仍显得偏糊（例如原 PDF 本身是低分辨率位图），再将 `zoom` 提升到 `8.0`，其它参数保持不变。
 
 ### 4. Run Script
 
@@ -262,7 +311,7 @@ uv run python scripts/generate_<topic>_plots.py
 Add image reference in the Markdown:
 
 ```markdown
-![Description](pictures/filename.png){ width="550" }
+![Description](pictures/filename.png){ width="750" }
 ```
 
 ### Example Reference
