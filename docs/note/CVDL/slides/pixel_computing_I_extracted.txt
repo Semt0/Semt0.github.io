@@ -1,0 +1,929 @@
+PAGES: 123
+
+===== PAGE 1 =====
+Pixel Computing – I
+Mu Yadong
+Wangxuan Institute of Computer Technology
+Peking University
+Several slides are adapted from related courses or tutorials. 
+Internal use only. Please do not distribute the slides.
+
+===== PAGE 2 =====
+Outline
+Examples of Pixel Computing
+Unsupervised Image Segmentation
+• K-means, Mean-Shift, Normalized Cut
+Interactive Object Cutout
+• GraphCut, GrabCut, LazySnapping
+Image Matting
+Related Topics
+• Image Co-segmentation
+• Image Inpainting / Image Completion
+
+===== PAGE 3 =====
+Pixel Labeling
+Understanding an image at the pixel level
+
+===== PAGE 4 =====
+Unsupervised image segmentation
+Super-pixel: Group together similar-looking pixels for 
+efficiency of further processing
+X. Ren and J. Malik. Learning a classification model for segmentation. ICCV 2003.
+
+===== PAGE 5 =====
+Unsupervised image segmentation
+Separate image into coherent “objects”
+image
+human segmentation
+Berkeley segmentation database:
+http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/segbench/
+
+===== PAGE 6 =====
+Object Cutout and Image Matting
+Blue screen for movies
+https://reviews.wikinut.com/The-Green-Screen-Technology/1uj2j_po/
+
+===== PAGE 7 =====
+Object Cutout and Image Matting
+User interaction as the input (strokes or bound box)
+
+===== PAGE 8 =====
+Object Cutout and Image Matting
+Image Matting
+For semi-transparent or shining objects (for example, hair)
+
+===== PAGE 9 =====
+Object Cutout and Image Matting
+The “trimap”
+
+===== PAGE 10 =====
+Image Co-Segmentation
+Segment common objects from a pair / group of images
+
+===== PAGE 11 =====
+Image Parsing
+Associate each image pixel with a pre-specified semantic label
+Applications: autonomous driving, 3D reconstruction etc.
+
+===== PAGE 12 =====
+Other Pixel Labeling Problems
+Depth estimation from a single image
+
+===== PAGE 13 =====
+Segmentation as clustering
+Source: K. Grauman
+Cluster similar (in terms of RGB color) pixels together
+
+===== PAGE 14 =====
+Image
+Intensity-based clusters
+Color-based clusters
+Segmentation as clustering
+• K-means clustering based on intensity or color is 
+essentially vector quantization of the image attributes
+• Clusters don’t have to be spatially coherent
+Slide credit: S. Lazebnik
+
+===== PAGE 15 =====
+Segmentation as clustering
+Source: K. Grauman
+
+===== PAGE 16 =====
+Segmentation as clustering
+• Clustering based on (r,g,b,x,y) values enforces more 
+spatial coherence
+Slide credit: S. Lazebnik
+
+===== PAGE 17 =====
+K-Means for segmentation
+• Pros
+• Very simple method
+• Converges to a local minimum of the error function
+• Cons
+• Memory-intensive
+• Need to pick K
+• Sensitive to initialization
+• Sensitive to outliers
+• Only finds “spherical” 
+clusters
+Slide credit: S. Lazebnik
+
+===== PAGE 18 =====
+http://www.caip.rutgers.edu/~comanici/MSPAMI/msPamiResults.html
+Mean shift clustering and segmentation
+• An advanced and versatile technique for clustering-based 
+segmentation
+D. Comaniciu and P. Meer, Mean Shift: A Robust Approach toward Feature 
+Space Analysis, PAMI 2002. 
+
+===== PAGE 19 =====
+•
+The mean shift algorithm seeks modes or local maxima of 
+density in the feature space
+Mean shift algorithm
+image
+Feature space 
+(L*u*v* color values)
+
+===== PAGE 20 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 21 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 22 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 23 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 24 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 25 =====
+Search
+window
+Center of
+mass
+Mean Shift
+vector
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 26 =====
+Search
+window
+Center of
+mass
+Mean shift
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 27 =====
+• Cluster: all data points in the attraction basin of a mode
+• Attraction basin: the region for which all trajectories lead to 
+the same mode
+Mean shift clustering
+Slide by Y. Ukrainitz & B. Sarel
+
+===== PAGE 28 =====
+•
+Find features (color, gradients, texture, etc)
+•
+Initialize windows at individual feature points
+•
+Perform mean shift for each window until convergence
+•
+Merge windows that end up near the same “peak” or mode
+Mean shift clustering/segmentation
+
+===== PAGE 29 =====
+http://www.caip.rutgers.edu/~comanici/MSPAMI/msPamiResults.html
+Mean shift segmentation results
+
+===== PAGE 30 =====
+More results
+
+===== PAGE 31 =====
+More results
+
+===== PAGE 32 =====
+Mean shift pros and cons
+• Pros
+• Does not assume spherical clusters
+• Just a single parameter (window size) 
+• Finds variable number of modes
+• Robust to outliers
+• Cons
+• Output depends on window size
+• Computationally expensive
+• Does not scale well with dimension of feature space
+Slide credit: S. Lazebnik
+
+===== PAGE 33 =====
+Normalized Cut
+How to cut the image below into two segments (by color)?
+
+===== PAGE 34 =====
+Normalized Cut
+How to cut the image below into two segments (by color)?
+A Graphical View
+
+===== PAGE 35 =====
+Normalized Cut
+How to cut the image below into two segments (by color)?
+A Graphical View
+Let edge weight 
+correspond to the 
+similarity between
+two adjacent nodes
+
+===== PAGE 36 =====
+Normalized Cut
+How to cut the image below into two segments (by color)?
+A Graphical View
+Let edge weight 
+corresponds to the 
+similarity between
+two adjacent nodes
+The optimal segmentation cuts through the thin edges
+
+===== PAGE 37 =====
+Images as graphs
+• Node for every pixel
+• Edge between every pair of pixels (or every pair of 
+“sufficiently close” pixels)
+• Each edge is weighted by the affinity or similarity of the two 
+nodes
+wij
+i
+j
+Source: S. Seitz
+
+===== PAGE 38 =====
+Segmentation by graph partitioning
+• Break Graph into Segments
+• Delete links that cross between segments
+• Easiest to break links that have low affinity
+similar pixels should be in the same segments
+dissimilar pixels should be in different segments
+A
+B
+C
+Source: S. Seitz
+wij
+i
+j
+
+===== PAGE 39 =====
+Measuring affinity
+• Suppose we represent each pixel by a feature vector x, and 
+define a distance function appropriate for this feature 
+representation
+• Then we can convert the distance between two feature 
+vectors into an affinity with the help of a generalized 
+Gaussian kernel:
+
+
+
+
+
+−
+2
+2
+)
+,
+(
+dist
+2
+1
+exp
+j
+i x
+x
+
+Slide credit: S. Lazebnik
+
+===== PAGE 40 =====
+Scale affects affinity
+• Small σ: group only nearby points
+• Large σ: group far-away points
+Slide credit: S. Lazebnik
+
+===== PAGE 41 =====
+Graph cut
+• Set of edges whose removal makes a graph disconnected
+• Cost of a cut: sum of weights of cut edges
+• A graph cut gives us a segmentation
+• What is a “good” graph cut and how do we find one?
+A
+B
+Source: S. Seitz
+
+===== PAGE 42 =====
+Minimum cut
+•
+We can do segmentation by finding the minimum cut in a 
+graph
+•
+Efficient algorithms exist for doing this
+Minimum cut example
+Slide credit: S. Lazebnik
+
+===== PAGE 43 =====
+Minimum cut
+•
+We can do segmentation by finding the minimum cut in a 
+graph
+•
+Efficient algorithms exist for doing this
+Minimum cut example
+Slide credit: S. Lazebnik
+
+===== PAGE 44 =====
+Normalized cut
+•
+Drawback: minimum cut tends to cut off very small, isolated 
+components
+Ideal Cut
+Cuts with 
+lesser weight
+than the 
+ideal cut
+* Slide from Khurram Hassan-Shafique CAP5415 Computer Vision 2003
+
+===== PAGE 45 =====
+Normalized cut
+•
+Drawback: minimum cut tends to cut off very small, isolated 
+components
+•
+This can be fixed by normalizing the cut by the weight of all 
+the edges incident to the segment
+•
+The normalized cut cost is:
+w(A, B) = sum of weights of all edges between A and B
+assoc(A,V)  = sum of all weights in cluster A + w(A,B)
+)
+,
+(
+)
+,
+(
+)
+,
+(
+)
+,
+(
+V
+B
+assoc
+B
+A
+w
+V
+A
+assoc
+B
+A
+w
++
+J. Shi and J. Malik. Normalized cuts and image segmentation. PAMI 2000
+
+===== PAGE 46 =====
+4
+Example
+2
+2
+2
+2
+2
+1
+3
+2
+2
+2
+3
+2
+2
+2
+1
+3             3
+Ncut(A,B) =  ------- +  ------
+21           16
+A
+B
+
+===== PAGE 47 =====
+Normalized cut
+• Finding the exact minimum of the normalized cut cost is NP-
+complete, but we relax to let nodes take on arbitrary values:
+• Let W be the adjacency matrix of the graph
+• Let D be the diagonal matrix with diagonal entries D(i, i) = Σj 
+W(i, j) 
+• Then the normalized cut cost can be written as
+where y is an indicator vector whose value should be 1 in the 
+ith position if the ith feature point belongs to A and a negative 
+constant otherwise
+J. Shi and J. Malik. Normalized cuts and image segmentation. PAMI 2000
+Dy
+y
+y
+W
+D
+y
+T
+T
+)
+(
+−
+
+===== PAGE 48 =====
+Normalized cut
+• We can minimize the relaxed cost by solving the generalized 
+eigenvalue problem (D − W)y = λDy
+• The solution y is given by the generalized eigenvector 
+corresponding to the second smallest eigenvalue
+• Intutitively, the ith entry of y can be viewed as a “soft” 
+indication of the component membership of the ith feature
+• Can use 0 or median value of the entries as the splitting point 
+(threshold), or find threshold that minimizes the Ncut cost
+
+===== PAGE 49 =====
+Normalized cut algorithm
+1.
+Represent the image as a weighted graph 
+G = (V,E), compute the weight of each edge, and summarize 
+the information in D and W
+2.
+Solve (D − W)y = λDy for the eigenvector with the second 
+smallest eigenvalue
+3.
+Use the entries of the eigenvector to bipartition the graph
+
+To find more than two clusters:
+•
+Recursively bipartition the graph
+•
+Run k-means clustering on values of 
+several eigenvectors
+
+===== PAGE 50 =====
+[NO TEXT]
+
+===== PAGE 51 =====
+Example result
+
+===== PAGE 52 =====
+•
+Pros
+•
+Generic framework, can be used with many different features 
+and affinity formulations
+•
+Cons
+•
+High storage requirement and time complexity
+•
+Bias towards partitioning into equal segments
+Normalized cuts: Pro and con
+Slide credit: S. Lazebnik
+
+===== PAGE 53 =====
+What is Missing in Normalized Cut?
+Global Model for Object/Background!
+•
+Where to obtain the global appearance information
+•
+How to build the object/background model
+
+===== PAGE 54 =====
+Interactive Object Cutout and Composition
+
+===== PAGE 55 =====
+Graph Cut for Image Segmentation
+User’s Stroke (Blue for “object”, 
+red for “background”)
+Image segmentation using Graph 
+Cut
+Yuri Boykov, Marie-Pierre Jolly, Interactive Graph Cuts for Optimal Boundary & Region 
+Segmentation of Objects in N-D Images, ICCV 2001
+
+===== PAGE 56 =====
+Graph Cut for Image Segmentation
+Cast interactive image 
+segmentation as a Graph Cut 
+problem
+
+===== PAGE 57 =====
+Graph Cut for Image Segmentation
+The weights of edges
+
+===== PAGE 58 =====
+Graph Cut for Image Segmentation
+Use histogram to define the “regional” (or unary) term
+The binary term enforces “smoothness” among similar pixels
+Color similarity
+Spatial adjacency
+
+===== PAGE 59 =====
+Graph Cut for Image Segmentation
+The general formulation for graph cut
+• Binary-variable energy minimization
+The solver
+• Max-flow algorithm
+
+===== PAGE 60 =====
+GrabCut
+Carston Rother et al., “GrabCut” — Interactive Foreground Extraction using Iterated Graph Cuts, SIGGRAPH 2004
+
+===== PAGE 61 =====
+GMM Color Model
+Gaussian Mixture Model (typically 5-8 components)
+Foreground &
+Background
+Background
+Foreground
+Background
+G
+R
+G
+R
+Iterated graph 
+cut
+
+===== PAGE 62 =====
+[NO TEXT]
+
+===== PAGE 63 =====
+Iterated Graph Cut
+
+===== PAGE 64 =====
+GrabCut
+
+===== PAGE 65 =====
+LazySnapping
+Yin Li et al., Lazy Snapping, SIGGRAPH 2004
+
+===== PAGE 66 =====
+Lazy Snapping Overview
+
+Main Steps:
+1.
+Mark strokes as foreground & background
+2.
+Perform Boykov & Jolly style graphcut
+3.
+*Edit Boundary*
+
+Familiar Formulation
+•
+Minimize Gibbs Energy:
+
+E1(X) – Cluster (K-means) known foreground/background 
+colors to find representative colors
+
+E2(X) – Similar to Boykov & Jolly
+66
+
+===== PAGE 67 =====
+Lazy Snapping – Issue
+Too Slow to allow for real-time refinement
+Solution?
+Superpixels!
+67
+
+===== PAGE 68 =====
+Lazy Snaping – Speedup
+68
+
+===== PAGE 69 =====
+More Results
+
+===== PAGE 70 =====
+Matting and compositing
++
+
+===== PAGE 71 =====
+The matting equations
+i
+i
+i
+i
+i
+B
+F
+I
+)
+1(
+
+
+−
++
+=
++
+x
+x
+=
+
+===== PAGE 72 =====
+[NO TEXT]
+
+===== PAGE 73 =====
+Hard segmentation
+compositing
+matte
+compositing
+Source image
+
+===== PAGE 74 =====
+Why is matting hard?
+
+===== PAGE 75 =====
+Why is matting hard?
+
+===== PAGE 76 =====
+Why is matting hard?
+
+===== PAGE 77 =====
+Known
+Unknown
+(
+)
+z
+z
+z
+z
+z
+B
+F
+I
+
+
+−
++
+=
+1
+7 Unknowns, 3 knowns
+Observed 
+Image
+Alpha Matte
+
+===== PAGE 78 =====
+[NO TEXT]
+
+===== PAGE 79 =====
+We have 6 equations for 3 color channels in 2
+images, and 4 unknowns.
+}
+ ,
+ ,
+ ,
+{
+b
+g
+r
+F
+F
+F
+
+Backgrounds are 
+estimated
+Unknown:
+
+===== PAGE 80 =====
+Poisson Matting
+Jian Sun et al., Poisson Matting, SIGGRAPH 2004
+
+===== PAGE 81 =====
+Poisson Matting
+Solve the matting problem in gradient domain
+
+===== PAGE 82 =====
+Poisson Matting
+
+===== PAGE 83 =====
+Poisson Matting
+
+===== PAGE 84 =====
+Poisson Matting
+
+
+
+
+
+
+
+=
+−
+
+=
+
+
+
+B
+F
+B
+F
+I
+div
+x
+x
+0
+1
+|
+ 
+s.t.
+   
+)
+(
+
+
+B
+F
+I
+−
+
+
+
+
+===== PAGE 85 =====
+Poisson Matting
+
+===== PAGE 86 =====
+Image Co-Segmentation
+Task specification: given an image pair, detect the common 
+foreground in the set of images despite the differences in the 
+background
+
+===== PAGE 87 =====
+Image Co-Segmentation
+The first work on image co-segmentation (?)
+Rother et al., Cosegmentation of Image Pairs by Histogram Matching - Incorporating a Global 
+Constraint into MRFs, CVPR 2006
+
+===== PAGE 88 =====
+Image Co-Segmentation
+Application: robust image distance
+
+===== PAGE 89 =====
+Image Co-Segmentation
+Application: robust image distance
+
+===== PAGE 90 =====
+Image Inpainting / Image Completion
+What motivates image inpainting / completion techniques?
+
+===== PAGE 91 =====
+Some Examples
+
+===== PAGE 92 =====
+Some Examples
+
+===== PAGE 93 =====
+[NO TEXT]
+
+===== PAGE 94 =====
+The Difficulties
+Under-constrained problem
+Requires inference about regions, boundaries, textures
+Data-driven but needs scene semantics
+Result should “look real” without seams or perceptual 
+artifacts
+
+===== PAGE 95 =====
+Intuitive Solution?
+Identify the regions you want to fill/remove
+Continue any lines arriving at those regions
+Fill in the regions with texture/color from the surrounding 
+areas
+
+===== PAGE 96 =====
+[NO TEXT]
+
+===== PAGE 97 =====
+[NO TEXT]
+
+===== PAGE 98 =====
+Structure vs. Texture
+
+===== PAGE 99 =====
+A. Criminisi, P. Pérez, K. Toyama. Object Removal by Exemplar-Based Inpainting, CVPR 2003
+
+===== PAGE 100 =====
+“Onion Skin” Filling Order
+
+===== PAGE 101 =====
+Hole Filling by Examples
+Cheap and easy, but the filling order is crucial in preserving 
+structure
+
+===== PAGE 102 =====
+Filling in “Onion Skill” Order
+May lose linear structure
+
+===== PAGE 103 =====
+Filling Order Is Crucial
+choose pixels that are continuations of lines/curves/edges so
+that linear structures are propagated
+
+===== PAGE 104 =====
+Algorithm Pipeline
+
+===== PAGE 105 =====
+Determining Filling Priority
+
+===== PAGE 106 =====
+Onion Skin vs. Structure-Keeping
+
+===== PAGE 107 =====
+“Kanizsa Triangle”
+
+===== PAGE 108 =====
+[NO TEXT]
+
+===== PAGE 109 =====
+Do We Create Something New?
+
+===== PAGE 110 =====
+More Results
+
+===== PAGE 111 =====
+More Results
+
+===== PAGE 112 =====
+[NO TEXT]
+
+===== PAGE 113 =====
+Major Observations
+For natural images, the most salient missing structures
+can often be approximated by a few well-defined curves.
+There exists a synthesis ordering for image completion:
+the regions with salient structures should be completed
+before filling in other regions.
+user interaction 
+to specify the 
+curves
+structure 
+propagation to 
+synthesize 
+regions with 
+salient 
+structures
+texture 
+propagation to 
+fill in the 
+remaining
+
+===== PAGE 114 =====
+[NO TEXT]
+
+===== PAGE 115 =====
+Formulating as Graph Labeling
+Sample anchors / source patches along the user-specified 
+curves
+Assign label (source patch) to each anchor
+Structure term
+Completion term
+Coherence term
+
+===== PAGE 116 =====
+Energy Terms
+
+===== PAGE 117 =====
+Dynamic Programming (DP) Solver
+For 1-D chain, DP works
+How about general graphs?
+
+===== PAGE 118 =====
+The BP Algorithm
+
+===== PAGE 119 =====
+An Example
+
+===== PAGE 120 =====
+Sampled Results
+
+===== PAGE 121 =====
+Sampled Results
+
+===== PAGE 122 =====
+Layer-Sensitive Completion
+
+===== PAGE 123 =====
+Questions?

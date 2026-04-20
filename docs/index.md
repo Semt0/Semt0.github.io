@@ -27,6 +27,13 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/CVDL/PixelComputing/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Pixel Computing - I</h3>
+              <p class="resume-card-sub">CVDL</p>
+              <span class="resume-card-date">2026-04-17</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/Introduction to Foundation Models/FlashAttention/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">FlashAttention</h3>
@@ -53,13 +60,6 @@ icon: lucide/home
               <h3 class="resume-card-title">Momentum and Adaptive SGD</h3>
               <p class="resume-card-sub">Introduction to Foundation Models</p>
               <span class="resume-card-date">2026-04-09</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Introduction to Foundation Models/Stochastic Gradient Descent/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Stochastic Gradient Descent</h3>
-              <p class="resume-card-sub">Introduction to Foundation Models</p>
-              <span class="resume-card-date">2026-04-08</span>
             </div>
           </a>
 <!-- home-recent:auto-end -->
