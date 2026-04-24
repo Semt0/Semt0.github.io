@@ -3,6 +3,8 @@ title: Recognition
 date: 2026-03-27
 ---
 
+
+
 ## 1 视觉识别概述
 
 ### 1.1 任务定义与挑战
@@ -25,6 +27,8 @@ date: 2026-03-27
     - 相同的物体在不同条件下（光照、姿态、尺度）呈现截然不同的像素分布
     - 背景变化、遮挡、形变等因素进一步加剧了这一差距
 
+![视觉识别挑战](pictures/recog1_slide_04.png){ width="550" }
+
 ### 1.2 视觉变化的挑战
 
 视觉识别面临多种变化因素，这些变化使得基于模板匹配的方法难以奏效：
@@ -46,6 +50,8 @@ date: 2026-03-27
 - 粒度问题（Granularity）：识别可以在不同粒度上进行（如"狗"vs"哈士奇"）
 - 上下文依赖（Context）：复杂概念的理解需要结合场景上下文
 
+![视觉变化的挑战](pictures/recog1_slide_05.png){ width="550" }
+
 ### 1.3 视觉识别的历史发展
 
 !!! info "主要数据集与挑战"
@@ -53,6 +59,8 @@ date: 2026-03-27
     - PASCAL VOC（2005-2012）：20类物体检测与分类，奠定评估标准
     - ImageNet ILSVRC（2010-2017）：1000类大规模识别，推动深度学习革命
     - YFCC100M（多媒体领域）：1亿带标签图像，用于图像标注研究
+
+![主要数据集](pictures/recog1_slide_06.png){ width="550" }
 
 ---
 
@@ -145,6 +153,8 @@ Harris 和 Stephens 改进了 Moravec 的方法，主要贡献包括：
 
 这使得 Harris 检测器具有更好的旋转不变性和定位精度，成为后续许多视觉算法的基础。
 
+![Harris 角点检测器概述](pictures/recog1_slide_11.png){ width="550" }
+
 #### 3.2.1 数学推导
 
 考虑图像 $I(x, y)$ 和以 $(x, y)$ 为中心的窗口 $W$，当窗口向 $(u, v)$ 偏移时，强度变化为：
@@ -232,6 +242,8 @@ $$
 !!! warning "Harris 检测器的尺度敏感性问题"
     Harris 角点检测器存在一个根本局限：它对图像尺度变化非常敏感。这意味着当图像被放大或缩小时，检测到的角点位置和数量会发生显著变化。
 
+![Harris 检测器的尺度敏感性](pictures/recog1_slide_16.png){ width="550" }
+
 **尺度敏感性的原因**：
 
 1. **固定窗口大小**：Harris 检测器使用固定大小的窗口 $W$ 计算结构张量。当图像尺度变化时，窗口覆盖的物理区域随之变化
@@ -272,11 +284,15 @@ $$
 
     其中高斯核 $G(x, y, \sigma) = \frac{1}{2\pi\sigma^2} e^{-\frac{x^2 + y^2}{2\sigma^2}}$，$\sigma$ 是尺度参数，控制平滑程度。
 
+![尺度空间理论](pictures/recog1_slide_21.png){ width="550" }
+
 #### 3.3.2 LoG 与 DoG
 
 Laplacian of Gaussian（LoG）是尺度不变的 blob 检测器：
 
 $$\text{LoG} = \nabla^2 G = \frac{\partial^2 G}{\partial x^2} + \frac{\partial^2 G}{\partial y^2}$$
+
+![LoG 与 DoG](pictures/recog1_slide_23.png){ width="550" }
 
 !!! abstract "定义 3.4（DoG 近似 LoG）"
     Difference of Gaussians（DoG）是 LoG 的高效近似：
@@ -297,6 +313,8 @@ SIFT 检测与后续描述均在尺度空间上完成。Lowe 论文将算法分�
     David G. Lowe, "Distinctive Image Features from Scale-Invariant Keypoints," *International Journal of Computer Vision*, 60(2):91–110, 2004.
 
 **1）尺度空间金字塔与 DoG**
+
+![尺度空间金字塔](pictures/recog1_slide_26.png){ width="550" }
 
 !!! info "什么是 Octave？"
     在音乐中，一个 octave（八度）表示频率翻倍。在尺度空间中，octave 表示图像尺度翻倍（即图像被下采样为原来的一半分辨率）。SIFT 通过构建多个 octave 来覆盖不同的尺度范围。
@@ -330,6 +348,8 @@ $$k = 2^{1/s}$$
 
 第 4 张图像的尺度 $k^3\sigma_0 = 2\sigma_0$ 正好对应尺度翻倍。将其下采样一半分辨率，作为下一个 octave 的第 0 张（其有效尺度变为 $\sigma_0$），这样可以高效地覆盖更大尺度范围。
 
+![DoG 近似 LoG](pictures/recog1_slide_28.png){ width="550" }
+
 **差分高斯（DoG）的计算**：
 
 对每一 octave 内的相邻高斯图求差：
@@ -343,9 +363,13 @@ DoG 在尺度轴上近似 $\sigma^2 \nabla^2 G$ 的响应，用于检测 blob �
 
 **2）三维邻域极值检测**
 
+![三维邻域极值检测](pictures/recog1_slide_30.png){ width="550" }
+
 对 DoG 中每个体素，与其同尺度 8 邻域及相邻两尺度各 9 邻域共 26 个邻居比较；若为严格极大或极小，则作为候选关键点。
 
 **3）亚像素位置与尺度精炼**
+
+![关键点定位](pictures/recog1_slide_31.png){ width="550" }
 
 在 $(x,y,\sigma)$ 处对 $D$ 做泰勒展开至二阶：
 
@@ -368,6 +392,8 @@ $$
 
 其中 $r$ 为允许的最大主曲率比（典型 $r=10$），则保留；否则视为边缘响应而丢弃。
 
+![边缘响应抑制](pictures/recog1_slide_33.png){ width="550" }
+
 !!! tip "与 Harris 的关系"
     二者都区分"角点状"与"边缘状"。SIFT 在 DoG 上算二阶导数 Hessian；Harris 在灰度梯度上构造结构张量。原文未在边缘剔除步骤使用 Harris 角点算子。
 
@@ -380,6 +406,8 @@ $$
 SIFT（Scale-Invariant Feature Transform）是手工局部特征的代表。下面按论文顺序补充方向赋值、描述子与匹配的细节。
 
 ### 4.2 方向赋值（Orientation Assignment）
+
+![方向赋值](pictures/recog1_slide_36.png){ width="550" }
 
 在关键点尺度对应的高斯图像 $L$ 上（非 DoG），在半径约 $3 \times 1.5\sigma$ 的窗口内计算梯度幅值与方向；幅值再乘以高斯权重（$\sigma$ 常取 $1.5\sigma_{\text{keypoint}}$），突出中心贡献。
 
@@ -465,6 +493,8 @@ SIFT 的变体（考虑颜色信息）：
 
 ### 5.2 K-means 聚类与词典学习
 
+![K-means 聚类](pictures/recog1_slide_41.png){ width="550" }
+
 视觉词典通常通过 K-means 聚类从无标注图像的特征集合中学习。
 
 !!! abstract "定义 5.1（K-means 聚类目标）"
@@ -531,6 +561,8 @@ $$
 ### 6.1 空间金字塔匹配（SPM）
 
 标准 BoW 完全忽略特征的空间位置，导致无法区分具有相同局部特征但空间布局不同的图像。SPM 通过多分辨率空间划分解决此问题。
+
+![空间金字塔匹配概述](pictures/recog1_slide_47.png){ width="550" }
 
 !!! abstract "定义 6.1（空间金字塔表示）"
     空间金字塔在 $L$ 个层次上划分图像：
@@ -610,6 +642,8 @@ Pyramid Match Kernel 提供了一种理论上有保证的、高效的部分匹�
 
     其中约定 $H^{-1} = 0$，权重 $w_i = 1/d_i = 1/2^{L-i}$。
 
+![金字塔匹配核详解](pictures/recog1_slide_52.png){ width="550" }
+
 ??? note "PMK 的核心思想解读"
     新匹配对（Newly Matched Pairs）：
 
@@ -673,6 +707,8 @@ VLAD 通过记录残差而非简单投票来保留更多信息，是 BoW 的一�
 ![Aggregation Methods Math](pictures/aggregation_math.png){ width="550" }
 
 ### 7.2 Fisher Vector
+
+![Fisher Vector 概述](pictures/recog1_slide_58.png){ width="550" }
 
 Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 BoW 的高阶扩展。
 
@@ -781,6 +817,8 @@ Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 Bo
     - $\|\alpha_i\|_1$ 是 L1 范数，促进稀疏性（大多数元素为 0）
     - $\lambda$ 控制稀疏度权衡
 
+![稀疏编码](pictures/recog1_slide_64.png){ width="550" }
+
 !!! info "稀疏编码 vs K-means"
     | 特性 | K-means | 稀疏编码 |
     |------|---------|----------|
@@ -794,9 +832,165 @@ Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 Bo
 
 ---
 
-## 8 总结与展望
 
-### 8.1 核心概念对比
+## 8 深度学习时代的视觉识别（Recognition II）
+
+### 8.1 发展脉络：从感知机到深层网络
+
+课件先回顾了深度学习识别的历史起点：
+
+- **Perceptron（Rosenblatt, ~1957）**：线性可分二分类的早期神经元模型，曾实现硬件机（Mark I）并做字母识别
+- **Adaline / Madaline（Widrow & Hoff, ~1960）**：引入基于最小均方误差（LMS）的学习思想
+- **Backpropagation 普及（Rumelhart et al., 1986）**：多层网络可训练成为现实
+- **深度学习复兴（Hinton & Salakhutdinov, 2006）**：深层表示学习重新激活学界
+
+![Perceptron 历史起点](pictures/recog2_slide_03.png){ width="550" }
+
+![Backpropagation 复兴阶段](pictures/recog2_slide_05.png){ width="550" }
+
+![2006 深度学习再兴起](pictures/recog2_slide_06.png){ width="550" }
+
+### 8.2 AlexNet（2012）与“深度学习为何突然成功”
+
+AlexNet 是现代视觉识别深度学习时代的关键转折点。
+
+![AlexNet](pictures/recog2_slide_07.png){ width="550" }
+
+!!! info "与 LeNet-5 的代际差异"
+    - LeNet-5（1998）验证了卷积网络可用于文档识别
+    - AlexNet 在规模、数据、算力和训练技巧上全面跃迁
+
+![LeNet-5](pictures/recog2_slide_08.png){ width="550" }
+
+!!! abstract "课件给出的 AlexNet 关键点"
+    - 相比 LeNet-5，网络显著更大
+    - 使用双 GTX 580 训练（当时的大规模 GPU 训练）
+    - 大规模数据集（ImageNet）驱动参数学习
+    - 工程技巧：ReLU、Dropout 等提升收敛与泛化
+
+![AlexNet 关键工程要素](pictures/recog2_slide_09.png){ width="550" }
+
+!!! tip "Why DL Suddenly Works（课件视角）"
+    1. 大规模视觉数据出现（相机、社交媒体、云平台、移动网络）
+    2. GPU 让更深更大的网络可训练
+    3. 关键工程技巧成熟（ReLU/Dropout 等）
+    4. 产业牵引带来真实需求和闭环优化
+
+![DL 成功的关键因素](pictures/recog2_slide_11.png){ width="550" }
+
+![AI 计算需求增长](pictures/recog2_slide_12.png){ width="550" }
+
+![学术与工业共同体扩张](pictures/recog2_slide_13.png){ width="550" }
+
+### 8.3 从 AlexNet 到“更深网络”
+
+#### 8.3.1 VGG Net：深度优先的顺序堆叠
+
+VGG 的核心思想是使用结构简单、可重复的卷积块（典型 3×3 卷积）进行深层堆叠。
+
+![VGG Net](pictures/recog2_slide_14.png){ width="550" }
+
+!!! info "AlexNet vs VGG 的结构特征"
+    二者都属于**串行（sequential）**连接范式：按层线性堆叠模块；VGG 更强调统一小卷积核与网络加深。
+
+![AlexNet vs VGG](pictures/recog2_slide_16.png){ width="550" }
+
+#### 8.3.2 Network-in-Network（NiN）
+
+NiN（Lin et al., 2013）提出在每个空间位置上用 1×1 卷积执行“像素级全连接映射”（MLPConv 思想），提升非线性表达并减少参数冗余。
+
+![Network in Network](pictures/recog2_slide_17.png){ width="550" }
+
+#### 8.3.3 GoogLeNet / Inception：多分支并行
+
+GoogLeNet（Szegedy et al., CVPR 2015）把网络模块从串行转向并行多分支，在同一层内融合不同感受野。
+
+![GoogLeNet](pictures/recog2_slide_18.png){ width="550" }
+
+!!! abstract "Inception 模块（课件覆盖点）"
+    - 并行分支：1×1、3×3、5×5 卷积与 3×3 池化
+    - 分支输出在通道维拼接（filter concatenation）
+    - 核心技巧：用 1×1 卷积做降维与特征重映射，控制计算量
+
+![Inception 网络堆叠](pictures/recog2_slide_19.png){ width="550" }
+
+![Inception 模块结构](pictures/recog2_slide_20.png){ width="550" }
+
+!!! warning "Naive Inception 的问题"
+    若直接并联较大卷积核而不做 1×1 降维，计算和参数会迅速爆炸，训练与部署都不可扩展。
+
+![Naive Inception（不可行）](pictures/recog2_slide_21.png){ width="550" }
+
+#### 8.3.4 ResNet：残差学习解决退化
+
+深度继续增加时，普通串行网络会出现优化困难和退化问题。ResNet 通过残差连接（shortcut / identity mapping）学习
+
+$$
+\mathcal{F}(x)=H(x)-x,\quad y=\mathcal{F}(x)+x
+$$
+
+使梯度与信息更容易跨层传播。
+
+![ResNet](pictures/recog2_slide_22.png){ width="550" }
+
+课件同时提及 ResNet 的多种变体（不同深度、不同 block 设计、不同连接策略）。
+
+![ResNet Variants](pictures/recog2_slide_23.png){ width="550" }
+
+#### 8.3.5 DenseNet：密集连接复用特征
+
+DenseNet 进一步强化跨层信息流：每一层接收此前所有层的特征图（concat），实现特征复用并改善梯度流。
+
+$$
+x_l = H_l([x_0, x_1, ..., x_{l-1}])
+$$
+
+其中 $[\cdot]$ 表示通道拼接。
+
+![DenseNet](pictures/recog2_slide_24.png){ width="550" }
+
+### 8.4 网络可解释性：Class Activation Map（CAM）
+
+课件最后以 CAM 说明分类网络如何定位“判别性区域”。
+
+!!! abstract "CAM 基本机制"
+    在含 **Global Average Pooling（GAP）** 的分类网络中，设最后卷积层第 $k$ 个通道特征图为 $f_k(x,y)$，类别 $c$ 的线性分类权重为 $w_k^c$，则类别激活图可写为：
+
+    $$
+    M_c(x,y)=\sum_k w_k^c f_k(x,y)
+    $$
+
+    $M_c$ 越大表示该空间位置对类别 $c$ 贡献越大。
+
+![CAM with GAP](pictures/recog2_slide_25.png){ width="550" }
+
+![CAM 示例](pictures/recog2_slide_26.png){ width="550" }
+
+!!! tip "CAM 的意义"
+    - 提供弱监督定位能力（无需框标注）
+    - 增强模型可解释性与可诊断性
+    - 为后续 Grad-CAM 等方法奠定基础
+
+### 8.5 结构演进小结（对应课件主线）
+
+从课件主线看，深度学习时代 recognition 的演进可以概括为：
+
+1. **可训练性建立**：感知机到反向传播
+2. **工程临界点突破**：AlexNet 结合数据、算力、技巧跨过实用门槛
+3. **结构持续演化**：
+   - 串行加深（VGG）
+   - 局部 MLP 化（NiN）
+   - 多分支并行（Inception）
+   - 残差连接（ResNet）
+   - 密集连接（DenseNet）
+4. **从性能到理解**：CAM 等方法增强可解释性
+
+---
+
+## 9 总结与展望
+
+
+### 9.1 核心概念对比
 
 | 方法 | 核心思想 | 空间信息 | 量化方式 | 聚合方式 | 维度 | 典型应用 |
 |------|----------|----------|----------|----------|------|----------|
@@ -808,7 +1002,7 @@ Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 Bo
 | Soft Assignment | 减少量化误差 | 可扩展 | 软分配 | 加权投票 | $K$ | 提高 BoW 性能 |
 | Sparse Coding | 稀疏线性表示 | 可扩展 | 稀疏编码 | 编码系数 | $K$（稀疏） | 特征学习 |
 
-### 8.2 BoW 模型的改进维度
+### 9.2 BoW 模型的改进维度
 
 !!! tip "改进方向总结"
     1. 空间信息：SPM、PMK 引入空间结构，从 orderless 到 spatial-aware
@@ -817,7 +1011,7 @@ Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 Bo
     4. 特征聚合：VLAD、Fisher Vector 超越简单投票，利用高阶统计量
     5. 粒度控制：视觉词组（Visual Phrases）捕获联合模式；层次化词典
 
-### 8.3 历史演进与深度学习的联系
+### 9.3 历史演进与深度学习的联系
 
 !!! info "从手工特征到深度学习"
     传统 BoW 流程可以看作一种"浅层"特征学习：
@@ -863,3 +1057,19 @@ Fisher Vector 编码特征相对于生成模型（GMM）参数的梯度，是 Bo
 11. T. Lindeberg. "Scale-Space Theory: A Basic Tool for Analyzing Structures at Different Scales." *Journal of Applied Statistics*, 1994. （尺度空间理论）
 
 12. F. Perronnin, C. Dance. "Fisher Kernels on Visual Vocabularies for Image Categorization." *CVPR*, 2007. （Fisher Vector 原始论文）
+
+### 深度学习识别（Recognition II）补充参考
+
+13. Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton. "ImageNet Classification with Deep Convolutional Neural Networks." *NeurIPS*, 2012. （AlexNet）
+
+14. Karen Simonyan, Andrew Zisserman. "Very Deep Convolutional Networks for Large-Scale Image Recognition." *arXiv:1409.1556*, 2014. （VGG）
+
+15. Min Lin, Qiang Chen, Shuicheng Yan. "Network in Network." *arXiv:1312.4400*, 2013. （NiN）
+
+16. Christian Szegedy et al. "Going Deeper with Convolutions." *CVPR*, 2015. （GoogLeNet/Inception）
+
+17. Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun. "Deep Residual Learning for Image Recognition." *CVPR*, 2016. （ResNet）
+
+18. Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger. "Densely Connected Convolutional Networks." *CVPR*, 2017. （DenseNet）
+
+19. Bolei Zhou et al. "Learning Deep Features for Discriminative Localization." *CVPR*, 2016. （CAM）

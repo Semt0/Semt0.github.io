@@ -3,7 +3,6 @@ title: Pixel Computing - I
 date: 2026-04-17
 ---
 
-[pixel computing - I](slides/pixel%20computing%20-%20I.pdf)
 
 本讲内容围绕 **pixel-level understanding / pixel labeling** 展开：从无监督分割（聚类、图分割）到交互式抠图（GraphCut/GrabCut/Lazy Snapping），再到更细粒度的 **图像 Matting**，以及相关任务（co-segmentation、inpainting/completion）。
 

@@ -40,6 +40,7 @@ nav = [
            "note/CVDL/Recognition-1.md",
            "note/CVDL/Detection.md",
            "note/CVDL/PixelComputing.md",
+           "note/CVDL/CVDL_Review.md",
        ]},
        {"Introduction to Foundation Models" = [
            "note/Introduction to Foundation Models/Gradient descent.md",

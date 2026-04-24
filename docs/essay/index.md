@@ -13,12 +13,6 @@ icon: lucide/sticky-note
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
-    <div class="timeline-date">2026-04-16</div>
-    <div class="timeline-content">
-      <a href="VLA recent/">VLA 模型</a>
-    </div>
-  </div>
-  <div class="timeline-item">
     <div class="timeline-date">2026-04-13</div>
     <div class="timeline-content">
       <a href="c++ review/">c++ review</a>

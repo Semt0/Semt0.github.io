@@ -5,12 +5,6 @@ date: 2026-04-10
 
 ## 1 目标检测任务：从分类到定位
 
-课件链接：
-
-[detection - I](slides/detection%20-%20I.pdf)
-
-[detection - II](slides/detection%20-%20II.pdf)
-
 目标检测（Object Detection）要同时回答两类问题：
 
 - **是什么：** 目标属于哪个类别
@@ -549,6 +543,8 @@ $$
 其中 $u$ 是真实类别标签（背景类 $u=0$），$t^u$ 是预测的 bounding box 回归参数（仅对前景类 $u\ge 1$ 生效）。
 
 ### 5.5 Faster R-CNN：把 proposal 也”网络化”（RPN）
+
+推荐阅读: [一文读懂 Faster R-CNN](https://zhuanlan.zhihu.com/p/31426458);
 
 Fast R-CNN 仍依赖外部 proposal。slides 提出核心问题：检测网络已很快（例如 0.2s），但 Selective Search 仍可达 2s/图，proposal 成为瓶颈。
 

@@ -1,6 +1,10 @@
 ---
-title: VLA 模型
+title: openvla 精读（含人工）
 Data: 2026-04-16
+categories:
+  - Robotics
+  - VLA
+  - Paper Reading
 ---
 
 
@@ -28,7 +32,7 @@ Data: 2026-04-16
 - **Automatic Mixed Precision, AMP**: 
     - 在PyTorch中，自动混合精度（AMP）是一种能让模型训练既快又省显存的技术。简单来说，它 **在训练时，让模型的关键部分用高精度（FP32，单精度浮点数）计算以确保稳定，而将大部分计算交给低精度（FP16，半精度浮点数）以换取速度和效率**。
     - PyTorch的AMP已经是一个**原生、稳定且持续更新**的功能，在PyTorch 1.6版本就已经集成在 `torch.amp` 模块中。它主要通过两个核心部件协同工作：**`autocast` 自动类型转换** 和 **`GradScaler` 梯度缩放**。
-  
+
 - **FSDP（Fully Sharded Data Parallel，全分片数据并行）**:  是PyTorch中一种专门用于训练 **超大模型** 的分布式策略。可以把它理解为PyTorch对微软DeepSpeed中ZeRO Stage 3技术的原生实现。它的核心目标是解决传统数据并行（DDP）的一个痛点：每个GPU都要复制一份完整的模型参数，导致单卡显存不够用。
 
 

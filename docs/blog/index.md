@@ -13,6 +13,18 @@ icon: lucide/pen-line
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-24</div>
+    <div class="timeline-content">
+      <a href="RT-2精读笔记/">RT-2 论文精读（2307.15818v1）</a>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-24</div>
+    <div class="timeline-content">
+      <a href="RT-1精读笔记/">RT-1 论文精读（2212.06817v2）</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-01</div>
     <div class="timeline-content">
       <a href="Verilog学习/">Verilog study</a>

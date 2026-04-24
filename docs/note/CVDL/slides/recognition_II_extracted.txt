@@ -1,0 +1,189 @@
+
+
+===== PAGE 1 =====
+Visual Recognition – Part 2:
+Deep Learning Era
+Mu Yadong
+Wangxuan Institute of Computer Technology
+Peking University
+Several slides are adapted from related courses or tutorials. 
+Internal use only. Please do not distribute the slides.
+
+===== PAGE 2 =====
+Outline
+▪ Why DL suddenly works? (AlexNet, 2012)
+▪ Can it go deeper?  The development from AlexNet (2012) to 
+Resnet (2015)
+▪ Further extensions (DenseNet DualPathNet etc.)
+▪ Network Understanding
+2
+
+===== PAGE 3 =====
+Perceptron
+▪ The Mark I Perceptron machine was 
+the first implementation of the 
+perceptron algorithm. 
+▪ The machine was connected to a 
+camera that used 20×20 cadmium 
+sulfide photocells to produce a 400-
+pixel image. 
+▪ recognized letters of the alphabet
+Frank Rosenblatt, ~1957: Perceptron
+update rule:
+
+
+===== PAGE 4 =====
+Widrow and Hoff, ~1960: Adaline/Madaline
+
+
+===== PAGE 5 =====
+Rumelhart et al. 1986: First time back-propagation became popular
+recognizable math
+
+===== PAGE 6 =====
+A bit of history
+[Hinton and Salakhutdinov 2006]
+Reinvigorated research in 
+Deep Learning
+
+===== PAGE 7 =====
+AlexNet
+▪ Named after Alex Krizhevsky, proposed in 2012
+
+
+===== PAGE 8 =====
+LeNet-5
+Y . LeCun, L. Bottou, Y . Bengio, and P . Haffner. Gradient-based learning applied to document recognition. 
+Proceedings of the IEEE, november 1998.
+
+===== PAGE 9 =====
+AlexNet
+▪ Much larger than LeNet-5
+▪ Trained on two GTX 580 GPU
+▪ Largest networks at its time
+▪ Utilize multiple engineering tricks (dropout, ReLU)
+Alex Krizhevsky et al., ImageNet Classification with Deep Convolutional Neural Networks, NIPS 2012
+
+===== PAGE 10 =====
+Why DL Suddenly works?
+…It may be that the primary barriers to 
+the success of neural networks were 
+psychological (practitioners did not 
+expect neural networks to work, so they 
+did not make a serious effort to use 
+neural networks)…
+-- Goodfellow et al. “deep Learning”
+
+===== PAGE 11 =====
+Why DL Suddenly works? – my biased view
+▪ Emerging of big visual data: camera, social media, cloud, 3/4G
+▪ GPU -> large network
+▪ New engineering tricks (dropout, ReLU etc.) 
+▪ Industrial applications
+所有的产品，特别是基于人工智能的产品，都有这
+样一个特点。技术所能达到的性能的上界（简称技
+术上界），如果不能超过用户使用时对性能要求的
+下界（简称使用下界），那么这个产品就很难被用
+户接受，其实用化也基本不可能成功。也就是说，
+技术所能达到的性能的绝对高低并不重要，重要的
+是它必须高于用户使用时所能容忍的底线。
+Li Hang (ByteDance)
+
+===== PAGE 12 =====
+AI Advances and their Computational Requirements
+(Source: openai.com/blog/ai-and-compute/)
+
+===== PAGE 13 =====
+Expanding Academic/Industrial Communities
+
+
+===== PAGE 14 =====
+VGG Net
+Karen Simonyan, Andrew Zisserman, Very Deep Convolutional Networks for Large-Scale Image Recognition,2014
+https://arxiv.org/abs/1409.1556
+
+===== PAGE 15 =====
+
+
+===== PAGE 16 =====
+AlexNet v.s. VGG Net
+▪ Sequentially connect building blocks
+
+
+===== PAGE 17 =====
+Network-in-Network (NiN) [lin et al. 2013]
+▪ Key idea: apply a fully-connected layer at each pixel location 
+(for each height and width)
+▪ Reduce the required parameters
+
+===== PAGE 18 =====
+GoogLeNet
+Szegedy, C. et al., Going deeper with convolutions. CVPR 2015.
+
+===== PAGE 19 =====
+9 Inception modules Convolution
+Pooling
+Softmax
+Other
+Network in a network in a 
+network...
+
+
+===== PAGE 20 =====
+1x1 
+convolutions
+3x3 
+convolutions
+5x5 
+convolutions
+Filter 
+concatenation
+Previous layer
+Inception module
+3x3 max 
+pooling
+1x1 
+convolutions
+1x1 
+convolutions
+1x1 
+convolutions
+
+===== PAGE 21 =====
+1x1 
+convolutions
+3x3 
+convolutions
+5x5 
+convolutions
+Filter 
+concatenation
+Previous layer
+Naive idea (does not work!)
+3x3 max 
+pooling
+
+===== PAGE 22 =====
+ResNet
+▪ See He Kaiming’s ICML tutorial
+
+===== PAGE 23 =====
+ResNet Variants
+
+
+===== PAGE 24 =====
+DenseNet
+▪ See DenseNet’s CVPR slides
+
+===== PAGE 25 =====
+Class Activation Map (CAM)
+▪ Global Average Pooling
+
+
+===== PAGE 26 =====
+Class Activation Map (CAM)
+▪ Examples
+
+
+===== PAGE 27 =====
+Questions?

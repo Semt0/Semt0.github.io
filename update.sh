@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 uv run python scripts/update_home_recent.py
 uv run python scripts/update_essay_timeline.py

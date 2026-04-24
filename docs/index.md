@@ -27,6 +27,13 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/CVDL/CVDL_Review/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">CVDL 期中复习笔记</h3>
+              <p class="resume-card-sub">CVDL</p>
+              <span class="resume-card-date">2026-04-23</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/CVDL/PixelComputing/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">Pixel Computing - I</h3>
@@ -53,13 +60,6 @@ icon: lucide/home
               <h3 class="resume-card-title">Detection</h3>
               <p class="resume-card-sub">CVDL</p>
               <span class="resume-card-date">2026-04-10</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Introduction to Foundation Models/Momentum and Adaptive SGD/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Momentum and Adaptive SGD</h3>
-              <p class="resume-card-sub">Introduction to Foundation Models</p>
-              <span class="resume-card-date">2026-04-09</span>
             </div>
           </a>
 <!-- home-recent:auto-end -->

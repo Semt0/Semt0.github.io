@@ -13,6 +13,13 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-04-23</div>
+    <div class="timeline-content">
+      <a href="CVDL/CVDL_Review/">CVDL 期中复习笔记</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-17</div>
     <div class="timeline-content">
       <a href="CVDL/PixelComputing/">Pixel Computing - I</a>
@@ -85,6 +92,13 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
+      <a href="复变函数/留数/">第五章 留数</a>
+      <span class="timeline-category">复变函数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-03-31</div>
+    <div class="timeline-content">
       <a href="复变函数/解析函数的级数表示/">第四章 解析函数的级数表示</a>
       <span class="timeline-category">复变函数</span>
     </div>
@@ -100,13 +114,6 @@ icon: lucide/book-open
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
       <a href="复变函数/保形变换/">第六章 保形变换</a>
-      <span class="timeline-category">复变函数</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-03-31</div>
-    <div class="timeline-content">
-      <a href="复变函数/留数/">第五章 留数</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
@@ -204,6 +211,13 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-19</div>
     <div class="timeline-content">
+      <a href="计算方法/误差分析/">误差分析</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-03-19</div>
+    <div class="timeline-content">
       <a href="算法设计与分析/动态规划/">动态规划</a>
       <span class="timeline-category">算法设计与分析</span>
     </div>
@@ -233,13 +247,6 @@ icon: lucide/book-open
     <div class="timeline-date">2026-03-19</div>
     <div class="timeline-content">
       <a href="计算方法/Gauss消去法和主元素消去法/">Gauss消去法和主元素消去法</a>
-      <span class="timeline-category">计算方法</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-03-19</div>
-    <div class="timeline-content">
-      <a href="计算方法/误差分析/">误差分析</a>
       <span class="timeline-category">计算方法</span>
     </div>
   </div>
