@@ -13,6 +13,20 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-05-04</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/MPI集合通讯/">MPI 集合通讯</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-04</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/MPI点对点通讯/">MPI 点对点通讯</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-04-23</div>
     <div class="timeline-content">
       <a href="CVDL/CVDL_Review/">CVDL 期中复习笔记</a>
@@ -92,6 +106,13 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
+      <a href="复变函数/保形变换/">第六章 保形变换</a>
+      <span class="timeline-category">复变函数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-03-31</div>
+    <div class="timeline-content">
       <a href="复变函数/留数/">第五章 留数</a>
       <span class="timeline-category">复变函数</span>
     </div>
@@ -107,13 +128,6 @@ icon: lucide/book-open
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
       <a href="复变函数/拉普拉斯变换/">第七章 拉普拉斯变换</a>
-      <span class="timeline-category">复变函数</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-03-31</div>
-    <div class="timeline-content">
-      <a href="复变函数/保形变换/">第六章 保形变换</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>

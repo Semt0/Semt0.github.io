@@ -26,7 +26,7 @@ RT-1 的核心价值不是“某个单点技巧”，而是把 **数据规模（
 
 ### 1) 总览图（Teaser）
 
-![Screenshot 2026-04-24 at 19.46.21]pictures/Screenshot 2026-04-24 at 19.46.21.png)
+![Screenshot 2026-04-24 at 19.46.21](pictures/Screenshot 2026-04-24 at 19.46.21.png)
 
 ![RT-1 teaser](pictures/rt1/rt1_teaser.png)
 

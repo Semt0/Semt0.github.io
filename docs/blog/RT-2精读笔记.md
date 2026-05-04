@@ -38,6 +38,10 @@ RT-2 相比 RT-1 的关键飞跃是：**不再只在机器人数据内学习泛�
 
 ![Screenshot 2026-04-24 at 19.43.41](pictures/Screenshot 2026-04-24 at 19.43.41.png)
 
+
+
+![RT-2 architecture core](pictures/rt2/fig3.png)
+
 ### 4) 泛化主结果图（Seen vs Unseen）
 
 ![RT-2 generalization results](pictures/rt2/generalization_eval.png)
@@ -53,6 +57,78 @@ RT-2 相比 RT-1 的关键飞跃是：**不再只在机器人数据内学习泛�
 ### 7) Language-Table 图
 
 ![RT-2 language-table](pictures/rt2/langtable.png)
+
+---
+
+## RT-2 核心架构详解（从输入到执行）
+
+RT-2 的核心不是“重新发明一个机器人网络”，而是把现成的大规模 VLM 改造成可执行动作的 VLA。  
+如果按数据流看，可以拆成 7 步：
+
+### 1) 多模态输入打包（Observation + Instruction）
+
+- 视觉输入：当前相机图像（部分设置可含多帧/多图）
+- 语言输入：任务指令（如 “pick up the red can”）
+- 训练时通常组织成 VQA 风格模板：`Q: what action should the robot take to ...? A:`
+
+这一步和 RT-1 一样都使用“图像+文本条件”，但 RT-2 直接走 VLM 原生输入接口。
+
+### 2) VLM 主干编码（PaLI-X / PaLM-E）
+
+- **RT-2-PaLI-X**：视觉编码器 + 大型 encoder-decoder 语言主干
+- **RT-2-PaLM-E**：decoder-only LLM 框架，视觉特征投影到语言 token 空间
+
+关键点：RT-2 不再用 RT-1 的专用轻量策略骨干（FiLM-EfficientNet + 小 Transformer），而是直接复用 web-scale VLM 主干。
+
+### 3) 动作 token 化（Action as Language）
+
+RT-2 沿用了 RT-1 的离散动作思想，但进一步“语言化”：
+
+- 动作维度：`terminate + Δpos(x,y,z) + Δrot(x,y,z) + gripper`（共 8 维）
+- 每个连续维度离散到 256 bins
+- 目标动作表示成 token 串，例如：`1 128 91 241 5 101 127 ...`
+
+也就是说，模型输出层不再区分“文本头”和“动作头”，统一在 token 生成空间解决。
+
+### 4) 词表映射策略（不同 VLM 的工程实现）
+
+- **PaLI-X**：数字 token 支持较好，可直接映射 bin id
+- **PaLM-E**：覆盖最低频 256 个 token 作为动作词表
+
+这一步是 RT-2 工程上非常实用的细节：尽量不改模型结构，只改 token 语义绑定。
+
+### 5) Co-Fine-Tuning（RT-2 最关键训练策略）
+
+RT-2 不是只在机器人数据上微调，而是联合训练：
+
+- 机器人轨迹数据（学低层可执行动作）
+- 原始互联网视觉语言任务数据（保留语义/推理能力）
+
+可理解为“边学控制边防遗忘”。这也是 RT-2 相对 RT-1 泛化提升的核心来源之一。
+
+### 6) 输出约束（Execution Safety Gate）
+
+执行机器人动作时，解码器只允许采样合法动作 token（而不是任意自然语言词）。
+
+作用：
+
+- 避免生成不可执行文本
+- 保持 token 解码到动作向量的确定性
+- 降低闭环控制中的异常输出风险
+
+### 7) 去 token 化与闭环控制
+
+- 生成的动作 token -> 反离散化为连续控制量
+- 下发给机器人执行
+- 用新观测继续下一轮推理（closed loop）
+
+55B 模型通过云端 TPU 服务实现 1-3Hz，5B 版本约 5Hz，完成“超大模型可落地控制”。
+
+### 和 RT-1 的结构差异（最值得记住）
+
+1. RT-1：专用机器人策略网络；RT-2：直接复用大 VLM 主干。  
+2. RT-1：主要在机器人数据中学；RT-2：robot + web 数据 co-fine-tuning。  
+3. RT-1：强在多任务操作泛化；RT-2：在此基础上显著增强语义泛化与 emergent reasoning。
 
 ---
 

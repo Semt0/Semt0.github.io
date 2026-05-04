@@ -1,6 +1,7 @@
 ---
 title: openvla 精读（含人工）
-Data: 2026-04-16
+date: 2026-04-16
+icon: lucide/brain
 categories:
   - Robotics
   - VLA
@@ -77,7 +78,7 @@ Following Brohan et al. [7], we discretize each dimension of the robot actions s
 
 **OpenVLA 的改进：1% 到 99% 分位数 (Quantiles)**
 
-OpenVLA 不看最大最小值，而是看**分位数**：
+OpenVLA 不看最大最小值，而是看 **分位数**：
 
 - **1st Quantile (1% 分位数)：** 把所有数据从小到大排，排在第 1% 位置的那个数。
 - **99th Quantile (99% 分位数)：** 排在第 99% 位置的那个数。
@@ -90,7 +91,7 @@ OpenVLA 不看最大最小值，而是看**分位数**：
 Unfortunately, the tokenizer used by OpenVLA’s language backbone, the Llama tokenizer, only reserves 100 “special tokens” for tokens newly introduced during fine-tuning, which is too few for the 256 tokens of our action discretization.
 
 - **面临问题：** Llama 的 Tokenizer 仅预留了 100 个“特殊 Token”空位，不足以容纳 256 个动作词。
-- **解决方案：** 采用“**最少使用频率覆盖法**”。直接覆盖（Overwrite）Llama 原有词典中 **使用频率最低的最后 256 个 Token**。**评价：** 这种做法在保持模型结构不变的前提下，简单高效地扩展了动作空间。
+- **解决方案：** 采用 “**最少使用频率覆盖法**”。直接覆盖（Overwrite）Llama 原有词典中 **使用频率最低的最后 256 个 Token**。**评价：** 这种做法在保持模型结构不变的前提下，简单高效地扩展了动作空间。
 
 
 
@@ -109,7 +110,7 @@ OpenVLA 的成功很大程度上归功于它对 OpenX 数据集的 “**精挑�
 
 - **基础：** 利用目前机器人领域最大的开源数据集 OpenX。
 - **规模：** 包含 70+ 个独立机器人数据集，超过 200 万条机器人轨迹 (Trajectories)。
-- **核心目标：** 捕获极高的**具身多样性 (Embodiment Diversity)**、场景多样性和任务多样性，实现“开箱即用”的多机器人控制能力。
+- **核心目标：** 捕获极高的 **具身多样性 (Embodiment Diversity)**、场景多样性和任务多样性，实现“开箱即用”的多机器人控制能力。
 
 #### 2. 数据筛选与处理 (Data Curation)
 

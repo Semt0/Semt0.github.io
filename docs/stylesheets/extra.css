@@ -14,7 +14,7 @@
 
 /* --- 日间 default：浅蓝层次 ------------------------------------------------ */
 [data-md-color-scheme="default"] {
-  --zen-surface: #f8fafc;
+  --zen-surface: #ffffff;
   --zen-surface-raised: #ffffff;
   --zen-surface-muted: #e2e8f0;
   --zen-border: rgba(20, 80, 120, 0.08);
@@ -45,6 +45,11 @@
 
   --md-typeset-a-color: #0277bd;
   --md-typeset-mark-color: rgba(2, 136, 209, 0.15);
+}
+
+/* 日间模式：主内容背景保持纯白 */
+[data-md-color-scheme="default"] .md-main::before {
+  opacity: 0;
 }
 
 /* --- 夜间 slate：深紫相 + 可读链接 ---------------------------------------- */
