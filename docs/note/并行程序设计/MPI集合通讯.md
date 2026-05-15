@@ -12,17 +12,17 @@ tags:
 ## 1 集合通信概述
 
 !!! abstract "定义 1（集合通信）"
-    集合通信（Collective Communication）是指通信子中**所有进程**都参与的通信操作。与点对点通信不同，集合通信涉及整个进程组，由 MPI 库进行全局优化。
+    集合通信（Collective Communication）是指通信子中 **所有进程** 都参与的通信操作。与点对点通信不同，集合通信涉及整个进程组，由 MPI 库进行全局优化。
 
 ![集合通信概述](pictures/collective_overview.png){ width="800" }
 
 集合通信的特点：
 
-- 通信子内的**所有进程**必须同时调用同一个集合通信函数
-- 参数必须**一致**（count、datatype 在所有进程中必须匹配）
-- **不允许**使用通配符（`MPI_ANY_SOURCE`、`MPI_ANY_TAG`）
-- 集合通信**没有 tag 参数**
-- 消息大小必须**精确指定**，而不是最大上限
+- 通信子内的 **所有进程** 必须同时调用同一个集合通信函数
+- 参数必须 **一致** （count、datatype 在所有进程中必须匹配）
+- **不允许** 使用通配符（`MPI_ANY_SOURCE`、`MPI_ANY_TAG`）
+- 集合通信 **没有 tag 参数**
+- 消息大小必须 **精确指定** ，而不是最大上限
 
 与点对点通信的对比：
 
@@ -43,7 +43,7 @@ tags:
 ![MPI_Barrier](pictures/collective_barrier.png){ width="800" }
 
 !!! abstract "定义 2（MPI_Barrier）"
-    `MPI_Barrier` 是一个全局同步操作。调用此函数的进程会被阻塞，直到通信子中**所有**进程都调用了此函数。
+    `MPI_Barrier` 是一个全局同步操作。调用此函数的进程会被阻塞，直到通信子中 **所有** 进程都调用了此函数。
 
 ```c
 int MPI_Barrier(MPI_Comm comm);
@@ -77,15 +77,15 @@ int MPI_Bcast(
 );
 ```
 
-**通信模式**：
+**通信模式** ：
 
 - 所有进程调用同一个 `MPI_Bcast`，指定相同的 `root`
-- `root` 进程的 buffer 是**输入**（发送数据）
-- 其他进程的 buffer 是**输出**（接收数据）
+- `root` 进程的 buffer 是 **输入** （发送数据）
+- 其他进程的 buffer 是 **输出** （接收数据）
 
-**实现优化**：
+**实现优化** ：
 
-MPI 实现通常使用**树形广播算法**而不是 root 逐个发送：
+MPI 实现通常使用 **树形广播算法** 而不是 root 逐个发送：
 
 - 第 1 步：root → 1 个进程
 - 第 2 步：已有数据的 2 个进程 → 2 个新进程
@@ -100,7 +100,7 @@ MPI 实现通常使用**树形广播算法**而不是 root 逐个发送：
 ![MPI_Scatter](pictures/collective_scatter.png){ width="800" }
 
 !!! abstract "定义 4（MPI_Scatter）"
-    散发操作将 root 进程中的一个大数组**均匀分配**到所有进程。
+    散发操作将 root 进程中的一个大数组 **均匀分配** 到所有进程。
 
 ```c
 int MPI_Scatter(
@@ -115,9 +115,9 @@ int MPI_Scatter(
 );
 ```
 
-**通信模式**：
+**通信模式** ：
 
-- `sendcount` 是发送给**每个**进程的元素数（不是总数）
+- `sendcount` 是发送给 **每个** 进程的元素数（不是总数）
 - root 的 sendbuf 长度 = `sendcount × p`
 - 进程 $i$（包括 root 自己）收到原数组的第 $[i \cdot \text{sendcount}, (i+1) \cdot \text{sendcount})$ 块
 
@@ -128,7 +128,7 @@ int MPI_Scatter(
 ![MPI_Gather](pictures/collective_gather.png){ width="800" }
 
 !!! abstract "定义 5（MPI_Gather）"
-    收集操作是 Scatter 的**逆操作**：将各进程的数据汇集到 root 进程。
+    收集操作是 Scatter 的 **逆操作** ：将各进程的数据汇集到 root 进程。
 
 ```c
 int MPI_Gather(
@@ -143,7 +143,7 @@ int MPI_Gather(
 );
 ```
 
-**通信模式**：
+**通信模式** ：
 
 - 每个进程贡献 `sendcount` 个元素
 - root 按 rank 顺序收集：进程 0 的数据在最前面，进程 1 次之，以此类推
@@ -151,7 +151,7 @@ int MPI_Gather(
 
 **变体：MPI_Gatherv**
 
-当各进程贡献的数据量**不同**时，使用变长收集：
+当各进程贡献的数据量 **不同** 时，使用变长收集：
 
 ```c
 int MPI_Gatherv(
@@ -171,7 +171,7 @@ int MPI_Gatherv(
 ![MPI_Allgather](pictures/collective_allgather.png){ width="800" }
 
 !!! abstract "定义 6（MPI_Allgather）"
-    全收集是 MPI_Gather + MPI_Bcast 的组合：**所有**进程都获得完整的收集结果。
+    全收集是 MPI_Gather + MPI_Bcast 的组合： **所有** 进程都获得完整的收集结果。
 
 ```c
 int MPI_Allgather(
@@ -183,7 +183,7 @@ int MPI_Allgather(
 
 与 `MPI_Gather` 的关键区别：
 
-- **没有 root 参数**：所有进程都是接收方
+- **没有 root 参数** ：所有进程都是接收方
 - 每个进程的 `recvbuf` 都必须足够大（`p × recvcount` 个元素）
 - 相当于每个进程执行了一次广播
 
@@ -194,7 +194,7 @@ int MPI_Allgather(
 ![MPI_Alltoall](pictures/collective_alltoall.png){ width="800" }
 
 !!! abstract "定义 7（MPI_Alltoall）"
-    全交换操作：每个进程向**每个**其他进程发送不同的数据块。进程 $i$ 向进程 $j$ 发送 sendbuf 的第 $j$ 块，同时从进程 $j$ 接收数据放入 recvbuf 的第 $j$ 块。
+    全交换操作：每个进程向 **每个** 其他进程发送不同的数据块。进程 $i$ 向进程 $j$ 发送 sendbuf 的第 $j$ 块，同时从进程 $j$ 接收数据放入 recvbuf 的第 $j$ 块。
 
 ```c
 int MPI_Alltoall(
@@ -204,7 +204,7 @@ int MPI_Alltoall(
 );
 ```
 
-**典型应用**：
+**典型应用** ：
 
 - 矩阵转置（将按行分布的数据转换为按列分布）
 - FFT 中的数据重排
@@ -229,7 +229,7 @@ int MPI_Alltoallv(
 ![MPI_Reduce](pictures/collective_reduce.png){ width="800" }
 
 !!! abstract "定义 8（MPI_Reduce）"
-    规约操作将各进程中相同位置的数据元素通过指定的**结合运算**（如求和、求积、求最大值）合并，结果存储在 root 进程中。
+    规约操作将各进程中相同位置的数据元素通过指定的 **结合运算** （如求和、求积、求最大值）合并，结果存储在 root 进程中。
 
 ```c
 int MPI_Reduce(
@@ -243,7 +243,7 @@ int MPI_Reduce(
 );
 ```
 
-**预定义规约操作**：
+**预定义规约操作** ：
 
 | 操作 | 含义 | 操作 | 含义 |
 |------|------|------|------|
@@ -255,7 +255,7 @@ int MPI_Reduce(
 | `MPI_MINLOC` | 最小值及其位置 | | |
 
 !!! note "用户自定义规约操作"
-    可以使用 `MPI_Op_create` 创建自定义的规约操作。自定义操作函数必须是**结合律**的，即 $f(f(a, b), c) = f(a, f(b, c))$，不要求交换律。
+    可以使用 `MPI_Op_create` 创建自定义的规约操作。自定义操作函数必须是 **结合律** 的，即 $f(f(a, b), c) = f(a, f(b, c))$，不要求交换律。
 
 ---
 
@@ -264,7 +264,7 @@ int MPI_Reduce(
 ![MPI_Allreduce](pictures/collective_allreduce.png){ width="800" }
 
 !!! abstract "定义 9（MPI_Allreduce）"
-    全规约是 MPI_Reduce + MPI_Bcast 的组合：**所有**进程都获得规约结果。
+    全规约是 MPI_Reduce + MPI_Bcast 的组合： **所有** 进程都获得规约结果。
 
 ```c
 int MPI_Allreduce(
@@ -282,9 +282,9 @@ int MPI_Allreduce(
 - 没有 root 参数：所有进程都接收结果
 - 常用于需要全局一致性的场景（如计算全局误差、全局内积）
 
-**实现优化**：
+**实现优化** ：
 
-相比手动 `MPI_Reduce` + `MPI_Bcast`（共 $2 \log p$ 步），`MPI_Allreduce` 可以使用**蝶形交换**或**环形 Allreduce** 在 $\log p$ 步内完成。在大规模并行计算中这种优化效果显著。
+相比手动 `MPI_Reduce` + `MPI_Bcast`（共 $2 \log p$ 步），`MPI_Allreduce` 可以使用 **蝶形交换** 或 **环形 Allreduce** 在 $\log p$ 步内完成。在大规模并行计算中这种优化效果显著。
 
 ---
 
@@ -306,7 +306,7 @@ int MPI_Scan(
 );
 ```
 
-**示例**（使用 MPI_SUM）：
+**示例** （使用 MPI_SUM）：
 
 | 进程 rank | sendbuf | recvbuf（Scan 结果） |
 |:---:|:---:|:---:|
@@ -327,7 +327,7 @@ int MPI_Scan(
 
 ### 11.1 创建新通信子
 
-**MPI_Comm_dup**：复制通信子
+**MPI_Comm_dup** ：复制通信子
 
 ```c
 int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm);
@@ -335,7 +335,7 @@ int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm);
 
 新的通信子拥有与原始通信子相同的进程组，但上下文不同。用于库函数隔离通信。
 
-**MPI_Comm_split**：分裂通信子
+**MPI_Comm_split** ：分裂通信子
 
 ```c
 int MPI_Comm_split(
@@ -346,11 +346,11 @@ int MPI_Comm_split(
 );
 ```
 
-- 相同 `color` 的进程被分到**同一个**新通信子
+- 相同 `color` 的进程被分到 **同一个** 新通信子
 - `key` 决定新通信子中的 rank 顺序（小 key → 小 rank）
 - `color = MPI_UNDEFINED` 表示该进程不参与任何新通信子
 
-**典型用法**：创建按行/列划分的子通信子（用于矩阵计算）。
+**典型用法** ：创建按行/列划分的子通信子（用于矩阵计算）。
 
 ### 11.2 释放通信子
 
@@ -388,7 +388,7 @@ int MPI_Cart_create(
 
 ### 12.2 图拓扑
 
-图拓扑允许定义**任意**的进程连接关系：
+图拓扑允许定义 **任意** 的进程连接关系：
 
 ```c
 int MPI_Graph_create(
@@ -441,8 +441,8 @@ MPI-2 引入了并行 I/O 支持，允许多个进程同时对同一个文件进
 
 核心原则：
 
-- 集合通信比手写点对点模式更**简洁**、更**高效**（MPI 内部优化）
-- 所有进程**必须**同时参与；参数必须一致
+- 集合通信比手写点对点模式更 **简洁** 、更 **高效** （MPI 内部优化）
+- 所有进程 **必须** 同时参与；参数必须一致
 - `MPI_Allreduce` 是最常用的集合操作之一（全局求和非局部梯度）
-- 通信子管理支持**模块化**和**分层**并行
+- 通信子管理支持 **模块化** 和 **分层** 并行
 - 虚拟拓扑让通信模式匹配问题几何结构

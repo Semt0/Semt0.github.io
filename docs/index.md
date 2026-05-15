@@ -8,8 +8,8 @@ icon: lucide/home
     <header class="home-intro">
       <h1 class="home-title">Hi, I'm Semt0 👋</h1>
       <p class="home-subtitle">
-        An undergraduate at <strong>Peking University</strong> (College of Engineering) with a double major in <strong>CS</strong>.  
-        Interested in <strong>Embodied AI</strong> & <strong>Machine Learning</strong>. Love <strong>Minecraft</strong>.
+        An undergraduate at <strong>Peking University</strong> (College of Engineering).
+        Interested in <strong>Embodied AI</strong> & <strong>LLM</strong>. Love <strong>Minecraft & Terraria</strong>.
       </p>
       <div class="home-social-row">
         <a href="https://codetime.dev" class="home-codetime-link" aria-label="CodeTime"><img class="home-codetime-badge" alt="CodeTime Badge" src="https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36391"></a>
@@ -27,6 +27,20 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/并行程序设计/MPI集合通讯/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">MPI 集合通讯</h3>
+              <p class="resume-card-sub">并行程序设计</p>
+              <span class="resume-card-date">2026-05-04</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/并行程序设计/MPI点对点通讯/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">MPI 点对点通讯</h3>
+              <p class="resume-card-sub">并行程序设计</p>
+              <span class="resume-card-date">2026-05-04</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/CVDL/CVDL_Review/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">CVDL 期中复习笔记</h3>
@@ -46,20 +60,6 @@ icon: lucide/home
               <h3 class="resume-card-title">FlashAttention</h3>
               <p class="resume-card-sub">Introduction to Foundation Models</p>
               <span class="resume-card-date">2026-04-14</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/插值法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">插值法</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span class="resume-card-date">2026-04-14</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/CVDL/Detection/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Detection</h3>
-              <p class="resume-card-sub">CVDL</p>
-              <span class="resume-card-date">2026-04-10</span>
             </div>
           </a>
 <!-- home-recent:auto-end -->
