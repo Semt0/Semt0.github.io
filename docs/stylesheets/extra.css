@@ -559,6 +559,27 @@ button.md-top {
   font-weight: 600;
 }
 
+.md-typeset .admonition.summary,
+.md-typeset details.summary {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.md-typeset .admonition.summary .admonition-title,
+.md-typeset details.summary summary {
+  font-size: 0.95rem;
+}
+
+.md-typeset .admonition.summary pre,
+.md-typeset details.summary pre {
+  font-size: 0.9em;
+}
+
+.md-typeset .admonition.summary pre code,
+.md-typeset details.summary pre code {
+  white-space: pre-wrap;
+}
+
 /* 折叠类型的 Details 块 (???+ example/question 等) */
 .md-typeset details {
   font-size: inherit;
