@@ -1,0 +1,834 @@
+PAGES: 47
+
+===== PAGE 1 =====
+Parameter-Efficient Fine-Tuning (PEFT)
+Kun Yuan
+Peking University
+
+===== PAGE 2 =====
+Center of Machine Learning Research
+Finetune
+< 2 >
+l
+Fine-tuning in LLMs refers to the process of taking a pre-trained model and further training it on a
+more specific dataset
+l
+Finetuning will adapt LLM to a particular task or domain. This allows the model to better understand
+and generate relevant responses for the specific task than pretrained model
+l
+Finetune is an important technique to help you utilize LLMs into your own private applications
+
+===== PAGE 3 =====
+Center of Machine Learning Research
+Finetune v.s. Prompt
+< 3 >
+Fine-tuning适用于有
+足够标注数据、需要
+高性能定制的场景
+
+===== PAGE 4 =====
+Center of Machine Learning Research
+Finetune v.s. Prompt
+< 4 >
+Prompting适用于
+数据稀缺、需要快
+速适应新任务
+
+===== PAGE 5 =====
+Center of Machine Learning Research
+Finetune v.s. RAG
+< 5 >
+RAG适用于需要动态
+检索外部知识、生成多
+样化内容的场景，且对
+实时性要求不高
+
+===== PAGE 6 =====
+Center of Machine Learning Research
+Finetune is essentially retraining the model with nice initialization
+< 6 >
+Pretrain
+initialization
+[Image is from a Medium Blog]
+
+===== PAGE 7 =====
+Center of Machine Learning Research
+Finetune is essentially retraining the model with nice initializations
+< 7 >
+Finetune
+initialization
+[Image is from a Medium Blog]
+
+===== PAGE 8 =====
+Center of Machine Learning Research
+Finetuning LLM is very expensive
+< 8 >
+l
+Computational Resources: Finetuning LLMs, especially the latest ones with billions of
+parameters like GPT-3 or GPT-4, requires substantial computational power.
+l
+Data Requirements: Finetuning an LLM effectively requires a significant amount of high-
+quality, domain-specific data. Gathering, cleaning, and preparing this data can be labor-
+intensive and costly.
+l
+Expertise: The process of finetuning an LLM requires expertise. Hiring or consulting with
+experts to handle the finetuning process adds to the overall cost.
+l
+Maintenance and Experimentation: Iterative experimentation is often necessary to
+achieve optimal performance. This means multiple rounds of training, evaluation, and
+tweaking, each consuming additional resources
+
+===== PAGE 9 =====
+Center of Machine Learning Research
+Model Fine-tuning
+< 9 >
+W
+x
+y=Wx
+Pre-trained model
+Task-specific data
+Task-specific fine-tuning
+W’
+x
+y=W’x
+Fine-tuned model
+• Model fine-tuning helps to adapt the model to specific downstream tasks.
+
+===== PAGE 10 =====
+Center of Machine Learning Research
+Why do we need parameter-efficient fine-tuning?
+< 10 >
+• Full fine-tuning requires the same memory consumption as pre-training.
+•
+Parameters: 7B  
+•
+Model storage: 7B * 2 Bytes = 14 GB  
+•
+Gradient storage: 14 GB  
+•
+Optimizer states: 28 GB   (using Adam)  
+•
+Activation storage: 2 GB  [Zhao et. al., 2024]
+•
+In total: 58 GB
+2
+14
+14
+28
+Model
+OptStates
+Activations
+Gradient
+• Generally, models are pre-trained with lots of GPUs, which may not be easily accessible.
+
+===== PAGE 11 =====
+Center of Machine Learning Research
+Why do we need parameter-efficient fine-tuning?
+< 11 >
+• For different downstream tasks / model versions, it is also expensive to store a full-size 
+checkpoint for each fine-tuned model.
+General
+7GB
+Reasoning
+7GB
+Writing
+7GB
+Creative
+7GB
+Reasoning
+V2 7GB 
+Writing
+V2 7GB
+Creative
+V2 7GB
+…   …   …   …   …   …
+Pre-trained model
+Fine-tuned models
+Too much 
+memory!
+
+===== PAGE 12 =====
+Center of Machine Learning Research
+< 12 >
+Parameter-efficient adapters
+General
+7GB
+Pre-trained model
++
+Reasoning
+70MB
+Creative
+70MB
+Writing
+70MB
+=
+Fine-tuned model 
+adapters
+• Applying task-specific adapters, we can obtain task-specific models.
+Reasoning
+7GB
+Writing
+7GB
+Creative
+7GB
+Fine-tuned models
+
+===== PAGE 13 =====
+Center of Machine Learning Research
+< 13 >
+BitFit: Bias-terms Fine-tuning
+• BitFit only fine-tunes the bias terms across all model layers.
+Attention Projection:
+Frozen
+Trainable
+Multi-head Attention:
+Elad Ben Zaken, Shauli Ravfogel, and Yoav Goldberg. Bitfit: Simple parameter-efficient 
+fine-tuning for transformer-based masked language-models, 2021.
+
+===== PAGE 14 =====
+Center of Machine Learning Research
+< 14 >
+BitFit: Bias-terms Fine-tuning
+• BitFit only fine-tunes the bias terms across all model layers.
+Frozen
+Trainable
+Dropout Layer 1:
+Layer Normalization 1:
+GELU Activation:
+Dropout Layer 2:
+Layer Normalization 2:
+
+===== PAGE 15 =====
+Center of Machine Learning Research
+< 15 >
+Adapter-H: Houlsby Architecture
+• Adapter-H inserts additional layers in each transformer layer.
+Neil Houlsby, Andrei Giurgiu, Stanislaw Jastrzebski, Bruna Morrone, Quentin de Laroussilhe, Andrea Gesmundo, Mona Attariyan, and Sylvain Gelly. Parameter-
+Efficient Transfer Learning for NLP. arXiv:1902.00751 [cs, stat], June 2019. URL http://arxiv.org/abs/1902. 00751.
+❄
+❄
+❄
+🔥
+🔥
+🔥
+🔥
+🔥: Trainable
+❄ : Frozen
+
+===== PAGE 16 =====
+Center of Machine Learning Research
+LoRA: Low-Rank Adaptation of LLMs
+< 16 >
+
+===== PAGE 17 =====
+Center of Machine Learning Research
+Finetuning LLM with low-rank adaptation
+< 17 >
+l
+Full Parameter Fine-tuning:
+min
+W 2Rp⇥q
+E⇠⇠D[F(W; ⇠)]
+l
+Finetuning with low-rank adaptation:
+min
+A2Rp⇥r,B2Rr⇥q E⇠⇠D[F(W + AB; ⇠)]
+New knowledge and expertise are imposed through low rank matrices A and B
+
+===== PAGE 18 =====
+Center of Machine Learning Research
+Finetuning LLM with low-rank adaptation
+< 18 >
+l
+Finetuning with low-rank adaptation:
+min
+A2Rp⇥r,B2Rr⇥q E⇠⇠D[F(W + AB; ⇠)]
+Only A and B are to be trained, while W is fixed  
+W 0 = W + ∆W = W + AB
+W 0x = (W + AB)x = Wx + ABx
+
+===== PAGE 19 =====
+Center of Machine Learning Research
+Full parameter fine-tuning：Memory cost
+< 19 >
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+h = W1x
+z = σ(h)
+ˆy = W2z
+f = L(ˆy)
+Forward
+@f
+@W2
+= @L
+@ˆy zT ,
+@f
+@z = W2
+@L
+@ˆy
+Backward
+U
+jFN24rOCo0CnlTpg5lkSDJCHeaXufE3uHPpxoUibl2aqQWfeCHwc693NwTpZxp43n3zsTk1PTMbGWuOr+wuLTsrqyeaZkpQgMiuVQXEWjKmaCBYbTi1RSCJOz6PLo9I/v6JKMylOzTClnQT6gsWMgLFS1w3CWAHJwxSUYcBxXHzyoMA
+H+B/usCh7EmDQwERBxq1k8Abw2u27Nq3ujwr/BH0MNjavVde/CniRZQoUhHLRu+15qOnm5iHBaVMNM0xTIJfRp26KAhOpOPjq/wJtW6eFYKvuEwSP160QOidbDJLKdCZiB/umV4l9eOzPxfidnIs0MFeRjUZxbCQus8Q9pigxfGgBiGL
+2r5gMwOZlbOJVG4L/8+TfcLZT9xv1xslurXk4jqOC1tEG2kI+2kNdIxaKEAE3aAH9ISenVvn0XlxXj9aJ5zxzBr6Vs7bO1KRr7k=</latexit>@f
+@h = @f
+@z ⊙rσ(h)
+U
+Y7uJxwr5gnSXN0i0sTUuSiqP0D/LivyKIB4d49e8w3QrqJj4IPN57vyS/50WMSmVZU6Owsrq2vlHcLG1t7+zumfsHbRnGApMWDlkouh6ShFOWoqRrqRICjwGOl43rmd+6JkDTkTWJSD9AQ059ipHSkmvWHV8gnDgREoiBv30m3dcO4V
+X8J/EKIUPd03XLFsVawa4TOyclEGOhmu+OIMQxwHhCjMkZc+2ItVPsksxI2nJiSWJEB6jIelpylFAZD+ZLZvCE60MoB8KfbiCM/XnRICKSeBp5MBUiO56GXiX14vVv5lP6E8ihXheP6QHzOoQpg1BwdUEKzYRBOEBdV/hXiEdDdK91vSJdi
+LKy+T9lnFrlaqt+fl2nVeRxEcgWNwCmxwAWrgBjRAC2DwCJ7BG5gaT8ar8W58zKMFI585BL9gfH4B/KOoqg=</latexit> @f
+@W1
+= @f
+@hxT
+@f
+@ˆy = rL(ˆy)
+Store h, z and !𝒚
+Store 𝛁𝐖𝟏𝐟(𝐖𝟏) and 𝛁𝐖𝟐𝐟(𝐖𝟐) 
+T
+
+===== PAGE 20 =====
+Center of Machine Learning Research
+LoRA: Memory cost
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+Forward
+Store h, z and !𝒚
+h = 𝑊! + 𝐴!𝐵! 𝑥
+𝑧= 𝜎ℎ
++𝑦= (𝑊"+𝐴"𝐵")𝑧
+𝑓= 𝐿(+𝑦)
+𝜕𝑓
+𝜕+𝑦= ∇𝐿(+𝑦)
+𝜕𝑓
+𝜕𝑧= 𝑊" + 𝐴"𝐵" # 𝜕𝑓
+𝜕+𝑦
+𝜕𝑓
+𝜕𝐴"
+= 𝜕𝑓
+𝜕+𝑦𝐵"𝑧#
+@f
+@h = @f
+@z ⊙rσ(h)
+𝜕𝑓
+𝜕𝐵"
+= 𝐴"
+# 𝜕𝑓
+𝜕+𝑦𝑧#
+𝜕𝑓
+𝜕𝐴!
+= 𝜕𝑓
+𝜕ℎ𝐵!𝑥#
+𝜕𝑓
+𝜕𝐵!
+= 𝐴!
+# 𝜕𝑓
+𝜕ℎ𝑥#
+Store 𝛁$𝟏𝐟, 𝛁𝑩𝟏𝐟 and 𝛁𝑨𝟐𝐟, 𝛁𝑩𝟐𝐟
+
+===== PAGE 21 =====
+Center of Machine Learning Research
+How much memory can LoRA save?
+< 21 >
+l
+Memory cost: 
+Memory cost = Models + Grads + Optimizers + Activations
+l
+LoRA does not save activation-incurred memory; does not apply to scenarios where
+activation-incurred memory dominates, e.g., long-context transformers 
+l
+LoRA saves models/grads/optimizers from O(p*q) to O((p+q)*r)
+l
+LoRA can save great memory when rank r is small, and activation-incurred memory is trivial
+
+===== PAGE 22 =====
+Center of Machine Learning Research
+Full parameter fine-tuning：Computational cost
+< 22 >
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+h = W1x
+z = σ(h)
+ˆy = W2z
+f = L(ˆy)
+Forward
+@f
+@W2
+= @L
+@ˆy zT ,
+@f
+@z = W2
+@L
+@ˆy
+Backward
+U
+jFN24rOCo0CnlTpg5lkSDJCHeaXufE3uHPpxoUibl2aqQWfeCHwc693NwTpZxp43n3zsTk1PTMbGWuOr+wuLTsrqyeaZkpQgMiuVQXEWjKmaCBYbTi1RSCJOz6PLo9I/v6JKMylOzTClnQT6gsWMgLFS1w3CWAHJwxSUYcBxXHzyoMA
+H+B/usCh7EmDQwERBxq1k8Abw2u27Nq3ujwr/BH0MNjavVde/CniRZQoUhHLRu+15qOnm5iHBaVMNM0xTIJfRp26KAhOpOPjq/wJtW6eFYKvuEwSP160QOidbDJLKdCZiB/umV4l9eOzPxfidnIs0MFeRjUZxbCQus8Q9pigxfGgBiGL
+2r5gMwOZlbOJVG4L/8+TfcLZT9xv1xslurXk4jqOC1tEG2kI+2kNdIxaKEAE3aAH9ISenVvn0XlxXj9aJ5zxzBr6Vs7bO1KRr7k=</latexit>@f
+@h = @f
+@z ⊙rσ(h)
+U
+Y7uJxwr5gnSXN0i0sTUuSiqP0D/LivyKIB4d49e8w3QrqJj4IPN57vyS/50WMSmVZU6Owsrq2vlHcLG1t7+zumfsHbRnGApMWDlkouh6ShFOWoqRrqRICjwGOl43rmd+6JkDTkTWJSD9AQ059ipHSkmvWHV8gnDgREoiBv30m3dcO4V
+X8J/EKIUPd03XLFsVawa4TOyclEGOhmu+OIMQxwHhCjMkZc+2ItVPsksxI2nJiSWJEB6jIelpylFAZD+ZLZvCE60MoB8KfbiCM/XnRICKSeBp5MBUiO56GXiX14vVv5lP6E8ihXheP6QHzOoQpg1BwdUEKzYRBOEBdV/hXiEdDdK91vSJdi
+LKy+T9lnFrlaqt+fl2nVeRxEcgWNwCmxwAWrgBjRAC2DwCJ7BG5gaT8ar8W58zKMFI585BL9gfH4B/KOoqg=</latexit> @f
+@W1
+= @f
+@hxT
+@f
+@ˆy = rL(ˆy)
+pd+qp
+T
+pd+2pq
+
+===== PAGE 23 =====
+Center of Machine Learning Research
+LoRA：Computational cost
+< 23 >
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+Forward
+h = 𝑊! + 𝐴!𝐵! 𝑥
+𝑧= 𝜎ℎ
++𝑦= (𝑊"+𝐴"𝐵")𝑧
+𝑓= 𝐿(+𝑦)
+𝜕𝑓
+𝜕+𝑦= ∇𝐿(+𝑦)
+𝜕𝑓
+𝜕𝑧= 𝑊" + 𝐴"𝐵" # 𝜕𝑓
+𝜕+𝑦
+𝜕𝑓
+𝜕𝐴"
+= 𝜕𝑓
+𝜕+𝑦𝐵"𝑧#
+@f
+@h = @f
+@z ⊙rσ(h)
+𝜕𝑓
+𝜕𝐵"
+= 𝐴"
+# 𝜕𝑓
+𝜕+𝑦𝑧#
+𝜕𝑓
+𝜕𝐴!
+= 𝜕𝑓
+𝜕ℎ𝐵!𝑥#
+𝜕𝑓
+𝜕𝐵!
+= 𝐴!
+# 𝜕𝑓
+𝜕ℎ𝑥#
+pd+qp+dr+pr+pr+qr
+Does not save computations significantly!
+3(pr+qr) + 2(pr+dr) + pq
+
+===== PAGE 24 =====
+Center of Machine Learning Research
+Results
+< 24 >
+
+===== PAGE 25 =====
+Center of Machine Learning Research
+LoRA+
+< 25 >
+l
+Since one of the matrices A or B will be initialized to 0, it will be very slow for it to update 
+l
+We should use different learning rates for A and B; LoRA+
+[LoRA+: Efficient Low Rank Adaptation of Large Models]
+
+===== PAGE 26 =====
+Center of Machine Learning Research
+LoRA+
+< 26 >
+l
+We should use different learning rates for A and B; LoRA+
+[LoRA+: Efficient Low Rank Adaptation of Large Models]
+
+===== PAGE 27 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 27 >
+l
+A matrix can be decomposed into the magnitude and the direction 
+l
+The magnitude and directional variations between
+and
+can be defined as follows:
+W0
+WFT
+
+===== PAGE 28 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 28 >
+l
+Similarly, the magnitude and directional variations between
+and
+are: 
+W0
+LoRA
+LoRA
+LoRA
+LoRA
+WLoRA
+
+===== PAGE 29 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 29 >
+l
+This reflects the difference between LoRA and FT
+Slight-negatively proportional
+Positively proportional
+
+===== PAGE 30 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 30 >
+l
+DoRA: train the magnitudes and directions separately
+
+===== PAGE 31 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 31 >
+l
+DoRA is consistent with FT
+Slight-negatively proportional
+Negatively proportional
+
+===== PAGE 32 =====
+Center of Machine Learning Research
+Weight-Decomposed Low-Rank Adaptation (DoRA)
+< 32 >
+
+===== PAGE 33 =====
+Center of Machine Learning Research
+LISA: Layer-wise finetuning
+< 33 >
+l
+LoRA does not update the whole model. Instead, it only update a low-rank incremental model
+min
+A2Rp⇥r,B2Rr⇥q E⇠⇠D[F(W + AB; ⇠)]
+l
+Can we update the full parameters in a memory-efficient manner? This can significantly increase
+the learnable parameters, which is expected to lead to superior performance 
+l
+Main idea: Layer-wise finetuning 
+min
+W
+E⇠⇠D[F(W; ⇠)] = E⇠⇠D[F(W1, W2, · · · , WL; ⇠)]
+where
+. When update
+, the other layers remain freeze 
+W := {W1, W2, · · · , WL}
+W`
+[LISA: Layerwise Importance Sampling for Memory-Efficient Large Language Model Fine-Tuning]
+
+===== PAGE 34 =====
+Center of Machine Learning Research
+LISA: Layer-wise finetuning
+< 34 >
+
+===== PAGE 35 =====
+Center of Machine Learning Research
+Block-wise training
+< 35 >
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+Update the first block
+
+===== PAGE 36 =====
+Center of Machine Learning Research
+Block-wise training
+< 36 >
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+Update the second block
+
+===== PAGE 37 =====
+Center of Machine Learning Research
+Block-wise training
+< 37 >
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+Update the third block
+
+===== PAGE 38 =====
+Center of Machine Learning Research
+Block-wise training
+< 38 >
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+Update the forth block
+
+===== PAGE 39 =====
+Center of Machine Learning Research
+Memory cost
+< 39 >
+Y. Chen, et. al., Enhancing Zeroth-Order Fine-tuning for Language Models with Low-Rank Structures, 2024
+Memory = Model + Gradient + Optimizer states + Activations
+Gt = rF(Xt; ⇠t)
+M t = (1 −β1)M t−1 + β1Gt
+V t = (1 −β2)V t−1 + β2Gt ⊙Gt
+F
+EXkbxsBEbfjvnREcfnS32d3N8=">ADa3icjVJda9RA
+FL3Z+FG3Vbf2TX0YXCpCcUmkVF+Eoi+CBXc7UJTlkl2d
+js0ycSZSWEJ+aGCP0AfxL/gmTGF1qXohCT3nvO/ZiZtM
+qlsVH0NeiFt27fubtxr7+5df/Bw8H2o4lRtc7EOFO50tO
+UG5HLUoytLmYVlrwIs3FcXr+3sWPL4Q2UpWf7aoSpwVf
+lnIhM24BzQYXSaryuVkV+DXTdtbYvbhlz9+yNbxlL1my0
+DxrkiUvCt42ifmibXOVOGln4O2xRFRG5qpsWaLmyl5L9h
+EcNhsMo1HkF1s34s4YUreO1OAXJTQnRnVJCgkizsnDg
+ZPCcU0QVsFNqgGlY0scFtdSHtgZLgMGBnuO7hHfSoSV8
+l9N4dYqOV4NJaNdaBR4Grarxny89pkdelPuxud0va3wT
+7tcBVBLZ0D/pbtk/q/OzWJpQW/8DBIzVR5x02Vdltrviu
+cXZnKIkMFzNlzxDXszCsv95l5jfGzu73lPv7dMx3q/Kzj
+1vTDd3nzfCkqK/iubgqG62PCxH/fzrxuTVKD4YHXzaH
+x6+67GBj2hZ/QC5/+aDukDHdEY1b4FvWAz2Or9DHfCx+
+HTP9Re0Gl26NoKd38DoxvElw=</latexit>
+Xt+1 = Xt −
+γ
+pV t + ✏⊙M t
+P
+2P
+P
+P/L
+2P/L
+P
+Block-wise training can save gradients and optimization states significantly 
+Original
+Block-wise
+
+===== PAGE 40 =====
+Center of Machine Learning Research
+Memory cost
+< 40 >
+•
+Block-wise training can also save activations, but depends on which block has been activated
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+All activations can be saved
+
+===== PAGE 41 =====
+Center of Machine Learning Research
+Memory cost
+< 41 >
+•
+Block-wise training can also save activations, but depends on which block has been activated
+Transformer 
+Block 1
+Transformer 
+Block 2
+Transformer 
+Block 3
+Transformer 
+Block 4
+input
+Loss
+🔥
+Most activations cannot be saved because
+we need to compute the gradient of the activations
+
+===== PAGE 42 =====
+Center of Machine Learning Research
+Example: 2-layer MLP
+< 42 >
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+h = W1x
+z = σ(h)
+ˆy = W2z
+f = L(ˆy)
+Forward
+@f
+@W2
+= @L
+@ˆy zT ,
+@f
+@z = W2
+@L
+@ˆy
+Backward
+U
+jFN24rOCo0CnlTpg5lkSDJCHeaXufE3uHPpxoUibl2aqQWfeCHwc693NwTpZxp43n3zsTk1PTMbGWuOr+wuLTsrqyeaZkpQgMiuVQXEWjKmaCBYbTi1RSCJOz6PLo9I/v6JKMylOzTClnQT6gsWMgLFS1w3CWAHJwxSUYcBxXHzyoMA
+H+B/usCh7EmDQwERBxq1k8Abw2u27Nq3ujwr/BH0MNjavVde/CniRZQoUhHLRu+15qOnm5iHBaVMNM0xTIJfRp26KAhOpOPjq/wJtW6eFYKvuEwSP160QOidbDJLKdCZiB/umV4l9eOzPxfidnIs0MFeRjUZxbCQus8Q9pigxfGgBiGL
+2r5gMwOZlbOJVG4L/8+TfcLZT9xv1xslurXk4jqOC1tEG2kI+2kNdIxaKEAE3aAH9ISenVvn0XlxXj9aJ5zxzBr6Vs7bO1KRr7k=</latexit>@f
+@h = @f
+@z ⊙rσ(h)
+U
+Y7uJxwr5gnSXN0i0sTUuSiqP0D/LivyKIB4d49e8w3QrqJj4IPN57vyS/50WMSmVZU6Owsrq2vlHcLG1t7+zumfsHbRnGApMWDlkouh6ShFOWoqRrqRICjwGOl43rmd+6JkDTkTWJSD9AQ059ipHSkmvWHV8gnDgREoiBv30m3dcO4V
+X8J/EKIUPd03XLFsVawa4TOyclEGOhmu+OIMQxwHhCjMkZc+2ItVPsksxI2nJiSWJEB6jIelpylFAZD+ZLZvCE60MoB8KfbiCM/XnRICKSeBp5MBUiO56GXiX14vVv5lP6E8ihXheP6QHzOoQpg1BwdUEKzYRBOEBdV/hXiEdDdK91vSJdi
+LKy+T9lnFrlaqt+fl2nVeRxEcgWNwCmxwAWrgBjRAC2DwCJ7BG5gaT8ar8W58zKMFI585BL9gfH4B/KOoqg=</latexit> @f
+@W1
+= @f
+@hxT
+@f
+@ˆy = rL(ˆy)
+Store h, z and !𝒚
+Store 𝛁𝐖𝟏𝐟(𝐖𝟏) and 𝛁𝐖𝟐𝐟(𝐖𝟐) 
+T
+
+===== PAGE 43 =====
+Center of Machine Learning Research
+Example: 2-layer MLP
+< 43 >
+d
+dims:
+(p,d)
+p
+(q,p)
+q
+x
+ˆy
+W1
+W2
+h|z
+h = W1x
+z = σ(h)
+ˆy = W2z
+f = L(ˆy)
+Forward
+@f
+@W2
+= @L
+@ˆy zT ,
+@f
+@z = W2
+@L
+@ˆy
+Backward
+U
+jFN24rOCo0CnlTpg5lkSDJCHeaXufE3uHPpxoUibl2aqQWfeCHwc693NwTpZxp43n3zsTk1PTMbGWuOr+wuLTsrqyeaZkpQgMiuVQXEWjKmaCBYbTi1RSCJOz6PLo9I/v6JKMylOzTClnQT6gsWMgLFS1w3CWAHJwxSUYcBxXHzyoMA
+H+B/usCh7EmDQwERBxq1k8Abw2u27Nq3ujwr/BH0MNjavVde/CniRZQoUhHLRu+15qOnm5iHBaVMNM0xTIJfRp26KAhOpOPjq/wJtW6eFYKvuEwSP160QOidbDJLKdCZiB/umV4l9eOzPxfidnIs0MFeRjUZxbCQus8Q9pigxfGgBiGL
+2r5gMwOZlbOJVG4L/8+TfcLZT9xv1xslurXk4jqOC1tEG2kI+2kNdIxaKEAE3aAH9ISenVvn0XlxXj9aJ5zxzBr6Vs7bO1KRr7k=</latexit>@f
+@h = @f
+@z ⊙rσ(h)
+U
+Y7uJxwr5gnSXN0i0sTUuSiqP0D/LivyKIB4d49e8w3QrqJj4IPN57vyS/50WMSmVZU6Owsrq2vlHcLG1t7+zumfsHbRnGApMWDlkouh6ShFOWoqRrqRICjwGOl43rmd+6JkDTkTWJSD9AQ059ipHSkmvWHV8gnDgREoiBv30m3dcO4V
+X8J/EKIUPd03XLFsVawa4TOyclEGOhmu+OIMQxwHhCjMkZc+2ItVPsksxI2nJiSWJEB6jIelpylFAZD+ZLZvCE60MoB8KfbiCM/XnRICKSeBp5MBUiO56GXiX14vVv5lP6E8ihXheP6QHzOoQpg1BwdUEKzYRBOEBdV/hXiEdDdK91vSJdi
+LKy+T9lnFrlaqt+fl2nVeRxEcgWNwCmxwAWrgBjRAC2DwCJ7BG5gaT8ar8W58zKMFI585BL9gfH4B/KOoqg=</latexit> @f
+@W1
+= @f
+@hxT
+@f
+@ˆy = rL(ˆy)
+T
+freeze
+Store h and !𝒚
+Store 𝛁𝐖𝟏𝐟(𝐖𝟏) 
+Save activations
+Activation h is still needed
+
+===== PAGE 44 =====
+Center of Machine Learning Research
+Example: Attention
+< 44 >
+Store Q, K, V
+Do not Store X
+Store S, V
+Do not store A，O
+
+===== PAGE 45 =====
+Center of Machine Learning Research
+Example: Attention
+< 45 >
+
+===== PAGE 46 =====
+Center of Machine Learning Research
+LISA performance
+< 46 >
+
+===== PAGE 47 =====
+Center of Machine Learning Research
+LISA performance
+< 47 >

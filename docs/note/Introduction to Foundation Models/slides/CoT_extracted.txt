@@ -1,0 +1,211 @@
+PAGES: 33
+
+===== PAGE 1 =====
+Chain of Thoughts
+Kun Yuan
+Center for Machine Learning Research @ Peking University
+
+===== PAGE 2 =====
+Center of Machine Learning Research
+Two systems in our mind
+< 2 >
+•
+System-I (fast system) tasks can be done quickly and intuitively by humans
+§
+E.g., sentiment analysis; topic classification
+•
+System-II (slow system) tasks require slow and deliberate thinking
+§
+E.g., logical, mathematical, and commonsense reasoning
+
+===== PAGE 3 =====
+Center of Machine Learning Research
+LLM performs well for fast-system tasks 
+< 3 >
+•
+When model size gets larger, performances on fast systems get significantly better
+
+===== PAGE 4 =====
+Center of Machine Learning Research
+LLM performs badly for slow-system tasks 
+< 4 >
+•
+When model size gets larger, performances on slow systems improve slowly
+
+===== PAGE 5 =====
+< 5 >
+
+===== PAGE 6 =====
+Center of Machine Learning Research
+Chain of thoughts can help slow-system tasks
+< 6 >
+
+===== PAGE 7 =====
+Center of Machine Learning Research
+What is chain of thought (CoT)?
+< 7 >
+Definition: a coherent series of short sentences that lead to the answer for a reasoning problem
+Prompt with COT will mimic the reasoning process of humans
+Humans typically decompose the problem into intermediate
+steps and solve each before giving the final answer
+
+===== PAGE 8 =====
+Center of Machine Learning Research
+Why is CoT useful?
+< 8 >
+Allow models to decompose multi-step problems into intermediate steps, which means that 
+additional computation can be allocated to problems that require more reasoning steps
+Instruct LLM on how it might have arrived at a particular answer
+Allow LLM to solve any slow-system problem which can be expressed by human language
+
+===== PAGE 9 =====
+Center of Machine Learning Research
+How to write CoT?
+< 9 >
+Math reasoning
+
+===== PAGE 10 =====
+Center of Machine Learning Research
+How to write CoT?
+< 10 >
+Symbolic reasoning
+
+===== PAGE 11 =====
+Center of Machine Learning Research
+How to write CoT?
+< 11 >
+Common sense reasoning
+
+===== PAGE 12 =====
+Center of Machine Learning Research
+CoT performance
+< 12 >
+Fast-system
+Slow-system
+
+===== PAGE 13 =====
+Center of Machine Learning Research
+Ablation study
+< 13 >
+Equations, sentence description, and order are all important to CoT
+
+===== PAGE 14 =====
+Center of Machine Learning Research
+Robustness of CoT
+< 14 >
+
+===== PAGE 15 =====
+Center of Machine Learning Research
+Zero-shot CoT: Let’s think step by step
+< 15 >
+[Large Language Models are Zero-Shot Reasoners, NeurIPS 2022]
+Constructing CoT is painful. Can we have Zero-shot CoT?  Yes!
+
+===== PAGE 16 =====
+Center of Machine Learning Research
+Zero-shot CoT: Let’s think step by step
+< 16 >
+
+===== PAGE 17 =====
+Center of Machine Learning Research
+Zero-shot CoT: Let’s think step by step
+< 17 >
+
+===== PAGE 18 =====
+Center of Machine Learning Research
+Zero-shot CoT: Let’s think step by step
+< 18 >
+From 17.7% to 78.7%
+From 10.4% to 40.7%
+
+===== PAGE 19 =====
+Center of Machine Learning Research
+Zero-shot CoT: Let’s think step by step
+< 19 >
+
+===== PAGE 20 =====
+Center of Machine Learning Research
+Auto CoT
+< 20 >
+(c) Auto-CoT
+[AUTOMATIC CHAIN OF THOUGHT PROMPTING IN LARGE LANGUAGE MODELS]
+Generated automatically
+
+===== PAGE 21 =====
+Center of Machine Learning Research
+Auto CoT
+< 21 >
+
+===== PAGE 22 =====
+Center of Machine Learning Research
+CoT with self-consistency
+< 22 >
+A complex reasoning problem typically admits multiple different
+ways of thinking leading to its unique correct answer
+CoT with SC first samples a diverse set of reasoning paths
+instead of only taking the greedy one, and then selects the
+most consistent answer
+[SELF-CONSISTENCY IMPROVES CHAIN OF THOUGHT REASONING IN 
+LANGUAGE MODELS, ICLR 2023]
+
+===== PAGE 23 =====
+Center of Machine Learning Research
+CoT with self-consistency
+< 23 >
+
+===== PAGE 24 =====
+Center of Machine Learning Research
+CoT with self-consistency
+< 24 >
+
+===== PAGE 25 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 25 >
+[Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS 2023]
+
+===== PAGE 26 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 26 >
+Fail and Trial!
+Search, Search, Research!
+
+===== PAGE 27 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 27 >
+
+===== PAGE 28 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 28 >
+Breadth First Search
+Depth First Search
+
+===== PAGE 29 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 29 >
+
+===== PAGE 30 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 30 >
+Creative writing
+
+===== PAGE 31 =====
+Center of Machine Learning Research
+Tree of Thoughts (ToT)
+< 31 >
+Mini-Crosswords
+
+===== PAGE 32 =====
+Center of Machine Learning Research
+Graph of Thoughts
+< 32 >
+
+===== PAGE 33 =====
+Center of Machine Learning Research
+What’s next?
+< 33 >

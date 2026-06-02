@@ -1,0 +1,375 @@
+PAGES: 45
+
+===== PAGE 1 =====
+Efficient LLM Inference
+Jie Hu            Kun Yuan
+Peking University
+
+===== PAGE 2 =====
+Table of Contents
+< 2 >
+➢Motivation
+➢Inference process of LLMs
+➢KV cache compression
+➢MQA, GQA and MLA
+➢Attention Sparsity
+➢Quantization
+➢Speculative decoding
+➢Efficient management: vLLM
+
+===== PAGE 3 =====
+Why we need efficient inference
+< 3 >
+➢LLM sizes have increased rapidly. 
+➢Deployment Concerns – Inference latency, 
+Throughput, Cost, etc.
+➢For a LLaMA-2-70B model
+Gigantic model size : 140GB for weights (FP16)
+Huge inference cache : 160GB for KV cache
+➢For LLaMA-13B and moderate-size inputs, 1 A100 
+can process < 1 requests per second.
+Source: LifeArchitect.ai
+
+===== PAGE 4 =====
+Attention
+< 4 >
+
+===== PAGE 5 =====
+Attention
+< 5 >
+
+===== PAGE 6 =====
+Inference process of LLMs
+< 6 >
+➢Auto-regressive decoding
+After generating the first token, the model takes the prompt along with the newly generated 
+token, computes the KV values again, and generates the next token. 
+•
+This process repeats for every subsequent token until maximum sequence length is reached 
+or the stopping criteria is met.
+•
+If the model needs to generate 500 tokens, this step-by-step procedure will be repeated 500 
+times.
+Source: https://jalammar.github.io/illustrated-gpt2/
+
+===== PAGE 7 =====
+Key-Value Cache
+< 7 >
+➢KV states for previously generated tokens will be cached to avoid recomputation. It only needs 
+to compute the KV values for the most recently generated token, rather than entire sequence.
+Source: https://medium.com/@joaolages/kv-caching-explained-276520203249
+
+===== PAGE 8 =====
+< 8 >
+Key-Value Cache
+➢Two Phases of LLM inference:
+•
+Prefill : LLM calculates and stores 
+the keys and values of the initial 
+input tokens, and generates the 
+first new token. 
+•
+Decode: LLM generates the output 
+tokens one by one fetching KV 
+from cache memory.
+Source: https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/
+
+===== PAGE 9 =====
+Challenge 
+< 9 >
+➢Prefill: compute bound
+•
+matrix-matrix multiplication, highly parallel, high usage of GPU
+➢Decode: memory bound
+•
+matrix-vector multiplication, underutilize GPU
+•
+The speed at which the data (weights, keys, values, activations) is transferred to the GPU 
+from memory dominates the latency, not how fast the computation actually happens. 
+LLM Inference Unveiled: Survey and Roofline Model Insights. Z. Yuan et al.
+
+===== PAGE 10 =====
+Challenge 
+< 10 >
+➢Cache size:
+2 × precision in bytes × batch size × sequence length × numer of layers ×
+embedding dimension
+It limits the throughput that can be served, and poses challenges for long-context inputs.
+TriForce: Lossless Acceleration of Long Sequence Generation with Hierarchical Speculative Decoding. H. Sun et al.
+
+===== PAGE 11 =====
+KV Cache is the bottleneck in long-context inference
+< 11 >
+KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization. C. Hooper et al. NeurIPS 2024.
+
+===== PAGE 12 =====
+Chatbot will crash if KV cache is out of memory
+< 12 >
+[A new way to let AI chatbots converse all day without crashing, MIT news]
+
+===== PAGE 13 =====
+< 13 >
+➢Attention heads merge: MQA, GQA, MLA.
+➢Attention score matrix sparsity.
+➢Cross transformer layer sharing/merging.
+➢Precision reduction: Quantization.
+➢Hidden dimension reduction...
+Overview of KV cache compression
+
+===== PAGE 14 =====
+Recall the multi-head attention
+< 14 >
+
+===== PAGE 15 =====
+Multi-head attention: concatenation and linear transformation
+< 15 >
+
+===== PAGE 16 =====
+Multi-head attention in KV Cache
+< 16 >
+head 1
+head 2
+head a
+…
+KV Cache
+#𝒂 copies of
+
+===== PAGE 17 =====
+MQA and GQA
+< 17 >
+➢Architecture optimization: reduce memory usage with sharing KV between heads.
+➢Fine-tuning needed: With MQA/GQA, models need to train with a fraction of the 
+original training volume. 
+➢Widely used: Falcon, PaLM: MQA; Llama-2-70B and Llama-3-8B use GQA.
+GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints. J. Ainslie et al.
+
+===== PAGE 18 =====
+< 18 >
+Multi-Head Latent Attention (MLA) 
+➢Recent progress: Multi-Head Latent Attention (MLA) by DeepSeek-V2 
+➢Low-Rank Key-Value Joint Compression
+Key insight: key-value is low rank.
+DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model.
+
+===== PAGE 19 =====
+KV cache compression: Sparsity
+< 19 >
+➢Key Observation: Although LLM is densely trained, Attention is naturally sparse.
+➢In OPT family, almost KV cache of all layers have a sparsity over 95%, which 
+means potential 20X KV cache reduction. 
+➢Idea: 
+Approximate the attention score matrix with 
+sparse matrix, only load/save tokens with large score.
+➢Challenges:
+How to efficiently find the “important” tokens?
+How to maintain the performance of LLM without 
+heavy finetuning?
+H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models. Z. Zhang et al. NeurIPS 2023.
+
+===== PAGE 20 =====
+Heavy Hitter Oracle
+< 20 >
+➢Motivation: A small set of tokens are critical during generation, called heavy-hitters.
+➢Heavy Hitter Oracle (H2O): a KV cache 
+eviction policy that dynamically retains a 
+balance of recent and H2 tokens.
+➢Local greedy algorithm
+•
+sum up the attention score of the previous 
+tokens every decoding step.
+•
+Add local tokens.
+H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models. Z. Zhang et al. NeurIPS 2023.
+
+===== PAGE 21 =====
+Heavy Hitter Oracle
+< 21 >
+3-29X throughput and 1.9X latency, compatible with 
+other method(quantization)
+What are these heavy hitters?
+H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models. Z. Zhang et al. NeurIPS 2023.
+
+===== PAGE 22 =====
+< 22 >
+Streaming LLM
+➢Interesting phenomenon: Attention sink
+Large attention scores are given to initial tokens  as a “sink” even if they are not 
+semantically important, especially in the deeper layer. 
+Efficient Streaming Language Models with Attention Sinks. G. Xiao et al. ICLR 2024.
+
+===== PAGE 23 =====
+< 23 >
+Streaming LLM
+A video demo: https://github.com/mit-han-lab/streaming-llm
+Efficient Streaming Language Models with Attention Sinks. G. Xiao et al. ICLR 2024.
+
+===== PAGE 24 =====
+Quest
+< 24 >
+➢Drawbacks of eviction based approaches: Once evict the token, no longer can 
+we attach to it.
+➢Key idea: Dynamic sparsity.
+Keep all KV cache but only load the critical KV cache for attention computation.
+Quest: Query-Aware Sparsity for Efficient Long-Context LLM Inference. J. Tang et al. ICML 2024.
+
+===== PAGE 25 =====
+KV cache compression along layer dimension
+< 25 >
+➢Insight: KV cache is similar between adjacent layers.
+➢Cross-Layer Attention：sharing KV activations across layers.
+•
+Model with CLA need retraining.
+➢There are many recent work which aim to design smart 
+algorithms to compress cache along layer dimension, such as 
+interpolation.
+Reducing Transformer Key-Value Cache Size with Cross-Layer Attention. W. Brandon et al. NeurIPS 2024.
+MiniCache: KV Cache Compression in Depth Dimension for Large Language Models. A. Liu et al. NeurIPS 2024.
+
+===== PAGE 26 =====
+Quantization of KV cache
+< 26 >
+➢Quantization: widely used in model compression.
+➢What’s the challenge of KV cache quantization compared to weight quantization?
+•
+Impact of position encoding like RoPE.
+•
+KV cache keep updating along generation, which indicates we need to compute 
+statistics on-the-fly (which is potentially expensive) or else we need to use offline 
+calibration data (which potentially has negative accuracy implications).
+
+===== PAGE 27 =====
+Quantization of KV cache
+< 27 >
+➢Different data distribution of key and value
+Key matrices tend to have distinct outlier channels, which have larger average 
+magnitudes than other channels. For value cache, there is no obvious outlier pattern.
+KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache. Z. Liu et al. ICML 2024.
+
+===== PAGE 28 =====
+Quantization of KV cache
+< 28 >
+➢Popular pattern:
+For key, use per-channel quantization, while for value, use per-token quantization.
+➢Result: Work of KVQuant can serve LLaMA-7B with a context length of up to 1 million 
+on a single A100-80GB GPU and up to 10 million on an 8-GPU system.
+KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache. Z. Liu et al. ICML 2024.
+KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization. C. Hooper et al. NeurIPS 2024.
+
+===== PAGE 29 =====
+Speculative decoding
+< 29 >
+➢Motivation: the vanilla generation process outputs only one token at a time.
+➢Intuition: some inference steps are “harder” but some are “easier”.
+➢Idea: running two models in parallel.
+•
+Target Model: the main LLM we want to use for our task.(Llama-70B)
+•
+Small Draft Model: a smaller, lightweight model to predict several potential completions.(Llama-7B)
+Blockwise Parallel Decoding for Deep Autoregressive Models. M. Stern et al. NeurIPS 2018.
+
+===== PAGE 30 =====
+Speculative decoding
+< 30 >
+• The green tokens are made by the draft model that the target model accepted.
+• The red tokens are the rejected suggestions. 
+• The blue tokens are made by the target model to correct the prediction.
+Fast Inference from Transformers via Speculative Decoding. Y. Leviathan et al. ICML 2023.
+
+===== PAGE 31 =====
+Speculative decoding
+< 31 >
+• Recommends 𝐾= 3~4, finds 2-2.5X speed up
+• Recommends 𝐾= 3~7, finds 2-3.4X speed up
+Accelerating Large Language Model Decoding with Speculative Sampling. C. Chen et al.
+Fast Inference from Transformers via Speculative Decoding. Y. Leviathan et al. ICML 2023.
+
+===== PAGE 32 =====
+vLLM: Efficient management of KV cache
+< 32 >
+An illustration of memory wastage and fragmentation due to over-provisioning and inefficient KV cache management.
+➢Motivation: Although reducing KV cache size itself is effective, but there still be inefficiencies in 
+how this KV cache is managed. 
+➢Memory waste:
+•
+Reservation: not used at the current step, but used in the future
+•
+Internal fragmentation: over-allocated due to the unknown output length.
+•
+External fragmentation: due to different sequence lengths.
+Efficient Memory Management for Large Language Model Serving with PagedAttention. W. Kwon et al. SOSP 2023.
+
+===== PAGE 33 =====
+vLLM: Efficient management of KV cache
+< 33 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 34 =====
+vLLM: Efficient management of KV cache
+< 34 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 35 =====
+vLLM: Efficient management of KV cache
+< 35 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 36 =====
+vLLM: Efficient management of KV cache
+< 36 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 37 =====
+vLLM: Efficient management of KV cache
+< 37 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 38 =====
+vLLM: Efficient management of KV cache
+< 38 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 39 =====
+vLLM: Efficient management of KV cache
+< 39 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 40 =====
+vLLM: Efficient management of KV cache
+< 40 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+逻辑内存
+
+===== PAGE 41 =====
+vLLM: Efficient management of KV cache
+< 41 >
+[B站Up主RethinkFun:怎么加快大模型推理？]
+
+===== PAGE 42 =====
+vLLM: Efficient management of KV cache
+< 42 >
+➢Key idea: Inspired by virtual memory and paging, 
+Storing continuous KV in noncontiguous space 
+in memory.
+➢Token block: A fixed-size contiguous chunk of 
+memory that can store token states.
+Efficient Memory Management for Large Language Model Serving with PagedAttention. W. Kwon et al. SOSP 2023.
+
+===== PAGE 43 =====
+vLLM: Efficient management of KV cache
+< 43 >
+Physical blocks are fetched as required during attention computation using a block table that 
+keeps account. As new tokens are generated, new block allocations are made. 
+➢Logical & physical token blocks
+Efficient Memory Management for Large Language Model Serving with PagedAttention. W. Kwon et al. SOSP 2023.
+
+===== PAGE 44 =====
+vLLM: Efficient management of KV cache
+< 44 >
+➢Conclusion
+• vLLM improves the throughput of popular LLMs by 2-4× with the same level of latency 
+compared to SOTA systems, such as FasterTransformer and Orca.
+• vLLM is more effective for large models, long sequences, and complex sampling methods. 
+Efficient Memory Management for Large Language Model Serving with PagedAttention. W. Kwon et al. SOSP 2023.
+
+===== PAGE 45 =====
+Thank you!

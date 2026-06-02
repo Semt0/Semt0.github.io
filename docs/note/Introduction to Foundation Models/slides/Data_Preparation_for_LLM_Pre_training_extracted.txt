@@ -1,0 +1,458 @@
+PAGES: 29
+
+===== PAGE 1 =====
+Data Preparation for LLM Pre-training
+Keer Lu   and   Kun Yuan
+Center for Machine Learning Research @ Peking University
+
+===== PAGE 2 =====
+Center of Machine Learning Research
+Contents
+< 2 >
+•
+Background
+•
+Data Source for Pre-training 
+•
+Data Processing
+•
+Data Scheduling
+○Data Composition
+○Data Curriculum
+
+===== PAGE 3 =====
+Center of Machine Learning Research
+Background
+< 3 >
+•
+Evolution of LM
+○Statistical LM (SLM)
+○Neural LM (NLM)
+○Pre-trained LM (PLM)
+○LLM
+
+===== PAGE 4 =====
+Center of Machine Learning Research
+Background
+< 4 >
+•
+Training Process of LLMs
+
+===== PAGE 5 =====
+Center of Machine Learning Research
+Background
+< 5 >
+•
+Training Process of LLMs —— Pre-training Stage
+○Description
+■Initial stage of learning for LLMs
+■Tasks
+●Language Modeling
+●Denoising Autoencoding (DAE)
+○Data for Pre-training
+■a large amount of unlabeled text data
+Model
+Parameters
+Tokens
+PaLM2
+340B
+3.6T
+LAMMA2-70B
+70B
+2T
+GPT-4
+175B
+13T
+Baichuan2-13B
+13B
+2.6T
+[1] https://www.datalearner.com/ai-models/llm-evaluation
+
+===== PAGE 6 =====
+Center of Machine Learning Research
+Data Source for Pre-training
+< 6 >
+•
+LLMs require a higher volume of training data that covers a broad range of content
+•
+Data Source for Pre-training
+○General Text Data
+■Webpages
+■Conversation Text
+■Books
+○Specialized Text Data
+■Multilingual Text
+■Scientific Text
+■Code
+[1] Zhao W X, Zhou K, Li J, et al. A survey of large language models[J]. arXiv preprint arXiv:2303.18223, 2023.
+
+===== PAGE 7 =====
+Center of Machine Learning Research
+Data Source for Pre-training
+< 7 >
+•
+General Text Data
+○Webpages
+■eg. CommonCrawl [2]
+●The corpus contains raw web page data, metadata extracts, and text extracts.
+●Common Crawl data is stored on Amazon Web Services’ Public Data Sets and on 
+multiple academic cloud platforms across the world.
+○Conversation text
+■eg. PushShift.io Reddit corpus [3]
+●submissions and comments posted on Reddit between June 2005 and April 2019
+○Books
+■eg. Books3, Bookcorpus2 [4]
+[1] Zhao W X, Zhou K, Li J, et al. A survey of large language models[J]. arXiv preprint arXiv:2303.18223, 2023.
+[2] “Common crawl.” [Online]. Available: https:// commoncrawl.org/
+[3] J. Baumgartner, S. Zannettou, B. Keegan, M. Squire, and J. Blackburn, “The pushshift reddit dataset,” in Proceedings of the Fourteenth 
+International AAAI Conference on Web and Social Media, ICWSM 2020, Held Virtually, Original Venue: Atlanta, Georgia, USA, June 8-11, 
+2020. AAAI Press, 2020, pp. 830–839.
+[4] Gao L, Biderman S, Black S, et al. The Pile: An 800GB Dataset of Diverse Text for Language Modeling[J].
+
+===== PAGE 8 =====
+Center of Machine Learning Research
+Data Source for Pre-training
+< 8 >
+•
+Specialized Text Data
+○Multilingual text
+■eg. ROOTS [2]
+●Responsible Open-science Open-collaboration Text Sources (ROOTS) corpus
+●a 1.6TB dataset spanning 59 languages
+○Scientific text
+■arXiv papers, scientific textbooks, math webpages etc.
+■require specific tokenization and preprocessing techniques to transform these different 
+formats of data into a unified form that can be processed by language models
+○Code
+■eg. Stack Exchange [3], GitHub
+[1] Zhao W X, Zhou K, Li J, et al. A survey of large language models[J]. arXiv preprint arXiv:2303.18223, 2023.
+[2] Laurençon H, Saulnier L, Wang T, et al. The bigscience roots corpus: A 1.6 tb composite multilingual dataset[J]. Advances in Neural 
+Information Processing Systems, 2022, 35: 31809-31826.
+[3] F. F. Xu, U. Alon, G. Neubig, and V. J. Hellendoorn, “A systematic evaluation of large language models of code,” in MAPS@PLDI, 2022.
+
+===== PAGE 9 =====
+Center of Machine Learning Research
+Data Processing - Overview
+< 9 >
+•
+Pipeline of Data Processing
+○Quality Filtering
+○Deduplication
+○Sensitive Information Detection
+■privacy reduction
+■toxicity filtering
+■bias filtering
+○Tokenization
+[1] Zhao W X, Zhou K, Li J, et al. A survey of large language models[J]. arXiv preprint arXiv:2303.18223, 2023.
+
+===== PAGE 10 =====
+Center of Machine Learning Research
+Data Processing - Deduplication
+< 10 >
+•
+Motivation
+○large amount of redundant data
+○unstable training process
+•
+Classification
+○exact-based
+○fuzzy-based
+○embedding-based (model-based)
+[1] Wang Z, Zhong W, Wang Y, et al. Data management for large language models: A survey[J]. arXiv preprint arXiv:2312.01700, 2023.
+[2] Albalak A, Elazar Y, Xie S M, et al. A Survey on Data Selection for Language Models[J]. arXiv preprint arXiv:2402.16827, 2024.
+
+===== PAGE 11 =====
+Center of Machine Learning Research
+Data Processing - Deduplication
+< 11 >
+[1] Wang Z, Zhong W, Wang Y, et al. Data management for large language models: A survey[J]. arXiv preprint arXiv:2312.01700, 2023.
+[2] Penedo G, Malartic Q, Hesslow D, et al. The RefinedWeb dataset for Falcon LLM: outperforming curated corpora with web data, and web 
+data only[J]. arXiv preprint arXiv:2306.01116, 2023. 
+[3]Albalak A, Elazar Y, Xie S M, et al. A Survey on Data Selection for Language Models[J]. arXiv preprint arXiv:2402.16827, 2024.
+□Deduplication —— exact&fuzzy-based
+■The RefinedWeb Dataset for Falcon LLM [2]
+■fuzzy deduplication: MinHash [3]
+●
+params: 9000 hashers / doc (20 × 450) + 5-gram
+■exact substring deduplication: suffix arrays
+
+===== PAGE 12 =====
+Center of Machine Learning Research
+< 12 >
+
+===== PAGE 13 =====
+Center of Machine Learning Research
+Data Processing - Deduplication
+< 13 >
+□Deduplication —— embedding-based
+■SemDeDup [1]
+■Idea
+●identify semantic duplicates by embeddings from 
+pre-trained models
+■Dataset
+●C4
+■Pipeline (for natural language)
+●embedding data, using OPT model
+●get k clusters via k-means (k = 11,000)
+●compute cosine similarities
+○retain the lowest one to the centroid
+○remove the rest
+[1] Abbas A, Tirumala K, Simig D, et al. SemDeDup: Data-efficient learning at web-scale through semantic deduplication[J]. arXiv
+preprint arXiv:2303.09540, 2023.
+
+===== PAGE 14 =====
+Center of Machine Learning Research
+Data Processing - Quality Filtering
+< 14 >
+•
+Motivation
+○remove low-quality data from collected corpus
+•
+Classification
+○classifier-based
+○heuristic-based
+○metric-based
+[1] Wang Z, Zhong W, Wang Y, et al. Data management for large language models: A survey[J]. arXiv preprint arXiv:2312.01700, 2023.
+[2] Albalak A, Elazar Y, Xie S M, et al. A Survey on Data Selection for Language Models[J]. arXiv preprint arXiv:2402.16827, 2024.
+
+===== PAGE 15 =====
+Center of Machine Learning Research
+Data Processing - Quality Filtering
+< 15 >
+□Quality Filtering —— classifier-based
+■Description: train a selection classifier based on high quality texts
+■GPT-3 [1]
+■Idea
+●classifier trained on logistic regression → filter Common Crawl
+■Corpus for Classifier Training
+●positive examples:  WebText, Wikipedia and web books corpus
+●negative examples:  Unfiltered Common Crawl
+■Pipeline
+●use the classifier to score documents, keep the document when
+●chose α = 9
+[1] Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P et al. (2020). Language Models are Few-Shot Learners. arXiv 
+e-prints, arXiv:2005.14165. https://doi.org/10.48550/arXiv.2005.14165
+
+===== PAGE 16 =====
+Center of Machine Learning Research
+Data Processing - Quality Filtering
+< 16 >
+□Dolma [1]
+■200T raw text → 3T tokens English corpus
+□Common Crawl
+□The Stack
+[1] Soldaini L, Kinney R, Bhagia A, et al. Dolma: An Open Corpus of Three Trillion Tokens for Language Model Pretraining Research[J]. 
+arXiv preprint arXiv:2402.00159, 2024.
+Quality Filtering: leverage well crafted rules && statistical regularities
+
+===== PAGE 17 =====
+Center of Machine Learning Research
+Data Processing - Quality Filtering
+< 17 >
+[1] Wenzek G, Lachaux M A, Conneau A, et al. CCNet: Extracting high quality monolingual datasets from web crawl data[J]. arXiv 
+preprint arXiv:1911.00359, 2019.
+[2] Muennighoff N, Rush A, Barak B, et al. Scaling data-constrained language models[J]. Advances in Neural Information Processing 
+Systems, 2024, 36.
+□Quality Filtering —— metric-based
+■Description: utilize the capabilities of a well-trained model to assess data quality
+■CCNet(2019),  Scaling Data-Constrained Language Models(2023)
+■Idea
+●use perplexity(PPL) as a filtering criterion
+■Pipeline
+●Language Model Training
+○SentencePiece tokenizer
+○5-gram Kneser-Ney model 
+●Perplexity Calculation
+●Filtering
+○divide documents into parts: head, middle, and tail
+
+===== PAGE 18 =====
+Center of Machine Learning Research
+Data Processing - Sensitive Information Detection
+< 18 >
+•
+Motivation
+○detect and filter specific information in text corpus for better pre-training
+•
+Classification
+○privacy reduction
+○toxicity filtering
+○bias filtering
+[1] Wang Z, Zhong W, Wang Y, et al. Data management for large language models: A survey[J]. arXiv preprint arXiv:2312.01700, 2023.
+
+===== PAGE 19 =====
+Center of Machine Learning Research
+Data Processing - Sensitive Information Detection
+< 19 >
+•
+Privacy Reduction
+○remove personal identifiable information (PII) 
+■names, phone numbers, addresses etc.
+○common detection method: heuristic rule-based filtering
+■eg. Google Cloud NLP [1]
+●use regular expressions or dictionary matching
+○[2] finds that after deduplication of the training data, language models exhibit a 
+reduction in the generation of sensitive information, leading to significantly 
+enhanced security against privacy attacks.
+[1] Google Cloud NLP. Google Cloud infotype detector, 2023a. URL https://cloud.google.com/dlp/docs/ infotypes-reference.
+[2] Kandpal N, Wallace E, Raffel C. Deduplicating training data mitigates privacy risks in language models[C]//International Conference 
+on Machine Learning. PMLR, 2022: 10697-10707.
+
+===== PAGE 20 =====
+Center of Machine Learning Research
+Data Processing - Sensitive Information Detection
+< 20 >
+•
+Toxicity Filtering
+○description of toxicity
+■rude, dis-respectful, or unreasonable
+○detection method
+■traditional method
+●heuristic rule-based filtering
+●N-gram classifier
+●etc.
+■advanced method
+●Jigsaw’s Perspective API [1]
+○a deep learning way to detect toxic information online
+■train a BERT-based model and distill into CNNs to reduce the 
+computation time
+○
+more accurate than traditional ways
+[1] https://www.perspectiveapi.com/
+
+===== PAGE 21 =====
+Center of Machine Learning Research
+Data Processing - Sensitive Information Detection
+< 21 >
+•
+Bias Filtering
+○description of bias
+■gender bias, racial bias, religious bias etc.
+○debias techniques
+■Counterfactual Data Augmentation(CDA)Dropout, Iterative Nullspace 
+Projection(INLP), Sentence Debias and Self-Debias
+○Improvements on bias benchmarks by using debiasing strategies are often 
+accompanied by a decrease in language modeling ability[1]
+○Self-Debias is the strongest debiasing technique, obtaining improved scores on 
+all bias benchmarks [1]
+[1] Meade N, Poole-Dayan E, Reddy S. An empirical survey of the effectiveness of debiasing techniques for pre-trained language models[J]. arXiv 
+preprint arXiv:2110.08527, 2021.
+
+===== PAGE 22 =====
+Center of Machine Learning Research
+Data Processing - Sensitive Information Detection
+< 22 >
+•
+Bias Filtering
+○CDA [1]: swap bias attribute words (he/she) for data augmentation
+○Dropout [2]: increased dropout regularization reduces gender bias within BERT and 
+ALBERT
+○INLP [3]: train a linear classifier to predict the bias property for representations
+○Sentence Debias [4]: project representations onto linear subspace of bias and 
+remove them
+○Self-Debias [5]: prompt LLMs to generate biased text first and then prompt LLMs 
+for non-discriminative words
+[1] Zmigrod R, Mielke S J, Wallach H, et al. Counterfactual data augmentation for mitigating gender stereotypes in languages with rich morphology[J]. 
+arXiv preprint arXiv:1906.04571, 2019.
+[2] Webster K, Wang X, Tenney I, et al. Measuring and reducing gendered correlations in pre-trained models[J]. arXiv preprint arXiv:2010.06032, 
+2020.]
+[3] Ravfogel S, Elazar Y, Gonen H, et al. Null it out: Guarding protected attributes by iterative nullspace projection[J]. arXiv preprint arXiv:2004.07667, 
+2020.
+[4] Liang P P, Li I M, Zheng E, et al. Towards debiasing sentence representations[J]. arXiv preprint arXiv:2007.08100, 2020.
+[5] Schick T, Udupa S, Schütze H. Self-diagnosis and self-debiasing: A proposal for reducing corpus-based bias in nlp[J]. Transactions of the 
+Association for Computational Linguistics, 2021, 9: 1408-1424.
+
+===== PAGE 23 =====
+Center of Machine Learning Research
+Data Scheduling
+< 23 >
+[1] Wang Z, Zhong W, Wang Y, et al. Data management for large language models: A survey[J]. arXiv preprint arXiv:2312.01700, 2023.
+[2] Albalak A, Elazar Y, Xie S M, et al. A Survey on Data Selection for Language Models[J]. arXiv preprint arXiv:2402.16827, 2024.
+□Data Composition
+■Motivation
+■set a suitable distribution to mix data source
+■Classification
+■Based on Statistics
+■Based on Influence Score
+■Based on Proxy Model
+□Data Curriculum
+■schedule the order that specific 
+data is presented to LLMs for 
+pre-training
+
+===== PAGE 24 =====
+Center of Machine Learning Research
+Data Scheduling - Data Composition
+< 24 >
+□Based on Statistics
+■Description: use heuristic or manually determined domain weights
+■Data Selection with Importance Resampling (DSIR) [1]
+■Idea
+●large raw dataset + smaller target dataset
+●select a subset that is distributed like the target in some feature space
+■Pipeline
+●hashed n-gram features
+○unigram + bigram, 1000 buckets
+●compute importance weights
+○data metric: KL reduction
+●resample
+○domain distribution + Gumbel top-k trick
+[1] Xie S M, Santurkar S, Ma T, et al. Data selection for language models via importance resampling[J]. Advances in Neural Information 
+Processing Systems, 2024, 36.
+
+===== PAGE 25 =====
+Center of Machine Learning Research
+Data Scheduling - Data Composition
+< 25 >
+□Based on Influence Score
+■Description: utilize influence scores approximation to calculate the impact
+[1] Thakkar M, Bolukbasi T, Ganapathy S, et al. Self-Influence Guided Data Reweighting for Language Model Pre-training[J]. arXiv preprint 
+arXiv:2311.00913, 2023.
+[2] Anand N, Tan J, Minakova M. Influence Scores at Scale for Efficient Language Data Sampling[J]. arXiv preprint arXiv:2311.16298, 2023.
+
+===== PAGE 26 =====
+Center of Machine Learning Research
+Data Scheduling - Data Composition
+< 26 >
+□Based on Proxy Model
+■Description: train a small proxy model → transfer domain weights
+■DoReMi [1]
+■Domain Reweighting with Minimax Optimization
+■insight
+●group distributionally robust optimization (Group DRO) → train proxy model
+●resample dataset with gained domain weights → train full sized model
+How to design a proxy model?😢
+[1] Xie S M, Pham H, Dong X, et al. Doremi: Optimizing data mixtures speeds up language model pretraining[J]. Advances in Neural Information 
+Processing Systems, 2024, 36.
+
+===== PAGE 27 =====
+Center of Machine Learning Research
+Data Scheduling - Data Curriculum
+< 27 >
+□Description
+■schedule the presenting order of specific data (basic → target)
+■focus on continual pre-training
+□Application Scenarios
+■Coding
+■CodeLLaMA [2]
+■Mathematics
+■Llemma [3]
+■Long Context
+■CodeLLaMA [2]
+[1] Zhao W X, Zhou K, Li J, et al. A survey of large language models[J]. arXiv preprint arXiv:2303.18223, 2023.
+[2] Roziere B, Gehring J, Gloeckle F, et al. Code llama: Open foundation models for code[J]. arXiv preprint arXiv:2308.12950, 2023.
+[3] Azerbayev Z, Schoelkopf H, Paster K, et al. Llemma: An open language model for mathematics[J]. arXiv preprint arXiv:2310.10631, 2023.
+
+===== PAGE 28 =====
+Center of Machine Learning Research
+Data Scheduling - Data Composition + Data Curriculum
+< 28 >
+□Skill-it! [1]
+■SKILL-IT: online data sampling algorithm
+■data curriculum (ordered skill)
+■motivation: LMs follow a natural order when learning a set of skills
+[1] Chen M, Roberts N, Bhatia K, et al. Skill-it! a data-driven skills framework for understanding and training language models[J]. Advances in 
+Neural Information Processing Systems, 2024, 36.
+
+===== PAGE 29 =====
+Thanks
