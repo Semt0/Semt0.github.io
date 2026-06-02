@@ -1,0 +1,360 @@
+PAGES: 67
+
+===== PAGE 1 =====
+Pixel Computing – Part 2
+Mu Yadong
+Machine Intelligence Lab
+Institute of Computer Science & Technology
+Peking University
+Most slides are adapted from related courses or tutorials. 
+Internal use only. Please do not distribute the slides.
+
+===== PAGE 2 =====
+Outline
+Pixel Computing
+Pixel-Level Methods
+• FCN
+• SegNet
+• DeepLab
+• CNN-as-RNN
+Instance-Level Methods
+• Mask R-CNN
+Human Pose Estimation
+• Bottom-Up Methods
+• Top-Down Methods
+• 3D Pose Estimation
+2
+
+===== PAGE 3 =====
+Pixel Computing
+Assign labels at the pixel label (“pixel in, pixel out”)
+May or may not enforce strong structural constraints / priors
+semantic
+segmentation
+Object 
+parsing
+
+===== PAGE 4 =====
+•Object segmentation
+•Recognition in Context
+•Multiple objects per image
+•More than 300,000 images
+•More than 2 Million instances
+•80 object categories
+•5 captions per image
+•Keypoints on 100,000 people
+
+===== PAGE 5 =====
+Semantic Understanding of Urban Street Scenes
+Pixel-level and instance-level
+https://www.cityscapes-dataset.com/benchmarks/
+
+===== PAGE 6 =====
+~1/10 second
+end-to-end learning
+???
+Image Segmentation with CNN?
+
+===== PAGE 7 =====
+Image Segmentation with CNN?
+CNN classifiers are operating on high-level neurons. We can’t tell accurate positions.
+Solutions: de-convolution, hyper-network etc.
+
+===== PAGE 8 =====
+Key Observations
+CNNs yield a coarse prediction on pixel labeling tasks
+Structural optimization (e.g., CRFs) improves the result by 
+accounting for the contextual information in the image.
+Learning the whole pipeline end-to-end significantly improves 
+the results
+
+===== PAGE 9 =====
+Fully Convolutional Networks for Semantic 
+Segmentation (CVPR 2015)
+Seminal work conducted by Jonathan Long ∗Evan Shelhamer∗
+Trevor Darrell from U.C. Berkeley
+
+===== PAGE 10 =====
+Converting to Fully Convolutional Networks
+Each network layer is a 3-D array
+We need to re-think about the fc layers
+
+===== PAGE 11 =====
+Comparing Classification / Segmentation Pipeline
+Classification
+“tabby 
+cat”
+• Segmentation
+
+===== PAGE 12 =====
+end-to-end, pixels-to-pixels network
+We need define up-sampling and loss
+conv, pool,
+nonlinearity
+upsampling
+pixelwise
+output + loss
+
+===== PAGE 13 =====
+Upsampling
+Or “deconvolution”
+Bilinear interpolation
+In a sense, upsampling with factor f is convolution with
+a fractional input stride of 1/f. 
+Gradient computation?
+
+===== PAGE 14 =====
+spectrum of deep features
+combine where (local, shallow) with what (global, deep)
+fuse features into deep jet
+(cf. Hariharan et al. CVPR15 “hypercolumn”)
+
+===== PAGE 15 =====
+Skip Layer Fusion
+Computing with different strides (“S”)
+
+===== PAGE 16 =====
+Other Issues
+Per-pixel loss: multinomial logistic loss
+Evaluation metric: IoU (intersection over union)
+true positive
+/ 
+(true positive + false positive + false negative)
+
+===== PAGE 17 =====
+Comparing FCN-32, FCN-16, FCN-8
+stride 32
+no skips
+stride 16
+1 skip
+stride 8
+2 skips
+ground truth
+input image
+
+===== PAGE 18 =====
+FCN
+SDS*
+Truth
+Input
+Relative to prior state-
+of-the-art SDS:
+-30% relative 
+improvement
+for mean IoU
+-286× faster
+*Simultaneous Detection and 
+Segmentation Hariharan et al. 
+ECCV14
+Experimental Results
+
+===== PAGE 19 =====
+SegNet
+http://mi.eng.cam.ac.uk/projects/segnet/
+Vijay Badrinarayanan, Alex Kendall and Roberto Cipolla "SegNet: A Deep Convolutional 
+Encoder-Decoder Architecture for Image Segmentation." arXiv preprint 
+arXiv:1511.00561, 2015.
+
+===== PAGE 20 =====
+DeepLab
+http://liangchiehchen.com/projects/DeepLab.html
+Liang-Chieh Chen, George Papandreou et al., Semantic Image Segmentation with Deep 
+Convolutional Nets and Fully Connected CRFs, ICLR 2015
+
+===== PAGE 21 =====
+Atrous Convolution
+Expand the field of view of filters
+
+===== PAGE 22 =====
+Atrous Spatial Pyramid Pooling
+To classify the center pixel (orange), Atrous Spatial Pyramid 
+Pooling exploits multi-scale features by employing multiple 
+parallel filters with different rates. The effective Field-Of-
+Views are shown in different colors.
+
+===== PAGE 23 =====
+CRF-as-RNN
+• Conditional Random Fields (CRFs): A CRF can account for contextual 
+information in the image
+http://crfasrnn.torr.vision/
+Shuai Zheng et al., Conditional Random Fields as Recurrent Neural Networks, ICCV 2015
+
+===== PAGE 24 =====
+CNN-as-RNN
+
+===== PAGE 25 =====
+CNN-as-RNN
+
+===== PAGE 26 =====
+CNN-as-RNN
+
+===== PAGE 27 =====
+CNN-as-RNN
+
+===== PAGE 28 =====
+CNN-as-RNN
+
+===== PAGE 29 =====
+CRF-as-RNN
+
+===== PAGE 30 =====
+CRF-as-RNN
+
+===== PAGE 31 =====
+Fully Connected CRFs as a CNN
+
+===== PAGE 32 =====
+Fully Connected CRFs as a CNN
+
+===== PAGE 33 =====
+CRF as a Recurrent Neural Network
+• Each of these blocks is differentiable -> we can propagate
+
+===== PAGE 34 =====
+CRF as a Recurrent Neural Network
+• Each of these blocks is differentiable -> we can propagate
+
+===== PAGE 35 =====
+Putting Things Together
+
+===== PAGE 36 =====
+Experiments
+
+===== PAGE 37 =====
+More Results
+
+===== PAGE 38 =====
+Mask R-CNN
+Instance-level segmentation
+
+===== PAGE 39 =====
+Retrospect of Detection / Segmentation Models
+
+===== PAGE 40 =====
+Mask R-CNN
+Mask R-CNN = Faster R-CNN with FCN on RoIs
+
+===== PAGE 41 =====
+Mask R-CNN
+Parallel Heads
+
+===== PAGE 42 =====
+RoIAlign vs. RoIPool
+Motivation of ROIAlign
+
+===== PAGE 43 =====
+RoIAlign vs. RoIPool
+
+===== PAGE 44 =====
+Pix2Pix
+Phillip Isola et al., Image-to-Image Translation with Conditional Adversarial Nets, CVPR 2017
+
+===== PAGE 45 =====
+Cycle-Consistent Adversarial Networks
+Jun-Yan Zhu*, Taesung Park*, Phillip Isola, Alexei A. Efros. Unpaired Image-to-Image Translation using Cycle-
+Consistent Adversarial Networks. arXiv, 2017.
+
+===== PAGE 46 =====
+Cycle-Consistent Adversarial Networks
+Jun-Yan Zhu*, Taesung Park*, Phillip Isola, Alexei A. Efros. Unpaired Image-to-Image Translation using Cycle-
+Consistent Adversarial Networks. arXiv, 2017.
+
+===== PAGE 47 =====
+Cycle-Consistent Adversarial Networks
+Jun-Yan Zhu*, Taesung Park*, Phillip Isola, Alexei A. Efros. Unpaired Image-to-Image Translation using Cycle-
+Consistent Adversarial Networks. arXiv, 2017.
+
+===== PAGE 48 =====
+Human Pose Estimation
+Estimate pre-defined human joints from a single image
+
+===== PAGE 49 =====
+Human Pose Estimation
+Slide credit: Dr. Wei Yang @ CUHK
+
+===== PAGE 50 =====
+Open Pose
+A Real-time approach for multi-person 2D pose estimation
+Two-branch deep neural networks
+Re-calibrate the state-of-the-art on MPII and COCO-keypoint
+Zhe Cao and Tomas Simon and Shih-En Wei and Yaser Sheikh, Realtime Multi-Person 2D Pose Estimation using Part 
+Affinity Fields, CVPR 2017
+
+===== PAGE 51 =====
+Open Pose
+Part Affinity Field
+
+===== PAGE 52 =====
+Open Pose
+Network design
+
+===== PAGE 53 =====
+Open Pose
+Bipartite Matching
+
+===== PAGE 54 =====
+Associative Embedding
+Idea: hourglass + use tag for grouping
+Associative Embedding: End-to-end Learning for Joint Detection and Grouping. Alejandro Newell, Zhiao Huang, and Jia Deng, NIPS 2017
+
+===== PAGE 55 =====
+Associative Embedding
+The algorithmic pipeline of AE
+
+===== PAGE 56 =====
+Associative Embedding
+From 1-D tag to joint grouping
+
+===== PAGE 57 =====
+Top-Down Method: Cascaded Pyramid Network
+MS COCO keypoint challenge 2017 winner 
+Chen et al., Cascaded Pyramid Network for Multi-Person Pose Estimation, CVPR 2018
+
+===== PAGE 58 =====
+Top-Down Method: Cascaded Pyramid Network
+MS COCO keypoint challenge 2017 winner 
+Chen et al., Cascaded Pyramid Network for Multi-Person Pose Estimation, CVPR 2018
+
+===== PAGE 59 =====
+Top-Down Method: Cascaded Pyramid Network
+Some experimental insights
+Is stacked hourglass useful?
+spatial resolution / cascade
+
+===== PAGE 60 =====
+SimpleBaseline and HRNet
+Bin Xiao, Haiping Wu, Yichen Wei, Simple Baselines for Human Pose Estimation and Tracking, ECCV 2018
+J. Wang et al., Deep High-Resolution Representation Learning for Visual Recognition, IEEE Trans. On PAMI 2020
+Resolution is crucial for point-based estimation
+
+===== PAGE 61 =====
+3D Pose Estimation
+Motion capture based: Human3.6M
+Multi-camera system based: 3DHP，CMU Panoptic Studio
+Synthetic data: Surreal
+
+===== PAGE 62 =====
+3D Pose Estimation
+The gap between 2D and 3D pose data
+
+===== PAGE 63 =====
+Constrain 2D pose with geometry
+Zhou et al. Towards 3D Human Pose Estimation in the Wild: a Weakly-supervised Approach, ICCV 2017
+
+===== PAGE 64 =====
+
+
+===== PAGE 65 =====
+Stacked U-Net is Everywhere
+Relativistic hydrodynamics is a powerful tool to simulate the 
+evolution of the quark gluon plasma (QGP) in relativistic 
+heavy ion collisions.
+Predict new states from some initial states
+Use stacked U-net as a general function-approximating tool
+https://arxiv.org/pdf/1801.03334.pdf
+
+===== PAGE 66 =====
+Stacked U-Net is Everywhere
+
+===== PAGE 67 =====
+Questions?

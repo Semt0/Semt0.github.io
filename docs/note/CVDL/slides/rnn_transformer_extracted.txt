@@ -1,0 +1,615 @@
+PAGES: 81
+
+===== PAGE 1 =====
+Recurrent Networks and Transformers
+Mu Yadong
+Wangxuan Institute of Computer Technology
+Peking University
+Several slides are adapted from related courses or tutorials. 
+Internal use only. Please do not distribute the slides.
+
+===== PAGE 2 =====
+Outline
+Recurrent Networks: Motivation and Introduction
+Models
+• RNN
+• LSTM
+Applications
+• Image Captioning
+• Convolutional LSTM
+• Social LSTM
+Transformer
+
+===== PAGE 3 =====
+From Static Data to Sequential Data
+Videos as a sequence of frames / shots
+
+===== PAGE 4 =====
+From Static Data to Sequential Data
+Stock price
+Stock price of DL/BD related companies
+
+===== PAGE 5 =====
+From Static Data to Sequential Data
+Predict rainfall
+
+===== PAGE 6 =====
+From Static Data to Sequential Data
+Image captioning: generate a sentence to describe the image 
+semantics
+
+===== PAGE 7 =====
+From Static Data to Sequential Data
+Image captioning
+Sequence of words in an English sentence
+Acoustic features at successive time frames in speech 
+recognition
+Successive frames in video classification
+Rainfall measurements on successive days in Hong Kong
+Daily values of current exchange rate
+Nucleotide base pairs in a strand of DNA
+Instead of making independent predictions on samples, 
+assume the dependency among samples and make a 
+sequence of decisions for sequential samples
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 8 =====
+Unfolding Computational Graphs
+The classic form of a dynamic system
+For a finite number of time steps, unfold the graph via applying 
+the definition multiple times
+Unfolded computational graph. Each node represents the state at some 
+time t, and the function f maps the state at t to the state at t + 1. 
+recurrent (definition of 
+s at time t refers back to
+the same definition at 
+time t − 1)
+
+===== PAGE 9 =====
+Unfolding Computational Graphs
+Adding an external signal
+A recurrent network with no outputs. (left) circuit diagram. The black square 
+indicates a delay of a single time step. (right) The same network seen as an 
+unfolded computational graph, where each node is now associated with one 
+particular time instance.
+Lossy summary of the task-
+relevant aspects of the past 
+sequence of inputs
+External signal
+
+===== PAGE 10 =====
+Remarks on Unfolding Computational Graphs
+Always same input / output sizes. Apply to input / output 
+sequences of variable lengths
+The summary is lossy. It maps an arbitrary length sequence to 
+a fixed length vector.
+Share a similar idea with CNN: replacing a fully connected 
+network with local connections with parameter sharing
+
+===== PAGE 11 =====
+Remarks on Unfolding Computational Graphs
+Sharing parameters for any sequence length allows more 
+better generalization properties. If we have to define a 
+different function Gt for each possible sequence length, each 
+with its own parameters, we would not get any
+generalization to sequences of a size not seen in the training 
+set. One would need to see a lot more training examples, 
+because a separate model would have to be trained for each 
+sequence length.
+
+===== PAGE 12 =====
+RNN with Hidden Units and Supervised Cost Function
+Produce an output at each time step and have recurrent 
+connections between hidden units
+Assume hyperbolic tangent activation and unnormalized log 
+probabilities
+Time and memory complexities are O(T)
+
+===== PAGE 13 =====
+Recurrent Through Only the Output
+An alternative without hidden-to-hidden recurrence
+Drawback: the output units are close to the training set 
+targets, unlikely to capture the necessary information about 
+the past history of the input
+Advantage: Training can be parallelized. The gradient for each 
+step t is computed in isolation.
+
+===== PAGE 14 =====
+Sequence Input, Single Output
+Time-unfolded recurrent neural network with a single output 
+at the end of the sequence. Such a network can be used to 
+summarize a sequence and produce a fixed-size 
+representation used as input for further processing
+
+===== PAGE 15 =====
+Teacher Forcing
+“…rather than feeding the 
+model’s own output back into 
+itself, these connections 
+should be fed with the target 
+values specifying what the 
+correct output should be.”
+Optimization by a maximum 
+likelihood criterion
+
+===== PAGE 16 =====
+Review Back-Propagation on Deep Networks
+Anatomy of a neuron
+
+===== PAGE 17 =====
+Review Back-Propagation on Deep Networks
+Anatomy of a neuron
+
+===== PAGE 18 =====
+Review Back-Propagation on Deep Networks
+Forward Pass
+(bottom to top, calculate objective 
+values on top layer)
+Backward
+(top to bottom, calculate gradient 
+and update parameters)
+(x,w)
+Z
+X
+w
+
+===== PAGE 19 =====
+Back-Propagation (BP) on RNN
+No specialized algorithms are necessary. Directly apply BP to 
+unrolled computational graph.
+Back-propagation through time (BPTT)
+
+===== PAGE 20 =====
+Back-Propagation (BP) on RNN
+
+===== PAGE 21 =====
+Back-Propagation (BP) on RNN
+
+===== PAGE 22 =====
+Back-Propagation (BP) on RNN
+
+===== PAGE 23 =====
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 24 =====
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 25 =====
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 26 =====
+Bidirectional RNN
+In many applications, however, we want to output a 
+prediction that may depend on the whole input sequence.
+For example, in speech recognition, the
+correct interpretation of the current sound 
+as a phoneme may depend on the next
+few phonemes because of co-articulation 
+and may even depend on the next few
+words because of the linguistic 
+dependencies between nearby words: 
+if there are two interpretations of the 
+current word that are both acoustically 
+plausible, we may have to look far into the 
+future (and the past) to disambiguate them. 
+This is also true of handwriting recognition 
+and many other sequence-to-sequence 
+learning tasks
+
+===== PAGE 27 =====
+Bidirectional RNN
+Bidirectional recurrent neural network was proposed to 
+address such need. It combines a forward-going RNN and a 
+backward-going RNN
+The idea can be extended to 2D 
+input with four RNN going in four 
+directions
+
+===== PAGE 28 =====
+Sequence-to-Sequence Architecture
+map an input sequence to an output sequence which is not 
+necessarily of the same length
+
+speech recognition, machine translation, question answering
+An encoder or reader or input RNN 
+processes the input sequence. The encoder 
+emits the context C, usually as a simple 
+function of its final hidden state.
+A decoder or writer or output RNN is 
+conditioned on that fixed-length vector 
+to generate the output sequence
+
+===== PAGE 29 =====
+Deep RNNs
+We can think
+of the lower layers in 
+the hierarchy as 
+playing a role
+in transforming the 
+raw input into a 
+representation that is 
+more appropriate, at
+the higher levels of the 
+hidden state.
+
+===== PAGE 30 =====
+The Challenge of Long Term Dependencies
+Gradients propagated over many stages tend to either vanish 
+(most of the time) or explode (rarely, but with much damage 
+to the optimization)
+Let us consider a simple case
+No input, no nonlinear activation
+Eigen-decomposition
+eigenvalues with magnitude less than one to decay to zero and 
+eigenvalues with magnitude greater than one to explode
+
+===== PAGE 31 =====
+The Challenge of Long Term Dependencies
+
+===== PAGE 32 =====
+The Challenge of Long Term Dependencies
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 33 =====
+The Challenge of Long Term Dependencies
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 34 =====
+Combine Short and Long Paths in Unfolded Flow Graph
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 35 =====
+Leaky units with self-connections
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 36 =====
+Leaky units with self-connections
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 37 =====
+Long Short-Term Memory (LSTM)
+Sometimes, recent information is not sufficient. We need 
+long-term dependencies
+“I grew up in France… I speak fluent French.”
+“the clouds are in the sky,”
+
+===== PAGE 38 =====
+Long Short-Term Memory (LSTM)
+Slides Credit: Prof. Wang Xiaogang
+
+===== PAGE 39 =====
+Long Short-Term Memory (LSTM)
+Cell state C, hidden state h, input x, output o
+http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+===== PAGE 40 =====
+Long Short-Term Memory (LSTM)
+The principal to update the cell state at a new moment
+Forget gate
+Input gate
+Updated cell state
+Previous cell state
+“Proposed” cell state
+
+===== PAGE 41 =====
+Long Short-Term Memory (LSTM)
+Forget gate
+
+===== PAGE 42 =====
+Long Short-Term Memory (LSTM)
+“proposed” cell state
+
+===== PAGE 43 =====
+Long Short-Term Memory (LSTM)
+Output gate
+
+===== PAGE 44 =====
+Long Short-Term Memory (LSTM)
+Review the updating formula
+Forget gate
+Input gate
+Updated cell state
+Previous cell state
+“Proposed” cell state
+
+===== PAGE 45 =====
+
+
+===== PAGE 46 =====
+Image Captioning
+
+===== PAGE 47 =====
+Results
+
+===== PAGE 48 =====
+Convolutional LSTM for precipitation nowcasting
+Slides Credit: Wai-kin WONG
+X. Shi, Z. Chen, H. Wang, D.Y. Yeung, W.K. Wong, and W.C. Woo. Convolutional LSTM network: 
+A machine learning approach for precipitation nowcasting. NIPS 2015.
+
+===== PAGE 49 =====
+Convolutional LSTM for precipitation nowcasting
+Encoding-forecasting (encoder-decoder) model
+Slides Credit: Wai-kin WONG
+
+===== PAGE 50 =====
+Convolutional LSTM for precipitation nowcasting
+Slides Credit: Wai-kin WONG
+
+===== PAGE 51 =====
+Convolutional LSTM for precipitation nowcasting
+Slides Credit: Wai-kin WONG
+
+===== PAGE 52 =====
+Convolutional LSTM for precipitation nowcasting
+Slides Credit: Wai-kin WONG
+
+===== PAGE 53 =====
+Convolutional LSTM for precipitation nowcasting
+Slides Credit: Wai-kin WONG
+
+===== PAGE 54 =====
+Convolutional LSTM for precipitation nowcasting
+
+===== PAGE 55 =====
+The goal of this paper is to predict the 
+motion dynamics in crowded scenes -
+This is, however, a challenging task as
+the motion of each person is typically 
+affected by their neighbors.
+We propose a new model which we 
+call ”Social” LSTM (SocialLSTM) which 
+can jointly predict the paths of all the 
+people in a scene by taking into 
+account the common sense rules and 
+social conventions that humans 
+typically utilize as they navigate in
+shared environments. The predicted 
+distribution of their future trajectories 
+is shown in the heat-map.
+
+===== PAGE 56 =====
+
+
+===== PAGE 57 =====
+
+
+===== PAGE 58 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+“I love coffee” -> “Me gusta el café”
+Base on cs231n by Fei-Fei Li et al.
+
+===== PAGE 59 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+“I love coffee” -> “Me gusta el café”
+Base on cs231n by Fei-Fei Li et al. 
+Distribution over input 
+words
+
+===== PAGE 60 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+“I love coffee” -> “Me gusta el café”
+Base on cs231n by Fei-Fei Li et al. 
+Distribution over input 
+words
+
+===== PAGE 61 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+“I love coffee” -> “Me gusta el café”
+Base on cs231n by Fei-Fei Li et al. 
+Distribution over input 
+words
+
+===== PAGE 62 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+“I love coffee” -> “Me gusta el café”
+Base on cs231n by Fei-Fei Li et al. 
+Distribution over input 
+words
+
+===== PAGE 63 =====
+Soft Attention for Translation
+Bahdanau et al, “Neural Machine Translation by Jointly Learning to 
+Align and Translate”, ICLR 2015
+
+===== PAGE 64 =====
+Show, Attend and Tell
+Xu et al., Show, Attend and Tell: Neural Image Caption Generation with Visual Attention, 2016
+
+===== PAGE 65 =====
+RNN for Captioning
+CNN
+Image: 
+H x W x 3
+Features: 
+L x D
+z0
+x0
+h0
+First 
+word
+Weights over L 
+locations
+a0
+d0
+Weighted 
+features: D
+Distribution 
+over vocab
+D
+L
+Init
+features
+Sum over 
+locations
+
+===== PAGE 66 =====
+RNN for Captioning
+CNN
+Image: 
+H x W x 3
+Features: 
+L x D
+z0
+x0
+h0
+<start>
+Weights over L 
+locations
+a0
+d0
+Weighted 
+features: D
+“bird”
+D
+L
+z1
+x1
+h1
+“bird”
+a1
+d1
+“over”
+Sum over 
+locations
+
+===== PAGE 67 =====
+The Transformer – Self-Attention Layer
+0.2
+0.2
+0.5
+0.1
+Softmax
+Sequence locations 
+
+===== PAGE 68 =====
+The Transformer – Self-Attention Layer
+0.2
+0.2
+0.5
+0.1
+Softmax
+Sequence locations 
+
+===== PAGE 69 =====
+Attention Implementation with matrices
+• Transformer networks have extreme parallelism by 
+using matrices to hold all the vectors in the 
+network:
+Q = matrix of all query vectors (as rows)
+K = matrix of all keys (as rows)
+V = matrix of all values (as rows)
+• The row index is the position in the sequence.
+• The entire attention operation can be computed as 
+a single matrix formula as:
+where the softmax is applied across rows (not    
+columns).
+
+===== PAGE 70 =====
+Multi-Headed Attention
+•
+Standard attention allows each location to attend with a 
+single weight/value embedding to another location. 
+•
+We can extend this with “multi-headed” attention by 
+breaking inputs and outputs into ranges, and applying
+different embeddings for each range. 
+•
+The figure to the right shows h heads.
+
+===== PAGE 71 =====
+Multi-Headed Attention
+
+===== PAGE 72 =====
+Transformer Encoder
+•
+Basic unit shown at right.
+•
+The input is a sequence of symbols at the 
+bottom.
+•
+Because different positions are encoded 
+as matrices,
+its common not to show the sequence 
+positions. 
+•
+Multiple layers can be stacked. 
+V
+K
+Q
+
+===== PAGE 73 =====
+The Transformer Encoder/Decoder
+•
+Basic unit shown at right.
+•
+Now there is both and encoder with self-
+attention,
+and a decoder with both masked self-
+attention and 
+cross-attention. 
+•
+In experiments, stacked with N=6.
+•
+Inputs and outputs are embedded in vector
+spaces of fixed dimension.
+•
+Positional encoding: when words are 
+combined
+through attention, their location is lost. 
+Positional encoding adds it back.
+Q
+K
+V
+K
+V
+Q
+Q
+K
+V
+
+===== PAGE 74 =====
+Transformer: “Attention is All You Need”
+
+===== PAGE 75 =====
+ViT
+An Image is Worth 16x16 Words: Transformers for 
+Image Recognition at Scale
+
+===== PAGE 76 =====
+DETR (Detection Transformer)
+• Global reasoning via attention
+• anchors or hand crafted algorithms like NMS are not needed
+
+===== PAGE 77 =====
+DETR (Detection Transformer)
+• Encoder-decoder 
+architecture
+• decode the N objects in 
+parallel at each decoder 
+layer
+
+===== PAGE 78 =====
+DETR (Detection Transformer)
+• set prediction loss
+
+===== PAGE 79 =====
+SwinTransformer (Shifted Window Transformer)
+hierarchical feature maps and shifted window MSA
+
+===== PAGE 80 =====
+SwinTransformer (Shifted Window Transformer)
+
+===== PAGE 81 =====
+Retrospect of Transformer and RNN
+these are what we expect for an ideal model !

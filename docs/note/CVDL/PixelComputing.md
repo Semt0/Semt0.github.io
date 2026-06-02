@@ -1,5 +1,5 @@
 ---
-title: Pixel Computing - I
+title: Pixel Computing
 date: 2026-04-17
 ---
 
@@ -554,23 +554,418 @@ $$
 
 ![Layer-sensitive completion](pictures/pixel_computing_slide_122.png){ width="650" }
 
-## 9 复习与易错点
+## 9 从传统 Pixel Computing 到深度 Pixel Computing
 
-### 9.1 方法之间的主线关系
+第二讲的主线，是把第一讲里的“像素级任务”正式带入深度学习时代。前半讲我们更多看到的是：
+
+- 聚类
+- 图分割
+- GraphCut / GrabCut
+- Matting
+- Inpainting
+
+它们大多依赖手工设计的特征、能量函数、图模型或 PDE。第二讲则讨论：能否直接让神经网络学习一个 **pixel in, pixel out** 的映射，把输入图像端到端变成像素级输出。
+
+从任务划分看，深度 pixel computing 主要分成三层：
+
+- **pixel-level methods**：语义分割、object parsing 等，对每个像素输出类别
+- **instance-level methods**：不仅分出类别，还要区分同类中的不同实例
+- **pose estimation**：输出人体关键点或骨架，本质上仍是像素级定位问题
+
+## 10 Pixel-Level Methods：语义分割进入 CNN 时代
+
+### 10.1 为什么分类 CNN 不能直接拿来做分割
+
+第二讲首先强调一个看似简单、其实关键的问题：普通 CNN 分类器虽然能回答“图里有什么”，但它在高层特征里已经做了大量 pooling / stride，下采样后空间分辨率很粗，因此很难精确回答“这个像素属于什么”。
+
+![FCN 作为语义分割开端](pictures/pixel_computing2_slide_09.png){ width="650" }
+
+如果把分类网络直接用于像素标注，会遇到两个核心矛盾：
+
+- **语义强，但位置粗**：深层特征知道“是什么”，但不知道边界精确在哪
+- **位置细，但语义弱**：浅层特征保留边缘和局部细节，但类别判别能力不够
+
+这也是后面 FCN、skip connection、SegNet、DeepLab、CRF-as-RNN 都在反复解决的核心问题。
+
+### 10.2 FCN：把分类网络改造成 dense predictor
+
+FCN（Fully Convolutional Network, CVPR 2015）是语义分割里的奠基性工作。它的思想非常朴素但极其重要：**把原本为分类设计的 CNN 改造成全卷积网络，使它能够接受任意尺寸输入，并输出对应的像素级预测图。**
+
+![pixels-to-pixels 网络结构](pictures/pixel_computing2_slide_12.png){ width="650" }
+
+核心改造包括两步：
+
+1. 把原先的全连接层视作特殊的卷积层，从而保留空间结构。
+2. 在网络尾部加入上采样（upsampling / deconvolution），把低分辨率特征图恢复到接近原图尺度。
+
+因此 FCN 的计算流程可以概括为：
+
+- 前半段：`conv + pool + nonlinearity` 提取越来越抽象的特征
+- 后半段：上采样，把粗特征重新映射回像素网格
+- 输出层：对每个像素给一个类别分布，并计算逐像素损失
+
+### 10.3 FCN 里的三个关键部件
+
+#### 10.3.1 上采样（Upsampling / Deconvolution）
+
+FCN 必须解决“低分辨率特征如何还原到原图大小”这个问题。讲义里把它称为 upsampling，也常叫 deconvolution（更准确地说通常是 transposed convolution 或双线性插值上采样）。
+
+上采样的作用不是“凭空恢复全部细节”，而是把 coarse feature map 投回更密的像素网格，让网络能在原图尺度做分类。
+
+#### 10.3.2 Skip Layer Fusion：浅层位置 + 深层语义
+
+仅依赖最后一层特征时，输出往往过于粗糙。FCN 的重要改进是引入 skip fusion，把浅层与深层信息融合起来。
+
+![Skip Layer Fusion](pictures/pixel_computing2_slide_15.png){ width="650" }
+
+这正对应一句经典总结：**combine where with what**。
+
+![浅层位置与深层语义的融合](pictures/pixel_computing2_slide_14.png){ width="650" }
+
+- 浅层特征更擅长回答 **where**
+- 深层特征更擅长回答 **what**
+
+融合后，网络既保留了局部边界信息，又保留了全局语义信息。
+
+#### 10.3.3 损失函数与评价指标
+
+语义分割通常使用 **逐像素多分类损失**。如果像素 $i$ 的真实标签是 one-hot 向量 $y_i$，预测概率为 $p_i$，那么常见的交叉熵写作：
+
+$$
+\mathcal{L}_{\text{pixel}}
+=
+-\sum_i \sum_{c=1}^{C} y_{ic}\log p_{ic}
+$$
+
+![Per-pixel loss 与 IoU](pictures/pixel_computing2_slide_16.png){ width="650" }
+
+而评价时，单纯看 pixel accuracy 往往不够，因为类别不平衡时“大面积背景”很容易把指标冲高。所以分割里更常用 **IoU（Intersection over Union）**：
+
+$$
+\mathrm{IoU}
+=
+\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}+\mathrm{FN}}
+$$
+
+IoU 的直觉是：预测区域与真实区域有多大比例重合。它比单纯正确率更能反映边界和区域质量。
+
+### 10.4 FCN-32s / 16s / 8s：为什么 stride 越小边界越好
+
+FCN 后续的常见版本是 FCN-32s、FCN-16s、FCN-8s。数字表示最终预测相对于输入图像的 stride。
+
+![FCN-32 / 16 / 8 对比](pictures/pixel_computing2_slide_17.png){ width="650" }
+
+直观理解：
+
+- **FCN-32s**：只用最深层输出，语义强但边界很粗
+- **FCN-16s**：加入 1 次 skip，细节更好
+- **FCN-8s**：加入 2 次 skip，边界进一步改善
+
+因此 stride 更小并不只是“分辨率更高”，本质上是：网络在更高分辨率层面保留了更多定位信息。
+
+### 10.5 SegNet：编码器-解码器结构
+
+FCN 之后，一个非常自然的方向是直接设计 **encoder-decoder** 结构。SegNet 就是代表之一。
+
+![SegNet 编码器-解码器](pictures/pixel_computing2_slide_19.png){ width="650" }
+
+SegNet 的核心思想是：
+
+- 编码器负责逐步下采样、提取语义特征
+- 解码器负责逐步上采样、恢复空间分辨率
+
+与简单插值恢复不同，SegNet 的一个关键设计是保存 pooling indices，并在解码时利用这些索引做 unpooling。这样做的动机是：最大池化时哪些位置“赢了”本身就是一种空间线索，恢复时利用它们能更好保留边界结构。
+
+因此，SegNet 可以理解为“为分割量身定做的对称 CNN 架构”，它比直接从分类网络魔改的 FCN 更有结构化先验。
+
+### 10.6 DeepLab：空洞卷积与多尺度上下文
+
+语义分割还有另一个核心矛盾：如果不断 pooling，下采样会伤害边界；如果不下采样，感受野又可能不够大。DeepLab 的关键突破之一，就是 **atrous convolution（空洞卷积）**。
+
+![Atrous Convolution](pictures/pixel_computing2_slide_21.png){ width="650" }
+
+空洞卷积的本质是：在不显著增加参数量的情况下，把卷积核“稀疏插空”，从而扩大感受野。它的好处是：
+
+- 不必靠更深层或更大 stride 来扩大 receptive field
+- 可以在保持较高特征分辨率的同时获得更大上下文
+
+进一步地，DeepLab 引入 ASPP（Atrous Spatial Pyramid Pooling）来显式建模多尺度上下文：
+
+![ASPP 多尺度并行空洞卷积](pictures/pixel_computing2_slide_22.png){ width="650" }
+
+ASPP 用多个不同 dilation rate 的并行卷积分支同时观察中心像素，从而让网络同时看到“小邻域、中邻域、大邻域”的上下文信息。这对场景分割尤其重要，因为同一个像素的正确标签往往依赖周围大范围语境。
+
+### 10.7 CRF-as-RNN：把结构优化并进神经网络
+
+第一讲已经讲过 CRF / GraphCut 这类结构模型的价值：它们能利用邻域一致性、边缘与上下文来修正粗预测。第二讲里的 CRF-as-RNN，则是在问：
+
+> 能不能把这种后处理本身也做成可微模块，直接嵌到网络里端到端训练？
+
+![CRF 细化粗分割](pictures/pixel_computing2_slide_23.png){ width="650" }
+
+答案是可以。CRF-as-RNN 把 fully connected CRF 的 mean-field inference 展开成若干轮可微迭代，每轮可看成一个 recurrent block。
+
+![CRF-as-RNN 的 mean-field block](pictures/pixel_computing2_slide_33.png){ width="650" }
+
+这一结构通常包含：
+
+- **unary term**：CNN 给出的像素级初始分类分数
+- **message passing**：通过 bilateral filtering 等把邻域信息传给每个像素
+- **compatibility transform**：学习不同类别之间的相互作用
+- **normalization / softmax**：更新每个像素的标签分布
+
+因为每一步都可微，所以整条链路可以反向传播。它的意义不只是“又加了个 RNN”，而是把传统图模型中的结构先验重新包装成了深度学习模块。
+
+### 10.8 从 FCN 到 DeepLab，这条线到底在解决什么
+
+把上面几种方法放在一起，会更容易看出它们的演进关系：
+
+- **FCN**：首先解决“CNN 如何输出像素标签”
+- **skip fusion**：解决“深层语义强但定位粗”的问题
+- **SegNet**：把分割网络结构化为 encoder-decoder
+- **DeepLab**：解决“高分辨率特征与大感受野如何兼得”
+- **CRF-as-RNN**：把结构优化和上下文建模并进端到端学习
+
+这一阶段的中心思想可以概括为：**从粗特征图出发，逐步把像素级定位、边界恢复、多尺度上下文和结构先验重新加回来。**
+
+## 11 Instance-Level Methods：从语义分割走向实例分割
+
+语义分割只回答“每个像素属于哪个类别”，但它不区分同类中的不同实例。例如两个人都可能被标成 person，却无法知道谁是谁。
+
+![实例分割的目标](pictures/pixel_computing2_slide_38.png){ width="650" }
+
+实例分割的目标则是：既要知道类别，又要知道每个实例的独立 mask。
+
+### 11.1 Mask R-CNN：Faster R-CNN + FCN on RoIs
+
+Mask R-CNN 是第二讲里实例级方法的主角。其核心思想几乎可以一句话概括：
+
+> **Mask R-CNN = Faster R-CNN + FCN on each RoI**
+
+![Mask R-CNN 结构概览](pictures/pixel_computing2_slide_40.png){ width="650" }
+
+和 Faster R-CNN 一样，它先检测 proposal / RoI；但在每个 RoI 上，除了分类和框回归，还额外预测一个像素级 mask。
+
+### 11.2 Parallel Heads：为什么 mask 头要并行
+
+Mask R-CNN 的设计要点之一是把三类任务分成并行 head：
+
+![Mask R-CNN 的并行 heads](pictures/pixel_computing2_slide_41.png){ width="650" }
+
+- 分类 head：判断类别
+- bbox regression head：修正框
+- mask head：输出 RoI 内的二值分割图
+
+这说明实例分割并不是“检测完再随便补一层”，而是在一个共享 backbone 上并行优化三种互相关联、但目标不同的任务。
+
+### 11.3 RoIAlign：为什么不能再用 RoIPool
+
+Mask R-CNN 中最著名的一个小改动，就是把 RoIPool 换成了 RoIAlign。
+
+![RoIAlign vs RoIPool](pictures/pixel_computing2_slide_42.png){ width="650" }
+
+原因很直接：RoIPool 在把原图坐标映射到 feature map、再映射到固定大小 RoI 特征时，会发生多次量化（quantization）。检测任务对少量对齐误差还能容忍，但 mask 预测是像素级的，边界对不齐会直接损害结果。
+
+RoIAlign 的改进是：
+
+- 不做粗暴取整
+- 使用双线性插值在连续坐标上取样
+
+因此它本质上是在减少几何 misalignment。Mask R-CNN 的成功也说明：**实例分割比目标检测更敏感于空间对齐误差。**
+
+### 11.4 与检测模型的关系
+
+第二讲里专门回顾了 detection / segmentation 模型的发展关系。
+
+![Detection / Segmentation 模型回顾](pictures/pixel_computing2_slide_39.png){ width="650" }
+
+可以把它理解为两条线最后会合：
+
+- 检测线：R-CNN, Fast/Faster R-CNN
+- 分割线：FCN, encoder-decoder, dense prediction
+
+Mask R-CNN 正是这两条线的结合点：检测负责找实例，FCN-style head 负责在实例内部做像素分割。
+
+## 12 Pixel-to-Pixel Generation：Pix2Pix 与 CycleGAN
+
+虽然这部分不再是“传统意义上的语义分割”，但讲义把它们放进 Pixel Computing，是因为它们仍然学习一种 **图像到图像、像素到像素** 的变换。
+
+### 12.1 Pix2Pix：配对监督的图像翻译
+
+Pix2Pix 的设定是：训练数据成对给出输入与目标输出，例如：
+
+- label map $\to$ street scene
+- edge map $\to$ photo
+- day $\to$ night
+
+![Pix2Pix：paired image-to-image translation](pictures/pixel_computing2_slide_44.png){ width="650" }
+
+它通常采用条件 GAN：
+
+- 生成器 $G$：把输入图像翻译成目标域图像
+- 判别器 $D$：判断生成结果是否像真实目标域样本
+
+因此 Pix2Pix 的本质，是用“逐像素映射 + 对抗学习”来完成 image-to-image translation。
+
+### 12.2 CycleGAN：无配对翻译
+
+Pix2Pix 的限制是必须有 paired data。但很多任务里并不存在一一对应的配对图像，例如：
+
+- 马 $\leftrightarrow$ 斑马
+- 夏天 $\leftrightarrow$ 冬天
+- 照片 $\leftrightarrow$ 莫奈画风
+
+![CycleGAN：unpaired translation](pictures/pixel_computing2_slide_45.png){ width="650" }
+
+CycleGAN 的关键就是 **cycle consistency**：
+
+$$
+X \xrightarrow{G} Y \xrightarrow{F} X
+$$
+
+要求经过两次变换后尽量回到原图。这个约束让“无配对监督”变得可学。
+
+因此从 Pixel Computing 视角看，Pix2Pix / CycleGAN 说明像素级任务不只是在做分类，也可以是在做 **结构化生成与翻译**。
+
+## 13 Human Pose Estimation：关键点也是像素级预测
+
+人体姿态估计的目标是：从单张图像中估计一组预定义的人体关节。
+
+![Human Pose Estimation 任务](pictures/pixel_computing2_slide_48.png){ width="650" }
+
+它看起来不像“分割”，但本质仍是像素级定位问题：网络要在图像平面上找出鼻子、肩膀、肘、腕、髋、膝、踝等关键点的位置。
+
+### 13.1 Bottom-Up：先找所有关节，再做分组
+
+#### OpenPose
+
+OpenPose 是最经典的 bottom-up 方法之一。它使用双分支网络，同时预测：
+
+- **confidence maps / heatmaps**：每种关节可能出现的位置
+- **PAFs（Part Affinity Fields）**：连接两个关节的向量场，用于表示“这两个点是否属于同一个人”
+
+![OpenPose 总体思路](pictures/pixel_computing2_slide_50.png){ width="650" }
+
+PAF 的意义尤其关键：
+
+![Part Affinity Field](pictures/pixel_computing2_slide_51.png){ width="650" }
+
+单独有 heatmap，只能知道“某处可能有左腕、某处可能有右肘”；但多人场景下，不知道这些点该如何拼成一个人。PAF 提供了 limb-level 的连接证据。
+
+OpenPose 的网络通常是多阶段迭代结构：
+
+![OpenPose 双分支网络设计](pictures/pixel_computing2_slide_52.png){ width="650" }
+
+后续阶段反复细化 heatmap 和 PAF，最后再通过 bipartite matching 等图匹配方法，把关节组装成多人骨架。
+
+#### Associative Embedding
+
+另一类 bottom-up 方法是 Associative Embedding（AE）。它的思路不是学习显式向量场，而是给每个检测到的关节分配一个 **tag / embedding**，同一个人的关节 tag 应该彼此接近，不同人的关节 tag 应该分开。
+
+![Associative Embedding](pictures/pixel_computing2_slide_54.png){ width="650" }
+
+所以 AE 可以概括为：**joint detection + grouping by learned tags**。
+
+### 13.2 Top-Down：先检测人，再估计单人姿态
+
+Top-down 方法的思路与 bottom-up 相反：
+
+1. 先检测出每个人的 bounding box
+2. 对每个 bbox 内的人单独做单人姿态估计
+
+这种方法通常关键点质量更高，因为每次只处理一个人，歧义更小；但速度和检测依赖更明显。
+
+#### Cascaded Pyramid Network（CPN）
+
+CPN 是典型 top-down 方法之一，它特别强调“简单可见关键点”和“困难关键点”的分阶段处理。
+
+![CPN：先易后难地估计关键点](pictures/pixel_computing2_slide_57.png){ width="650" }
+
+它的核心思想是：先用全局网络找到明显关键点，再利用上下文和更细特征去修复难点、遮挡点和易混淆点。
+
+#### SimpleBaseline 与 HRNet
+
+讲义后面强调了一个非常重要的结论：**分辨率对于 point-based estimation 极其关键**。
+
+![SimpleBaseline 与 HRNet](pictures/pixel_computing2_slide_60.png){ width="650" }
+
+- **SimpleBaseline**：在分类 backbone 后接若干反卷积层恢复高分辨率 heatmap
+- **HRNet**：始终保留高分辨率分支，并与低分辨率分支反复交换信息
+
+它们都在说明一点：关键点估计比分类更依赖高分辨率空间表示，因为输出对象本质上是离散点。
+
+### 13.3 3D Pose Estimation：从 2D 关键点到三维骨架
+
+2D 姿态解决的是图像平面上的关键点，而 3D pose 还要恢复深度维。
+
+![3D pose 数据来源](pictures/pixel_computing2_slide_61.png){ width="650" }
+
+常见数据来源包括：
+
+- motion capture 数据集，如 Human3.6M
+- 多相机系统，如 3DHP、CMU Panoptic Studio
+- 合成数据，如 SURREAL
+
+但 3D pose 的难点在于：2D 标注容易获得，3D 标注昂贵稀缺。因此一个重要研究方向是 **利用几何或弱监督把 2D 与 3D 联结起来**。
+
+![用几何约束连接 2D 与 3D](pictures/pixel_computing2_slide_63.png){ width="650" }
+
+这类方法常见的逻辑是：
+
+- 用大量 2D 数据训练 2D keypoint / heatmap 模块
+- 用少量 3D 数据训练 depth / lifting 模块
+- 用人体几何一致性、骨长约束或投影一致性来缩小 2D 到 3D 的歧义
+
+## 14 一个更大的视角：Stacked U-Net is Everywhere
+
+讲义最后专门举了一个跨领域例子：**stacked U-Net is everywhere**。
+
+![Stacked U-Net is Everywhere](pictures/pixel_computing2_slide_65.png){ width="650" }
+
+它想表达的并不是“图像任务只能用 U-Net”，而是：
+
+- 编码器-解码器
+- 多尺度融合
+- skip connection
+- 高分辨率输出
+
+这套思想已经远远超出了语义分割，成为很多密集预测和函数逼近任务的通用结构模板。只要任务目标是“输入一个场，输出另一个空间对齐的场”，U-Net 家族往往都会出现。
+
+## 15 复习与易错点
+
+### 15.1 方法之间的主线关系
 
 - **K-means / Mean Shift**：偏“特征空间聚类”，从像素统计相似性出发。
 - **Ncut / GraphCut**：偏“图优化”，显式建模像素之间关系与全局能量。
 - **GrabCut / Lazy Snapping**：在 GraphCut 框架中加入交互和颜色模型，强调可用性。
 - **Matting / Poisson Matting**：从离散标签升级到连续 $\alpha$，专攻半透明边界。
 - **Inpainting / Completion**：关注缺失区域重建，核心是结构与纹理的协调。
+- **FCN / SegNet / DeepLab**：把 pixel labeling 交给深度网络端到端学习，逐步解决 coarse output、多尺度上下文和结构细化。
+- **CRF-as-RNN**：把传统结构优化嵌进神经网络，使上下文建模与 dense prediction 联合训练。
+- **Mask R-CNN**：把 detection 与 FCN-style segmentation 合并，完成 instance-level segmentation。
+- **OpenPose / AE / CPN / HRNet**：把像素级预测推广到关键点与骨架估计。
 
-### 9.2 高频易错点
+### 15.2 高频易错点
 
 - 把分割当成 matting：二值 mask 无法表达半透明过渡。
 - 认为 Mean Shift 无需调参：其实 bandwidth 是关键参数。
 - 认为 min-cut 一定合理：会偏向切小块，才需要 Ncut 归一化。
-- 忽略 GraphCut 的 unary/pairwise 平衡：$\lambda$ 过大可能过度平滑、吞掉细节边界。
+- 以为 FCN 只是“把分类器最后一层换掉”：真正关键还包括上采样、逐像素损失和 skip fusion。
+- 误以为空洞卷积只是“更大的卷积核”：它本质是以更低代价扩大感受野。
+- 把语义分割和实例分割混为一谈：前者区分类别，后者还要区分同类不同实例。
+- 忽略 RoIPool 的量化误差：对 mask 任务会直接带来边界错位，所以 Mask R-CNN 需要 RoIAlign。
+- 把 OpenPose 只理解成“多人关键点热图”：它真正解决多人分组问题依赖的是 PAF。
 - Inpainting 只重视纹理匹配：若结构线先断裂，后续纹理再好也会“假”。
 
-## 考试重点
-- **Mean shift 算法**
+## 16 考试重点
+
+- **K-means / Mean Shift / Ncut** 的建模差异
+- **GraphCut / GrabCut / Lazy Snapping** 的核心思想
+- **Matting 方程** $I=\alpha F+(1-\alpha)B$ 及其欠定性
+- **Poisson Matting** 的梯度域思路
+- **FCN**：全卷积、上采样、skip fusion、FCN-32/16/8
+- **IoU**：$\mathrm{TP}/(\mathrm{TP}+\mathrm{FP}+\mathrm{FN})$
+- **SegNet / DeepLab**：encoder-decoder、atrous convolution、ASPP
+- **CRF-as-RNN**：把结构优化写成可微迭代
+- **Mask R-CNN**：instance segmentation、parallel heads、RoIAlign
+- **OpenPose / Associative Embedding / CPN / HRNet**：bottom-up vs top-down 的区别

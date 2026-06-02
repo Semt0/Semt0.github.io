@@ -1,0 +1,3191 @@
+PAGES: 246
+
+===== PAGE 1 =====
+Camera Matrix
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 2 =====
+A camera is a mapping between  
+the 3D world 
+and  
+a 2D image
+
+===== PAGE 3 =====
+x = PX
+camera 
+matrix
+3D world 
+point
+2D image 
+point
+What do you think the dimensions are?
+A camera is a mapping between  
+the 3D world and a 2D image
+
+===== PAGE 4 =====
+x = PX
+2
+4
+X
+Y
+Z
+3
+5 =
+2
+4
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
+p10
+p11
+p12
+3
+5
+2
+664
+X
+Y
+Z
+1
+3
+775
+homogeneous 
+world point 
+4 x 1
+homogeneous 
+image 
+3 x 1
+Camera 
+matrix 
+3 x 4
+
+===== PAGE 5 =====
+camera center
+X
+image plane
+x
+principal axis
+The pinhole camera
+x
+y
+z
+z = f
+What is the equation for image coordinate x (in terms of X)?
+principal point
+
+===== PAGE 6 =====
+f
+y
+z
+X
+Y
+Z
+image plane
+?
+What is the equation for image coordinate x (in terms of X)?
+
+===== PAGE 7 =====
+f
+y
+z
+X
+fY
+Z
+Y
+Z
+image plane
+[X
+Y
+Z]> 7! [fX/Z
+fY/Z]>
+
+===== PAGE 8 =====
+camera center
+X
+image plane
+x
+principal axis
+Pinhole camera geometry
+x
+y
+z
+z = f
+x = PX
+What is the camera matrix P for a pinhole camera model?
+principal point
+
+===== PAGE 9 =====
+2
+4
+X
+Y
+Z
+3
+5 =
+2
+4
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
+p10
+p11
+p12
+3
+5
+2
+664
+X
+Y
+Z
+1
+3
+775
+[X
+Y
+Z]> 7! [fX/Z
+fY/Z]>
+Relationship from similar triangles…
+P =
+2
+4
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+3
+5
+generic camera model
+What does the pinhole camera model look like?
+
+===== PAGE 10 =====
+P =
+2
+4
+f
+0
+0
+0
+0
+f
+0
+0
+0
+0
+1
+0
+3
+5
+What does the pinhole camera model look like?
+2
+4
+X
+Y
+Z
+3
+5 =
+2
+4
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
+p10
+p11
+p12
+3
+5
+2
+664
+X
+Y
+Z
+1
+3
+775
+[X
+Y
+Z]> 7! [fX/Z
+fY/Z]>
+Relationship from similar triangles…
+generic camera model
+
+===== PAGE 11 =====
+P =
+2
+4
+f
+0
+0
+0
+0
+f
+0
+0
+0
+0
+1
+0
+3
+5
+Camera origin and image origin might be different
+camera coordinate 
+system
+image coordinate system
+CCD array
+p
+
+===== PAGE 12 =====
+P =
+2
+4
+f
+0
+px
+0
+0
+f
+py
+0
+0
+0
+1
+0
+3
+5
+Accounts for different origins
+camera coordinate 
+system
+image coordinate system
+CCD array
+p
+
+===== PAGE 13 =====
+X world point
+Ocamera
+Oimage
+In general, the camera and image sensor  
+have different coordinate systems
+x
+image point
+
+===== PAGE 14 =====
+X world point
+Ocamera
+Oimage
+Oworld
+In general, there are three different coordinate systems…
+x
+image point
+so you need the know the transformations between them
+
+===== PAGE 15 =====
+P =
+2
+4
+f
+0
+px
+0
+f
+py
+0
+0
+1
+3
+5
+2
+4
+1
+0
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+3
+5
+P = K[I|0]
+Can be decomposed into two matrices
+K =
+2
+4
+f
+0
+px
+0
+f
+py
+0
+0
+1
+3
+5
+calibration matrix
+(3 x 3)
+(3 x 4)
+
+===== PAGE 16 =====
+P =
+2
+4
+f
+0
+px
+0
+f
+py
+0
+0
+1
+3
+5
+2
+4
+1
+0
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+3
+5
+Assumes that the camera and world 
+share the same coordinate system
+What if they are different? 
+How do we align them?
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+
+===== PAGE 17 =====
+P =
+2
+4
+f
+0
+px
+0
+f
+py
+0
+0
+1
+3
+5
+2
+4
+1
+0
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+3
+5
+Assumes that the camera and world 
+share the same coordinate system
+xc
+yc
+zc
+zw
+xw
+yw
+R t
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+3R rotation and translation to align axis
+What if they are different? 
+How do we align them?
+
+===== PAGE 18 =====
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+Xw
+
+===== PAGE 19 =====
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+Xw
+C
+Coordinate of the 
+camera center in the 
+world coordinate frame
+
+===== PAGE 20 =====
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+Xw
+C
+Coordinate of the 
+camera center in the 
+world coordinate frame
+(Xw −C)
+(Xw −C)
+Translate
+Xc
+
+===== PAGE 21 =====
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+Xw
+Why aren’t 
+the points 
+aligned?
+C
+(Xw −C)
+Translate
+Xc
+
+===== PAGE 22 =====
+R(Xw −C)
+What happens to points after alignment?
+xc
+yc
+zc
+zw
+xw
+yw
+World 
+coordinate 
+system
+Camera 
+coordinate 
+system
+Xw
+C
+R
+Xc
+Rotate
+Translate
+Rotate
+
+===== PAGE 23 =====
+Xc = R(Xw −C)
+Optionally in homogeneous coordinates:
+In inhomogeneous coordinates:
+2
+664
+Xc
+Yc
+Zc
+1
+3
+775 =
+R
+−RC
+0
+1
+(
+2
+664
+Xw
+Yw
+Zw
+1
+3
+775
+General mapping of a pinhole camera
+P = KR[I| −C]
+(4 ⇥4)
+
+===== PAGE 24 =====
+Quiz
+What is the meaning of each matrix of the camera matrix 
+decomposition?
+P = KR[I| −C]
+3x3 
+intrinsics
+
+===== PAGE 25 =====
+Quiz
+What is the meaning of each matrix of the camera matrix 
+decomposition?
+P = KR[I| −C]
+3x3 
+intrinsics
+3x3 
+3D rotation
+
+===== PAGE 26 =====
+Quiz
+What is the meaning of each matrix of the camera matrix 
+decomposition?
+P = KR[I| −C]
+3x3 
+intrinsics
+3x3 
+3D rotation
+3x3 
+identity
+
+===== PAGE 27 =====
+Quiz
+What is the meaning of each matrix of the camera matrix 
+decomposition?
+P = KR[I| −C]
+3x3 
+intrinsics
+3x3 
+3D rotation
+3x3 
+identity
+3x1 
+3D translation
+
+===== PAGE 28 =====
+General mapping of a pinhole camera
+P = KR[I| −C]
+Another way to write the mapping
+t = −RC
+where
+(translate ﬁrst then rotate)
+(rotate ﬁrst then translate)
+P = K[R|t]
+
+===== PAGE 29 =====
+Quiz
+The camera matrix relates what two quantities?
+
+===== PAGE 30 =====
+Quiz
+The camera matrix relates what two quantities?
+x = PX
+
+===== PAGE 31 =====
+Quiz
+The camera matrix relates what two quantities?
+x = PX
+3D points to 2D image points
+
+===== PAGE 32 =====
+Quiz
+The camera matrix relates what two quantities?
+x = PX
+3D points to 2D image points
+The camera matrix can be decomposed into?
+
+===== PAGE 33 =====
+Quiz
+The camera matrix relates what two quantities?
+x = PX
+3D points to 2D image points
+The camera matrix can be decomposed into?
+P = K[R|t]
+
+===== PAGE 34 =====
+Quiz
+The camera matrix relates what two quantities?
+x = PX
+3D points to 2D image points
+The camera matrix can be decomposed into?
+P = K[R|t]
+intrinsic and extrinsic parameters
+
+===== PAGE 35 =====
+P =
+2
+4
+f
+0
+px
+0
+f
+py
+0
+0
+1
+3
+5
+2
+4
+r1
+r2
+r3
+t1
+r4
+r5
+r6
+t2
+r7
+r8
+r9
+t3
+3
+5
+Generalized pinhole camera model
+P = K[R|t]
+R =
+2
+4
+r1
+r2
+r3
+r4
+r5
+r6
+r7
+r8
+r9
+3
+5
+t =
+2
+4
+t1
+t2
+t3
+3
+5
+extrinsic parameters
+intrinsic parameters
+3D rotation
+3D translation
+
+===== PAGE 36 =====
+Why do we need P?
+to properly relate world points to image points  
+(by taking into account different coordinate systems)
+
+===== PAGE 37 =====
+Epipolar Geometry
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 38 =====
+Tie tiny threads on HERB and pin them to your eyeball
+What would it look like?
+
+===== PAGE 39 =====
+
+
+===== PAGE 40 =====
+What does the second observer see?
+You see points on HERB
+
+===== PAGE 41 =====
+You see points on HERB
+Second person sees lines
+
+===== PAGE 42 =====
+This is Epipolar Geometry
+
+===== PAGE 43 =====
+Epipole
+Epipolar lines
+
+===== PAGE 44 =====
+Epipolar geometry
+p
+o
+o0
+Image plane
+
+===== PAGE 45 =====
+Epipolar geometry
+p
+o
+o0
+Image plane
+Baseline
+
+===== PAGE 46 =====
+Epipolar geometry
+p
+o
+o0
+Image plane
+Baseline
+e
+Epipole 
+(projection of o’ on the image plane)
+e0
+
+===== PAGE 47 =====
+Epipolar geometry
+p
+e
+e0
+o
+o0
+Epipole 
+(projection of o’ on the image plane)
+Baseline
+Epipolar plane
+Image plane
+Baseline
+
+===== PAGE 48 =====
+Epipolar geometry
+p
+e
+e0
+l
+l0
+o
+o0
+Epipole 
+(projection of o’ on the image plane)
+Baseline
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+Image plane
+
+===== PAGE 49 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+What is this?
+
+===== PAGE 50 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+
+===== PAGE 51 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+What is this?
+
+===== PAGE 52 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+
+===== PAGE 53 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+What is this?
+
+===== PAGE 54 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+Epipole 
+(projection of o’ on the image plane)
+
+===== PAGE 55 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+Epipole 
+(projection of o’ on the image plane)
+What is this?
+
+===== PAGE 56 =====
+Quiz
+p
+e
+e0
+l
+l0
+o
+o0
+Epipolar plane
+Epipolar line 
+(intersection of Epipolar 
+plane and image plane)
+Epipole 
+(projection of o’ on the image plane)
+Baseline
+
+===== PAGE 57 =====
+Epipolar constraint
+p
+e
+e0
+l
+l0
+o
+o0
+Potential matches for
+lie on the epipolar line
+x
+x
+l0
+x0
+
+===== PAGE 58 =====
+Epipolar constraint
+p
+e
+e0
+l
+l0
+o
+o0
+Potential matches for
+lie on the epipolar line
+x
+x
+l0
+x0
+
+===== PAGE 59 =====
+Epipolar constraint
+p
+e
+e0
+l
+l0
+o
+o0
+Potential matches for
+lie on the epipolar line
+x
+x
+l0
+x0
+
+===== PAGE 60 =====
+p
+e
+e0
+l
+l0
+o
+o0
+x
+x0
+The point x (left image) maps to a ___________ in the right image
+The baseline connects the ___________ and ____________
+An epipolar line (left image) maps to a __________ in the right image
+An epipole e is a projection of the ______________ on the image plane
+All epipolar lines in an image intersect at the  ______________
+
+===== PAGE 61 =====
+Converging cameras
+Where is the epipole in this image?
+
+===== PAGE 62 =====
+Converging cameras
+It’s not always in the image 
+Where is the epipole in this image? 
+here!
+
+===== PAGE 63 =====
+Parallel cameras
+Where is the epipole?
+
+===== PAGE 64 =====
+Parallel cameras
+epipole at inﬁnity
+
+===== PAGE 65 =====
+Forward moving camera
+
+===== PAGE 66 =====
+Forward moving camera
+
+===== PAGE 67 =====
+Where is the epipole?
+What do the epipolar lines look like?
+
+===== PAGE 68 =====
+Epipole has same coordinates in both images. 
+Points move along lines radiating from  “Focus of expansion”
+e
+e0
+
+===== PAGE 69 =====
+The epipolar constraint is an important concept for stereo vision
+Left image
+Right image
+Task: Match point in left image to point in right image
+How would you do it?
+
+===== PAGE 70 =====
+The epipolar constraint is an important concept for stereo vision
+Left image
+Right image
+Task: Match point in left image to point in right image
+Want to avoid search over entire image
+(if the images have been rectiﬁed)  
+Epipolar constrain reduces search to a single line
+
+===== PAGE 71 =====
+
+
+===== PAGE 72 =====
+E
+Essential Matrix
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 73 =====
+p
+Recall:Epipolar constraint
+e
+e0
+l
+l0
+o
+o0
+Potential matches for
+lie on the epipolar line
+x
+x
+l0
+x0
+
+===== PAGE 74 =====
+The epipolar geometry is an important concept for stereo vision
+Left image
+Right image
+Task: Match point in left image to point in right image
+How would you do it?
+
+===== PAGE 75 =====
+The epipolar constraint is an important concept for stereo vision
+Left image
+Right image
+Task: Match point in left image to point in right image
+Epipolar constrain reduces search to a single line
+How do you compute the epipolar line?
+
+===== PAGE 76 =====
+Essential Matrix
+The Essential Matrix is a 3 x 3 matrix that 
+encodes epipolar geometry 
+E
+
+===== PAGE 77 =====
+Given a point in one image,  
+multiplying by the essential matrix will tell us  
+the epipolar line in the second view.
+Ex = l0
+e
+e0
+l0
+o
+o0
+x
+X
+x0
+
+===== PAGE 78 =====
+Epipolar Line
+l =
+2
+4
+a
+b
+c
+3
+5
+in vector form
+l
+e
+x
+If the point      is on the epipolar line     then
+x
+l
+ax + by + c = 0
+x>l = ?
+Representing the …
+
+===== PAGE 79 =====
+Epipolar Line
+l =
+2
+4
+a
+b
+c
+3
+5
+in vector form
+l
+e
+x
+If the point      is on the epipolar line     then
+x
+l
+ax + by + c = 0
+x>l = 0
+
+===== PAGE 80 =====
+Recall: Dot Product
+a
+b
+c = a ⇥b
+c · a = 0
+c · b = 0
+dot product of two orthogonal vectors is zero
+
+===== PAGE 81 =====
+o
+x
+l =
+2
+4
+a
+b
+c
+3
+5
+>l
+vector representing the line is 
+normal (orthogonal) to the plane
+vector representing the point x 
+is inside the plane
+x>l = 0
+Therefore:
+
+===== PAGE 82 =====
+e
+e0
+l0
+o
+o0
+x
+X
+x0
+x>l = 0
+Ex = l0
+So if                             and                             then
+x0>Ex = ?
+
+===== PAGE 83 =====
+e
+e0
+l0
+o
+o0
+x
+X
+x0
+x>l = 0
+Ex = l0
+So if                             and                             then
+x0>Ex = 0
+
+===== PAGE 84 =====
+Motivation
+The Essential Matrix is a 3 x 3 matrix that 
+encodes epipolar geometry 
+Given a point in one image,  
+multiplying by the essential matrix will tell us  
+the epipolar line in the second view.
+
+===== PAGE 85 =====
+Essential Matrix vs Homography
+What’s the difference between the essential matrix and a homography?
+
+===== PAGE 86 =====
+Essential Matrix vs Homography
+What’s the difference between the essential matrix and a homography?
+They are both 3 x 3 matrices but …
+
+===== PAGE 87 =====
+Essential Matrix vs Homography
+They are both 3 x 3 matrices but …
+l0 = Ex
+x0 = Hx
+Essential matrix maps a 
+point to a line
+Homography maps a 
+point to a point
+What’s the difference between the essential matrix and a homography?
+
+===== PAGE 88 =====
+Where does the Essential matrix come from?
+
+===== PAGE 89 =====
+o
+o0
+t
+R, t
+x
+X
+x0
+x0 = R(x −t)
+
+===== PAGE 90 =====
+o
+o0
+t
+R, t
+x
+X
+x0
+x0 = R(x −t)
+Does this look familiar?
+
+===== PAGE 91 =====
+o
+o0
+t
+R, t
+x
+X
+x0
+x0 = R(x −t)
+Camera-camera transform just like world-camera transform
+
+===== PAGE 92 =====
+o
+o0
+t
+x
+X
+x0
+x, t, x0
+These three vectors are coplanar
+
+===== PAGE 93 =====
+If these three vectors are coplanar                  then
+o
+o0
+t
+x
+X
+x0
+x>(t ⇥x) = ?
+x, t, x0
+
+===== PAGE 94 =====
+If these three vectors are coplanar                  then
+o
+o0
+t
+x
+X
+x0
+x, t, x0
+x>(t ⇥x) = 0
+
+===== PAGE 95 =====
+Recall: Cross Product
+a
+b
+c = a ⇥b
+c · a = 0
+c · b = 0
+Vector (cross) product  
+takes two vectors and returns a vector perpendicular to both
+
+===== PAGE 96 =====
+If these three vectors are coplanar                  then
+o
+o0
+t
+x
+X
+x0
+x, t, x0
+(x −t)>(t ⇥x) = ?
+
+===== PAGE 97 =====
+If these three vectors are coplanar                  then
+o
+o0
+t
+x
+X
+x0
+x, t, x0
+(x −t)>(t ⇥x) = 0
+
+===== PAGE 98 =====
+putting it together
+(x −t)>(t ⇥x) = 0
+coplanarity
+x0 = R(x −t)
+rigid motion
+(x0>R)(t ⇥x) = 0
+
+===== PAGE 99 =====
+putting it together
+(x −t)>(t ⇥x) = 0
+coplanarity
+x0 = R(x −t)
+rigid motion
+(x0>R)(t ⇥x) = 0
+(x0>R)([t⇥]x) = 0
+
+===== PAGE 100 =====
+a ⇥b =
+2
+4
+a2b3 −a3b2
+a3b1 −a1b3
+a1b2 −a2b1
+3
+5
+a ⇥b = [a]⇥b =
+2
+4
+0
+−a3
+a2
+a3
+0
+−a1
+−a2
+a1
+0
+3
+5
+2
+4
+b1
+b2
+b3
+3
+5
+Can also be written as a matrix multiplication
+Cross product
+Skew symmetric
+
+===== PAGE 101 =====
+putting it together
+(x −t)>(t ⇥x) = 0
+coplanarity
+x0 = R(x −t)
+rigid motion
+(x0>R)(t ⇥x) = 0
+(x0>R)([t⇥]x) = 0
+x0>(R[t⇥])x = 0
+
+===== PAGE 102 =====
+putting it together
+(x −t)>(t ⇥x) = 0
+coplanarity
+x0 = R(x −t)
+rigid motion
+(x0>R)(t ⇥x) = 0
+(x0>R)([t⇥]x) = 0
+x0>(R[t⇥])x = 0
+x0>Ex = 0
+
+===== PAGE 103 =====
+putting it together
+(x −t)>(t ⇥x) = 0
+coplanarity
+x0 = R(x −t)
+rigid motion
+(x0>R)(t ⇥x) = 0
+(x0>R)([t⇥]x) = 0
+x0>(R[t⇥])x = 0
+x0>Ex = 0
+Essential Matrix
+[Longuet-Higgins 1981]
+
+===== PAGE 104 =====
+properties of the E matrix
+x0>Ex = 0
+Longuet-Higgins equation
+(points in normalized coordinates)
+
+===== PAGE 105 =====
+properties of the E matrix
+x0>Ex = 0
+x>l = 0
+x0>l0 = 0
+l0 = Ex
+l = ET x0
+Epipolar lines
+Longuet-Higgins equation
+(points in normalized coordinates)
+
+===== PAGE 106 =====
+properties of the E matrix
+x0>Ex = 0
+x>l = 0
+x0>l0 = 0
+l0 = Ex
+l = ET x0
+Epipolar lines
+Longuet-Higgins equation
+Epipoles
+Ee = 0
+e0>E = 0
+(points in normalized camera coordinates)
+
+===== PAGE 107 =====
+How do you generalize to 
+uncalibrated cameras?
+
+===== PAGE 108 =====
+F
+Fundamental Matrix
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 109 =====
+p
+Recall:Epipolar constraint
+e
+e0
+l
+l0
+o
+o0
+Potential matches for
+lie on the epipolar line
+x
+x
+l0
+x0
+
+===== PAGE 110 =====
+Given a point in one image,  
+multiplying by the essential matrix will tell us  
+the epipolar line in the second view.
+Ex = l0
+e
+e0
+l0
+o
+o0
+x
+X
+x0
+Assumption: 
+points aligned to camera coordinate axis (calibrated camera)
+
+===== PAGE 111 =====
+How do you generalize to 
+uncalibrated cameras?
+
+===== PAGE 112 =====
+The  
+Fundamental matrix 
+is a  
+generalization  
+of the  
+Essential matrix, 
+where the assumption of  
+calibrated cameras 
+is removed
+
+===== PAGE 113 =====
+ˆx0>Eˆx = 0
+The Essential matrix operates on image points expressed in  
+normalized coordinates  
+(points have been aligned (normalized) to camera coordinates)
+ˆx0 = K−1x0
+ˆx = K−1x
+image 
+point
+camera 
+point
+
+===== PAGE 114 =====
+ˆx0>Eˆx = 0
+The Essential matrix operates on image points expressed in  
+normalized coordinates  
+(points have been aligned (normalized) to camera coordinates)
+ˆx0 = K−1x0
+Writing out the epipolar constraint in terms of image coordinates
+x0>K0−>EK−1x = 0
+x0>(K0−>EK−1)x = 0
+x0>Fx = 0
+ˆx = K−1x
+image 
+point
+camera 
+point
+
+===== PAGE 115 =====
+x0>Fx = 0
+Same equation works in image coordinates!
+it maps pixels to epipolar lines
+
+===== PAGE 116 =====
+properties of the E matrix
+x0>Ex = 0
+x>l = 0
+x0>l0 = 0
+l0 = Ex
+l = ET x0
+Epipolar lines
+Longuet-Higgins equation
+Epipoles
+Ee = 0
+e0>E = 0
+(points in image coordinates)
+(
+(
+(
+(
+(
+(
+
+===== PAGE 117 =====
+F = K0−>EK−1
+F = K0−>[t⇥]RK−1
+Depends on both intrinsic and extrinsic parameters
+Breaking down the fundamental matrix
+
+===== PAGE 118 =====
+F = K0−>EK−1
+F = K0−>[t⇥]RK−1
+Depends on both intrinsic and extrinsic parameters
+Breaking down the fundamental matrix
+How would you solve for F?
+x0>
+m Fxm = 0
+The 8 Point Algorithm…
+
+===== PAGE 119 =====
+The 8-point algorithm
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 120 =====
+Given a set of matched image points
+Estimate the Fundamental Matrix
+Fundamental Matrix Estimation
+{xi, x0
+i}
+F
+What’s the relationship between F and x?
+
+===== PAGE 121 =====
+Assume you have M point correspondences
+Each correspondence should satisfy
+x0>
+m Fxm = 0
+m = 1, . . . , M
+How would you solve for the 3 x 3 F matrix?
+{xm, x0
+m}
+
+===== PAGE 122 =====
+Assume you have M point correspondences
+Each correspondence should satisfy
+x0>
+m Fxm = 0
+m = 1, . . . , M
+How would you solve for the 3 x 3 F matrix?
+{xm, x0
+m}
+S    V    D
+
+===== PAGE 123 =====
+Assume you have M point correspondences
+Each correspondence should satisfy
+x0>
+m Fxm = 0
+m = 1, . . . , M
+How would you solve for the 3 x 3 F matrix?
+{xm, x0
+m}
+S    V    D
+
+===== PAGE 124 =====
+Assume you have M point correspondences
+Each correspondence should satisfy
+x0>
+m Fxm = 0
+m = 1, . . . , M
+How would you solve for the 3 x 3 F matrix?
+{xm, x0
+m}
+S    V    D
+
+===== PAGE 125 =====
+Assume you have M point correspondences
+Each correspondence should satisfy
+x0>
+m Fxm = 0
+m = 1, . . . , M
+How would you solve for the 3 x 3 F matrix?
+{xm, x0
+m}
+Set up a homogeneous linear system with 9 unknowns
+
+===== PAGE 126 =====
+x0>
+m Fxm = 0
+⇥x0
+m
+y0
+m
+1 ⇤
+2
+4
+f1
+f2
+f3
+f4
+f5
+f6
+f7
+f8
+f9
+3
+5
+2
+4
+xm
+ym
+1
+3
+5 = 0
+How many equation do you get from one correspondence?
+
+===== PAGE 127 =====
+xmx0
+mf1 + xmy0
+mf2 + xmf3+
+ymx0
+mf4 + ymy0
+mf5 + ymf6+
+x0
+mf7 + y0
+mf8 + f9 = 0
+⇥x0
+m
+y0
+m
+1 ⇤
+2
+4
+f1
+f2
+f3
+f4
+f5
+f6
+f7
+f8
+f9
+3
+5
+2
+4
+xm
+ym
+1
+3
+5 = 0
+ONE correspondence gives you ONE equation
+
+===== PAGE 128 =====
+⇥x0
+m
+y0
+m
+1 ⇤
+2
+4
+f1
+f2
+f3
+f4
+f5
+f6
+f7
+f8
+f9
+3
+5
+2
+4
+xm
+ym
+1
+3
+5 = 0
+2
+64
+x1x0
+1
+x1y0
+1
+x1
+y1x0
+1
+y1y0
+1
+y1
+x0
+1
+y0
+1
+1
+...
+...
+...
+...
+...
+...
+...
+...
+...
+xMx0
+M
+xMy0
+M
+xM
+yMx0
+M
+yMy0
+M
+yM
+x0
+M
+y0
+M
+1
+3
+75
+2
+6666666666664
+f1
+f2
+f3
+f4
+f5
+f6
+f7
+f8
+f9
+3
+7777777777775
+= 0
+Set up a homogeneous linear system with 9 unknowns 
+How many equations do you need?
+
+===== PAGE 129 =====
+Each point pair (according to epipolar constraint)  
+contributes only one scalar equation
+x0>
+m Fxm = 0
+Note: This is different from the Homography estimation 
+where each point pair contributes 2 equations.
+
+===== PAGE 130 =====
+Each point pair (according to epipolar constraint)  
+contributes only one scalar equation
+x0>
+m Fxm = 0
+Note: This is different from the Homography estimation 
+where each point pair contributes 2 equations.
+We need at least 8 points
+Hence, the 8 point algorithm!
+
+===== PAGE 131 =====
+How do you solve a homogeneous linear system?
+AX = 0
+
+===== PAGE 132 =====
+How do you solve a homogeneous linear system?
+minimize
+subject to
+kAxk2
+kxk2 = 1
+AX = 0
+Total Least Squares
+
+===== PAGE 133 =====
+How do you solve a homogeneous linear system?
+minimize
+subject to
+kAxk2
+kxk2 = 1
+AX = 0
+Total Least Squares
+SVD!
+
+===== PAGE 134 =====
+How do you solve a homogeneous linear system?
+minimize
+subject to
+kAxk2
+kxk2 = 1
+AX = 0
+Total Least Squares
+SVD!
+
+===== PAGE 135 =====
+How do you solve a homogeneous linear system?
+minimize
+subject to
+kAxk2
+kxk2 = 1
+AX = 0
+Total Least Squares
+SVD!
+
+===== PAGE 136 =====
+Eight-Point Algorithm
+0. (Normalize points) 
+1. Construct the M x 9 matrix A 
+2. Find the SVD of ATA 
+3. Entries of F are the elements of column of 
+V corresponding to the least singular value 
+4. (Enforce rank 2 constraint on F) 
+5. (Un-normalize F)
+
+===== PAGE 137 =====
+Example
+
+===== PAGE 138 =====
+epipolar lines
+
+===== PAGE 139 =====
+x =
+2
+4
+343.53
+221.70
+1.0
+3
+5
+F =
+2
+4
+−0.00310695
+−0.0025646
+2.96584
+−0.028094
+−0.00771621
+56.3813
+13.1905
+−29.2007
+−9999.79
+3
+5
+l0 = Fx
+=
+2
+4
+0.0295
+0.9996
+−265.1531
+3
+5
+
+===== PAGE 140 =====
+l0 = Fx
+=
+2
+4
+0.0295
+0.9996
+−265.1531
+3
+5
+
+===== PAGE 141 =====
+Where is the epipole?
+How would you compute it?
+
+===== PAGE 142 =====
+Fe = 0
+The epipole is in the right null space of F
+How would you solve for the epipole?
+(hint: this is a homogeneous linear system)
+
+===== PAGE 143 =====
+Fe = 0
+The epipole is in the right null space of F
+How would you solve for the epipole?
+(hint: this is a homogeneous linear system)
+SVD!
+
+===== PAGE 144 =====
+Fe = 0
+The epipole is in the right null space of F
+How would you solve for the epipole?
+(hint: this is a homogeneous linear system)
+SVD!
+
+===== PAGE 145 =====
+Fe = 0
+The epipole is in the right null space of F
+How would you solve for the epipole?
+(hint: this is a homogeneous linear system)
+SVD!
+
+===== PAGE 146 =====
+>> [u,d] = eigs(F’ * F)
+u =
+    -0.0013    0.2586   -0.9660 
+     0.0029   -0.9660   -0.2586
+     1.0000    0.0032   -0.0005
+d = 1.0e8*
+   -1.0000         0         0
+         0   -0.0000         0
+         0         0   -0.0000
+eigenvalue
+eigenvectors
+
+===== PAGE 147 =====
+>> [u,d] = eigs(F’ * F)
+u =
+    -0.0013    0.2586   -0.9660 
+     0.0029   -0.9660   -0.2586
+     1.0000    0.0032   -0.0005
+d = 1.0e8*
+   -1.0000         0         0
+         0   -0.0000         0
+         0         0   -0.0000
+eigenvalue
+eigenvectors
+
+===== PAGE 148 =====
+>> [u,d] = eigs(F’ * F)
+u =
+    -0.0013    0.2586   -0.9660 
+     0.0029   -0.9660   -0.2586
+     1.0000    0.0032   -0.0005
+d = 1.0e8*
+   -1.0000         0         0
+         0   -0.0000         0
+         0         0   -0.0000
+>> uu = u(:,3)
+(  -0.9660    -0.2586    -0.0005)
+Eigenvector associated with 
+smallest eigenvalue
+eigenvalue
+eigenvectors
+
+===== PAGE 149 =====
+>> [u,d] = eigs(F’ * F)
+u =
+    -0.0013    0.2586   -0.9660 
+     0.0029   -0.9660   -0.2586
+     1.0000    0.0032   -0.0005
+d = 1.0e8*
+   -1.0000         0         0
+         0   -0.0000         0
+         0         0   -0.0000
+>> uu = u(:,3)
+(  -0.9660    -0.2586    -0.0005)
+>> uu / uu(3)
+(1861.02     498.21    1.0)
+Eigenvector associated with 
+smallest eigenvalue
+Epipole projected to image 
+coordinates
+eigenvalue
+eigenvectors
+
+===== PAGE 150 =====
+>> uu / uu(3)
+(1861.02     498.21    1.0)
+Epipole projected to image 
+coordinates
+this is where the 
+other picture is 
+being taken
+
+===== PAGE 151 =====
+
+
+===== PAGE 152 =====
+Reconstruction
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 153 =====
+Structure
+(scene geometry)
+Motion
+ (camera geometry)
+Measurements
+Pose Estimation
+known
+estimate
+3D to 2D 
+correspondences
+Triangulation
+estimate
+known
+2D to 2D 
+coorespondences
+Reconstruction
+estimate
+estimate
+2D to 2D 
+coorespondences
+
+===== PAGE 154 =====
+Given a set of matched points
+{xi, x0
+i}
+Estimate the camera matrices
+Estimate the 3D point 
+P, P0
+X
+Reconstruction
+(2 view structure from motion)
+
+===== PAGE 155 =====
+Given a set of matched points
+{xi, x0
+i}
+Estimate the camera matrices
+Estimate the 3D point 
+P, P0
+X
+Reconstruction
+(2 view structure from motion)
+‘structure’
+‘motion’ 
+(of the cameras)
+
+===== PAGE 156 =====
+Procedure for Reconstruction
+1. Compute the Fundamental Matrix F from points 
+correspondences 
+8-point algorithm
+x0>
+m Fxm = 0
+
+===== PAGE 157 =====
+Procedure for Reconstruction
+1. Compute the Fundamental Matrix F from points 
+correspondences 
+8-point algorithm
+2. Compute the camera matrices P from the Fundamental 
+matrix 
+P = [ I | 0 ]  and  P’ = [ [e’x]F | e’ ]
+
+===== PAGE 158 =====
+Camera matrices corresponding to the 
+fundamental matrix F may be chosen as
+P = [I|0]
+P0 = [[e⇥]F|e0]
+(See Hartley and Zisserman C.9 for proof)
+
+===== PAGE 159 =====
+Decomposing F into R and T
+If we have calibrated cameras we have          and
+K
+K0
+E = K0>FK
+Essential matrix:
+
+===== PAGE 160 =====
+Decomposing F into R and T
+If we have calibrated cameras we have          and
+K
+K0
+E = K0>FK
+Essential matrix:
+E = U⌃V>
+SVD:
+Let W =
+2
+4
+0
+−1
+0
+1
+0
+0
+0
+0
+1
+3
+5
+
+===== PAGE 161 =====
+Decomposing F into R and T
+If we have calibrated cameras we have          and
+K
+K0
+E = K0>FK
+Essential matrix:
+E = U⌃V>
+SVD:
+Let W =
+2
+4
+0
+−1
+0
+1
+0
+0
+0
+0
+1
+3
+5
+We get FOUR solutions:
+R1 = UWV>
+T1 = U3
+E = [R|T]
+R2 = UW>V>
+T2 = −U3
+two possible rotations
+two possible translations
+
+===== PAGE 162 =====
+We get FOUR solutions:
+R1 = UWV>
+T1 = U3
+R2 = UW>V>
+T2 = −U3
+R1 = UWV>
+R2 = UW>V>
+T1 = U3
+T2 = −U3
+Compute determinant of R, valid solution must be equal to 1 
+(note: det(R) = -1 means rotation and reﬂection)
+Compute 3D point using triangulation, valid solution has positive Z value 
+(Note: negative Z means point is behind the camera )
+Which one do we choose?
+
+===== PAGE 163 =====
+camera center
+image plane
+optical axis
+Camera Icon
+Find the conﬁguration where the points is in front of both cameras
+Let’s visualize the four conﬁgurations…
+
+===== PAGE 164 =====
+Find the conﬁguration where the points is in front of both cameras
+
+===== PAGE 165 =====
+Find the conﬁguration where the points is in front of both cameras
+
+===== PAGE 166 =====
+1. Normalize the image points x,x’ using K,K’ 
+2. Use the 8-point algorithm to find an 
+approximation of E (SVD!) 
+3. Project E to essential space (SVD!!) 
+(set smallest SV to zero) 
+4. Recover possible solutions for R and T 
+(SVD!!!) 
+5. Use point correspondence to find the 
+correct R,T pair (don’t use SVD…)
+From points correspondences to camera displacement
+
+===== PAGE 167 =====
+Procedure for Reconstruction
+1. Compute the Fundamental Matrix F from points 
+correspondences 
+8-point algorithm
+2. Compute the camera matrices P from the Fundamental 
+matrix 
+P = [ I | 0 ]  and  P’ = [ [e’x]F | e’ ]
+3. For each point correspondence, compute the point X 
+in 3D space (triangularization) 
+DLT with x = P X and x’ = P’ X
+
+===== PAGE 168 =====
+Projective Ambiguity
+• Reconstruction is ambiguous by an arbitrary 3D 
+projective transformation without prior knowledge 
+of camera parameters
+
+===== PAGE 169 =====
+Similarity
+Projective
+Calibrated cameras
+(similarity projection ambiguity)
+Uncalibrated cameras
+(projective projection ambiguity)
+
+===== PAGE 170 =====
+Structure
+(scene geometry)
+Motion
+ (camera geometry)
+Measurements
+Pose Estimation
+known
+estimate
+3D to 2D 
+correspondences
+Triangulation
+estimate
+known
+2D to 2D 
+coorespondences
+Reconstruction
+estimate
+estimate
+2D to 2D 
+coorespondences
+
+===== PAGE 171 =====
+Stereo Vision
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 172 =====
+What’s different between these two images?
+
+===== PAGE 173 =====
+
+
+===== PAGE 174 =====
+
+
+===== PAGE 175 =====
+Objects that are close move more or less?
+
+===== PAGE 176 =====
+The amount of horizontal movement is 
+inversely proportional to …
+
+===== PAGE 177 =====
+The amount of horizontal movement is 
+inversely proportional to …
+… the distance from the camera.
+
+===== PAGE 178 =====
+X
+O
+O0
+image plane
+
+===== PAGE 179 =====
+X
+O
+O0
+f
+f
+x
+x0
+image plane
+
+===== PAGE 180 =====
+X
+O
+O0
+f
+f
+x
+x0
+Z
+
+===== PAGE 181 =====
+X
+O
+O0
+(baseline)
+b
+f
+f
+x
+x0
+Z
+
+===== PAGE 182 =====
+X
+O
+O0
+(baseline)
+b
+f
+f
+x
+x0
+X
+Z = x
+f
+Z
+
+===== PAGE 183 =====
+X
+O
+O0
+(baseline)
+b
+f
+f
+x
+x0
+X
+Z = x
+f
+Z
+b −X
+Z
+= x0
+f
+
+===== PAGE 184 =====
+X
+O
+O0
+(baseline)
+b
+f
+f
+x
+x0
+X
+Z = x
+f
+Z
+d = x −x0
+= bf
+Z
+Disparity
+b −X
+Z
+= x0
+f
+
+===== PAGE 185 =====
+X
+O
+O0
+(baseline)
+b
+f
+f
+x
+x0
+X
+Z = x
+f
+Z
+d = x −x0
+= bf
+Z
+Disparity
+inversely proportional 
+to depth
+b −X
+Z
+= x0
+f
+
+===== PAGE 186 =====
+Nomad robot searches for meteorites in Antartica 
+http://www.frc.ri.cmu.edu/projects/meteorobot/index.html
+Real-time stereo sensing
+
+===== PAGE 187 =====
+
+
+===== PAGE 188 =====
+Subaru 
+Eyesight system
+Pre-collision 
+braking
+
+===== PAGE 189 =====
+
+
+===== PAGE 190 =====
+How so you compute depth 
+from a stereo pair?
+
+===== PAGE 191 =====
+1. Rectify images  
+(make epipolar lines horizontal) 
+2. For each pixel 
+a. Find epipolar line 
+b. Scan line for best match 
+c. Compute depth from disparity
+Z = bf
+d
+
+===== PAGE 192 =====
+How can you make the epipolar lines horizontal?
+
+===== PAGE 193 =====
+It’s hard to make the image planes exactly parallel
+
+===== PAGE 194 =====
+How can you make the epipolar lines horizontal?
+
+===== PAGE 195 =====
+t
+x
+x’
+How can you make the epipolar lines horizontal?
+R = I 
+    t = (T, 0, 0)
+When this relationship holds:
+
+===== PAGE 196 =====
+t
+x
+x’
+How can you make the epipolar lines horizontal?
+R = I 
+    t = (T, 0, 0)
+!
+!
+!
+"
+#
+$
+$
+$
+%
+&
+−
+=
+×
+=
+0
+0
+0
+0
+0
+0
+0
+T
+T
+R
+t
+E
+x
+E
+xT
+=
+"
+0
+Let’s try this out…
+This always has to hold
+When this relationship holds:
+
+===== PAGE 197 =====
+t
+x
+x’
+How can you make the epipolar lines horizontal?
+R = I 
+    t = (T, 0, 0)
+!
+!
+!
+"
+#
+$
+$
+$
+%
+&
+−
+=
+×
+=
+0
+0
+0
+0
+0
+0
+0
+T
+T
+R
+t
+E
+(
+)
+(
+)
+v
+T
+T
+v
+u
+v
+u
+T
+T
+v
+u
+=
+"
+"
+"
+#
+$
+%
+%
+%
+&
+'
+!
+−
+=
+"
+"
+"
+#
+$
+%
+%
+%
+&
+'
+!
+!
+)
+)
+)
+*
++
+,
+,
+,
+-
+.
+−
+0
+0
+1
+0
+1
+0
+0
+0
+0
+0
+0
+0
+1
+x
+E
+xT
+=
+"
+0
+Write out the constraint
+Let’s try this out…
+This always has to hold
+When this relationship holds:
+
+===== PAGE 198 =====
+t
+x
+x’
+How can you make the epipolar lines horizontal?
+R = I 
+    t = (T, 0, 0)
+!
+!
+!
+"
+#
+$
+$
+$
+%
+&
+−
+=
+×
+=
+0
+0
+0
+0
+0
+0
+0
+T
+T
+R
+t
+E
+(
+)
+(
+)
+v
+T
+Tv
+v
+T
+T
+v
+u
+v
+u
+T
+T
+v
+u
+!
+=
+=
+"
+"
+"
+#
+$
+%
+%
+%
+&
+'
+!
+−
+=
+"
+"
+"
+#
+$
+%
+%
+%
+&
+'
+!
+!
+)
+)
+)
+*
++
+,
+,
+,
+-
+.
+−
+0
+0
+1
+0
+1
+0
+0
+0
+0
+0
+0
+0
+1
+x
+E
+xT
+=
+"
+0
+y coordinate is 
+always the same!
+Write out the constraint
+Let’s try this out…
+This always has to hold
+The image of a 3D point will 
+always be on the same 
+horizontal line
+When this relationship holds:
+
+===== PAGE 199 =====
+What is stereo rectiﬁcation?
+
+===== PAGE 200 =====
+What is stereo rectiﬁcation?
+
+===== PAGE 201 =====
+What is stereo rectiﬁcation?
+Reproject image 
+planes onto a 
+common plane 
+parallel to the line 
+between camera 
+centers
+
+===== PAGE 202 =====
+What is stereo rectiﬁcation?
+Reproject image 
+planes onto a 
+common plane 
+parallel to the line 
+between camera 
+centers
+Need two 
+homographies (3x3 
+transform), one for 
+each input image 
+reprojection
+C. Loop and Z. Zhang. Computing Rectifying Homographies for Stereo Vision.Computer Vision and Pattern Recognition, 1999.
+
+===== PAGE 203 =====
+Stereo Rectiﬁcation
+1. Rotate the right camera by R  
+(aligns camera coordinate system orientation 
+only) 
+2. Rotate (rectify) the left camera so that the epipole 
+is at inﬁnity 
+3. Rotate (rectify) the right camera so that the 
+epipole is at inﬁnity 
+4. Adjust the scale
+
+===== PAGE 204 =====
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 205 =====
+rotate by R
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 206 =====
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 207 =====
+rotate by Rrect
+rotate by Rrect
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 208 =====
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 209 =====
+scale by H
+scale by H
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 210 =====
+1.
+Compute E to get R  
+2.
+Rotate right image by R
+3.
+Rotate both images by Rrect  
+4.
+Scale both images by H
+Stereo Rectiﬁcation:
+
+===== PAGE 211 =====
+What can we do after 
+rectiﬁcation?
+
+===== PAGE 212 =====
+Setting the epipole to inﬁnity 
+(Building Rrect from e)
+Let 
+r1 = e1 =
+T
+||T||
+Rrect =
+2
+4
+r>
+1
+r>
+2
+r>
+3
+3
+5
+r2 =
+1
+q
+T 2x + T 2y
+⇥−Ty
+Tx
+0 ⇤
+r3 = r1 ⇥r2
+epipole coincides with translation vector
+cross product of e and 
+the direction vector of 
+the optical axis
+orthogonal vector
+Given: 
+epipole e 
+(using SVD on E) 
+(translation from E)
+
+===== PAGE 213 =====
+Rrecte1 =
+2
+4
+r>
+1 e1
+r>
+2 e1
+r>
+3 e1
+3
+5 =
+2
+4
+?
+?
+?
+3
+5
+r1 = e1 =
+T
+||T||
+If
+and 
+r2
+r3
+orthogonal 
+then
+
+===== PAGE 214 =====
+Rrecte1 =
+2
+4
+r>
+1 e1
+r>
+2 e1
+r>
+3 e1
+3
+5 =
+2
+4
+1
+0
+0
+3
+5
+r1 = e1 =
+T
+||T||
+If
+and 
+r2
+r3
+orthogonal 
+then 
+Where is this point located on the image plane?
+
+===== PAGE 215 =====
+Rrecte1 =
+2
+4
+r>
+1 e1
+r>
+2 e1
+r>
+3 e1
+3
+5 =
+2
+4
+1
+0
+0
+3
+5
+r1 = e1 =
+T
+||T||
+If
+and 
+r2
+r3
+orthogonal 
+then 
+Where is this point located on the image plane?
+At x-inﬁnity
+
+===== PAGE 216 =====
+Stereo Rectification Algorithm
+1. Estimate E using the 8 point algorithm (SVD)
+2. Estimate the epipole e (SVD of E)
+3. Build Rrect from e
+4. Decompose E into R and T
+5. Set R1=Rrect and R2 = RRrect
+6. Rotate each left camera point (warp image)  
+[x’ y’ z’] = R1 [x y z]
+7. Rectified points as p = f/z’[x’ y’ z’]
+8. Repeat 6 and 7 for right camera points using R2
+
+===== PAGE 217 =====
+Stereo Rectification Algorithm
+1. Estimate E using the 8 point algorithm
+2. Estimate the epipole e (solve Ee=0)
+3. Build Rrect from e
+4. Decompose E into R and T
+5. Set R1=Rrect and R2 = RRrect
+6. Rotate each left camera point x’~ Hx where H = KR1 
+*You may need to alter the focal length (inside K) to keep points within the 
+original image size 
+7. Repeat 6 and 7 for right camera points using R2
+
+===== PAGE 218 =====
+Unrectified
+
+===== PAGE 219 =====
+Unrectified
+Rectified
+
+===== PAGE 220 =====
+Unrectified
+Rectified
+
+===== PAGE 221 =====
+Stereo Matching
+16-385 Computer Vision (Kris Kitani) 
+Carnegie Mellon University
+
+===== PAGE 222 =====
+Recall: Stereo Rectiﬁcation
+Reproject image 
+planes onto a 
+common plane 
+parallel to the line 
+between camera 
+centers
+What is stereo rectiﬁcation?
+
+===== PAGE 223 =====
+What can we do after 
+rectiﬁcation?
+
+===== PAGE 224 =====
+Depth Estimation via  Stereo Matching
+
+===== PAGE 225 =====
+
+
+===== PAGE 226 =====
+1. Rectify images  
+(make epipolar lines horizontal) 
+2. For each pixel 
+a. Find epipolar line 
+b. Scan line for best match 
+c. Compute depth from disparity
+Z = bf
+d
+
+===== PAGE 227 =====
+Stereo Block Matching
+Matching cost
+disparity
+Left
+Right
+scanline
+• Slide a window along the epipolar line and compare contents of 
+that window with the reference window in the left image 
+• Matching cost: SSD or normalized correlation
+
+===== PAGE 228 =====
+SSD
+
+===== PAGE 229 =====
+Normalized cross-correlation
+
+===== PAGE 230 =====
+Similarity Measure
+Formula
+Sum of Absolute Differences (SAD)
+Sum of Squared Differences (SSD)
+Zero-mean SAD
+Locally scaled SAD
+Normalized Cross Correlation (NCC)
+SAD
+SSD
+NCC
+Ground truth
+
+===== PAGE 231 =====
+Effect of window size
+W = 3
+W = 20
+
+===== PAGE 232 =====
+Effect of window size
+W = 3
+W = 20
+Smaller window
++  More detail 
+-   More noise
+Larger window
++   Smoother disparity maps 
+-    Less detail 
+-    Fails near boundaries
+
+===== PAGE 233 =====
+When will stereo block matching fail?
+
+===== PAGE 234 =====
+When will stereo block matching fail?
+textureless regions
+repeated patterns
+specularities
+
+===== PAGE 235 =====
+Improving Stereo Block Matching
+
+===== PAGE 236 =====
+Block matching
+Ground truth
+What are some problems with the result?
+
+===== PAGE 237 =====
+How can we improve depth estimation?
+
+===== PAGE 238 =====
+How can we improve depth estimation?
+Too many discontinuities. 
+We expect disparity values to change slowly. 
+Let’s make an assumption:  
+depth should change smoothly
+
+===== PAGE 239 =====
+Stereo matching as … 
+ Energy Minimization
+What defines a good stereo correspondence? 
+1.
+Match quality
+–
+Want each pixel to find a good match in the other image 
+2.
+Smoothness
+–
+If two pixels are adjacent, they should (usually) move about the same amount
+
+===== PAGE 240 =====
+{
+{
+data term
+smoothness term
+energy function 
+(for one pixel)
+
+===== PAGE 241 =====
+{
+{
+(block matching result)
+(smoothness function)
+Want each pixel to find a good 
+match in the other image
+Adjacent pixels should (usually) 
+move about the same amount
+data term
+smoothness term
+energy function 
+(for one pixel)
+
+===== PAGE 242 =====
+SSD distance between windows 
+centered at I(x, y) and J(x+ d(x,y), y)
+data term
+
+===== PAGE 243 =====
+4-­‐connected	  
+neighborhood
+8-­‐connected	  
+neighborhood
+: set of neighboring pixels
+SSD distance between windows 
+centered at I(x, y) and J(x+ d(x,y), y)
+smoothness term
+
+===== PAGE 244 =====
+“Potts model”
+L1 distance
+smoothness term
+
+===== PAGE 245 =====
+Dynamic Programming
+Can minimize this independently per scanline 
+using dynamic programming (DP)
+: minimum cost of solution such that d(x,y) = d
+
+===== PAGE 246 =====
+Match only
+Match & smoothness (via graph cut)
+Ground Truth
+Y. Boykov, O. Veksler, and R. Zabih, Fast Approximate Energy Minimization via Graph Cuts,  PAMI 2001

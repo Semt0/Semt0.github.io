@@ -1,5 +1,5 @@
 ---
-title: CVDL 期中复习笔记
+title: CVDL Mid-term Review
 date: 2026-04-23
 ---
 
