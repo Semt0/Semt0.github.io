@@ -13,6 +13,125 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-05-29</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/网络流/">网络流算法——最大流、最小割与最小费用流</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="数理方程/特殊函数/">第三章 特殊函数</a>
+      <span class="timeline-category">数理方程</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="数理方程/数学物理中的偏微分方程/">第一章 数学物理中的偏微分方程</a>
+      <span class="timeline-category">数理方程</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="数理方程/分离变量法/">第二章 分离变量法</a>
+      <span class="timeline-category">数理方程</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="计算方法/非线性方程及非线性方程组的解法/">非线性方程及非线性方程组的解法</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="计算方法/数值微分与数值积分/">数值微分与数值积分</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="计算方法/函数逼近/">函数逼近</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-23</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/Efficient LLM Inference/">Efficient LLM Inference</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-23</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/Chain of Thought/">Chain of Thought</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-23</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/Data Preparation for LLM Pre-training/">Data Preparation for LLM Pre-training</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-23</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/Parameter-Efficient Fine-Tuning/">Parameter-Efficient Fine-Tuning</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-22</div>
+    <div class="timeline-content">
+      <a href="CVDL/GenerativeModels/">Generative Models</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-22</div>
+    <div class="timeline-content">
+      <a href="CVDL/Tracking/">Tracking</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-22</div>
+    <div class="timeline-content">
+      <a href="CVDL/3DVision/">3D Vision</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-22</div>
+    <div class="timeline-content">
+      <a href="CVDL/rnn&tranformer/">Recurrent Networks and Transformers</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-20</div>
+    <div class="timeline-content">
+      <a href="复变函数/傅里叶变换/">第七章 傅里叶变换</a>
+      <span class="timeline-category">复变函数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-19</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/OpenMP编程模型与并行调度/">OpenMP 编程模型与并行调度</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-05-04</div>
     <div class="timeline-content">
       <a href="并行程序设计/MPI集合通讯/">MPI 集合通讯</a>
@@ -29,22 +148,15 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-04-23</div>
     <div class="timeline-content">
-      <a href="CVDL/CVDL_Review/">CVDL 期中复习笔记</a>
+      <a href="CVDL/CVDL_Review/">CVDL Mid-term Review</a>
       <span class="timeline-category">CVDL</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-04-17</div>
     <div class="timeline-content">
-      <a href="CVDL/PixelComputing/">Pixel Computing - I</a>
+      <a href="CVDL/PixelComputing/">Pixel Computing</a>
       <span class="timeline-category">CVDL</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-04-14</div>
-    <div class="timeline-content">
-      <a href="Introduction to Foundation Models/FlashAttention/">FlashAttention</a>
-      <span class="timeline-category">Introduction to Foundation Models</span>
     </div>
   </div>
   <div class="timeline-item">
@@ -52,6 +164,13 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="计算方法/插值法/">插值法</a>
       <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-04-14</div>
+    <div class="timeline-content">
+      <a href="Introduction to Foundation Models/FlashAttention/">FlashAttention</a>
+      <span class="timeline-category">Introduction to Foundation Models</span>
     </div>
   </div>
   <div class="timeline-item">
@@ -106,14 +225,7 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
-      <a href="复变函数/保形变换/">第六章 保形变换</a>
-      <span class="timeline-category">复变函数</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-03-31</div>
-    <div class="timeline-content">
-      <a href="复变函数/留数/">第五章 留数</a>
+      <a href="复变函数/拉普拉斯变换/">第八章 拉普拉斯变换</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
@@ -127,14 +239,21 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
-      <a href="复变函数/拉普拉斯变换/">第七章 拉普拉斯变换</a>
+      <a href="复变函数/复数与平面点集/">第一章 复数与平面点集</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
-      <a href="复变函数/复数与平面点集/">第一章 复数与平面点集</a>
+      <a href="复变函数/保形变换/">第六章 保形变换</a>
+      <span class="timeline-category">复变函数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-03-31</div>
+    <div class="timeline-content">
+      <a href="复变函数/留数/">第五章 留数</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
@@ -176,14 +295,14 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-24</div>
     <div class="timeline-content">
-      <a href="Introduction to Foundation Models/Popular LLM Models/">Popular LLM Models</a>
+      <a href="Introduction to Foundation Models/Parameters, Computations, and Memories in Language Models/">Parameters, Computations, and Memories in Language Models</a>
       <span class="timeline-category">Introduction to Foundation Models</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-03-24</div>
     <div class="timeline-content">
-      <a href="Introduction to Foundation Models/Parameters, Computations, and Memories in Language Models/">Parameters, Computations, and Memories in Language Models</a>
+      <a href="Introduction to Foundation Models/Popular LLM Models/">Popular LLM Models</a>
       <span class="timeline-category">Introduction to Foundation Models</span>
     </div>
   </div>

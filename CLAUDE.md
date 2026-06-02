@@ -57,7 +57,8 @@ GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`ma
   - `update_home_recent.py` — 按笔记 frontmatter 的 `date` 更新主页 Recent 列表
   - `update_note_counts.py` — 扫描笔记目录，自动更新 note 首页的栏目卡片数量统计
   - `update_timeline.py` — 扫描 blog 和 note 目录，按日期排序更新时间线布局
-  - 另有 PDF 转图等脚本（PyMuPDF）
+  - `export_pdf_pages.py` — 通用 PDF 页面导出脚本（PyMuPDF，高分辨率导出到 `pictures/`）
+  - `compress_images.py` — 批量压缩笔记图片，控制单图体积
 - **Source PDFs** — 笔记对应的 PDF 源文件存放在 `/Users/semt0/Downloads` 目录下
 
 ## Key Patterns
@@ -271,39 +272,44 @@ if __name__ == '__main__':
 
 ### 3.1 PDF 页面导出清晰度（必须遵守）
 
-当需要从 PDF 课件/讲义中截取页面作为笔记插图时，统一使用 **PyMuPDF** 以高分辨率导出，默认倍率固定为：
+当需要从 PDF 课件/讲义中截取页面作为笔记插图时，统一使用仓库内的通用脚本 `scripts/export_pdf_pages.py`，默认高分辨率参数固定为：
 
 - `zoom = 6.0`
 - `alpha = False`
 
 导出的 PNG 必须写入当前笔记目录的 `pictures/` 下，优先覆盖同名文件以保持 Markdown 引用不变。
 
-```python
-from pathlib import Path
-
-import fitz
-
-repo_root = Path.cwd()
-pdf_path = repo_root / "docs" / "note" / "<subject>" / "slides" / "<file>.pdf"
-out_dir = repo_root / "docs" / "note" / "<subject>" / "pictures"
-out_dir.mkdir(parents=True, exist_ok=True)
-
-zoom = 6.0
-mat = fitz.Matrix(zoom, zoom)
-
-doc = fitz.open(pdf_path)
-page = doc[page_index]  # 0-based
-pix = page.get_pixmap(matrix=mat, alpha=False)
-pix.save(out_dir / "filename.png")
-doc.close()
+```bash
+uv run python scripts/export_pdf_pages.py \
+  "docs/note/<subject>/slides/<file>.pdf" \
+  "docs/note/<subject>/pictures" \
+  --page 3:figure_03.png \
+  --page 7:figure_07.png \
+  --page 12:figure_12.png \
+  --overwrite
 ```
 
-如果个别页面仍显得偏糊（例如原 PDF 本身是低分辨率位图），再将 `zoom` 提升到 `8.0`，其它参数保持不变。
+参数约定：
+
+- `--page <页码>:<文件名.png>` 可重复传入，默认按 **1-based** 页码解释
+- 如需传入 **0-based** 页码，追加 `--base 0`
+- 如果个别页面仍显得偏糊（例如原 PDF 本身是低分辨率位图），再将 `--zoom` 提升到 `8.0`
+- 覆盖已有图片时必须显式加 `--overwrite`
 
 ### 4. Run Script
 
 ```bash
 uv run python scripts/generate_<topic>_plots.py
+```
+
+或导出 PDF 页面：
+
+```bash
+uv run python scripts/export_pdf_pages.py \
+  "docs/note/<subject>/slides/<file>.pdf" \
+  "docs/note/<subject>/pictures" \
+  --page 3:figure_03.png \
+  --overwrite
 ```
 
 ### 5. Insert into Note

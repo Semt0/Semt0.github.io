@@ -12,14 +12,9 @@ nav = [
    {"主页" = "index.md"},
    {"博客" = [
        "blog/index.md",
-       "blog/RT-1精读笔记.md",
-       "blog/RT-2精读笔记.md",
-       "blog/openvla.md",
-       "blog/π0精读笔记.md",
-       "blog/DiffusionPolicy精读笔记.md",
-       "blog/Verilog学习.md",
        "blog/2026-03-19.md",
        "blog/cs231n_01.md",
+       "blog/音乐与数学期末复习.md",
    ]},
    {"笔记" = [
        "note/index.md",
@@ -31,6 +26,7 @@ nav = [
            "note/复变函数/解析函数的级数表示.md",
            "note/复变函数/留数.md",
            "note/复变函数/保形变换.md",
+           "note/复变函数/傅里叶变换.md",
            "note/复变函数/拉普拉斯变换.md",
        ]},
        {"常微分方程" = [
@@ -40,12 +36,21 @@ nav = [
            "note/ODE/04-一般理论.md",
            "note/ODE/05-定性理论初步.md",
        ]},
+       {"数理方程" = [
+           "note/数理方程/数学物理中的偏微分方程.md",
+           "note/数理方程/分离变量法.md",
+           "note/数理方程/特殊函数.md",
+       ]},
        {"CVDL" = [
            "note/CVDL/ml_intro/ML_intro.md",
            "note/CVDL/Recognition-1.md",
            "note/CVDL/Detection.md",
-           "note/CVDL/PixelComputing.md",
            "note/CVDL/CVDL_Review.md",
+           "note/CVDL/PixelComputing.md",
+           "note/CVDL/rnn&tranformer.md",
+           "note/CVDL/Tracking.md",
+           "note/CVDL/3DVision.md",
+           "note/CVDL/GenerativeModels.md",
        ]},
        {"Introduction to Foundation Models" = [
            "note/Introduction to Foundation Models/Gradient descent.md",
@@ -56,6 +61,10 @@ nav = [
            "note/Introduction to Foundation Models/Stochastic Gradient Descent.md",
            "note/Introduction to Foundation Models/Momentum and Adaptive SGD.md",
            "note/Introduction to Foundation Models/FlashAttention.md",
+           "note/Introduction to Foundation Models/Data Preparation for LLM Pre-training.md",
+           "note/Introduction to Foundation Models/Parameter-Efficient Fine-Tuning.md",
+           "note/Introduction to Foundation Models/Efficient LLM Inference.md",
+           "note/Introduction to Foundation Models/Chain of Thought.md",
        ]},
        {"CS231n" = [
            "note/cs231n/Image Classification with Linear Classifiers.md",
@@ -69,11 +78,15 @@ nav = [
            "note/计算方法/解线性方程组的迭代法.md",
            "note/计算方法/幂法和 Jacobi 算法.md",
            "note/计算方法/插值法.md",
+           "note/计算方法/函数逼近.md",
+           "note/计算方法/数值微分与数值积分.md",
+           "note/计算方法/非线性方程及非线性方程组的解法.md",
            "note/计算方法/QR分解和奇异值分解.md",
        ]},
        {"算法设计与分析" = [
            "note/算法设计与分析/动态规划.md",
            "note/算法设计与分析/线性规划.md",
+           "note/算法设计与分析/网络流.md",
        ]},
        {"AI硬件" = [
            "note/ai硬件/数字逻辑与计算单元设计.md",
@@ -86,6 +99,7 @@ nav = [
        {"并行程序设计" = [
            "note/并行程序设计/MPI点对点通讯.md",
            "note/并行程序设计/MPI集合通讯.md",
+           "note/并行程序设计/OpenMP编程模型与并行调度.md",
        ]},
        {"OJ复习" = [
            "note/OJ复习/基础数据结构.md",
