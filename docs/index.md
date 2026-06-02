@@ -27,6 +27,20 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/计算方法/常微分方程初值问题的数值解法（二）/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">常微分方程初值问题的数值解法（二）——Runge-Kutta 方法与线性多步法</h3>
+              <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-06-09</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/计算方法/常微分方程初值问题的数值解法（一）/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">常微分方程初值问题的数值解法（一）——Euler 方法与常见单步法</h3>
+              <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-06-05</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/算法设计与分析/网络流/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">网络流算法——最大流、最小割与最小费用流</h3>
@@ -34,31 +48,17 @@ icon: lucide/home
               <span class="resume-card-date">2026-05-29</span>
             </div>
           </a>
-          <a class="resume-card" href="note/数理方程/特殊函数/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">第三章 特殊函数</h3>
-              <p class="resume-card-sub">数理方程</p>
-              <span class="resume-card-date">2026-05-26</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/数理方程/数学物理中的偏微分方程/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">第一章 数学物理中的偏微分方程</h3>
-              <p class="resume-card-sub">数理方程</p>
-              <span class="resume-card-date">2026-05-26</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/数理方程/分离变量法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">第二章 分离变量法</h3>
-              <p class="resume-card-sub">数理方程</p>
-              <span class="resume-card-date">2026-05-26</span>
-            </div>
-          </a>
           <a class="resume-card" href="note/计算方法/非线性方程及非线性方程组的解法/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">非线性方程及非线性方程组的解法</h3>
               <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-05-26</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/数理方程/特殊函数/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">第三章 特殊函数</h3>
+              <p class="resume-card-sub">数理方程</p>
               <span class="resume-card-date">2026-05-26</span>
             </div>
           </a>
