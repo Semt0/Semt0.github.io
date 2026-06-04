@@ -43,12 +43,12 @@ comments: false
 
   <div class="friend-card">
     <div class="friend-avatar">
-      <img src="https://github.com/zhangpl24.png" alt="zhangpl24" loading="lazy" />
+      <img src="https://github.com/segemipl.png" alt="segemipl" loading="lazy" />
     </div>
     <div class="friend-card-content">
       <div class="friend-card-title">
-        <a href="https://zhangpl24.github.io" target="_blank" rel="noopener noreferrer">
-          无心快语的博客
+        <a href="https://segemipl.github.io" target="_blank" rel="noopener noreferrer">
+          segemipl的博客
         </a>
       </div>
       <div class="friend-card-desc">

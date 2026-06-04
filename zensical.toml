@@ -102,6 +102,13 @@ nav = [
            "note/并行程序设计/MPI点对点通讯.md",
            "note/并行程序设计/MPI集合通讯.md",
            "note/并行程序设计/OpenMP编程模型与并行调度.md",
+           "note/并行程序设计/OpenMP3.0与任务.md",
+           "note/并行程序设计/OpenMP内存模型.md",
+           "note/并行程序设计/OpenMP和SIMD.md",
+           "note/并行程序设计/GPU的发展简介.md",
+           "note/并行程序设计/GPU的核函数与线程.md",
+           "note/并行程序设计/GPU的内存管理.md",
+           "note/并行程序设计/GPU的线程束.md",
        ]},
        {"OJ复习" = [
            "note/OJ复习/基础数据结构.md",

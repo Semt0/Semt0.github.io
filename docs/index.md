@@ -8,8 +8,8 @@ icon: lucide/home
     <header class="home-intro">
       <h1 class="home-title">Hi, I'm Semt0 👋</h1>
       <p class="home-subtitle">
-        An undergraduate at <strong>Peking University</strong> (College of Engineering).
-        Interested in <strong>Embodied AI</strong> & <strong>LLM</strong>. Love <strong>Minecraft & Terraria</strong>.
+        An undergraduate at <strong>Peking University</strong>.
+        Interested in <strong>Math</strong> & <strong>Embodied AI</strong>. Love <strong>Minecraft</strong>.
       </p>
       <div class="home-social-row">
         <a href="https://codetime.dev" class="home-codetime-link" aria-label="CodeTime"><img class="home-codetime-badge" alt="CodeTime Badge" src="https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36391"></a>
@@ -72,8 +72,8 @@ icon: lucide/home
             <img class="resume-card-logo" src="images/pku.png" alt="" />
             <div class="resume-card-body">
               <h3 class="resume-card-title">Peking University</h3>
-              <p class="resume-card-sub">Theoretical and Applied Mechanics &amp; Computer Science and Technology</p>
-              <p class="resume-card-meta">College of Engineering &middot; EECS</p>
+              <p class="resume-card-sub">Theoretical and Applied Mechanics</p>
+              <p class="resume-card-meta">College of Engineering</p>
               <span class="resume-card-date">2024.09 &ndash; Present</span>
             </div>
           </a>
