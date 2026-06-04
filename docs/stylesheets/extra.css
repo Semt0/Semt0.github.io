@@ -1926,6 +1926,7 @@ a.resume-tag:hover {
   align-items: baseline;
   gap: 0.6rem;
   width: 100%;
+  min-width: 0;
 }
 
 .recent-updates .resume-card-title {
@@ -1933,12 +1934,17 @@ a.resume-tag:hover {
   font-weight: 600;
   margin: 0;
   white-space: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .recent-updates .resume-card-sub {
   font-size: 0.78rem;
   margin: 0;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .recent-updates .resume-card-date {
@@ -1946,6 +1952,7 @@ a.resume-tag:hover {
   margin-left: auto;
   font-size: 0.75rem;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 /* ===== 响应式 ===== */
