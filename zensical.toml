@@ -12,6 +12,7 @@ nav = [
    {"主页" = "index.md"},
    {"博客" = [
        "blog/index.md",
+       "blog/音乐与数学期末复习.typora.md",
        "blog/2026-03-19.md",
        "blog/cs231n_01.md",
        "blog/音乐与数学期末复习.md",
@@ -123,7 +124,7 @@ nav = [
 ]
 
 extra_css = [
-    "stylesheets/extra.css",
+    "stylesheets/extra.css?v=20260605",
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
     "https://unpkg.com/@waline/client@v3/dist/waline.css",
 ]
