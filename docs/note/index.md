@@ -13,6 +13,34 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-06-09</div>
+    <div class="timeline-content">
+      <a href="计算方法/常微分方程初值问题的数值解法（二）/">常微分方程初值问题的数值解法（二）——Runge-Kutta 方法与线性多步法</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-05</div>
+    <div class="timeline-content">
+      <a href="计算方法/常微分方程初值问题的数值解法（一）/">常微分方程初值问题的数值解法（一）——Euler 方法与常见单步法</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-03</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/GPU的内存管理/">GPU 内存管理</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-03</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/GPU的线程束/">GPU线程束的概念、同步机制与延迟隐藏策略</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-05-29</div>
     <div class="timeline-content">
       <a href="算法设计与分析/网络流/">网络流算法——最大流、最小割与最小费用流</a>
@@ -20,10 +48,31 @@ icon: lucide/book-open
     </div>
   </div>
   <div class="timeline-item">
+    <div class="timeline-date">2026-05-27</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/GPU的核函数与线程/">CUDA核函数与线程</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-27</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/GPU的发展简介/">GPU 发展历史、架构演进与 CUDA 编程模型入门。</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-05-26</div>
     <div class="timeline-content">
       <a href="数理方程/特殊函数/">第三章 特殊函数</a>
       <span class="timeline-category">数理方程</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="计算方法/非线性方程及非线性方程组的解法/">非线性方程及非线性方程组的解法</a>
+      <span class="timeline-category">计算方法</span>
     </div>
   </div>
   <div class="timeline-item">
@@ -43,13 +92,6 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-05-26</div>
     <div class="timeline-content">
-      <a href="计算方法/非线性方程及非线性方程组的解法/">非线性方程及非线性方程组的解法</a>
-      <span class="timeline-category">计算方法</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-05-26</div>
-    <div class="timeline-content">
       <a href="计算方法/数值微分与数值积分/">数值微分与数值积分</a>
       <span class="timeline-category">计算方法</span>
     </div>
@@ -59,6 +101,27 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="计算方法/函数逼近/">函数逼近</a>
       <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-24</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/OpenMP3.0与任务/">OpenMP 3.0 任务（task）</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-24</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/OpenMP内存模型/">OpenMP 伪共享、内存模型及与 MPI 混合编程</a>
+      <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-24</div>
+    <div class="timeline-content">
+      <a href="并行程序设计/OpenMP和SIMD/">OpenMP 与 SIMD 向量化的原理、实践与编译器优化</a>
+      <span class="timeline-category">并行程序设计</span>
     </div>
   </div>
   <div class="timeline-item">
@@ -472,6 +535,34 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="OJ复习/基础数据结构/">基础数据结构（离散化、堆、树状数组）</a>
       <span class="timeline-category">OJ复习</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2025-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/随机算法/">随机算法</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2025-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/近似算法/">近似算法</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2025-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/NP 完全/">NP 完全性</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2025-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/问题复杂度/">问题复杂度</a>
+      <span class="timeline-category">算法设计与分析</span>
     </div>
   </div>
 </div>

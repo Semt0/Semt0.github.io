@@ -27,7 +27,7 @@ icon: lucide/pen-line
   <div class="timeline-item">
     <div class="timeline-date">2025-12-20</div>
     <div class="timeline-content">
-      <a href="音乐与数学期末复习/">音乐与数学期末复习</a>
+      <a href="音乐与数学期末复习.typora/">音乐与数学期末复习</a>
     </div>
   </div>
 </div>

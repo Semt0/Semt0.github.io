@@ -78,18 +78,24 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
   - 使用 matplotlib 绘制算法流程图、几何示意图、收敛曲线等
   - 所有图片存放在 `pictures/` 子目录中
   - 引用格式：`![描述](pictures/filename.png){ width="800" }`
+  
 - **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
+
 - **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
-- **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗`).
-- **Bold next to Chinese / Latin**: After `**...**`, if the sentence continues (e.g. 约、同、时), insert a **space** between the closing `**` and that character (`**模型** 约`, not `**模型**约`). Same before opening `**` when it follows a word: `FP32 **模型**`, not `FP32**模型**`.
+
+- **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗` not `我是**秦始皇**吗`).
+
 - **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**`. Use `$x$` for formulas and `**词**` for emphasis separately.
+
 - **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas or fewer emphasized spans for reliable rendering in Zensical/Material.
+
 - **List spacing**:
+  
   - **列表前必须有空行**：当使用 `-` 创建无序列表时，必须在列表前插入一个完整的空行（即两个连续的换行符），确保列表与上文内容之间有明显视觉分隔。
   - 正确示例：
     ```markdown
     下面是理由：
-
+    
     - 第一点
     - 第二点
     ```
@@ -105,7 +111,7 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
     ```markdown
     !!! abstract "定义 X（Name）"
         定义的正式内容：
-
+    
         - 第一个列表项
         - 第二个列表项
     ```
@@ -114,17 +120,23 @@ When creating or editing learning notes under `docs/note/`, follow these rules:
     !!! warning "标题后直接跟列表"
         - 列表项 1  ← 标题后直接跟列表，错误
         - 列表项 2
-
+    
     !!! abstract "定义 X（Name）"
         段落文本后直接跟列表：
         - 列表项 1  ← 冒号后直接跟列表，错误
         - 列表项 2
     ```
-- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="800" }`.
+  
+- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="600" }`.
+
 - **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
+
 - **List numbering**: Do not mix bullet markers with numbers inside list items. Use either `- item` or `1. item`, never `- (1) item`.
+
 - **Markdown syntax**: Follow Zensical (Material for MkDocs fork) conventions. Refer to the official MkDocs Material documentation for details.
+
 - **Navigation**: After creating a new note, add its path to `zensical.toml` under the correct subject in `nav`.
+
 - **Algorithms/Pseudocode**: All algorithms must be written in LaTeX format using the `aligned` environment, not Markdown lists. See template in "Note Template & Admonition Style" section.
 
 ## Note Template & Admonition Style
@@ -138,7 +150,7 @@ When writing learning notes (especially math/CS theory), use the following struc
 
 ```markdown
 ---
-title: 简短概述本章内容。
+title: 本章标题。
 date: YYYY-MM-DD
 ---
 
