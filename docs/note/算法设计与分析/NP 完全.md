@@ -50,18 +50,18 @@ date: 2025-06-05
 
 !!! abstract "货郎问题（TSP）"
     任给 $n$ 个城市，城市 $i$ 与城市 $j$ 之间的正整数距离 $d(i, j)$（$i \neq j$，$1 \leq i, j \leq n$），以及正整数 $D$，问有一条每一个城市恰好经过一次最后回到出发点且长度不超过 $D$ 的巡回路线吗？
-    
+
     即，存在 $1, 2, \ldots, n$ 的排列 $\sigma$ 使得：
-    
+
     $$
     \sum_{i=1}^{n-1} d_{\sigma_i, \sigma_{i+1}} + d_{\sigma_n, \sigma_1} \leq D
     $$
 
 !!! abstract "0-1背包的判定问题"
     任给 $n$ 件物品和一个背包，物品 $i$ 的重量为 $w_i$，价值为 $v_i$（$1 \leq i \leq n$），以及背包的重量限制 $B$ 和价值目标 $K$，其中 $w_i, v_i, B, K$ 均为正整数，问能在背包中装入总价值不少于 $K$ 且总重量不超过 $B$ 的物品吗？
-    
+
     即，存在子集 $T \subseteq \{1, 2, \ldots, n\}$ 使得：
-    
+
     $$
     \sum_{i \in T} w_i \leq B \quad \text{且} \quad \sum_{i \in T} v_i \geq K
     $$
@@ -124,32 +124,32 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 
 !!! abstract "定义"
     设判定问题 $\Pi_1 = \langle D_1, Y_1 \rangle$，$\Pi_2 = \langle D_2, Y_2 \rangle$。如果函数 $f: D_1 \rightarrow D_2$ 满足条件：
-    
+
     1. $f$ 是多项式时间可计算的
     2. 对所有的 $I \in D_1$，$I \in Y_1 \Leftrightarrow f(I) \in Y_2$
-    
+
     则称 $f$ 是 $\Pi_1$ 到 $\Pi_2$ 的 **多项式时间变换**。如果存在 $\Pi_1$ 到 $\Pi_2$ 的多项式时间变换，则称 $\Pi_1$ 可多项式时间变换到 $\Pi_2$，记作 $\Pi_1 \leq_p \Pi_2$。
 
 !!! abstract "例：HC $\leq_p$ TSP"
     对 HC 的每一个实例 $I$：无向图 $G = \langle V, E \rangle$，TSP 对应的实例 $f(I)$ 为：
-    
+
     - 城市集 $V$
     - 任意两个不同的城市 $u$ 和 $v$ 之间的距离：
-    
+
     $$
     d_{u,v} = \begin{cases} 1 & \text{if } (u, v) \in E \\ 2 & \text{else} \end{cases}
     $$
-    
+
     - 界限 $D = |V|$
 
 ### 4.2 NP 完全性
 
 !!! abstract "定义：NP 完全（NPC）"
     设判定问题 $\Pi$，如果：
-    
+
     1. $\Pi \in NP$
     2. 对所有的 $\Pi' \in NP$，$\Pi' \leq_p \Pi$
-    
+
     则称 $\Pi$ 是 **NP 完全的**（NP-Complete，记作 NPC）。
 
 !!! abstract "Cook 定理"
@@ -157,7 +157,7 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 
 !!! tip "NPC 证明方法"
     要证明一个问题 $\Pi$ 是 NP 完全的：
-    
+
     1. 证明 $\Pi \in NP$（通常容易）
     2. 选择一个已知的 NP 完全问题 $\Pi'$，证明 $\Pi' \leq_p \Pi$
 
@@ -175,27 +175,27 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
     **3-SAT 是 NP 完全的**。
 
     **证明思路**：SAT $\leq_p$ 3-SAT。将每个子句 $C_j$ 变换为等价的 3 文字子句集合 $F_j'$：
-    
+
     - $C_j = z_1$：引入两个新变元 $y_{j1}, y_{j2}$
-    
+
     $$
     F_j' = (z_1 \vee y_{j1} \vee y_{j2}) \wedge (z_1 \vee \neg y_{j1} \vee y_{j2}) \wedge (z_1 \vee y_{j1} \vee \neg y_{j2}) \wedge (z_1 \vee \neg y_{j1} \vee \neg y_{j2})
     $$
-    
+
     - $C_j = z_1 \vee z_2$：引入一个新变元 $y_j$
-    
+
     $$
     F_j' = (z_1 \vee z_2 \vee y_j) \wedge (z_1 \vee z_2 \vee \neg y_j)
     $$
-    
+
     - $C_j = z_1 \vee z_2 \vee z_3$：$F_j' = C_j$
-    
+
     - $C_j = z_1 \vee z_2 \vee \cdots \vee z_k$（$k \geq 4$）：引入 $k-3$ 个新变元
-    
+
     $$
     F_j' = (z_1 \vee z_2 \vee y_{j1}) \wedge (\neg y_{j1} \vee z_3 \vee y_{j2}) \wedge \cdots \wedge (\neg y_{j(k-3)} \vee z_{k-1} \vee z_k)
     $$
-    
+
     $$\square$$
 
 ### 5.2 顶点覆盖、团与独立集
@@ -208,7 +208,7 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 
 !!! abstract "引理"
     对任意的无向图 $G = \langle V, E \rangle$ 和子集 $V' \subseteq V$，下述命题是等价的：
-    
+
     1. $V'$ 是 $G$ 的顶点覆盖
     2. $V - V'$ 是 $G$ 的独立集
     3. $V - V'$ 是补图 $G^c = \langle V, E^c \rangle$ 的团
@@ -226,24 +226,46 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
     **顶点覆盖（VC）是 NP 完全的**。
 
     **证明**：
-    
+
     1. VC 的非确定型多项式时间算法：任意猜想一个子集 $V' \subseteq V$，$|V'| \leq K$，检查 $V'$ 是否是一个顶点覆盖。
     2. 证 3-SAT $\leq_p$ VC。
-    
+
     任给变元 $x_1, x_2, \ldots, x_n$ 的 3 元合取范式 $F = C_1 \wedge C_2 \wedge \cdots \wedge C_m$，构造 VC 的实例 $f(F)$：
-    
+
     - $G = \langle V, E \rangle$，$K = n + 2m$
     - $V = V_1 \cup V_2$
     - $E = E_1 \cup E_2 \cup E_3$
-    
+
     其中：
-    
+
     - **变元构件**（$V_1$）：对每个 $x_i$，引入两个顶点 $x_i$ 和 $\bar{x}_i$，边 $(x_i, \bar{x}_i) \in E_1$
     - **析取式构件**（$V_2$）：对每个 $C_j = z_{j1} \vee z_{j2} \vee z_{j3}$，引入三角形顶点 $[z'_{j1}, j], [z'_{j2}, j], [z'_{j3}, j]$，边 $E_2$ 连接三角形的三条边
-    - **联络边**（$E_3$）：连接变元构件和析取式构件
-    
-    任何顶点覆盖 $V'$ 至少有 $n + 2m$ 个顶点，故恰好含 $K$ 个顶点。在 $x_i$ 和 $\bar{x}_i$ 中取一个，对应 $x_i$ 的赋值。三角形 $C_j$ 的顶点中取2个，剩下顶点对应的变量满足 $C_j$。
-    
+    - **联络边**（$E_3$）：若 $z_{jk} = x_i$，则 $z'_{jk} = x_i$；若 $z_{jk} = \neg x_i$，则 $z'_{jk} = \bar{x}_i$。连接每个析取式顶点 $[z'_{jk}, j]$ 与对应的文字顶点 $z'_{jk}$
+
+    更形式化地：
+
+    $$
+    V_1 = \{x_i, \bar{x}_i \mid 1 \leq i \leq n\}, \quad
+    E_1 = \{(x_i, \bar{x}_i) \mid 1 \leq i \leq n\}
+    $$
+
+    $$
+    V_2 = \{[z'_{jk}, j] \mid k = 1,2,3,\ 1 \leq j \leq m\}
+    $$
+
+    $$
+    E_2 = \{([z'_{j1}, j], [z'_{j2}, j]), ([z'_{j2}, j], [z'_{j3}, j]), ([z'_{j3}, j], [z'_{j1}, j]) \mid 1 \leq j \leq m\}
+    $$
+
+    $$
+    E_3 = \{([z'_{jk}, j], z'_{jk}) \mid k = 1,2,3,\ 1 \leq j \leq m\}
+    $$
+
+    任何顶点覆盖 $V'$ 至少有 $n + 2m$ 个顶点：每条变元边至少取一个端点，每个子句三角形至少取两个顶点。由于 $K = n + 2m$，任何不超过 $K$ 的顶点覆盖都恰好含 $K$ 个顶点，并且在 $x_i$ 与 $\bar{x}_i$ 中恰好取一个，在每个子句三角形中恰好取两个。
+
+    - 若 $G$ 有大小为 $K$ 的顶点覆盖，则按 $x_i \in V'$ 令 $t(x_i)=1$，按 $\bar{x}_i \in V'$ 令 $t(x_i)=0$。每个三角形剩下的那个顶点没有被选，它的联络边必须由对应的文字顶点覆盖，因此该文字为真，对应子句被满足。
+    - 若 $F$ 有成真赋值，则对每个变量选取与赋值相符的一个文字顶点覆盖 $E_1$。每个子句至少有一个真文字，保留该真文字对应的三角形顶点不选，选另外两个三角形顶点。这样三角形边和联络边均被覆盖，总共选 $n+2m$ 个顶点。
+
     $$\square$$
 
 !!! tip "推论"
@@ -260,13 +282,16 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 | **双机调度** | 有2台机器和 $n$ 项作业，作业 $J_i$ 的处理时间为 $t_i$，截止时间为 $D$，问能在截止时间 $D$ 内完成所有作业吗？ |
 | **整数线性规划（ILP）** | 给定 $m \times n$ 维整数矩阵 $A$ 和 $m$ 维向量 $b$，问 $AX \geq b$，$X \geq 0$ 且 $X$ 为整数是否有解？ |
 
+!!! abstract "恰好覆盖示例"
+    设 $A=\{1,2,3,4,5\}$，$S_1=\{1,2\}$，$S_2=\{1,3,4\}$，$S_3=\{2,4\}$，$S_4=\{2,5\}$，则 $\{S_2,S_4\}$ 是 $A$ 的恰好覆盖。若把 $S_4$ 改为 $\{3,5\}$，则不存在 $A$ 的恰好覆盖。
+
 ### 5.4 NPC 证明方法小结
 
 | 已知 NPC 问题 | 目标问题 | 方法 |
 |--------------|----------|------|
 | SAT | 3-SAT | 局部替换法 |
 | 3-SAT | VC | 构件设计法 |
-| 3-SAT | 团、独立集 | 问题等价 |
+| VC | 独立集、团 | 问题等价 |
 | VC | 有向 HC | 构件设计法 |
 | 3-SAT | 子集和 | 构件设计法 |
 | 子集和 | 双机调度 | 构件设计法 |
@@ -281,15 +306,49 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 !!! tip "努力扩大已知区域，缩小未知区域"
     当 $P \neq NP$ 时，存在不属于 NPC 也不属于 $P$ 的问题。
 
+分析子问题时，常通过限制参数得到一组相关问题，再分别判定哪些属于 $P$、哪些是 NPC。
+
+!!! abstract "例：有先行约束的多处理机调度问题"
+    给定任务集 $T$、$m$ 台机器、每个任务的处理时间 $l(t) \in \mathbb{Z}^+$，以及 $T$ 上的偏序 $\prec$。若 $\sigma:T \to \{0,1,\ldots,D\}$ 满足：
+
+    $$
+    \forall t \in T,\quad \sigma(t)+l(t)\leq D
+    $$
+
+    $$
+    \forall i,\ 0\leq i\leq D,\quad |\{t\in T:\sigma(t)\leq i<\sigma(t)+l(t)\}|\leq m
+    $$
+
+    $$
+    \forall t,t'\in T,\quad t\prec t' \Leftrightarrow \sigma(t)+l(t)\leq \sigma(t')
+    $$
+
+    则 $\sigma$ 是可行调度。优化目标是求使 $D$ 最小的可行调度；对应的判定问题是在给定截止时间 $D$ 时，判断是否存在长度不超过 $D$ 的可行调度。
+
+这个调度问题可按参数限制形成子问题：
+
+| 参数 | 限制方向 |
+|------|----------|
+| 偏序 $\prec$ | $\emptyset$、树形偏序、任意偏序 |
+| 机器数 $m$ | $m \leq 1,2,\ldots$、某个常数、任意 $m$ |
+| 处理时间 $l$ | $l$ 为常数、任意 $l$ |
+
 ### 6.2 搜索问题与优化问题
 
-**Turing 归约**：用 NP 完全问题的判定版本作为子程序来求解优化版本。
+!!! abstract "定义：Turing 归约"
+    设 $\pi_1,\pi_2$ 是搜索问题或优化问题。若存在算法 $A$，它利用解 $\pi_2$ 的假想子程序 $s$ 来解 $\pi_1$，并且只要 $s$ 是多项式时间的，$A$ 也是多项式时间的，则称 $A$ 是从 $\pi_1$ 到 $\pi_2$ 的多项式时间 Turing 归约，记作 $\pi_1 \propto_T \pi_2$。
 
-!!! abstract "货郎优化问题（TSO）到判定问题（TSE）的 Turing 归约"
+多项式时间变换是 Turing 归约的特殊情形。
+
+!!! abstract "例：货郎优化问题（TSO）到判定问题（TSE）的 Turing 归约"
     设 $s(C, d, \sigma, B)$ 是解 TSE 的子程序，其中 $C$ 为城市集，$d$ 为距离函数，$\sigma$ 为部分旅行，$B$ 为长度限制。
 
+    TSE 的实例包含城市集 $C=\{c_1,c_2,\ldots,c_m\}$、距离函数 $d(c_i,c_j)\in \mathbb{Z}^+$、长度限制 $B$ 和部分旅行路线 $\sigma=\langle c_{\pi(1)},\ldots,c_{\pi(k)}\rangle$。问题是：$\sigma$ 是否可以延伸成全长不超过 $B$ 的全程旅行？
+
+    TSO 是 NP-hard 是容易证明的：若能求出最短旅行长度，就能回答对应的 TSP 判定问题。下面证明 TSO 是 NP-easy。
+
     **算法 Minlength**（二分法确定最短旅行长度 $B^*$）：
-    
+
     $$
     \begin{aligned}
     & \textbf{算法: } \text{Minlength} \\
@@ -303,7 +362,7 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
     $$
 
     **算法 FindSolution**（找解）：
-    
+
     $$
     \begin{aligned}
     & \textbf{算法: } \text{FindSolution} \\
@@ -321,12 +380,12 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
     \end{aligned}
     $$
 
-    调用 $s$ 的总次数至多为 $\frac{(m-1)(m-2)}{2}$，为 $m$ 的多项式。因此 TSO Turing 归约到 NP 问题 TSE，从而证明了 **TSO 是 NP-easy**，即 TSO 是 **NP 等价的**。
+    调用 $s$ 的总次数至多为 $\frac{(m-1)(m-2)}{2}$，为 $m$ 的多项式。TSE 属于 NP，且 TSP 是 TSE 在 $\sigma=\langle c_1\rangle$ 情况下的子问题，所以 TSE 是 NPC 问题。因此 TSO Turing 归约到 NP 问题 TSE，从而证明了 **TSO 是 NP-easy**。结合 TSO 是 NP-hard，可得 TSO 是 **NP 等价的**。
 
 ### 6.3 NP-hard 与 NP-easy
 
-- **NP-hard**：所有 NP 问题都可以多项式时间变换到它（不要求本身在 NP 中）
-- **NP-easy**：可以 Turing 归约到某个 NP 问题
+- **NP-hard**：设 $\pi$ 是搜索问题或优化问题，如果存在 NP 完全问题 $\pi'$ 使得 $\pi' \propto_T \pi$，则称 $\pi$ 是 NP-hard。这表示从多项式可计算的角度看，$\pi$ 至少和 NPC 问题一样难。
+- **NP-easy**：如果 $\pi$ 可以 Turing 归约到某个 NP 问题，则称 $\pi$ 是 NP-easy。
 - **NP 等价**：既是 NP-hard 又是 NP-easy
 
 !!! tip "结论"
@@ -340,9 +399,9 @@ $\Pi^*$ 对应的判定问题 $\Pi = \langle D_\Pi, Y_\Pi \rangle$ 定义如下�
 
 !!! abstract "例：顶点覆盖的固定参数算法"
     VC：给定图 $G$，正整数 $K$（不超过 $G$ 的顶点数），问是否存在不超过 $K$ 的顶点覆盖？
-    
+
     固定常数 $k$，输入为 $(G, k)$。穷举所有 $k$ 元顶点子集，看看是否存在顶点覆盖。算法复杂度大约是 $O(kn \cdot C_n^k) = O(kn^{k+1})$。
-    
+
     存在 $O(2^k \cdot kn)$ 的算法。
 
 ### 7.2 改进的指数时间算法
@@ -351,7 +410,7 @@ $O^*$ 表示忽略了多项式因子，如 $O^*(2^n) = O(n^{O(1)}2^n)$。
 
 - 当一个问题的蛮力算法为 $O^*(2^n)$ 时间时，对任何满足 $1 < c < 2$ 的常数 $c$，时间复杂度为 $O^*(c^n)$ 的指数时间算法称为 **非平凡的指数时间算法**
 - 可证明在 $O^*(1.8393^n)$ 时间内正确求解 3-SAT
-- **指数时间假设**：对每个正整数 $k$，都存在常数 $c_k > 0$，使得求解 $k$-SAT 的精确算法时间复杂性不低于 $O^*(c_k^n)$
+- **指数时间假设**：对每个正整数 $k$，都存在常数 $c_k > 0$，使得求解 $k$-SAT 的精确算法时间复杂性不低于 $\Omega^*(2^{c_k n})$
 
 ### 7.3 其他策略
 
