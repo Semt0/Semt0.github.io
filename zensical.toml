@@ -12,6 +12,7 @@ nav = [
    {"主页" = "index.md"},
    {"博客" = [
        "blog/index.md",
+       "blog/PR 踩坑记.md",
        "blog/2026-03-19.md",
        "blog/cs231n_01.md",
        "blog/音乐与数学期末复习.typora.md",

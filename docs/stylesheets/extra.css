@@ -2086,3 +2086,98 @@ a.resume-tag:hover {
     font-size: 0.95rem;
   }
 }
+
+/* ===== 表格美化 ===== */
+
+/* 表格整体容器 */
+.md-typeset table:not([class]) {
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: 0 0.08rem 0.35rem rgba(10, 40, 70, 0.08);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  font-size: 0.88rem;
+}
+
+/* 表头 */
+.md-typeset table:not([class]) thead {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--md-typeset-a-color) 12%, transparent),
+    color-mix(in srgb, var(--md-typeset-a-color) 6%, transparent)
+  );
+}
+
+.md-typeset table:not([class]) thead th {
+  padding: 0.65rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--md-default-fg-color--light);
+  border-bottom: 2px solid color-mix(in srgb, var(--md-typeset-a-color) 25%, transparent);
+}
+
+/* 表格单元格 */
+.md-typeset table:not([class]) td {
+  padding: 0.55rem 0.85rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* 斑马纹 */
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background-color: color-mix(in srgb, var(--md-typeset-a-color) 3%, transparent);
+}
+
+/* 行悬停 */
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: color-mix(in srgb, var(--md-typeset-a-color) 8%, transparent);
+  transition: background-color 0.15s ease;
+}
+
+/* 最后一行去掉底部边框 */
+.md-typeset table:not([class]) tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 状态标签样式（给 ✅❌⚠️ 加背景色） */
+.md-typeset table:not([class]) td code {
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.3rem;
+  font-size: 0.82em;
+  background: var(--md-default-bg-color--lighter);
+}
+
+/* 夜间模式表格 */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: rgba(200, 180, 255, 0.12);
+  box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead {
+  background: linear-gradient(135deg,
+    hsla(278, 40%, 25%, 0.5),
+    hsla(278, 30%, 20%, 0.35)
+  );
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead th {
+  color: hsla(278, 40%, 85%, 0.85);
+  border-bottom-color: hsla(278, 40%, 45%, 0.4);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  border-bottom-color: rgba(200, 180, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background-color: hsla(278, 20%, 22%, 0.35);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:hover {
+  background-color: hsla(278, 25%, 28%, 0.45);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td code {
+  background: hsla(278, 15%, 22%, 0.6);
+  color: #e2e8f0;
+}

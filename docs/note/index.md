@@ -13,16 +13,37 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
-    <div class="timeline-date">2026-06-09</div>
+    <div class="timeline-date">2026-06-05</div>
     <div class="timeline-content">
-      <a href="计算方法/常微分方程初值问题的数值解法（二）/">常微分方程初值问题的数值解法（二）——Runge-Kutta 方法与线性多步法</a>
-      <span class="timeline-category">计算方法</span>
+      <a href="算法设计与分析/NP 完全/">NP 完全性</a>
+      <span class="timeline-category">算法设计与分析</span>
     </div>
   </div>
   <div class="timeline-item">
     <div class="timeline-date">2026-06-05</div>
     <div class="timeline-content">
-      <a href="计算方法/常微分方程初值问题的数值解法（一）/">常微分方程初值问题的数值解法（一）——Euler 方法与常见单步法</a>
+      <a href="算法设计与分析/近似算法/">近似算法</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/问题复杂度/">问题复杂度</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-05</div>
+    <div class="timeline-content">
+      <a href="算法设计与分析/随机算法/">随机算法</a>
+      <span class="timeline-category">算法设计与分析</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-05</div>
+    <div class="timeline-content">
+      <a href="计算方法/常微分方程初值问题的数值解法/">常微分方程初值问题的数值解法</a>
       <span class="timeline-category">计算方法</span>
     </div>
   </div>
@@ -535,34 +556,6 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="OJ复习/基础数据结构/">基础数据结构（离散化、堆、树状数组）</a>
       <span class="timeline-category">OJ复习</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2025-06-05</div>
-    <div class="timeline-content">
-      <a href="算法设计与分析/随机算法/">随机算法</a>
-      <span class="timeline-category">算法设计与分析</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2025-06-05</div>
-    <div class="timeline-content">
-      <a href="算法设计与分析/近似算法/">近似算法</a>
-      <span class="timeline-category">算法设计与分析</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2025-06-05</div>
-    <div class="timeline-content">
-      <a href="算法设计与分析/NP 完全/">NP 完全性</a>
-      <span class="timeline-category">算法设计与分析</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2025-06-05</div>
-    <div class="timeline-content">
-      <a href="算法设计与分析/问题复杂度/">问题复杂度</a>
-      <span class="timeline-category">算法设计与分析</span>
     </div>
   </div>
 </div>
