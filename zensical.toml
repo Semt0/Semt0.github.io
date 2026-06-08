@@ -41,6 +41,8 @@ nav = [
            "note/数理方程/数学物理中的偏微分方程.md",
            "note/数理方程/分离变量法.md",
            "note/数理方程/特殊函数.md",
+           "note/数理方程/积分变换法.md",
+           "note/数理方程/基本解和解的积分表达式.md",
        ]},
        {"CVDL" = [
            "note/CVDL/ml_intro/ML_intro.md",

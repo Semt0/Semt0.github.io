@@ -13,6 +13,12 @@ icon: lucide/pen-line
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-06-07</div>
+    <div class="timeline-content">
+      <a href="PR 踩坑记/">第一次提 PR 踩坑记</a>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-03-24</div>
     <div class="timeline-content">
       <a href="cs231n_01/">cs231n 学习之旅（一）</a>

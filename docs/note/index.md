@@ -62,6 +62,13 @@ icon: lucide/book-open
     </div>
   </div>
   <div class="timeline-item">
+    <div class="timeline-date">2026-06-02</div>
+    <div class="timeline-content">
+      <a href="数理方程/基本解和解的积分表达式/">第五章 基本解和解的积分表达式</a>
+      <span class="timeline-category">数理方程</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-05-29</div>
     <div class="timeline-content">
       <a href="算法设计与分析/网络流/">网络流算法——最大流、最小割与最小费用流</a>
@@ -80,6 +87,13 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="并行程序设计/GPU的发展简介/">GPU 发展历史、架构演进与 CUDA 编程模型入门。</a>
       <span class="timeline-category">并行程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-05-26</div>
+    <div class="timeline-content">
+      <a href="数理方程/积分变换法/">第四章 积分变换法</a>
+      <span class="timeline-category">数理方程</span>
     </div>
   </div>
   <div class="timeline-item">
