@@ -1,147 +1,106 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> 本文件是 Claude Code 的项目级 instructions，也是项目的**顶层入口（讲规则）**。
+> 
+> 详细资源索引、科目目录、脚本说明见 [README.md](README.md)。
 
-## Project Overview
+## 1 项目总览
 
-Personal blog and learning notes site (https://semt0.github.io/) built with **Zensical** (a Material for MkDocs fork). Content is bilingual (Chinese/English) with mathematical notation support via KaTeX.
+Personal blog and learning notes site: https://semt0.github.io/
 
-## Build & Development
+- **站点生成器**：Zensical（Material for MkDocs 分支）
+- **内容**：博客、学习笔记、手记、复习题库、友链
+- **语言**：中英双语，数学公式使用 KaTeX
+- **Python**：3.13+，包管理使用 `uv`
+
+## 2 快速入门
 
 ```bash
-# Install dependencies (uses uv for Python package management)
+# 安装依赖
 uv sync
 
-# Local development server
+# 本地预览
 zensical serve
 
-# 更新主页 Recent 列表（按笔记 frontmatter 的 date，默认最新 5 篇）
-uv run python scripts/update_home_recent.py
-
-# 更新笔记首页的栏目卡片数量统计
-uv run python scripts/update_note_counts.py
-
-# 更新 blog 和 note 首页的时间线布局
-uv run python scripts/update_timeline.py
-
-# Production build（自动执行所有更新脚本）
-uv run python scripts/update_home_recent.py
-uv run python scripts/update_note_counts.py
-uv run python scripts/update_timeline.py
-zensical build --clean
+# 常规更新 + 构建
+bash update.sh
+uv run zensical build --clean
 ```
 
-**Python 3.13** required (see `.python-version`). The `zensical` package is the dev dependency that provides the build toolchain.
+## 3 架构要点
 
-## Deployment
+| 路径 | 用途 |
+|------|------|
+| `zensical.toml` | 站点主配置（主题、导航、插件、CSS/JS） |
+| `docs/index.md` | 主页（**原始 HTML**，不是标准 Markdown） |
+| `docs/blog/` | 博客文章 |
+| `docs/note/` | 学习笔记，按科目组织 |
+| `docs/essay/` | 手记 |
+| `docs/quiz/` | 复习题库（由 `scripts/update_quiz.py` 自动生成） |
+| `docs/friends.md` | 友链 |
+| `docs/stylesheets/extra.css` | 自定义样式 |
+| `docs/javascripts/` | 自定义脚本 |
+| `scripts/` | 内容维护与资源处理脚本 |
+| `site/` | 构建产物（**不要手动编辑**） |
 
-GitHub Actions (`.github/workflows/docs.yml`) auto-deploys on push to `main`/`master`. The workflow runs `scripts/update_home_recent.py`, `scripts/update_note_counts.py`, and `scripts/update_timeline.py` then `zensical build --clean`, and publishes the `site/` directory to GitHub Pages.
+## 4 关键技术模式
 
-## Architecture
+- **SPA 导航**：所有自定义 JS 通过 `document$` 在页面切换后重新初始化。
+- **深色模式**：通过 `[data-md-color-scheme="slate"]` 适配。
+- **主页特殊**：`docs/index.md` 使用原始 HTML 和 `extra.css` 中的类，不是标准 Markdown。
+- **图片位置**：笔记图片放在当前目录的 `pictures/` 下，引用格式 `![描述](pictures/filename.png){ width="800" }`。
+- **自动生成文件**：`docs/quiz/`、`site/` 以及首页 Recent / 时间线 / 导航等由脚本生成，**不要手动编辑**。
 
-- **`zensical.toml`** — Main site configuration (theme, plugins, navigation, extensions, CSS/JS includes). This is the equivalent of `mkdocs.yml` for Zensical.
-- **`docs/`** — All source content and assets
-  - `index.md` — Homepage (custom HTML layout, not standard Markdown)
-  - `blog/` — Blog posts with `.authors.yml`
-  - `note/` — Learning notes organized by subject
-  - `friends.md` — Friend links page
-  - `stylesheets/extra.css` — All custom CSS (~1070 lines): homepage layout, sakura petals, dark mode starfield, animations, responsive design, Waline comments
-  - `javascripts/` — Custom JS modules:
-    - `sakura-init.js` — 3D petal falling animation (3-layer depth, performance-adaptive)
-    - `home-animation.js` — Scroll-triggered section fade-ins, avatar preloading
-    - `home-intro-words.js` — Word-by-word text reveal animation
-    - `katex.js` — KaTeX math rendering integration
-    - `waline-init.js` — Waline v3 comment system (server: Vercel-hosted)
-- **`site/`** — Generated output (committed to repo, also built in CI)
-- **`scripts/`** —
-  - `update_home_recent.py` — 按笔记 frontmatter 的 `date` 更新主页 Recent 列表
-  - `update_note_counts.py` — 扫描笔记目录，自动更新 note 首页的栏目卡片数量统计
-  - `update_timeline.py` — 扫描 blog 和 note 目录，按日期排序更新时间线布局
-  - `export_pdf_pages.py` — 通用 PDF 页面导出脚本（PyMuPDF，高分辨率导出到 `pictures/`）
-  - `compress_images.py` — 批量压缩笔记图片，控制单图体积
-- **Source PDFs** — 笔记对应的 PDF 源文件存放在 `/Users/semt0/Downloads` 目录下
+## 5 内容更新工作流
 
-## Key Patterns
+修改内容后，先运行更新脚本再构建：
 
-- All custom JS integrates with Zensical's SPA navigation via `document$` (RxJS observable) to reinitialize on page transitions.
-- Animations respect `prefers-reduced-motion` and detect low-performance devices (coarse pointer, CPU cores ≤ 4).
-- Dark mode (`[data-md-color-scheme="slate"]`) uses CSS variables extensively and adds a radial-gradient starfield background.
-- The homepage (`docs/index.md`) uses raw HTML with CSS classes defined in `extra.css` — it is not standard Markdown content.
-- When editing `docs/` files, the corresponding `site/` files are generated output and should be rebuilt, not manually edited.
+```bash
+bash update.sh
+uv run zensical build --clean
+```
 
-## Note-Writing Conventions
+`update.sh` 会依次执行：
 
-When creating or editing learning notes under `docs/note/`, follow these rules:
+- `scripts/update_home_recent.py` — 更新主页 Recent
+- `scripts/update_note_counts.py` — 更新笔记首页栏目统计
+- `scripts/update_timeline.py` — 更新 blog/note 时间线
+- `scripts/update_essay_timeline.py` — 更新手记时间线
+- `scripts/update_nav_blog.py` — 更新博客导航
+- `scripts/update_nav_notes.py` — 更新笔记导航
+- `scripts/update_quiz.py` — 生成复习题库页面
 
-- **Images are required**: 笔记默认必须包含必要的插图。可以：
-  - 从 PDF 源文件截取关键图表/示意图
-  - 使用 matplotlib 绘制算法流程图、几何示意图、收敛曲线等
-  - 所有图片存放在 `pictures/` 子目录中
-  - 引用格式：`![描述](pictures/filename.png){ width="800" }`
-  
-- **Math formulas**: Use `$...$` for inline math, `$$...$$` for block-level formulas.
+各脚本的详细说明见 [README.md](README.md)。
 
-- **Block formula spacing**: Block-level formulas (`$$...$$`) must have a blank line before and after them.
+## 6 笔记写作规则
 
-- **Bold text spacing**: Bold text (`**text**`) must have a space before and after the whole bold span from surrounding non-bold text (e.g., `我是 **秦始皇** 吗` not `我是**秦始皇**吗`).
+当创建或编辑 `docs/note/` 下的学习笔记时，遵守以下规则：
 
-- **Bold and inline math (KaTeX)**: Do **not** wrap `$...$` inside `**...**`. Use `$x$` for formulas and `**词**` for emphasis separately.
+- **图片是必需的**：笔记默认必须包含必要插图。来源可以是 PDF 截图、matplotlib 绘图等。图片放在 `pictures/` 子目录，引用格式 `![描述](pictures/filename.png){ width="800" }`。
 
-- **Many bold fragments**: Avoid many adjacent `**...**` in one long sentence; prefer commas or fewer emphasized spans for reliable rendering in Zensical/Material.
+- **数学公式**：行内用 `$...$`，块级用 `$$...$$`。
 
-- **List spacing**:
-  
-  - **列表前必须有空行**：当使用 `-` 创建无序列表时，必须在列表前插入一个完整的空行（即两个连续的换行符），确保列表与上文内容之间有明显视觉分隔。
-  - 正确示例：
-    ```markdown
-    下面是理由：
-    
-    - 第一点
-    - 第二点
-    ```
-  - 错误示例（禁止出现）：
-    ```markdown
-    下面是理由：
-    - 第一点
-    - 第二点
-    ```
-  - 此规则适用于所有层级的无序列表，包括 admonition 内和 admonition 外的列表。
-  - **Admonition 内列表前必须有空行**：在 `!!!` 或 `???` admonition 中，标题行、段落文本、或 `:` 结尾的句子与列表的第一个条目之间必须有空行
-  - 正确示例：
-    ```markdown
-    !!! abstract "定义 X（Name）"
-        定义的正式内容：
-    
-        - 第一个列表项
-        - 第二个列表项
-    ```
-  - 错误示例（以下情况均违反规则）：
-    ```markdown
-    !!! warning "标题后直接跟列表"
-        - 列表项 1  ← 标题后直接跟列表，错误
-        - 列表项 2
-    
-    !!! abstract "定义 X（Name）"
-        段落文本后直接跟列表：
-        - 列表项 1  ← 冒号后直接跟列表，错误
-        - 列表项 2
-    ```
-  
-- **Images**: Store images in a `pictures/` folder under the current note directory. Use the format: `![alt text](pictures/filename.png){ width="600" }`.
+- **块级公式间距**：`$$...$$` 前后必须各有一个空行。
 
-- **Frontmatter**: Each note should have YAML frontmatter with at least a `date` field.
+- **粗体间距**：`**text**` 与周围非粗体文字之间要留空格，例如 `我是 **秦始皇** 吗`，不要 `我是**秦始皇**吗`。
 
-- **List numbering**: Do not mix bullet markers with numbers inside list items. Use either `- item` or `1. item`, never `- (1) item`.
+- **粗体与行内公式**：不要把 `$...$` 包在 `**...**` 里面。公式和强调分开写。
 
-- **Markdown syntax**: Follow Zensical (Material for MkDocs fork) conventions. Refer to the official MkDocs Material documentation for details.
+- **避免密集粗体**：一句话里不要连续很多 `**...**`，用逗号或减少强调片段。
 
-- **Navigation**: After creating a new note, add its path to `zensical.toml` under the correct subject in `nav`.
+- **列表前必须有空行**：使用 `-` 的无序列表前必须插入完整空行。这也适用于 admonition 内部的列表。
 
-- **Algorithms/Pseudocode**: All algorithms must be written in LaTeX format using the `aligned` environment, not Markdown lists. See template in "Note Template & Admonition Style" section.
+- **图片引用**：统一用 `![alt text](pictures/filename.png){ width="600" }`。
 
-## Note Template & Admonition Style
+- **Frontmatter**：至少包含 `date`；推荐新增 `summary`、`key_points`、`sources`（见第 7 节模板）。
 
-When writing learning notes (especially math/CS theory), use the following structure and admonition patterns:
+- **列表编号**：不要混用 `-` 和数字，也不要用 `- (1)` 这种形式。
+
+- **导航**：新建笔记后，把路径加到 `zensical.toml` 对应科目的 `nav` 中。
+
+- **算法/伪代码**：使用 LaTeX `aligned` 环境，不要用 Markdown 列表。详见第 7 节模板。
+
+## 7 笔记模板与 Admonition 风格
 
 !!! warning "重要：笔记不需要手动目录"
     **不要在笔记开头添加 `## 目录` 章节**。Zensical 会自动生成右侧目录导航。
@@ -150,8 +109,18 @@ When writing learning notes (especially math/CS theory), use the following struc
 
 ```markdown
 ---
-title: 本章标题。
+title: 本章标题
 date: YYYY-MM-DD
+summary: |
+  用一两句话概括本章核心内容，用于索引和快速预览。
+key_points:
+  - 核心知识点 1
+  - 核心知识点 2
+  - 核心知识点 3
+sources:
+  - "课程/教材名称，章节"
+  - "论文标题，作者，年份"
+  - "在线资源 URL"
 ---
 
 ## 1 Section Title
@@ -198,22 +167,22 @@ date: YYYY-MM-DD
 总结表格或核心公式。
 ```
 
-### Admonition usage rules
+### Admonition 使用规则
 
-- **Definitions**: `!!! abstract "定义 X（Name）"` — always visible
-- **Theorems / Lemmas / Corollaries**: `!!! abstract "定理 X / 引理 X / 推论 X（Name）"` — always visible
-- **Proofs**: `??? note "证明"` — collapsible (closed by default), end with `$\square$`
-- **Assumptions**: `!!! note "假设 X"` — always visible
-- **Tips / Intuition**: `!!! tip` — always visible
-- **Warnings**: `!!! warning` — always visible
-- **Supplementary info**: `!!! info` — always visible
-- **Examples**: `???+ example "例X：..."` — collapsible (open by default)
-- **Algorithms**: **不要**使用 `!!! abstract` 包裹伪代码块。直接使用 `##` 小标题 + LaTeX `aligned` 环境
-- Admonition body is indented by **4 spaces**. Block formulas inside admonitions also need blank lines before and after `$$`.
+- **Definitions**: `!!! abstract "定义 X（Name）"` — 始终可见
+- **Theorems / Lemmas / Corollaries**: `!!! abstract "定理 X / 引理 X / 推论 X（Name）"` — 始终可见
+- **Proofs**: `??? note "证明"` — 可折叠（默认收起），结尾用 `$&square;$`
+- **Assumptions**: `!!! note "假设 X"` — 始终可见
+- **Tips / Intuition**: `!!! tip` — 始终可见
+- **Warnings**: `!!! warning` — 始终可见
+- **Supplementary info**: `!!! info` — 始终可见
+- **Examples**: `???+ example "例X：..."` — 可折叠（默认展开）
+- **Algorithms**: **不要**使用 `!!! abstract` 包裹伪代码块。直接用 `##` 小标题 + LaTeX `aligned` 环境
+- Admonition 正文缩进 **4 个空格**，内部的块级公式前后也要有空行
 
-### Pseudocode Format
+### 伪代码格式
 
-All algorithms must use LaTeX `aligned` environment. Use `###` subheading for algorithm title, not admonition:
+所有算法使用 LaTeX `aligned` 环境，用 `###` 小标题作为算法标题：
 
 ```markdown
 ### 算法 X.X（算法名称）
@@ -233,31 +202,26 @@ $$
 $$
 ```
 
-**Key formatting rules:**
-- Use `\begin{aligned}` environment with `&` for alignment
-- Line numbers: `1. \quad`, `2. \quad`, etc.
-- Keywords: `\textbf{while}`, `\textbf{do}`, `\textbf{end while}`, `\textbf{if}`, `\textbf{then}`, `\textbf{end if}`, `\textbf{for}`, `\textbf{end for}`, `\textbf{return}`
-- Assignment: `\leftarrow`
-- Comments: `\text{// comment}`
-- Input/Output labels: `\textbf{输入: }`, `\textbf{输出: }`
+**格式要点：**
+- 环境：`\begin{aligned}`，用 `&` 对齐
+- 行号：`1. \quad`, `2. \quad`, ...
+- 关键字：`\textbf{while}`, `\textbf{do}`, `\textbf{end while}`, `\textbf{if}`, `\textbf{then}`, `\textbf{end if}`, `\textbf{for}`, `\textbf{end for}`, `\textbf{return}`
+- 赋值：`\leftarrow`
+- 注释：`\text{// comment}`
+- 输入/输出标签：`\textbf{输入: }`, `\textbf{输出: }`
 
-## Image Generation Workflow
+## 8 图片生成工作流
 
-When creating learning notes that need illustrations (e.g., algorithm flowcharts, convergence plots, geometric diagrams), follow this workflow:
+当笔记需要插图（流程图、收敛曲线、几何示意图等）时：
 
-### 1. Setup
+### 8.1 使用 matplotlib
 
-Ensure `numpy` and `matplotlib` are installed (if not, add them via `uv add numpy matplotlib`).
-
-### 2. Create Generation Script
-
-Create a Python script in `scripts/` directory (e.g., `generate_<topic>_plots.py`) using this template:
+确保已安装 `numpy` 和 `matplotlib`（否则 `uv add numpy matplotlib`）。在 `scripts/` 下创建 `generate_<topic>_plots.py`：
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Use DejaVu Sans for better compatibility
 plt.rcParams['font.family'] = 'DejaVu Sans'
 plt.rcParams['axes.unicode_minus'] = False
 
@@ -273,23 +237,16 @@ if __name__ == '__main__':
     plot_example()
 ```
 
-### 3. Important Guidelines
+**准则：**
+- 图中标签用英文（matplotlib CJK 字体支持有限）
+- 分辨率 `dpi=150`
+- 背景 `facecolor='white'`
+- 格式 PNG，存放到 `docs/note/<subject>/pictures/`
+- 引用宽度 `{ width="800" }`
 
-- **Font**: Use only **English labels** in plots (matplotlib has limited CJK font support in this environment)
-- **Resolution**: Use `dpi=150` for clear web display
-- **Background**: Set `facecolor='white'` for consistent appearance
-- **Format**: Save as PNG
-- **Location**: Store in `docs/note/<subject>/pictures/`
-- **Width**: Reference images with `{ width="800" }` for consistent sizing
+### 8.2 从 PDF 导出页面
 
-### 3.1 PDF 页面导出清晰度（必须遵守）
-
-当需要从 PDF 课件/讲义中截取页面作为笔记插图时，统一使用仓库内的通用脚本 `scripts/export_pdf_pages.py`，默认高分辨率参数固定为：
-
-- `zoom = 6.0`
-- `alpha = False`
-
-导出的 PNG 必须写入当前笔记目录的 `pictures/` 下，优先覆盖同名文件以保持 Markdown 引用不变。
+从 PDF 课件截取页面时，统一使用 `scripts/export_pdf_pages.py`：
 
 ```bash
 uv run python scripts/export_pdf_pages.py \
@@ -301,41 +258,17 @@ uv run python scripts/export_pdf_pages.py \
   --overwrite
 ```
 
-参数约定：
+参数固定为 `zoom=6.0`、`alpha=False`。如仍模糊可提升到 `zoom=8.0`。页码默认 1-based，0-based 需加 `--base 0`。覆盖已有文件必须加 `--overwrite`。
 
-- `--page <页码>:<文件名.png>` 可重复传入，默认按 **1-based** 页码解释
-- 如需传入 **0-based** 页码，追加 `--base 0`
-- 如果个别页面仍显得偏糊（例如原 PDF 本身是低分辨率位图），再将 `--zoom` 提升到 `8.0`
-- 覆盖已有图片时必须显式加 `--overwrite`
+## 9 边界与禁忌
 
-### 4. Run Script
+- **不要手动编辑 `site/`**：它是构建产物。
+- **不要给笔记加手动目录**：Zensical 自动生成右侧目录。
+- **不要把所有信息塞进一个巨大文件**：项目文档已分层，`CLAUDE.md` 讲规则，`README.md` 讲索引，具体知识在 `docs/note/`。
+- **不要混用列表标记**：同一列表内不要 `-` 和 `1.` 混用，也不要 `- (1)`。
+- **自动生成页面不要手动改**：包括 `docs/quiz/*.md`、首页 Recent 区域、时间线等。
 
-```bash
-uv run python scripts/generate_<topic>_plots.py
-```
+## 10 扩展与索引维护
 
-或导出 PDF 页面：
+新增内容、维护目录索引与树形分解的详细指南见 [CLAUDE/08-extension.md](CLAUDE/08-extension.md)。
 
-```bash
-uv run python scripts/export_pdf_pages.py \
-  "docs/note/<subject>/slides/<file>.pdf" \
-  "docs/note/<subject>/pictures" \
-  --page 3:figure_03.png \
-  --overwrite
-```
-
-### 5. Insert into Note
-
-Add image reference in the Markdown:
-
-```markdown
-![Description](pictures/filename.png){ width="750" }
-```
-
-### Example Reference
-
-See `scripts/generate_iterative_method_plots.py` for a complete example covering:
-- Flowcharts (iteration process)
-- Comparison diagrams (Jacobi vs Gauss-Seidel)
-- Convergence plots (SOR omega effect)
-- Geometric visualizations (A-conjugate directions, steepest descent paths)
