@@ -27,6 +27,13 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/计算方法/数值微分与数值积分/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">数值微分与数值积分</h3>
+              <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-06-11</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/算法设计与分析/NP 完全/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">NP 完全性</h3>
@@ -52,13 +59,6 @@ icon: lucide/home
             <div class="resume-card-body">
               <h3 class="resume-card-title">随机算法</h3>
               <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-06-05</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/常微分方程初值问题的数值解法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">常微分方程初值问题的数值解法</h3>
-              <p class="resume-card-sub">计算方法</p>
               <span class="resume-card-date">2026-06-05</span>
             </div>
           </a>

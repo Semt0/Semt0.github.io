@@ -13,6 +13,13 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-06-11</div>
+    <div class="timeline-content">
+      <a href="计算方法/数值微分与数值积分/">数值微分与数值积分</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-06-05</div>
     <div class="timeline-content">
       <a href="算法设计与分析/NP 完全/">NP 完全性</a>
@@ -122,13 +129,6 @@ icon: lucide/book-open
     <div class="timeline-content">
       <a href="数理方程/分离变量法/">第二章 分离变量法</a>
       <span class="timeline-category">数理方程</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-05-26</div>
-    <div class="timeline-content">
-      <a href="计算方法/数值微分与数值积分/">数值微分与数值积分</a>
-      <span class="timeline-category">计算方法</span>
     </div>
   </div>
   <div class="timeline-item">
@@ -323,6 +323,13 @@ icon: lucide/book-open
   <div class="timeline-item">
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
+      <a href="复变函数/复数与平面点集/">第一章 复数与平面点集</a>
+      <span class="timeline-category">复变函数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-03-31</div>
+    <div class="timeline-content">
       <a href="复变函数/拉普拉斯变换/">第八章 拉普拉斯变换</a>
       <span class="timeline-category">复变函数</span>
     </div>
@@ -331,13 +338,6 @@ icon: lucide/book-open
     <div class="timeline-date">2026-03-31</div>
     <div class="timeline-content">
       <a href="复变函数/解析函数的级数表示/">第四章 解析函数的级数表示</a>
-      <span class="timeline-category">复变函数</span>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-date">2026-03-31</div>
-    <div class="timeline-content">
-      <a href="复变函数/复数与平面点集/">第一章 复数与平面点集</a>
       <span class="timeline-category">复变函数</span>
     </div>
   </div>
