@@ -124,12 +124,14 @@ nav = [
            "note/OJ复习/字符串算法.md",
        ]},
    ]},
+   {"题库" = "quiz/index.md"},
    {"手记" = "essay/index.md"},
    {"友链" = "friends.md"},
 ]
 
 extra_css = [
     "stylesheets/extra.css?v=20260605",
+    "stylesheets/quiz.css",
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
     "https://unpkg.com/@waline/client@v3/dist/waline.css",
 ]
@@ -138,6 +140,7 @@ extra_javascript = [
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js",
     "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js",
     "javascripts/katex.js",
+    "javascripts/quiz.js",
     "javascripts/home-animation.js",
     "javascripts/home-intro-words.js",
     "javascripts/sakura-init.js",

@@ -1,6 +1,18 @@
 ---
 title: Accelerated Gradient Descent
 date: 2026-04-07
+summary: |
+  从梯度下降在病态问题上的“锯齿形”现象出发，系统介绍动量法（Polyak heavy-ball、Nesterov AGD）与多步历史外推（Anderson acceleration）两类加速策略，并给出 Nesterov 方法在凸优化与强凸优化下的最优收敛证明。
+key_points:
+  - 梯度下降在病态问题上的收敛缺陷（锯齿形轨迹）
+  - Polyak heavy-ball 动量与 Nesterov 加速梯度的区别
+  - Anderson acceleration 的多步历史外推机制
+  - Nesterov 方法达到一阶方法最优复杂度的理论保证
+sources:
+  - "Stanford CS329P: Introduction to Foundation Models, Lecture 8"
+  - "slides/08_ACC_GD.pdf"
+  - "slides/notes_ch3.pdf"
+  - "Nesterov, Y. (1983). A method for solving the convex programming problem with convergence rate O(1/k^2)"
 ---
 参考笔记链接：
 [slides](slides/08_ACC_GD.pdf)

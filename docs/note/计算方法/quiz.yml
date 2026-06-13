@@ -1,0 +1,132 @@
+---
+subject: 计算方法
+chapters:
+  - chapter: 误差分析
+    source: 误差分析.md
+    questions:
+      - id: compute-error-001
+        type: single_choice
+        difficulty: core
+        question: 数值计算问题 $F(x,d)=0$ 中，已知 $F$ 和 $d$ 求 $x$ 属于哪一类问题？
+        options:
+          - 直接问题
+          - 反问题
+          - 识别问题
+        answer: 0
+        explanation: 已知 $F$ 和 $d$ 求 $x$ 称为直接问题。反问题是已知 $x$ 和 $d$ 求 $F$；识别问题是已知 $F$ 和 $x$ 求 $d$。
+
+      - id: compute-error-002
+        type: true_false
+        difficulty: core
+        question: 一个适定问题要求解存在、唯一且连续依赖于数据。
+        answer: true
+        explanation: 适定性（well-posedness）由 Hadamard 提出，包含三个条件：解存在、解唯一、解连续依赖于数据。
+
+      - id: compute-error-003
+        type: fill_blank
+        difficulty: advanced
+        question: 度量问题适定性程度的量称为______。
+        answer: 条件数
+        explanation: 条件数（condition number）用于度量适定性程度，分为相对条件数和绝对条件数。条件数越大，问题越病态。
+
+      - id: compute-error-004
+        type: short_answer
+        difficulty: core
+        question: 简述数值方法稳定性的含义。
+        keywords:
+          - 输入误差
+          - 输出误差
+          - 放大
+        explanation: 如果输入数据的误差不会造成输出数据产生较大误差，则方法是稳定的。稳定性关注的是算法对舍入误差的敏感程度。
+
+      - id: compute-error-005
+        type: single_choice
+        difficulty: advanced
+        question: 设 $f(x)$ 在 $x$ 处的绝对误差为 $\Delta x$，则 $f(x)$ 的相对误差约为多少？
+        options:
+          - $\frac{\Delta x}{x}$
+          - $\frac{f'(x) \Delta x}{f(x)}$
+          - $\frac{f''(x) \Delta x^2}{f(x)}$
+          - $\frac{\Delta x}{f(x)}$
+        answer: 1
+        explanation: 由误差传播公式，$f(x)$ 的相对误差约为 $\frac{f'(x) \Delta x}{f(x)}$，即 $f'(x)$ 乘以自变量的绝对误差再除以函数值。
+
+      - id: compute-error-006
+        type: true_false
+        difficulty: core
+        question: 在数值计算中，截断误差是由计算机有限字长引起的。
+        answer: false
+        explanation: 截断误差（truncation error）是将无限过程截断为有限过程引起的误差，如用有限项 Taylor 展开近似。由有限字长引起的是舍入误差（round-off error）。
+
+      - id: compute-error-007
+        type: fill_blank
+        difficulty: advanced
+        question: 对于函数 $f(x)$，其条件数 $\kappa(f)$ 定义为 $\kappa(f) = \sup_{\Delta x} \frac{|\delta f / f|}{|\delta x / x|}$，当 $x \to 0$ 时，条件数趋于______，此时问题称为______。
+        answer:
+          - 无穷大
+          - 病态
+        explanation: 当 $x \to 0$ 时，条件数趋于无穷大，此时问题称为病态（ill-conditioned）。病态问题意味着输入数据的微小扰动会导致输出结果的巨大变化。
+
+  - chapter: 插值法
+    source: 插值法.md
+    questions:
+      - id: compute-interp-001
+        type: single_choice
+        difficulty: core
+        question: 给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一，这是哪个定理的结论？
+        options:
+          - Weierstrass 逼近定理
+          - Lagrange 插值定理
+          - 多项式插值唯一性定理
+          - Taylor 展开定理
+        answer: 2
+        explanation: 多项式插值唯一性定理指出：给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一。
+
+      - id: compute-interp-002
+        type: single_choice
+        difficulty: core
+        question: 设 $f(x)$ 在 $[a,b]$ 上 $n+1$ 次可导，$L_n(x)$ 为 $n$ 次 Lagrange 插值多项式，则插值余项 $R_n(x) = f(x) - L_n(x)$ 的形式为：
+        options:
+          - $\frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x - x_i)$，其中 $\xi \in [a,b]$
+          - $\frac{f^{(n)}(\xi)}{n!} \prod_{i=0}^{n}(x - x_i)$
+          - $\frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1}$
+          - $\frac{f^{(n)}(\xi)}{n!} (x - x_0)^n$
+        answer: 0
+        explanation: Lagrange 插值余项公式为 $R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x - x_i)$，其中 $\xi$ 依赖于 $x$ 且位于插值节点所张成的区间内。
+
+      - id: compute-interp-003
+        type: true_false
+        difficulty: advanced
+        question: Newton 插值多项式与 Lagrange 插值多项式在相同节点下给出不同的插值结果。
+        answer: false
+        explanation: 由插值多项式的唯一性定理，给定相同节点，Newton 插值和 Lagrange 插值得到的是同一个多项式，只是表示形式不同。
+
+      - id: compute-interp-004
+        type: fill_blank
+        difficulty: core
+        question: 在等距节点插值中，当 $n$ 增大时，Runge 现象表明高次多项式插值在区间端点附近会出现剧烈的______。
+        answer: 振荡
+        explanation: Runge 现象指出，在等距节点上进行高次多项式插值时，插值多项式在区间端点附近会出现剧烈振荡，导致插值效果变差。解决方法是使用 Chebyshev 节点或分段低次插值。
+
+      - id: compute-interp-005
+        type: short_answer
+        difficulty: advanced
+        question: 简述分段线性插值与三次样条插值的主要区别。
+        keywords:
+          - 光滑性
+          - 二阶导数
+          - 连续
+          - 节点
+        explanation: 分段线性插值在节点处仅保证函数值连续（$C^0$），而三次样条插值在节点处保证函数值、一阶导数和二阶导数都连续（$C^2$），因此三次样条插值具有更好的光滑性。
+
+      - id: compute-interp-006
+        type: single_choice
+        difficulty: core
+        question: 三次样条插值中，"自然边界条件"指的是：
+        options:
+          - $S'(x_0) = f'(x_0)$，$S'(x_n) = f'(x_n)$
+          - $S''(x_0) = 0$，$S''(x_n) = 0$
+          - $S(x_0) = f(x_0)$，$S(x_n) = f(x_n)$
+          - $S'''(x_0) = S'''(x_n)$
+        answer: 1
+        explanation: 自然边界条件（natural boundary conditions）要求样条函数在端点处的二阶导数为零，即 $S''(x_0) = S''(x_n) = 0$。这对应于物理上样条在端点处不受力弯矩的情况。

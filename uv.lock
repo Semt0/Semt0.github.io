@@ -692,6 +692,7 @@ dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pymupdf" },
+    { name = "pyyaml" },
 ]
 
 [package.dev-dependencies]
@@ -705,6 +706,7 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "numpy", specifier = ">=2.4.3" },
     { name = "pymupdf", specifier = ">=1.24.0" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
 ]
 
 [package.metadata.requires-dev]
