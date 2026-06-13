@@ -101,7 +101,7 @@ def render_nav(nav: list[object]) -> str:
 def collect_note_paths() -> list[str]:
     out: list[str] = []
     for p in sorted(NOTE_ROOT.rglob("*.md")):
-        if p.name == "index.md":
+        if p.name in ("index.md", "README.md"):
             continue
         rel = p.relative_to(DOCS).as_posix()
         out.append(rel)

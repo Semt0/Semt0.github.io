@@ -121,7 +121,7 @@ def collect_blog_paths() -> list[str]:
     undated: list[str] = []
 
     for p in sorted(BLOG_ROOT.rglob("*.md")):
-        if p.name == "index.md":
+        if p.name in ("index.md", "README.md"):
             continue
 
         rel = p.relative_to(DOCS).as_posix()
