@@ -12,8 +12,8 @@ comments: false
   <div class="quiz-subject-card">
     <a href="算法设计与分析/" class="quiz-subject-link">
       <h3 class="quiz-subject-title">算法设计与分析</h3>
-      <div class="quiz-subject-count">共 90 题</div>
-      <div class="quiz-subject-diff">核心 49 题，进阶 30 题，真题 11 题</div>
+      <div class="quiz-subject-count">共 94 题</div>
+      <div class="quiz-subject-diff">核心 49 题，进阶 33 题，真题 12 题</div>
     </a>
   </div>
   <div class="quiz-subject-card">

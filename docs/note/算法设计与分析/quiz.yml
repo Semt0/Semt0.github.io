@@ -685,6 +685,71 @@ chapters:
     explanation: FPTAS 的时间复杂度为 $O(n^3(1 + 1/\varepsilon))$。关键分析：$v_{\max}' = \lceil
       v_{\max}/b \rceil = O(n(1+1/\varepsilon))$，动态规划算法的时间为 $O(n^2 v_{\max}')$，代入即得
       $O(n^3(1 + 1/\varepsilon))$。这是关于 $n$ 和 $1/\varepsilon$ 的多项式，因此是完全多项式时间近似方案。
+  - id: algo-approx-101
+    type: short_answer
+    difficulty: advanced
+    question: 10.1 最小顶点覆盖问题的近似算法 MVC 任取一条边，把这条边的两个端点加入顶点覆盖集。若改为只把这条边的一个端点加入顶点覆盖集，其余不变，试分析这个修改后的算法的近似性能。
+    answer: 修改后的算法不再具有有界的常数近似比，其近似性能可以任意差。考虑星形图实例：中心顶点 c 与 n 个叶子相连，最优解只需选 c（大小为1），但修改后的算法可能每次都选中叶子，最终输出大小为
+      n，近似比趋于无穷大。
+    explanation: 星形图 G=(V,E)，V={c,v1,...,vn}，E={(c,vi)}。最优 OPT=1。若算法每一步都选中叶子 vi，则需将所有叶子加入覆盖集，ALG=n。因此
+      ALG/OPT=n，当 n→∞ 时近似比无界。
+    keywords:
+    - 最小顶点覆盖
+    - 近似算法
+    - 星形图
+    - 近似比
+    chapter: 近似算法
+    source: hw8.tex
+  - id: algo-approx-103
+    type: short_answer
+    difficulty: advanced
+    question: 10.3 装箱问题中，首次适合算法（FF）按输入顺序装物品，每只箱子装入物品总重不超过 B。证明：对装箱问题的所有实例 I，FF(I)
+      < 2·OPT(I)。
+    answer: 关键引理：对任意两只已打开的箱子 Si 和 Sj（i<j），有 w(Si)+w(Sj)>B。因为 Sj 中第一件物品 x 当时无法装入 Si。由此可得总重量
+      W > ⌊m/2⌋·B，而 OPT ≥ ⌈W/B⌉ ≥ ⌊m/2⌋+1，故 2·OPT > m = FF。
+    explanation: 设 FF 产生 m 只箱子 S1,...,Sm。对 i<j，Sj 中第一件物品 x 装入时 Si 已打开且装不下 x，故当时 Si
+      重量 + wx > B，从而 w(Si)+w(Sj) > B。将所有箱子两两配对得 W > ⌊m/2⌋·B，OPT ≥ ⌈W/B⌉ ≥ ⌊m/2⌋+1，因此
+      FF = m < 2·OPT。
+    keywords:
+    - 装箱问题
+    - 首次适合算法
+    - FF
+    - 近似比
+    chapter: 近似算法
+    source: hw8.tex
+  - id: algo-approx-104
+    type: short_answer
+    difficulty: exam
+    question: 10.4 证明：装箱问题不存在近似比 r < 3/2 的多项式时间近似算法，除非 P=NP。
+    answer: 从划分问题（Partition）归约。给定正整数 a1,...,an 与总和 T，若 T 为奇数直接回答否；否则构造装箱实例：物品重量 wj=aj，箱子容量
+      B=T/2。划分有解当且仅当 OPT=2，无解则 OPT≥3。若存在近似比 r<3/2 的近似算法 A，则划分有解时 A(I)≤2r<3，因 A(I)
+      为整数故 A(I)≤2；划分无解时 A(I)≥3。于是可用 A 在多项式时间内判定划分问题，除非 P=NP，否则不可能。
+    explanation: 构造保持划分问题的答案：总重为 2B。若划分有解，则恰好用 2 只箱子装完；若无解，则至少需要 3 只。近似比 r<3/2 的算法能区分这两种情况（有解输出≤2，无解输出≥3），从而多项式时间求解
+      NP-完全问题 Partition，矛盾。
+    keywords:
+    - 装箱问题
+    - 近似比下界
+    - 划分问题
+    - NP完全
+    chapter: 近似算法
+    source: hw8.tex
+  - id: algo-approx-105
+    type: short_answer
+    difficulty: advanced
+    question: 10.5 最大割集问题中，局部改进算法 MCUT 从 V1=V, V2=∅ 开始，若存在顶点 u 其关联的非割边多于割边，则将 u 从当前侧移到另一侧。证明：对最大割集问题的每个实例
+      I，OPT(I) ≤ 2·MCUT(I)。
+    answer: 算法终止时，对每个顶点 u 有 d_non(u) ≤ d_cut(u)。对所有顶点求和得 Σd_non(u) ≤ Σd_cut(u)。由于每条非割边被两端点各计一次，左边等于
+      2|E_non|；每条割边同样被计两次，右边等于 2|E_cut|。因此 |E_non| ≤ |E_cut|，总边数 |E| = |E_cut|+|E_non|
+      ≤ 2|E_cut| = 2·MCUT。又 OPT ≤ |E|，故 OPT ≤ 2·MCUT。
+    explanation: MCUT 的终止条件保证每个顶点关联的非割边数不超过割边数。通过双重计数，非割边总数不超过割边总数，从而总边数不超过两倍割边数。最优割边数不超过总边数，因此
+      OPT ≤ |E| ≤ 2·MCUT。
+    keywords:
+    - 最大割集
+    - 局部改进算法
+    - 近似比
+    - 双重计数
+    chapter: 近似算法
+    source: hw8.tex
 - chapter: 问题复杂度
   source: 问题复杂度.md
   questions:
