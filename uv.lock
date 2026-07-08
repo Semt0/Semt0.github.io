@@ -361,6 +361,18 @@ wheels = [
 ]
 
 [[package]]
+name = "markdown-obsidian-callouts"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/73/da/90c58ba77e84f558088f140f40c4e7b95eb7e62fa37840f6b1820421ee9f/markdown_obsidian_callouts-0.1.1.tar.gz", hash = "sha256:00bbebce7d2dfb57b96d505c0699a34f3a803a40d76bde9d0b87e0df8f9e6d37", size = 5936, upload-time = "2025-01-16T07:48:15.603Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/52/e2/36fdcd946bb737ec6f7314749922d6f4bfc9656a00b71fb5ba4d52970673/markdown_obsidian_callouts-0.1.1-py3-none-any.whl", hash = "sha256:608d317f88ffe1b0c75138a2c9ec38263d05be65c6ee8e307523dff5537cfda9", size = 6621, upload-time = "2025-01-16T07:48:12.811Z" },
+]
+
+[[package]]
 name = "matplotlib"
 version = "3.10.8"
 source = { registry = "https://pypi.org/simple" }
@@ -689,6 +701,7 @@ name = "semt0-blog"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "markdown-obsidian-callouts" },
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pymupdf" },
@@ -703,6 +716,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "markdown-obsidian-callouts", specifier = ">=0.1.1" },
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "numpy", specifier = ">=2.4.3" },
     { name = "pymupdf", specifier = ">=1.24.0" },
