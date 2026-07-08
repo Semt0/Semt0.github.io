@@ -9,7 +9,7 @@
 Personal blog and learning notes site: https://semt0.github.io/
 
 - **站点生成器**：Zensical（Material for MkDocs 分支）
-- **内容**：博客、学习笔记、手记、复习题库、友链
+- **内容**：博客、学习笔记、手记、友链
 - **语言**：中英双语，数学公式使用 KaTeX
 - **Python**：3.13+，包管理使用 `uv`
 
@@ -36,7 +36,6 @@ uv run zensical build --clean
 | `docs/blog/` | 博客文章 |
 | `docs/note/` | 学习笔记，按科目组织 |
 | `docs/essay/` | 手记 |
-| `docs/quiz/` | 复习题库（由 `scripts/update_quiz.py` 自动生成） |
 | `docs/friends.md` | 友链 |
 | `docs/stylesheets/extra.css` | 自定义样式 |
 | `docs/javascripts/` | 自定义脚本 |
@@ -49,7 +48,7 @@ uv run zensical build --clean
 - **深色模式**：通过 `[data-md-color-scheme="slate"]` 适配。
 - **主页特殊**：`docs/index.md` 使用原始 HTML 和 `extra.css` 中的类，不是标准 Markdown。
 - **图片位置**：笔记图片放在当前目录的 `pictures/` 下，引用格式 `![描述](pictures/filename.png){ width="800" }`。
-- **自动生成文件**：`docs/quiz/`、`site/` 以及首页 Recent / 时间线 / 导航等由脚本生成，**不要手动编辑**。
+- **自动生成文件**：`site/` 以及首页 Recent / 时间线 / 导航等由脚本生成，**不要手动编辑**。
 
 ## 5 内容更新工作流
 
@@ -68,7 +67,6 @@ uv run zensical build --clean
 - `scripts/update_essay_timeline.py` — 更新手记时间线
 - `scripts/update_nav_blog.py` — 更新博客导航
 - `scripts/update_nav_notes.py` — 更新笔记导航
-- `scripts/update_quiz.py` — 生成复习题库页面
 
 各脚本的详细说明见 [README.md](README.md)。
 
@@ -266,7 +264,7 @@ uv run python scripts/export_pdf_pages.py \
 - **不要给笔记加手动目录**：Zensical 自动生成右侧目录。
 - **不要把所有信息塞进一个巨大文件**：项目文档已分层，`CLAUDE.md` 讲规则，`README.md` 讲索引，具体知识在 `docs/note/`。
 - **不要混用列表标记**：同一列表内不要 `-` 和 `1.` 混用，也不要 `- (1)`。
-- **自动生成页面不要手动改**：包括 `docs/quiz/*.md`、首页 Recent 区域、时间线等。
+- **自动生成页面不要手动改**：包括首页 Recent 区域、时间线等。
 
 ## 10 扩展与索引维护
 

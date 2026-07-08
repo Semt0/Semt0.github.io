@@ -127,19 +127,16 @@ nav = [
            "note/OJ复习/字符串算法.md",
        ]},
    ]},
-   {"题库" = "quiz/index.md"},
    {"手记" = "essay/index.md"},
    {"友链" = "friends.md"},
 ]
 
 extra_css = [
     "stylesheets/extra.css?v=20260616",
-    "stylesheets/quiz.css",
 ]
 
 extra_javascript = [
     "javascripts/katex.js",
-    "javascripts/quiz.js",
     "javascripts/home-animation.js",
     "javascripts/home-intro-words.js",
     "javascripts/sakura-init.js",

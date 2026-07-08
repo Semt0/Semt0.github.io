@@ -26,7 +26,6 @@ jobs:
       - run: python3 scripts/update_home_recent.py
       - run: python3 scripts/update_timeline.py
       - run: python3 scripts/update_essay_timeline.py
-      - run: python3 scripts/update_quiz.py
       - run: zensical build --clean
       - uses: actions/upload-pages-artifact@v4
         with:

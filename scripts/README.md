@@ -17,7 +17,6 @@
 | `update_essay_timeline.py` | 更新手记时间线 | `docs/essay/index.md` |
 | `update_nav_blog.py` | 根据博客文件更新 `zensical.toml` 博客导航 | `zensical.toml` |
 | `update_nav_notes.py` | 根据笔记文件更新 `zensical.toml` 笔记导航 | `zensical.toml` |
-| `update_quiz.py` | 扫描 `quiz.yml` 生成分科目题库页 | `docs/quiz/*.md` |
 | `check_indexes.py` | 检查目录索引 README 完整性与大小 | 终端报告 |
 
 ### 资源处理脚本（手动调用）

@@ -11,7 +11,6 @@
 | **博客** | `docs/blog/` | 主题文章、课程复盘、阶段性整理 |
 | **笔记** | `docs/note/` | 按科目整理的学习笔记（数学、CS、AI、硬件等） |
 | **手记** | `docs/essay/` | 更轻量的日常记录、想法片段 |
-| **复习题库** | `docs/quiz/` | 基于笔记的可交互复习测验 |
 | **友链** | `docs/friends.md` | 个人链接页 |
 
 ## 科目索引（笔记）
@@ -37,7 +36,7 @@
 - **主题系统**：Material for MkDocs 风格 + 自定义 `overrides/`
 - **数学渲染**：KaTeX + `pymdownx.arithmatex`
 - **自定义样式**：`docs/stylesheets/extra.css`
-- **自定义脚本**：`docs/javascripts/`（樱花、主页动画、Waline、KaTeX、复习题库等）
+- **自定义脚本**：`docs/javascripts/`（樱花、主页动画、Waline、KaTeX 等）
 - **包管理**：`uv`
 - **运行环境**：Python 3.13+
 
@@ -66,7 +65,6 @@ uv run zensical build --clean
 | `scripts/update_essay_timeline.py` | 生成手记时间线 | `update.sh` / CI |
 | `scripts/update_nav_blog.py` | 根据文件更新博客导航 | `update.sh` / CI |
 | `scripts/update_nav_notes.py` | 根据文件更新笔记导航 | `update.sh` / CI |
-| `scripts/update_quiz.py` | 扫描 `quiz.yml` 生成分科目题库页 | `update.sh` / CI |
 | `scripts/check_pages.py` | 查看 PDF 总页数 | 手动 |
 | `scripts/compress_images.py` | 批量压缩图片 | 手动 |
 | `scripts/export_pdf_pages.py` | 高分辨率导出 PDF 页面为 PNG | 手动 |
@@ -82,7 +80,6 @@ uv run zensical build --clean
 │   ├── blog/                    # 博客文章
 │   ├── note/                    # 学习笔记
 │   ├── essay/                   # 手记
-│   ├── quiz/                    # 复习题库（自动生成）
 │   ├── friends.md               # 友链
 │   ├── images/                  # 站点图片资源
 │   ├── stylesheets/             # 自定义 CSS
