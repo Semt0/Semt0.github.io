@@ -54,6 +54,7 @@ nav = [
            "note/CVDL/Tracking.md",
            "note/CVDL/3DVision.md",
            "note/CVDL/GenerativeModels.md",
+           "note/CVDL/CVDL_Final_Review.md",
        ]},
        {"Introduction to Foundation Models" = [
            "note/Introduction to Foundation Models/Gradient descent.md",
@@ -86,6 +87,7 @@ nav = [
            "note/计算方法/非线性方程及非线性方程组的解法.md",
            "note/计算方法/QR分解和奇异值分解.md",
            "note/计算方法/常微分方程初值问题的数值解法.md",
+           "note/计算方法/期末复习笔记.md",
        ]},
        {"算法设计与分析" = [
            "note/算法设计与分析/动态规划.md",
@@ -103,6 +105,7 @@ nav = [
        {"Rust程序设计" = [
            "note/Rust程序设计/draft.md",
            "note/Rust程序设计/所有权与所有权转移.md",
+           "note/Rust程序设计/期末复习.md",
        ]},
        {"并行程序设计" = [
            "note/并行程序设计/MPI点对点通讯.md",
@@ -130,15 +133,11 @@ nav = [
 ]
 
 extra_css = [
-    "stylesheets/extra.css?v=20260605",
+    "stylesheets/extra.css?v=20260616",
     "stylesheets/quiz.css",
-    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
-    "https://unpkg.com/@waline/client@v3/dist/waline.css",
 ]
 
 extra_javascript = [
-    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js",
-    "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js",
     "javascripts/katex.js",
     "javascripts/quiz.js",
     "javascripts/home-animation.js",
@@ -232,6 +231,7 @@ url = "https://semt0.github.io/"
 # ===== 基础扩展 =====
 [project.markdown_extensions.abbr]          # 缩写支持
 [project.markdown_extensions.admonition]    # 警告框（!!! note）
+[project.markdown_extensions."obsidian-callouts"]  # GitHub/Obsidian 风格警告框（> [!NOTE]）
 [project.markdown_extensions.attr_list]     # 属性列表
 [project.markdown_extensions.def_list]      # 定义列表
 [project.markdown_extensions.footnotes]     # 脚注支持

@@ -2,12 +2,24 @@
   var walineInstance = null;
   var walineModule = null;
 
+  function logError(message, err) {
+    if (typeof console !== 'undefined' && console.error) {
+      console.error('[Waline] ' + message, err);
+    }
+  }
+
   function run() {
     var el = document.getElementById("waline");
 
     // 销毁旧实例
     if (walineInstance) {
-      try { walineInstance.destroy(); } catch (e) {}
+      if (typeof walineInstance.destroy === 'function') {
+        try {
+          walineInstance.destroy();
+        } catch (e) {
+          logError('Failed to destroy previous Waline instance', e);
+        }
+      }
       walineInstance = null;
     }
 
@@ -39,15 +51,21 @@
         };
       }
 
-      walineInstance = mod.init({
-        ...walineOptions,
-      });
+      try {
+        walineInstance = mod.init(walineOptions);
+      } catch (e) {
+        logError('Failed to initialize Waline', e);
+      }
     }
 
     if (walineModule) {
       doInit(walineModule);
     } else {
-      import("https://unpkg.com/@waline/client@v3/dist/waline.js").then(doInit);
+      import("https://unpkg.com/@waline/client@v3/dist/waline.js")
+        .then(doInit)
+        .catch(function (e) {
+          logError('Failed to load Waline client module', e);
+        });
     }
   }
 

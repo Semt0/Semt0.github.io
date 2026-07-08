@@ -2,8 +2,7 @@
  Semt0 博客：日间浅蓝 · 夜间深紫（基于 zhangpl24.github.io 配置）
  -------------------------------------------------------------------------- */
 
-@import url("https://cdn.jsdelivr.net/npm/webfont-lxgw-wenkai@1.0.0/style.min.css");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400..700&display=swap");
+/* 字体通过 overrides/partials/extrahead.html 加载，避免 CSS @import 阻塞渲染 */
 
 /* 顶栏头像圆角 */
 .md-header__button.md-logo {
@@ -48,6 +47,12 @@
 
   --md-typeset-a-color: #0277bd;
   --md-typeset-mark-color: rgba(2, 136, 209, 0.15);
+
+  /* 首页栏目强调色 */
+  --zen-home-accent-1: #6366f1;
+  --zen-home-accent-2: #0d9488;
+  --zen-home-accent-3: #d97706;
+  --zen-home-accent-4: #be185d;
 }
 
 /* 日间模式：主内容背景保持纯白 */
@@ -70,47 +75,48 @@
 }
 
 /* --- 夜间模式：导航栏和目录紫色高亮 ---------------------------------------- */
+/* 使用 CSS 变量并移除 !important，依赖更高的选择器特异性覆盖主题默认色 */
 [data-md-color-scheme="slate"] .md-nav__link--active {
-  color: #e879f9 !important;
+  color: var(--md-accent-fg-color, #e879f9);
   font-weight: 700;
 }
 
 [data-md-color-scheme="slate"] .md-nav__link--active::before {
-  background-color: #e879f9;
+  background-color: var(--md-accent-fg-color, #e879f9);
 }
 
 [data-md-color-scheme="slate"] .md-nav__item .md-nav__link--active {
-  color: #e879f9 !important;
+  color: var(--md-accent-fg-color, #e879f9);
 }
 
 /* 目录当前项高亮 */
 [data-md-color-scheme="slate"] .md-nav__link[href]:hover {
-  color: #c4a7ff;
+  color: var(--md-typeset-a-color, #c4a7ff);
 }
 
 /* 侧边栏导航当前选中项 */
 [data-md-color-scheme="slate"] .md-nav__link--active .md-nav__icon {
-  color: #e879f9;
+  color: var(--md-accent-fg-color, #e879f9);
 }
 
 /* TOC 目录当前项 */
 [data-md-color-scheme="slate"] .md-toc__link--active {
-  color: #e879f9 !important;
+  color: var(--md-accent-fg-color, #e879f9);
   font-weight: 600;
 }
 
 [data-md-color-scheme="slate"] .md-toc__link--active::before {
-  background-color: #e879f9;
+  background-color: var(--md-accent-fg-color, #e879f9);
 }
 
 /* 二级导航高亮 */
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active {
-  color: #e879f9 !important;
+  color: var(--md-accent-fg-color, #e879f9);
 }
 
 /* 导航链接悬停效果 */
 [data-md-color-scheme="slate"] .md-nav__link:hover {
-  color: #c4a7ff;
+  color: var(--md-typeset-a-color, #c4a7ff);
 }
 
 .sakura-cursor-toggle {
@@ -451,7 +457,8 @@ article.md-content__inner.zen-content-enter {
 }
 
 .md-typeset h1 {
-  opacity: 0;
+  /* 默认可见，动画期间由 keyframes 控制；避免 JS/动画异常时标题不可见 */
+  opacity: 1;
   animation: title-fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
@@ -461,9 +468,6 @@ article.md-content__inner.zen-content-enter {
     animation: none !important;
   }
 
-  article.md-content__inner.zen-content-enter {
-    animation: none !important;
-  }
   article.md-content__inner.zen-content-enter {
     animation: none !important;
   }
@@ -1123,10 +1127,10 @@ button.md-top {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
-.home-section:nth-child(1) { border-left-color: #6366f1; }
-.home-section:nth-child(2) { border-left-color: #0d9488; }
-.home-section:nth-child(3) { border-left-color: #d97706; }
-.home-section:nth-child(4) { border-left-color: #be185d; }
+.home-section:nth-child(1) { border-left-color: var(--zen-home-accent-1); }
+.home-section:nth-child(2) { border-left-color: var(--zen-home-accent-2); }
+.home-section:nth-child(3) { border-left-color: var(--zen-home-accent-3); }
+.home-section:nth-child(4) { border-left-color: var(--zen-home-accent-4); }
 
 .home-section-title {
   margin: 0 0 0.5rem 0;
@@ -1147,10 +1151,10 @@ button.md-top {
   border-radius: 50%;
 }
 
-.home-section:nth-child(1) .home-section-title::before { background: #6366f1; }
-.home-section:nth-child(2) .home-section-title::before { background: #0d9488; }
-.home-section:nth-child(3) .home-section-title::before { background: #d97706; }
-.home-section:nth-child(4) .home-section-title::before { background: #be185d; }
+.home-section:nth-child(1) .home-section-title::before { background: var(--zen-home-accent-1); }
+.home-section:nth-child(2) .home-section-title::before { background: var(--zen-home-accent-2); }
+.home-section:nth-child(3) .home-section-title::before { background: var(--zen-home-accent-3); }
+.home-section:nth-child(4) .home-section-title::before { background: var(--zen-home-accent-4); }
 
 .home-section ul {
   list-style: none;
@@ -1787,21 +1791,22 @@ a.resume-tag:hover {
 [data-md-color-scheme="slate"] .md-typeset,
 [data-md-color-scheme="slate"] .md-nav__link,
 [data-md-color-scheme="slate"] .md-nav--secondary {
-  color: #e2e8f0 !important;
+  color: #e2e8f0;
 }
 
 /* 代码块 & 数学公式 */
+/* 移除 !important，避免覆盖语法高亮 token；选择器限定为 pre/pre code 提高特异性 */
 [data-md-color-scheme="slate"] pre,
-[data-md-color-scheme="slate"] code {
-  background-color: rgba(168, 85, 247, 0.08) !important;
-  color: #f5f3ff !important;
+[data-md-color-scheme="slate"] pre code {
+  background-color: rgba(168, 85, 247, 0.08);
+  color: #f5f3ff;
   border: 1px solid rgba(168, 85, 247, 0.2);
 }
 
 [data-md-color-scheme="slate"] .arithmatex,
 [data-md-color-scheme="slate"] .katex-display,
 [data-md-color-scheme="slate"] .katex {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 [data-md-color-scheme="slate"] .home-title { color: #ffffff; }
@@ -2180,4 +2185,149 @@ a.resume-tag:hover {
 [data-md-color-scheme="slate"] .md-typeset table:not([class]) td code {
   background: hsla(278, 15%, 22%, 0.6);
   color: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   GitHub/Obsidian 风格 Callout 兼容样式
+   依赖扩展：markdown-obsidian-callouts
+   -------------------------------------------------------------------------- */
+
+.md-typeset .callout {
+  /* 默认颜色与 note 一致 */
+  --callout-color: #448aff;
+
+  margin: 1.5625em 0;
+  padding: 0 0.6rem 0.6rem;
+  border-left: 0.2rem solid var(--callout-color);
+  border-radius: 0.1rem;
+  background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
+  color: var(--md-admonition-fg-color, var(--md-default-fg-color));
+  font-size: inherit;
+}
+
+.md-typeset .callout-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 -0.6rem 0.6rem;
+  padding: 0.4rem 0.6rem 0.4rem 2.2rem;
+  background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* 使用 Material 自带的 admonition SVG 图标作为 mask */
+.md-typeset .callout-title::before {
+  content: "";
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: var(--callout-color);
+  -webkit-mask-image: var(--md-admonition-icon--note);
+  mask-image: var(--md-admonition-icon--note);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* 扩展自带的 lucide 图标需要额外 JS 才能显示，这里隐藏它 */
+.md-typeset .callout-icon,
+.md-typeset .callout-fold {
+  display: none;
+}
+
+.md-typeset .callout-title-inner {
+  flex: 1;
+}
+
+.md-typeset .callout-content {
+  font-size: inherit;
+}
+
+.md-typeset .callout-content p,
+.md-typeset .callout-content ul,
+.md-typeset .callout-content ol,
+.md-typeset .callout-content li {
+  font-size: inherit;
+}
+
+/* 折叠样式（扩展会生成 .is-collapsible） */
+.md-typeset .callout.is-collapsible .callout-title {
+  cursor: pointer;
+}
+
+/* ---- 类型颜色与图标映射（与 Material admonition 保持一致） ---- */
+
+.md-typeset .callout[data-callout="abstract"] { --callout-color: #00b0ff; }
+.md-typeset .callout[data-callout="abstract"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--abstract);
+  mask-image: var(--md-admonition-icon--abstract);
+}
+
+.md-typeset .callout[data-callout="info"] { --callout-color: #00b8d4; }
+.md-typeset .callout[data-callout="info"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--info);
+  mask-image: var(--md-admonition-icon--info);
+}
+
+.md-typeset .callout[data-callout="tip"] { --callout-color: #00bfa5; }
+.md-typeset .callout[data-callout="tip"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--tip);
+  mask-image: var(--md-admonition-icon--tip);
+}
+
+.md-typeset .callout[data-callout="success"] { --callout-color: #00c853; }
+.md-typeset .callout[data-callout="success"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--success);
+  mask-image: var(--md-admonition-icon--success);
+}
+
+.md-typeset .callout[data-callout="question"] { --callout-color: #64dd17; }
+.md-typeset .callout[data-callout="question"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--question);
+  mask-image: var(--md-admonition-icon--question);
+}
+
+.md-typeset .callout[data-callout="warning"] { --callout-color: #ff9100; }
+.md-typeset .callout[data-callout="warning"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--warning);
+  mask-image: var(--md-admonition-icon--warning);
+}
+
+.md-typeset .callout[data-callout="failure"] { --callout-color: #ff5252; }
+.md-typeset .callout[data-callout="failure"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--failure);
+  mask-image: var(--md-admonition-icon--failure);
+}
+
+.md-typeset .callout[data-callout="danger"] { --callout-color: #ff1744; }
+.md-typeset .callout[data-callout="danger"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--danger);
+  mask-image: var(--md-admonition-icon--danger);
+}
+
+.md-typeset .callout[data-callout="bug"] { --callout-color: #f50057; }
+.md-typeset .callout[data-callout="bug"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--bug);
+  mask-image: var(--md-admonition-icon--bug);
+}
+
+.md-typeset .callout[data-callout="example"] { --callout-color: #7c4dff; }
+.md-typeset .callout[data-callout="example"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--example);
+  mask-image: var(--md-admonition-icon--example);
+}
+
+.md-typeset .callout[data-callout="quote"] { --callout-color: #9e9e9e; }
+.md-typeset .callout[data-callout="quote"] .callout-title::before {
+  -webkit-mask-image: var(--md-admonition-icon--quote);
+  mask-image: var(--md-admonition-icon--quote);
 }

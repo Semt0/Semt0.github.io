@@ -24,10 +24,12 @@
 
 | 脚本 | 用途 |
 |------|------|
+| `check_pages.py` | 查看 PDF 总页数 |
 | `compress_images.py` | 批量压缩图片 |
 | `export_pdf_pages.py` | 高分辨率导出 PDF 页面为 PNG |
 | `export_pdf_pages_simple.py` | PDF 页面导出简化版 |
 | `extract_pdf_text.py` | 提取 PDF 文本 |
+| `generate_cheatsheet.py` | 从 JSON 数据生成 A4 横向四栏速查表 PDF（Pandoc + XeLaTeX） |
 
 ### 绘图生成脚本
 
@@ -49,6 +51,10 @@
 - 影响站点生成流程的脚本，需在 `update.sh` 和 `.github/workflows/docs.yml` 中同步登记。
 - 生成性脚本的输出文件应声明为“不要手动编辑”。
 - 新增脚本后，更新本 `README.md`。
+
+### 依赖说明
+
+- `generate_cheatsheet.py` 需要系统安装 `pandoc` 和 `xelatex`（TeX Live / MacTeX）。
 
 ## 4 上下层索引
 

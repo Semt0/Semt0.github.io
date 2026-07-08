@@ -1,0 +1,8 @@
+{#
+  Main template override to inject external resources with SRI via extrahead.
+#}
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {% include "partials/extrahead.html" %}
+{% endblock %}

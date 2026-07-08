@@ -1,5 +1,17 @@
 (function () {
   var STORAGE_KEY = "__sakura_cursor_enabled";
+  var GLOBAL_KEY = "__sakuraCursorInstance";
+
+  // 如果之前已经初始化过，先清理旧实例，避免 SPA 导航后事件/元素重复。
+  var existing = window[GLOBAL_KEY];
+  if (existing && typeof existing.destroy === 'function') {
+    try {
+      existing.destroy();
+    } catch (e) {
+      // ignore cleanup errors
+    }
+  }
+
   var state = {
     initialized: false,
     layer: null,
@@ -76,10 +88,9 @@
   }
 
   function createToggleButton() {
-    var button = document.createElement("label");
+    var button = document.createElement("button");
+    button.type = "button";
     button.className = "md-header__button md-icon sakura-cursor-toggle";
-    button.setAttribute("role", "button");
-    button.setAttribute("tabindex", "0");
     button.innerHTML =
       '<svg viewBox="0 0 24 24" aria-hidden="true">' +
         '<path d="M9.5 2.8 10.7 6a2 2 0 0 0 1.2 1.2l3.2 1.2-3.2 1.2a2 2 0 0 0-1.2 1.2l-1.2 3.2-1.2-3.2a2 2 0 0 0-1.2-1.2L3.9 8.4l3.2-1.2A2 2 0 0 0 8.3 6z"></path>' +
@@ -201,6 +212,26 @@
     window.addEventListener("pointerdown", onPointerDown, { passive: true });
   }
 
+  function unbindEvents() {
+    if (!state.listenersBound) return;
+    window.removeEventListener("pointermove", onPointerMove, { passive: true });
+    window.removeEventListener("pointerdown", onPointerDown, { passive: true });
+    state.listenersBound = false;
+  }
+
+  function destroy() {
+    unbindEvents();
+    if (state.layer && state.layer.parentNode) {
+      state.layer.parentNode.removeChild(state.layer);
+    }
+    if (state.toggleButton && state.toggleButton.parentNode) {
+      state.toggleButton.parentNode.removeChild(state.toggleButton);
+    }
+    state.layer = null;
+    state.toggleButton = null;
+    state.initialized = false;
+  }
+
   function start() {
     state.enabled = readStoredEnabled();
     ensureLayer();
@@ -209,7 +240,9 @@
     state.initialized = true;
   }
 
-  if (typeof document$ !== "undefined" && document$.subscribe) {
+  window[GLOBAL_KEY] = { destroy: destroy };
+
+  if (typeof document$ !== 'undefined' && document$.subscribe) {
     document$.subscribe(start);
   } else if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", start);

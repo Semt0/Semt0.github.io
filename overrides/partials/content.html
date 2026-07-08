@@ -1,29 +1,19 @@
 {#
   Override of partials/content.html to add Waline comment section.
+  Based on Zensical's partials/content.html.
 #}
 
-{% if "navigation.comments" in features %}
-  {% set disqus = config.extra.disqus %}
-  {% set cusdis = config.extra.cusdis %}
+{% include "partials/actions.html" %}
+{% if "\u003ch1" not in page.content %}
+  <h1>{{ page.title | d(config.site_name, true)}}</h1>
 {% endif %}
+{{ page.content }}
+{% include "partials/tags.html" %}
+{% include "partials/source-file.html" %}
+{% include "partials/feedback.html" %}
+{% include "partials/comments.html" %}
 
-<!-- Page content -->
-{% if page.meta and page.meta.search and page.meta.search.exclude %}
-  {% set hidden = "hidden" %}
-{% elif page.meta and page.meta.search and not page.meta.search.exclude %}
-  {% set hidden = "" %}
-{% else %}
-  {% set hidden = "" %}
+{# Waline 评论区 - 可通过 frontmatter comments: false 禁用 #}
+{% if page.meta.comments is not defined or page.meta.comments != false %}
+  <div id="waline"></div>
 {% endif %}
-
-<div class="md-content" data-md-component="content" {% if hidden %}hidden{% endif %}>
-  <article class="md-content__inner md-typeset">
-    {# Render page content #}
-    {{ page.content }}
-
-    {# Waline 评论区 - 可通过 frontmatter comments: false 禁用 #}
-    {% if page.meta.comments is not defined or page.meta.comments != false %}
-    <div id="waline"></div>
-    {% endif %}
-  </article>
-</div>

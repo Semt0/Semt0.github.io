@@ -67,6 +67,7 @@ uv run zensical build --clean
 | `scripts/update_nav_blog.py` | 根据文件更新博客导航 | `update.sh` / CI |
 | `scripts/update_nav_notes.py` | 根据文件更新笔记导航 | `update.sh` / CI |
 | `scripts/update_quiz.py` | 扫描 `quiz.yml` 生成分科目题库页 | `update.sh` / CI |
+| `scripts/check_pages.py` | 查看 PDF 总页数 | 手动 |
 | `scripts/compress_images.py` | 批量压缩图片 | 手动 |
 | `scripts/export_pdf_pages.py` | 高分辨率导出 PDF 页面为 PNG | 手动 |
 
