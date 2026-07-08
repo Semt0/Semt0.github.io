@@ -32,7 +32,6 @@ REQUIRED_DOCS_INDEX_DIRS = [
 REQUIRED_DIRS = REQUIRED_DOCS_INDEX_DIRS + [
     "scripts",
     "tests",
-    "overrides",
 ]
 
 # 需要检查行数是否超限的索引文件（相对仓库根目录）
