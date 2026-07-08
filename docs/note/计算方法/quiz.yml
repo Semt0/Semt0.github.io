@@ -1,132 +1,672 @@
----
 subject: 计算方法
 chapters:
-  - chapter: 误差分析
-    source: 误差分析.md
-    questions:
-      - id: compute-error-001
-        type: single_choice
-        difficulty: core
-        question: 数值计算问题 $F(x,d)=0$ 中，已知 $F$ 和 $d$ 求 $x$ 属于哪一类问题？
-        options:
-          - 直接问题
-          - 反问题
-          - 识别问题
-        answer: 0
-        explanation: 已知 $F$ 和 $d$ 求 $x$ 称为直接问题。反问题是已知 $x$ 和 $d$ 求 $F$；识别问题是已知 $F$ 和 $x$ 求 $d$。
-
-      - id: compute-error-002
-        type: true_false
-        difficulty: core
-        question: 一个适定问题要求解存在、唯一且连续依赖于数据。
-        answer: true
-        explanation: 适定性（well-posedness）由 Hadamard 提出，包含三个条件：解存在、解唯一、解连续依赖于数据。
-
-      - id: compute-error-003
-        type: fill_blank
-        difficulty: advanced
-        question: 度量问题适定性程度的量称为______。
-        answer: 条件数
-        explanation: 条件数（condition number）用于度量适定性程度，分为相对条件数和绝对条件数。条件数越大，问题越病态。
-
-      - id: compute-error-004
-        type: short_answer
-        difficulty: core
-        question: 简述数值方法稳定性的含义。
-        keywords:
-          - 输入误差
-          - 输出误差
-          - 放大
-        explanation: 如果输入数据的误差不会造成输出数据产生较大误差，则方法是稳定的。稳定性关注的是算法对舍入误差的敏感程度。
-
-      - id: compute-error-005
-        type: single_choice
-        difficulty: advanced
-        question: 设 $f(x)$ 在 $x$ 处的绝对误差为 $\Delta x$，则 $f(x)$ 的相对误差约为多少？
-        options:
-          - $\frac{\Delta x}{x}$
-          - $\frac{f'(x) \Delta x}{f(x)}$
-          - $\frac{f''(x) \Delta x^2}{f(x)}$
-          - $\frac{\Delta x}{f(x)}$
-        answer: 1
-        explanation: 由误差传播公式，$f(x)$ 的相对误差约为 $\frac{f'(x) \Delta x}{f(x)}$，即 $f'(x)$ 乘以自变量的绝对误差再除以函数值。
-
-      - id: compute-error-006
-        type: true_false
-        difficulty: core
-        question: 在数值计算中，截断误差是由计算机有限字长引起的。
-        answer: false
-        explanation: 截断误差（truncation error）是将无限过程截断为有限过程引起的误差，如用有限项 Taylor 展开近似。由有限字长引起的是舍入误差（round-off error）。
-
-      - id: compute-error-007
-        type: fill_blank
-        difficulty: advanced
-        question: 对于函数 $f(x)$，其条件数 $\kappa(f)$ 定义为 $\kappa(f) = \sup_{\Delta x} \frac{|\delta f / f|}{|\delta x / x|}$，当 $x \to 0$ 时，条件数趋于______，此时问题称为______。
-        answer:
-          - 无穷大
-          - 病态
-        explanation: 当 $x \to 0$ 时，条件数趋于无穷大，此时问题称为病态（ill-conditioned）。病态问题意味着输入数据的微小扰动会导致输出结果的巨大变化。
-
-  - chapter: 插值法
-    source: 插值法.md
-    questions:
-      - id: compute-interp-001
-        type: single_choice
-        difficulty: core
-        question: 给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一，这是哪个定理的结论？
-        options:
-          - Weierstrass 逼近定理
-          - Lagrange 插值定理
-          - 多项式插值唯一性定理
-          - Taylor 展开定理
-        answer: 2
-        explanation: 多项式插值唯一性定理指出：给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一。
-
-      - id: compute-interp-002
-        type: single_choice
-        difficulty: core
-        question: 设 $f(x)$ 在 $[a,b]$ 上 $n+1$ 次可导，$L_n(x)$ 为 $n$ 次 Lagrange 插值多项式，则插值余项 $R_n(x) = f(x) - L_n(x)$ 的形式为：
-        options:
-          - $\frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x - x_i)$，其中 $\xi \in [a,b]$
-          - $\frac{f^{(n)}(\xi)}{n!} \prod_{i=0}^{n}(x - x_i)$
-          - $\frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1}$
-          - $\frac{f^{(n)}(\xi)}{n!} (x - x_0)^n$
-        answer: 0
-        explanation: Lagrange 插值余项公式为 $R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x - x_i)$，其中 $\xi$ 依赖于 $x$ 且位于插值节点所张成的区间内。
-
-      - id: compute-interp-003
-        type: true_false
-        difficulty: advanced
-        question: Newton 插值多项式与 Lagrange 插值多项式在相同节点下给出不同的插值结果。
-        answer: false
-        explanation: 由插值多项式的唯一性定理，给定相同节点，Newton 插值和 Lagrange 插值得到的是同一个多项式，只是表示形式不同。
-
-      - id: compute-interp-004
-        type: fill_blank
-        difficulty: core
-        question: 在等距节点插值中，当 $n$ 增大时，Runge 现象表明高次多项式插值在区间端点附近会出现剧烈的______。
-        answer: 振荡
-        explanation: Runge 现象指出，在等距节点上进行高次多项式插值时，插值多项式在区间端点附近会出现剧烈振荡，导致插值效果变差。解决方法是使用 Chebyshev 节点或分段低次插值。
-
-      - id: compute-interp-005
-        type: short_answer
-        difficulty: advanced
-        question: 简述分段线性插值与三次样条插值的主要区别。
-        keywords:
-          - 光滑性
-          - 二阶导数
-          - 连续
-          - 节点
-        explanation: 分段线性插值在节点处仅保证函数值连续（$C^0$），而三次样条插值在节点处保证函数值、一阶导数和二阶导数都连续（$C^2$），因此三次样条插值具有更好的光滑性。
-
-      - id: compute-interp-006
-        type: single_choice
-        difficulty: core
-        question: 三次样条插值中，"自然边界条件"指的是：
-        options:
-          - $S'(x_0) = f'(x_0)$，$S'(x_n) = f'(x_n)$
-          - $S''(x_0) = 0$，$S''(x_n) = 0$
-          - $S(x_0) = f(x_0)$，$S(x_n) = f(x_n)$
-          - $S'''(x_0) = S'''(x_n)$
-        answer: 1
-        explanation: 自然边界条件（natural boundary conditions）要求样条函数在端点处的二阶导数为零，即 $S''(x_0) = S''(x_n) = 0$。这对应于物理上样条在端点处不受力弯矩的情况。
+- chapter: 误差分析
+  source: 误差分析.md
+  questions:
+  - id: compute-error-001
+    type: single_choice
+    difficulty: core
+    question: 数值计算问题 $F(x,d)=0$ 中，已知 $F$ 和 $d$ 求 $x$ 属于哪一类问题？
+    options:
+    - 直接问题
+    - 反问题
+    - 识别问题
+    answer: 0
+    explanation: 已知 $F$ 和 $d$ 求 $x$ 称为直接问题。反问题是已知 $x$ 和 $d$ 求 $F$；识别问题是已知 $F$ 和 $x$
+      求 $d$。
+  - id: compute-error-002
+    type: true_false
+    difficulty: core
+    question: 一个适定问题要求解存在、唯一且连续依赖于数据。
+    answer: true
+    explanation: 适定性（well-posedness）由 Hadamard 提出，包含三个条件：解存在、解唯一、解连续依赖于数据。
+  - id: compute-error-003
+    type: fill_blank
+    difficulty: advanced
+    question: 度量问题适定性程度的量称为______。
+    answer: 条件数
+    explanation: 条件数（condition number）用于度量适定性程度，分为相对条件数和绝对条件数。条件数越大，问题越病态。
+  - id: compute-error-004
+    type: short_answer
+    difficulty: core
+    question: 简述数值方法稳定性的含义。
+    keywords:
+    - 输入误差
+    - 输出误差
+    - 放大
+    explanation: 如果输入数据的误差不会造成输出数据产生较大误差，则方法是稳定的。稳定性关注的是算法对舍入误差的敏感程度。
+  - id: compute-error-005
+    type: single_choice
+    difficulty: advanced
+    question: 设 $f(x)$ 在 $x$ 处的绝对误差为 $\Delta x$，则 $f(x)$ 的相对误差约为多少？
+    options:
+    - $\frac{\Delta x}{x}$
+    - $\frac{f'(x) \Delta x}{f(x)}$
+    - $\frac{f''(x) \Delta x^2}{f(x)}$
+    - $\frac{\Delta x}{f(x)}$
+    answer: 1
+    explanation: 由误差传播公式，$f(x)$ 的相对误差约为 $\frac{f'(x) \Delta x}{f(x)}$，即 $f'(x)$ 乘以自变量的绝对误差再除以函数值。
+  - id: compute-error-006
+    type: true_false
+    difficulty: core
+    question: 在数值计算中，截断误差是由计算机有限字长引起的。
+    answer: false
+    explanation: 截断误差（truncation error）是将无限过程截断为有限过程引起的误差，如用有限项 Taylor 展开近似。由有限字长引起的是舍入误差（round-off
+      error）。
+  - id: compute-error-007
+    type: fill_blank
+    difficulty: advanced
+    question: 对于函数 $f(x)$，其条件数 $\kappa(f)$ 定义为 $\kappa(f) = \sup_{\Delta x} \frac{|\delta
+      f / f|}{|\delta x / x|}$，当 $x \to 0$ 时，条件数趋于______，此时问题称为______。
+    answer:
+    - 无穷大
+    - 病态
+    explanation: 当 $x \to 0$ 时，条件数趋于无穷大，此时问题称为病态（ill-conditioned）。病态问题意味着输入数据的微小扰动会导致输出结果的巨大变化。
+- chapter: 插值法
+  source: 插值法.md
+  questions:
+  - id: compute-interp-001
+    type: single_choice
+    difficulty: core
+    question: 给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一，这是哪个定理的结论？
+    options:
+    - Weierstrass 逼近定理
+    - Lagrange 插值定理
+    - 多项式插值唯一性定理
+    - Taylor 展开定理
+    answer: 2
+    explanation: 多项式插值唯一性定理指出：给定 $n+1$ 个互异节点，次数不超过 $n$ 的插值多项式存在且唯一。
+  - id: compute-interp-002
+    type: single_choice
+    difficulty: core
+    question: 设 $f(x)$ 在 $[a,b]$ 上 $n+1$ 次可导，$L_n(x)$ 为 $n$ 次 Lagrange 插值多项式，则插值余项
+      $R_n(x) = f(x) - L_n(x)$ 的形式为：
+    options:
+    - $\frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x - x_i)$，其中 $\xi \in [a,b]$
+    - $\frac{f^{(n)}(\xi)}{n!} \prod_{i=0}^{n}(x - x_i)$
+    - $\frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1}$
+    - $\frac{f^{(n)}(\xi)}{n!} (x - x_0)^n$
+    answer: 0
+    explanation: Lagrange 插值余项公式为 $R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n}(x
+      - x_i)$，其中 $\xi$ 依赖于 $x$ 且位于插值节点所张成的区间内。
+  - id: compute-interp-003
+    type: true_false
+    difficulty: advanced
+    question: Newton 插值多项式与 Lagrange 插值多项式在相同节点下给出不同的插值结果。
+    answer: false
+    explanation: 由插值多项式的唯一性定理，给定相同节点，Newton 插值和 Lagrange 插值得到的是同一个多项式，只是表示形式不同。
+  - id: compute-interp-004
+    type: fill_blank
+    difficulty: core
+    question: 在等距节点插值中，当 $n$ 增大时，Runge 现象表明高次多项式插值在区间端点附近会出现剧烈的______。
+    answer: 振荡
+    explanation: Runge 现象指出，在等距节点上进行高次多项式插值时，插值多项式在区间端点附近会出现剧烈振荡，导致插值效果变差。解决方法是使用
+      Chebyshev 节点或分段低次插值。
+  - id: compute-interp-005
+    type: short_answer
+    difficulty: advanced
+    question: 简述分段线性插值与三次样条插值的主要区别。
+    keywords:
+    - 光滑性
+    - 二阶导数
+    - 连续
+    - 节点
+    explanation: 分段线性插值在节点处仅保证函数值连续（$C^0$），而三次样条插值在节点处保证函数值、一阶导数和二阶导数都连续（$C^2$），因此三次样条插值具有更好的光滑性。
+  - id: compute-interp-006
+    type: single_choice
+    difficulty: core
+    question: 三次样条插值中，"自然边界条件"指的是：
+    options:
+    - $S'(x_0) = f'(x_0)$，$S'(x_n) = f'(x_n)$
+    - $S''(x_0) = 0$，$S''(x_n) = 0$
+    - $S(x_0) = f(x_0)$，$S(x_n) = f(x_n)$
+    - $S'''(x_0) = S'''(x_n)$
+    answer: 1
+    explanation: 自然边界条件（natural boundary conditions）要求样条函数在端点处的二阶导数为零，即 $S''(x_0)
+      = S''(x_n) = 0$。这对应于物理上样条在端点处不受力弯矩的情况。
+  - id: compute-interp-007
+    type: short_answer
+    difficulty: advanced
+    chapter: 插值法
+    source: 25春期中_袁子峰.tex Q6
+    question: 从插值的角度分析：一个 3 次的多项式和一个 4 次的多项式能否有 5 个交点？
+    answer: 不能。若 3 次和 4 次多项式有 5 个交点，则它们的差是一个不超过 4 次的多项式且有 5 个互异零点，由代数基本定理只能恒为零，即两多项式相等，矛盾。
+    explanation: 设 P3(x) 为 3 次多项式，P4(x) 为 4 次多项式。若它们有 5 个不同的交点 x1,...,x5，则 P3(xi)=P4(xi)。令
+      Q(x)=P4(x)-P3(x)，则 Q(x) 是次数不超过 4 的多项式，但有 5 个互异零点。根据代数基本定理，非零多项式的零点个数不超过其次数，因此
+      Q(x)≡0，即 P3=P4，但两者次数不同，矛盾。因此不可能有 5 个交点。
+    keywords:
+    - 插值
+    - 多项式
+    - 交点
+    - 代数基本定理
+  - id: compute-interp-008
+    type: single_choice
+    difficulty: core
+    chapter: 插值法
+    source: 25春期中_袁子峰.tex Q8
+    question: 给出 sin x 在 [-π,π] 上的等距插值表，设进行二次多项式插值时截断误差不超过 10⁻⁵，问函数表的步长 h 不能超过多少？
+    options:
+    - h ≤ 0.058
+    - h ≤ 0.031
+    - h ≤ 0.116
+    - h ≤ 0.232
+    answer: 0
+    explanation: 二次插值 (n=2) 的截断误差为 |R2(x)| = |f'''(ξ)|/6 · |(x-x0)(x-x1)(x-x2)|。对等距节点
+      h，max|(x-x0)(x-x1)(x-x2)| = 2√3·h³/9。对 sin x，|f'''(x)|=|cos x|≤1。要求 1/6 · 2√3/9
+      · h³ ≤ 10⁻⁵，解得 h ≤ 0.058。
+    keywords:
+    - 插值误差
+    - 步长选择
+    - 二次插值
+    - 截断误差
+  - id: compute-interp-009
+    type: fill_blank
+    difficulty: advanced
+    chapter: 插值法
+    source: 25春期中_袁子峰.tex Q10
+    question: 设样条插值函数在 [0,4] 上为 s(x) = 2-9x+9x² (x∈[0,1)) 和 s(x) = a+b(x-1)+c(x-1)²+d(x-1)³
+      (x∈[1,4])。若已知边界条件 s'(0)=s'(4)，求 a,b,c,d 的值。
+    answer:
+    - '2'
+    - '9'
+    - '9'
+    - -8/3
+    explanation: 由 C² 连续性：s(1⁻)=2-9+9=2=a；s'(x)=-9+18x (x<1)，s'(1⁻)=9=b；s''(x)=18
+      (x<1)，s''(1⁻)=18=2c，故 c=9。s'(0)=-9。s'(4)=b+2c·3+3d·9=9+54+27d。由 s'(0)=s'(4)：-9=63+27d，得
+      d=-8/3。注意：题目说明左段数据由 GPT-4o 生成与原题有出入，原题结果为整数。核心考察 C² 连续性和边界条件的联立求解。
+    keywords:
+    - 样条插值
+    - C²连续性
+    - 边界条件
+    - 参数确定
+  - id: compute-interp-010
+    type: short_answer
+    difficulty: advanced
+    chapter: 插值法
+    source: 25春期中_袁子峰.tex Q12
+    question: 设在 0=a<x0<x1<...<xn=b 上的 Lagrange 插值基函数为 lk(x) (k=0,1,...,n)，对于 j∈{0,1,...,n}，求
+      Σ_{k=0}^n lk(0)·xk^j 的值（要求化简到无 Σ 号）。
+    answer: 当 j=0 时和为 1；当 j=1,2,...,n 时和为 0。
+    explanation: 考虑插值多项式 Pn(x)=Σ xk^j·lk(x)，它是对 f(x)=x^j 在节点 {xk} 上的 n 次 Lagrange
+      插值。当 j≤n 时，f(x)=x^j 本身就是次数不超过 n 的多项式，由插值唯一性 Pn(x)=x^j 精确成立。代入 x=0 得 Σ lk(0)·xk^j
+      = 0^j。j=0 时 0⁰=1；j≥1 时 0^j=0。
+    keywords:
+    - Lagrange基函数
+    - 插值唯一性
+    - 恒等式
+  - id: compute-interp-011
+    type: short_answer
+    difficulty: core
+    chapter: 插值法
+    source: hw5.tex Q1
+    question: '已知函数表：x: 1, 3, 4, 6；f(x): -7, 5, 8, 14。求其 3 阶 Lagrange 插值多项式，并计算 f(2)
+      的近似值。'
+    answer: L3(2) = 2/5 = 0.4
+    explanation: 构造四个 Lagrange 基函数：l0(x)=(x-3)(x-4)(x-6)/(-30)，l1(x)=(x-1)(x-4)(x-6)/6，l2(x)=(x-1)(x-3)(x-6)/(-6)，l3(x)=(x-1)(x-3)(x-4)/30。L3(x)=-7l0+5l1+8l2+14l3。代入
+      x=2：l0(2)=4/15，l1(2)=4/3，l2(2)=-2/3，l3(2)=1/15。L3(2)=-7·4/15+5·4/3-8·2/3+14·1/15=6/15=2/5。
+    keywords:
+    - Lagrange插值
+    - 基函数
+    - 插值计算
+  - id: compute-interp-012
+    type: fill_blank
+    difficulty: advanced
+    chapter: 插值法
+    source: hw5.tex Q3
+    question: 确定 a,b,c,d 使 f(x)={3+x-9x²(x∈[0,1]); a+b(x-1)+c(x-1)²+d(x-1)³(x∈[1,2])}
+      为三次样条函数，并通过极小化 ∫₀²[f''(x)]²dx 确定 d。a=__, b=__, c=__, d=__。
+    answer:
+    - '-5'
+    - '-17'
+    - '-9'
+    - 9/2
+    explanation: C² 连续性：fL(1)=3+1-9=-5=a；fL'(x)=1-18x，fL'(1)=-17=b；fL''(x)=-18，fL''(1)=-18=2c，c=-9。曲率积分
+      J(d)=∫₀¹324dx+∫₁²(-18+6d(x-1))²dx=648-108d+12d²。J'(d)=-108+24d=0，d=9/2。J''(d)=24>0，确为极小值。
+    keywords:
+    - 三次样条
+    - C²连续性
+    - 曲率极小化
+    - 样条构造
+- chapter: 函数逼近
+  source: 25春期末_袁子峰.tex Q6
+  questions:
+  - id: compute-approx-001
+    type: short_answer
+    difficulty: core
+    chapter: 函数逼近
+    source: 25春期末_袁子峰.tex Q6
+    question: 进行最小二乘法线性拟合时，若数据集 {(xi,yi)} 中某个数据点 (xk,yk) 被多记录了一次，使样本变成 n+1 个点，是否会对原来的拟合结果有影响？给出结论与理由。
+    answer: 会有影响。重复记录相当于给该数据点施加了双倍权重，正规方程中各项求和均增加该点的贡献，除非该点恰好落在原拟合直线上。
+    explanation: 最小二乘的目标函数为 Σ(yi-axi-b)²。若 (xk,yk) 被重复，目标函数变为 Σ(yi-axi-b)²+(yk-axk-b)²，相当于给第
+      k 点权重 2。正规方程中 Σxi, Σyi, Σxi², Σxiyi 均增加该点贡献，一般情况下拟合直线改变。仅当该点恰好精确位于原拟合直线上时才不受影响。
+    keywords:
+    - 最小二乘法
+    - 线性拟合
+    - 数据重复
+    - 权重
+  - id: compute-approx-002
+    type: short_answer
+    difficulty: core
+    chapter: 函数逼近
+    source: 25春期末_袁子峰.tex Q7
+    question: 设 f(x)=eˣ 在 [-1,1] 上的最佳平方逼近函数具有形式 φ(x)=ax+b，求常数 a,b 的值。
+    answer: a = 3/e ≈ 1.1036，b = (e-e⁻¹)/2 ≈ 1.1752
+    explanation: 取基函数 φ0=1, φ1=x。在[-1,1]上：(φ0,φ0)=2，(φ0,φ1)=0，(φ1,φ1)=2/3。(f,φ0)=∫eˣdx=e-e⁻¹，(f,φ1)=∫xeˣdx=2e⁻¹。正规方程：2a0=e-e⁻¹
+      → b=a0=(e-e⁻¹)/2；2a1/3=2e⁻¹ → a=a1=3/e。
+    keywords:
+    - 最佳平方逼近
+    - 连续函数
+    - 正规方程
+    - 指数函数
+  - id: compute-approx-003
+    type: short_answer
+    difficulty: core
+    chapter: 函数逼近
+    source: hw6.tex Q1
+    question: '给定数据：x: 1.0, 2.0, 3.0, 4.0, 5.0；y: 0.333, 0.400, 0.429, 0.444, 0.455。用最小二乘法求符合
+      y = x/(ax+b) 的拟合函数。'
+    answer: y = x/(2x+1)
+    explanation: 对 y=x/(ax+b) 取倒数：1/y = a + b·(1/x)。令 Y=1/y, X=1/x，化为 Y=a+bX 的线性最小二乘。数据近似满足
+      Y=2+X（因 yi 精确值为 xi/(2xi+1) 的近似），故 a=2, b=1，即 y=x/(2x+1)。
+    keywords:
+    - 最小二乘法
+    - 分式线性拟合
+    - 变量替换
+  - id: compute-approx-004
+    type: short_answer
+    difficulty: advanced
+    chapter: 函数逼近
+    source: hw6.tex Q4
+    question: 利用前三阶 Legendre 正交多项式计算 cos(πx) 关于权函数 ω(x)=1 在 [-1,1] 上的最佳平方逼近。
+    answer: p(x) = 15(1-3x²)/(2π²)
+    explanation: 前三阶 Legendre 多项式：P0=1, P1=x, P2=(3x²-1)/2。内积：(f,P0)=0，(f,P1)=0（奇偶性），(f,P2)=-6/π²。归一化：‖P0‖²=2，‖P2‖²=2/5。a2=(-6/π²)/(2/5)=-15/π²。p(x)=-15/π²·(3x²-1)/2=15(1-3x²)/(2π²)。
+    keywords:
+    - 正交多项式
+    - Legendre
+    - 最佳平方逼近
+    - 正交基
+  - id: compute-approx-005
+    type: true_false
+    difficulty: core
+    chapter: 函数逼近
+    source: hw6.tex Q3
+    question: 对数据点进行形如 y = a/x + bx 的最小二乘拟合时，取基函数 φ1(x)=1/x 和 φ2(x)=x，可直接建立关于 a,b
+      的线性正规方程求解。
+    answer: true
+    explanation: y=a/x+bx 关于参数 a,b 是线性的。取 φ1=1/x, φ2=x，则 y=aφ1+bφ2 是广义线性模型。可直接建立正规方程
+      Σφj(xi)φk(xi)·[a,b]T = Σyiφj(xi) 求解。
+    keywords:
+    - 最小二乘法
+    - 广义线性拟合
+    - 基函数
+- chapter: 数值微分与数值积分
+  source: 25春期中_袁子峰.tex Q1
+  questions:
+  - id: compute-diffint-001
+    type: short_answer
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: 25春期中_袁子峰.tex Q1
+    question: 计算 ∫_N^{N+1} 1/(1+x²) dx = arctan(N+1)-arctan(N) 时，若 N≫1，应如何改进计算过程以提高精确性？
+    answer: 利用恒等式 arctan(N+1)-arctan(N)=arctan(1/(1+N(N+1)))，或直接在 [N,N+1] 上用数值积分计算原积分，避免两个相近大数相减造成有效数字损失。
+    explanation: 当 N≫1 时，arctan(N+1) 和 arctan(N) 都接近 π/2，两者相减会发生灾难性抵消。改进方法：(1) 利用
+      arctan u - arctan v = arctan((u-v)/(1+uv))，得 arctan(1/(1+N(N+1)))，可直接计算小量；(2)
+      直接在 [N,N+1] 上用数值积分计算原积分，避开解析式的相减。
+    keywords:
+    - 数值积分
+    - 有效数字损失
+    - 相消
+    - 改进计算
+  - id: compute-diffint-002
+    type: single_choice
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: 25春期末_袁子峰.tex Q2
+    question: 求积公式 ∫_a^b f(x)dx = (b-a)f((a+b)/2) 的代数精度是多少？
+    options:
+    - 0 次
+    - 1 次
+    - 2 次
+    - 3 次
+    answer: 1
+    explanation: 检验：f(x)=1，左右均=b-a，精确成立。f(x)=x，左右均=(b²-a²)/2，精确成立。f(x)=x²，左=(b³-a³)/3，右=(b-a)((a+b)/2)²，二者不等。因此该中点公式具有
+      1 次代数精度。
+    keywords:
+    - 代数精度
+    - 中点公式
+    - 求积公式
+  - id: compute-diffint-003
+    type: short_answer
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: 25春期末_袁子峰.tex Q3
+    question: 在 S=[a,b]×[c,d] 上计算二重积分时，x 轴用 Simpson 格式、y 轴用梯形格式，给出该混合积分格式的表达式。
+    answer: ∬_S f dσ ≈ (d-c)/2 · (b-a)/6 · [f(a,c)+4f((a+b)/2,c)+f(b,c) + f(a,d)+4f((a+b)/2,d)+f(b,d)]
+    explanation: 多重积分化为累次积分。内层 x 方向用 Simpson（3 点），外层 y 方向用梯形（2 点 y=c,d）。每处用 Simpson
+      计算内层积分：∫_a^b f(x,c)dx≈(b-a)[f(a,c)+4f((a+b)/2,c)+f(b,c)]/6。外层梯形组合得 (d-c)/2 乘以两内层积分之和。
+    keywords:
+    - 多重积分
+    - 累次积分
+    - 混合积分格式
+    - Simpson
+    - 梯形
+  - id: compute-diffint-004
+    type: short_answer
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: 25春期末_袁子峰.tex Q8
+    question: 分别用 Simpson 积分和两节点 Gauss-Legendre 积分计算 ∫₁² eˣ/x dx 的近似值（保留六位有效数字）。
+    answer: 'Simpson: ≈3.05912；两点 Gauss-Legendre: ≈3.05912。'
+    explanation: Simpson：1/6·[f(1)+4f(1.5)+f(2)]=1/6·[2.71828+4×2.98779+3.69453]=3.05912。两点
+      Gauss-Legendre：变换 x=3/2+t/2 (t∈[-1,1])，节点 t=±1/√3，x=1.5±0.288675。f(x1)+f(x2)
+      乘以 (b-a)/2=0.5 得约 3.05912。
+    keywords:
+    - Simpson积分
+    - Gauss-Legendre
+    - 数值积分
+    - 计算题
+  - id: compute-diffint-005
+    type: fill_blank
+    difficulty: advanced
+    chapter: 数值微分与数值积分
+    source: 25春期末_袁子峰.tex Q9
+    question: 数值微分格式 f'(x)≈[-f(x+2h)+8f(x+h)-8f(x-h)+f(x-2h)]/(12h)，设余项为 O(h^p)，则
+      p=__。
+    answer: '4'
+    explanation: 将 f(x±h) 和 f(x±2h) 在 x 处 Taylor 展开。f(x±h)=f±hf'+h²f''/2±h³f'''/6+h⁴f⁽⁴⁾/24±h⁵f⁽⁵⁾/120+...。代入后
+      f, f'', f⁽⁴⁾ 各项均消去，f' 项系数正确，f⁽⁵⁾ 项不为零，故截断误差 O(h⁴)，p=4。
+    keywords:
+    - 数值微分
+    - 差商格式
+    - Taylor展开
+    - 误差阶
+  - id: compute-diffint-006
+    type: short_answer
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: hw7.tex Q1
+    question: 设 f(x)=1/(1+x)²，步长 h=0.1，分别用二点前向差分与三点中心差分计算 f'(0.5)，并比较误差。
+    answer: 前向差分：-0.5382，误差 0.0544；中心差分：-0.5980，误差 0.0054。中心差分精度约为前向差分的 10 倍。
+    explanation: 精确值 f'(0.5)=-16/27≈-0.59259。前向：[f(0.6)-f(0.5)]/0.1=-0.53819，误差 0.0544(O(h))。中心：[f(0.6)-f(0.4)]/0.2=-0.59799，误差
+      0.0054(O(h²))。
+    keywords:
+    - 数值微分
+    - 前向差分
+    - 中心差分
+    - 误差比较
+  - id: compute-diffint-007
+    type: short_answer
+    difficulty: core
+    chapter: 数值微分与数值积分
+    source: hw7.tex Q2
+    question: 分别用梯形公式与 Simpson 公式计算 ∫₀¹ e⁻ˣ dx，并估计误差。
+    answer: 梯形：T≈0.68394，误差上界 1/12≈0.0833；Simpson：S≈0.63233，误差上界 1/2880≈3.47×10⁻⁴。精确值
+      1-e⁻¹≈0.63212。
+    explanation: f(0)=1, f(1)=e⁻¹≈0.36788, f(0.5)=e⁻⁰·⁵≈0.60653。T=(1+0.36788)/2=0.68394，误差|-f''(ξ)/12|≤1/12。S=(1+4×0.60653+0.36788)/6=0.63233，误差|-f⁽⁴⁾(ξ)/2880|≤1/2880。Simpson
+      精度高约 240 倍。
+    keywords:
+    - 梯形公式
+    - Simpson公式
+    - 误差估计
+    - 数值积分
+  - id: compute-diffint-008
+    type: short_answer
+    difficulty: advanced
+    chapter: 数值微分与数值积分
+    source: hw7.tex Q3
+    question: 确定求积公式 ∫_{-h}^h f(x)dx ≈ A1·f(-h/2)+A2·f(0)+A3·f(h/2) 的系数使代数精度最高，并给出代数精度值。
+    answer: A1=A3=4h/3, A2=-2h/3，代数精度为 3。
+    explanation: '令 f=1: 2h=A1+A2+A3。令 f=x: 0=-h·A1/2+h·A3/2 → A1=A3。令 f=x²: 2h³/3=h²·A1/4+h²·A3/4=h²·A1/2
+      → A1=4h/3。回代得 A2=-2h/3。验证 f=x³：左右均为 0，成立。验证 f=x⁴：左=2h⁵/5≠右=h⁵/6，不成立。故代数精度 3。'
+    keywords:
+    - 代数精度
+    - 求积系数
+    - 特定系数法
+  - id: compute-diffint-009
+    type: true_false
+    difficulty: advanced
+    chapter: 数值微分与数值积分
+    source: hw7.tex Q4
+    question: 若求积公式 ∫_a^b f(x)dx≈Σ Ak·f(xk) 的代数精度 ≥ n-1，则必有 Ak=∫_a^b lk(x)dx，其中 lk
+      为 Lagrange 插值基函数。
+    answer: true
+    explanation: Lagrange 基函数 lk(x) 是次数不超过 n-1 的多项式，代数精度 ≥ n-1 意味着公式对 lk 精确成立：∫ lk
+      dx = Σ Aj·lk(xj) = Σ Aj·δkj = Ak。这说明任何具有足够代数精度的求积公式必然是插值型求积公式。
+    keywords:
+    - 插值型求积
+    - Lagrange基函数
+    - 代数精度
+    - 求积系数
+- chapter: 非线性方程及非线性方程组的解法
+  source: 25春期末_袁子峰.tex Q1
+  questions:
+  - id: compute-nonlinear-001
+    type: fill_blank
+    difficulty: core
+    chapter: 非线性方程及非线性方程组的解法
+    source: 25春期末_袁子峰.tex Q1
+    question: 给出求非线性方程 f(x)=0 的 Newton 迭代法的迭代格式：x_{k+1} = __。
+    answer: x_k - f(x_k)/f'(x_k)
+    explanation: Newton 法通过对 f(x) 在 xk 处做一阶 Taylor 展开 f(x)≈f(xk)+f'(xk)(x-xk)，令其为零解得
+      x_{k+1}=xk-f(xk)/f'(xk)。几何上是用切线代替曲线，以切线与 x 轴的交点作为下一次近似。单根附近具有二阶收敛。
+    keywords:
+    - Newton迭代法
+    - 迭代格式
+    - 非线性方程
+  - id: compute-nonlinear-002
+    type: short_answer
+    difficulty: advanced
+    chapter: 非线性方程及非线性方程组的解法
+    source: 25春期末_袁子峰.tex Q10
+    question: 用 Newton 法求 √a 时有两种等价格式 φ1(x)=x/2+a/(2x) 和 φ2(x)=3x/2-x³/(2a)。若采用 x_{k+1}=c1·φ1(xk)+c2·φ2(xk)，求
+      c1,c2 使该格式三阶收敛到 √a。
+    answer: c1=-1/2, c2=3/2
+    explanation: 令 g(x)=c1·φ1+c2·φ2。在 x*=√a 处展开。要求 g(x*)=x*（得 c1+c2=1），g'(x*)=0（二阶条件），g''(x*)=0（三阶条件）。φ1'(x*)=0，φ2'(x*)=?
+      计算得 c1=-1/2, c2=3/2。这实际是 Halley 方法的一种线性组合表示。
+    keywords:
+    - Newton法
+    - 三阶收敛
+    - 迭代加速
+    - 参数确定
+  - id: compute-nonlinear-003
+    type: short_answer
+    difficulty: advanced
+    chapter: 非线性方程及非线性方程组的解法
+    source: 25春期末_袁子峰.tex Q12
+    question: 设 x0>0, a>0，判断迭代 x_{n+1}=xn(xn²+3a)/(3xn²+a) 的收敛性。若收敛给出极限值。
+    answer: 收敛，极限值为 √a，具有三阶收敛速度。
+    explanation: 此迭代是求解 x²-a=0 的 Halley 方法等价形式。令 φ(x)=x(x²+3a)/(3x²+a)，可验证 φ(√a)=√a。在
+      x*=√a 处，φ'(x*)=0，φ''(x*)=0，φ'''(x*)≠0，三阶收敛。也可令 en=xn-√a 直接证明 e_{n+1}=en³/(3xn²+a)=O(en³)。
+    keywords:
+    - 迭代收敛性
+    - 三阶收敛
+    - 不动点
+    - Halley方法
+  - id: compute-nonlinear-004
+    type: short_answer
+    difficulty: core
+    chapter: 非线性方程及非线性方程组的解法
+    source: hw8.tex Q1
+    question: 方程 x³-x²-1=0 在 x0=1.5 邻近有根 x*≈1.4656。判断三种迭代格式：x_{n+1}=1+1/xn²，x_{n+1}=1/√(xn-1)，x_{n+1}=∛(1+xn²)
+      在 x0 邻近的收敛性。
+    answer: 第一种收敛(|g1'|≈0.636<1)；第二种不收敛(|g2'|≈1.572>1)；第三种收敛(|g3'|≈0.455<1)。收敛的均为一阶。
+    explanation: 不动点迭代局部收敛充要条件：|g'(x*)|<1。g1(x)=1+x⁻²，g1'(x)=-2x⁻³，|g1'(x*)|=2/1.4656³≈0.636<1，一阶收敛。g2(x)=(x-1)⁻¹/²，g2'(x)=-(x-1)⁻³/²/2，|g2'(x*)|≈1.572>1，不收敛。g3(x)=(1+x²)¹/³，g3'(x)=2x/[3(1+x²)²/³]，|g3'(x*)|=2/(3x*)≈0.455<1，一阶收敛。
+    keywords:
+    - 不动点迭代
+    - 局部收敛
+    - 收敛性判断
+    - 导数判别
+  - id: compute-nonlinear-005
+    type: short_answer
+    difficulty: core
+    chapter: 非线性方程及非线性方程组的解法
+    source: hw8.tex Q2
+    question: 用 Newton 法求方程组 {x²+y²-5=0; (x+1)y-3x-1=0} 在 (x0,y0)=(1,1) 邻近的解，计算至 (x2,y2)。
+    answer: (x1,y1)=(1.25,2.25)，(x2,y2)=(1,73/36)≈(1.0000,2.0278)，真解为 (1,2)。
+    explanation: Jacobi 矩阵 J=[2x,2y; y-3,x+1]。F(1,1)=[-3,-2]T，J(1,1)=[2,2;-2,2]，det=8。(x1,y1)=(1,1)-J⁻¹F=(1.25,2.25)。F(1.25,2.25)=[1.625,0.3125]T，J=[2.5,4.5;-0.75,2.25]，det=9。(x2,y2)=(1.25,2.25)-J⁻¹F=(1,73/36)，已接近真解。
+    keywords:
+    - Newton法
+    - 非线性方程组
+    - Jacobi矩阵
+    - 迭代计算
+  - id: compute-nonlinear-006
+    type: short_answer
+    difficulty: advanced
+    chapter: 非线性方程及非线性方程组的解法
+    source: hw8.tex Q3
+    question: 对于求根问题 f(x)=0，构造迭代 g(x)=x-f/f'-f''/(2f')·(f/f')²。试确定该方法的收敛阶。
+    answer: 三阶收敛 (p=3)，这是 Halley 方法的等价形式。
+    explanation: 在单根 x* 处 Taylor 展开。记 e=x-x*，a=f'(x*)，b=f''(x*)，c=f'''(x*)。f=ae+be²/2+ce³/6+O(e⁴)。计算
+      t=f/f'=e-be²/(2a)+(b²/(2a²)-c/(3a))e³+O(e⁴)。s=(f''/(2f'))t²=be²/(2a)+(c/(2a)-b²/a²)e³+O(e⁴)。g(x)-x*=e-t-s=(3b²-ac)e³/(6a²)+O(e⁴)=O(e³)，三阶收敛。
+    keywords:
+    - 收敛阶
+    - Taylor展开
+    - Halley方法
+    - 三阶收敛
+  - id: compute-nonlinear-007
+    type: true_false
+    difficulty: core
+    chapter: 非线性方程及非线性方程组的解法
+    source: 22春期末_袁子峰.pdf Q2
+    question: 设存在 0<m≤f'(x)≤M 对 ∀x∈R 成立。则对任意 0<λ<2/M，迭代 x_{k+1}=xk-λf(xk) 均收敛至 f(x)=0
+      的根。
+    answer: true
+    explanation: 此迭代对应 φ(x)=x-λf(x)，φ'(x)=1-λf'(x)。由 0<m≤f'(x)≤M 和 0<λ<2/M，有 1-λM≤φ'(x)≤1-λm<1，且
+      1-λM>-1。故 |φ'(x)|<1，满足压缩映射条件，迭代全局收敛。这是松弛法收敛性的标准结论。
+    keywords:
+    - 松弛法
+    - 全局收敛
+    - 压缩映射
+    - 迭代收敛性
+  - id: compute-nonlinear-008
+    type: short_answer
+    difficulty: exam
+    chapter: 非线性方程及非线性方程组的解法
+    source: 22春期末_袁子峰.pdf Q7
+    question: 已知 1<√a<x0+1（x0 为不超过 √a 的最大正整数），构造迭代 x_{n+1}=xn+(a-xn²)/(2xn+1)。判断收敛性并求收敛阶。
+    answer: 收敛到 √a，二阶收敛。
+    explanation: 改写为 x_{n+1}=(xn²+xn+a)/(2xn+1)。令 en=xn-√a，代入得 e_{n+1}=en²/(2xn+1)。当
+      xn→√a>0，分母→2√a+1>0，故 e_{n+1}=O(en²)，二阶收敛。该格式本质是求解 x²-a=0 的一种特殊迭代，与 Newton 法同阶。
+    keywords:
+    - 迭代构造
+    - 收敛阶
+    - 二阶收敛
+    - 平方根求解
+- chapter: 常微分方程初值问题的数值解法
+  source: 25春期末_袁子峰.tex Q4
+  questions:
+  - id: compute-ode-001
+    type: short_answer
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 25春期末_袁子峰.tex Q4
+    question: 直接说出三种求解 ODE 初值问题的显式方法的名称。
+    answer: Euler 法、改进 Euler 法（Heun 法）、经典四阶 Runge-Kutta 方法。（或：中点法、Adams-Bashforth
+      方法）
+    explanation: 常见 ODE 显式方法：(1) Euler 法（一阶，最简单）；(2) 改进 Euler 法/Heun 法（二阶，PEC 结构）；(3)
+      经典四阶 Runge-Kutta（四阶，最常用）；(4) 中点方法（二阶 RK）；(5) Adams-Bashforth（多步显式法）。显式方法特点是不需解隐式方程，直接代入即可计算下一步。
+    keywords:
+    - ODE数值解法
+    - 显式方法
+    - Euler法
+    - Runge-Kutta法
+  - id: compute-ode-002
+    type: short_answer
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 25春期末_袁子峰.tex Q5
+    question: 用文字简要叙述 Adams 内插法的构造思路。
+    answer: Adams 内插法利用包含待求点 (x_{n+1},f_{n+1}) 在内的多个节点构造插值多项式来近似被积函数 f(x,y(x))，然后在
+      [xn,x_{n+1}] 上积分得到 y_{n+1}。因插值节点包含待求区间右端点，是隐式多步法，比同阶 Adams 外推法稳定性和误差系数更优。
+    explanation: Adams 内插法（Adams-Moulton）构造步骤：(1) 取包含 x_{n+1} 在内的历史节点（如 x_{n+1},xn,x_{n-1},...）；(2)
+      以这些节点构造 f(x,y(x)) 的 Lagrange 插值多项式；(3) 将该多项式在 [xn,x_{n+1}] 上积分替代 ∫fdx；(4) 得
+      y_{n+1}=yn+h(9f_{n+1}+19fn-5f_{n-1}+f_{n-2})/24（四阶情形）。因 y_{n+1} 同时出现在等式两端需迭代求解，故为隐式方法。
+    keywords:
+    - Adams内插法
+    - 构造思路
+    - 多步法
+    - 隐式方法
+    - 数值积分推导
+  - id: compute-ode-003
+    type: short_answer
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 25春期末_袁子峰.tex Q11
+    question: 用梯形公式求解 y'+y=0, y(0)=1。给出 yk 的表达式，并证明 h→0 时数值解收敛到 y=e⁻ˣ。
+    answer: yk = ((2-h)/(2+h))^k。当 h→0 且 kh=x 固定时，yk → e⁻ˣ。
+    explanation: 梯形公式：y_{n+1}=yn+h[-yn-y_{n+1}]/2，整理得 y_{n+1}=yn·(2-h)/(2+h)。递推得 yk=((2-h)/(2+h))^k。令
+      x=kh，ln yk = k·ln((2-h)/(2+h)) = k[-h-h³/12-...] = -x+O(h²)→ -x，故 yk→e⁻ˣ。
+    keywords:
+    - 梯形公式
+    - ODE数值解
+    - 收敛性
+    - 解析解
+  - id: compute-ode-004
+    type: single_choice
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 22春期末_袁子峰.pdf Q1-1
+    question: 采用 Euler 法求解 y'=-y, y(x0)=y0，满足稳定性要求的步长范围是？
+    options:
+    - 0 < h ≤ 2
+    - h > 0 任意
+    - h ≤ 1
+    - h < 1/2
+    answer: 0
+    explanation: Euler 法解 y'=-y：y_{n+1}=yn+h(-yn)=(1-h)yn。稳定性要求 |1-h|≤1，解得 0≤h≤2。h=0
+      无意义，故 0<h≤2。当 h>2 时数值解振荡且发散。
+    keywords:
+    - Euler法
+    - 稳定性
+    - 步长范围
+    - 绝对稳定区域
+  - id: compute-ode-005
+    type: single_choice
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 22春期末_袁子峰.pdf Q1-5
+    question: ODE 格式 y_{n+1}=yn+h[9f(x_{n+1},y_{n+1})+19f(xn,yn)-5f(x_{n-1},y_{n-1})+f(x_{n-2},y_{n-2})]/24
+      是单步法还是多步法，显式还是隐式？
+    options:
+    - 单步法，显式
+    - 多步法，显式
+    - 单步法，隐式
+    - 多步法，隐式
+    answer: 3
+    explanation: 该格式使用了 yn, y_{n-1}, y_{n-2} 三个历史值（多步法），且右端包含 f(x_{n+1},y_{n+1}) 依赖于待求的
+      y_{n+1}（隐式方法）。这正是四阶 Adams-Moulton 内插公式。
+    keywords:
+    - 多步法
+    - 隐式方法
+    - Adams-Moulton
+    - 格式分类
+  - id: compute-ode-006
+    type: short_answer
+    difficulty: core
+    chapter: 常微分方程初值问题的数值解法
+    source: 25春期末_袁子峰.tex Q13
+    question: 用向后 Euler 法求解 y'(x)=y²-y³, y(0)=0.1。若用 Newton 法迭代求解隐式方程，计算 h=1、迭代 1
+      次时的 y1（保留四位有效数字）。
+    answer: y1 ≈ 0.0917
+    explanation: 向后 Euler：y1=y0+h·f(x1,y1)=0.1+(y1²-y1³)，即解 F(y1)=y1-0.1-y1²+y1³=0。Newton
+      法：F'(y1)=1-2y1+3y1²。Euler 预估初值 y1⁽⁰⁾=0.1+(0.01-0.001)=0.109。一次迭代：y1⁽¹⁾=y1⁽⁰⁾-F(y1⁽⁰⁾)/F'(y1⁽⁰⁾)≈0.0917。
+    keywords:
+    - 向后Euler法
+    - Newton迭代
+    - 隐式方法
+    - ODE数值解
+  - id: compute-ode-007
+    type: short_answer
+    difficulty: advanced
+    chapter: 常微分方程初值问题的数值解法
+    source: 22春期末_袁子峰.pdf Q5
+    question: RK 方法：k1=hf(xn,yn), k2=hf(xn+αh,yn+αk1), k3=hf(xn+(1-α)h,yn+(1-α)k1),
+      y_{n+1}=yn+(k2+k3)/2。求该方法的精度阶数。
+    answer: 对任意 α 均为二阶精度。
+    explanation: 将 k2,k3 在 (xn,yn) 处 Taylor 展开：k2=hf+αh²(fx+fyf)+O(h³)，k3=hf+(1-α)h²(fx+fyf)+O(h³)。y_{n+1}=yn+hf+h²(fx+fyf)/2+O(h³)。而
+      y(x_{n+1})=yn+hf+h²(fx+fyf)/2+O(h³)。两者 O(h²) 项系数相同，故局部截断误差 O(h³)，即二阶精度。α 在展开中被消去。
+    keywords:
+    - Runge-Kutta方法
+    - 精度阶
+    - Taylor展开
+    - 局部截断误差

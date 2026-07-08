@@ -19,8 +19,8 @@ comments: false
   <div class="quiz-subject-card">
     <a href="计算方法/" class="quiz-subject-link">
       <h3 class="quiz-subject-title">计算方法</h3>
-      <div class="quiz-subject-count">共 13 题</div>
-      <div class="quiz-subject-diff">核心 8 题，进阶 5 题</div>
+      <div class="quiz-subject-count">共 48 题</div>
+      <div class="quiz-subject-diff">核心 30 题，进阶 17 题，真题 1 题</div>
     </a>
   </div>
 </div>

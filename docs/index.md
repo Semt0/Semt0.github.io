@@ -27,6 +27,27 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/CVDL/CVDL_Final_Review/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">CVDL 期末复习笔记（精炼版）</h3>
+              <p class="resume-card-sub">CVDL</p>
+              <span class="resume-card-date">2026-06-25</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/Rust程序设计/期末复习/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">Rust 程序设计期末复习</h3>
+              <p class="resume-card-sub">Rust程序设计</p>
+              <span class="resume-card-date">2026-06-19</span>
+            </div>
+          </a>
+          <a class="resume-card" href="note/计算方法/期末复习笔记/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">计算方法期末复习笔记</h3>
+              <p class="resume-card-sub">计算方法</p>
+              <span class="resume-card-date">2026-06-16</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/计算方法/数值微分与数值积分/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">数值微分与数值积分</h3>
@@ -37,27 +58,6 @@ icon: lucide/home
           <a class="resume-card" href="note/算法设计与分析/NP 完全/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">NP 完全性</h3>
-              <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-06-05</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/算法设计与分析/近似算法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">近似算法</h3>
-              <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-06-05</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/算法设计与分析/问题复杂度/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">问题复杂度</h3>
-              <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-06-05</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/算法设计与分析/随机算法/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">随机算法</h3>
               <p class="resume-card-sub">算法设计与分析</p>
               <span class="resume-card-date">2026-06-05</span>
             </div>

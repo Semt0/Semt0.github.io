@@ -13,6 +13,27 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-06-25</div>
+    <div class="timeline-content">
+      <a href="CVDL/CVDL_Final_Review/">CVDL 期末复习笔记（精炼版）</a>
+      <span class="timeline-category">CVDL</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-19</div>
+    <div class="timeline-content">
+      <a href="Rust程序设计/期末复习/">Rust 程序设计期末复习</a>
+      <span class="timeline-category">Rust程序设计</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">2026-06-16</div>
+    <div class="timeline-content">
+      <a href="计算方法/期末复习笔记/">计算方法期末复习笔记</a>
+      <span class="timeline-category">计算方法</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-06-11</div>
     <div class="timeline-content">
       <a href="计算方法/数值微分与数值积分/">数值微分与数值积分</a>
