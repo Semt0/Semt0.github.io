@@ -27,6 +27,13 @@ icon: lucide/home
         <h2 class="resume-label">Recent</h2>
         <div class="resume-content">
 <!-- home-recent:auto-begin -->
+          <a class="resume-card" href="note/抽象代数/公理化集合论与选择公理/">
+            <div class="resume-card-body">
+              <h3 class="resume-card-title">公理化集合论与选择公理</h3>
+              <p class="resume-card-sub">抽象代数</p>
+              <span class="resume-card-date">2026-09-07</span>
+            </div>
+          </a>
           <a class="resume-card" href="note/CVDL/CVDL_Final_Review/">
             <div class="resume-card-body">
               <h3 class="resume-card-title">CVDL 期末复习笔记（精炼版）</h3>
@@ -55,13 +62,6 @@ icon: lucide/home
               <span class="resume-card-date">2026-06-11</span>
             </div>
           </a>
-          <a class="resume-card" href="note/算法设计与分析/NP 完全/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">NP 完全性</h3>
-              <p class="resume-card-sub">算法设计与分析</p>
-              <span class="resume-card-date">2026-06-05</span>
-            </div>
-          </a>
 <!-- home-recent:auto-end -->
         </div>
       </section>
@@ -72,8 +72,8 @@ icon: lucide/home
             <img class="resume-card-logo" src="images/pku.png" alt="" />
             <div class="resume-card-body">
               <h3 class="resume-card-title">Peking University</h3>
-              <p class="resume-card-sub">Theoretical and Applied Mechanics</p>
-              <p class="resume-card-meta">College of Engineering</p>
+              <p class="resume-card-sub">Theoretical and Applied Mechanics && Computer Science</p>
+              <p class="resume-card-meta">College of Engineering && School of EECS</p>
               <span class="resume-card-date">2024.09 &ndash; Present</span>
             </div>
           </a>
@@ -82,26 +82,7 @@ icon: lucide/home
       <section class="home-section resume-section">
         <h2 class="resume-label">Interests</h2>
         <div class="resume-content">
-          <div class="resume-tags"><span class="resume-tag">Embodied AI</span><span class="resume-tag">Computer Vision</span><span class="resume-tag">Machine Learning</span><span class="resume-tag">ODEs &amp; Dynamical Systems</span></div>
-        </div>
-      </section>
-      <section class="home-section resume-section">
-        <h2 class="resume-label">Skills</h2>
-        <div class="resume-content">
-          <div class="resume-skill-row">
-            <span class="resume-skill-cat">Languages</span>
-            <div class="resume-tags"><span class="resume-tag">Python</span><span class="resume-tag">PyTorch</span><span class="resume-tag">C</span><span class="resume-tag">C++</span><span class="resume-tag">Rust</span><span class="resume-tag">Matlab</span></div>
-          </div>
-          <div class="resume-skill-row">
-            <span class="resume-skill-cat">Tools</span>
-            <div class="resume-tags"><span class="resume-tag">Git</span><span class="resume-tag">Linux</span><span class="resume-tag">VSCode</span><span class="resume-tag">Cursor</span><span class="resume-tag">Obsidian</span><span class="resume-tag">Docker</span><span
-            class="resume-tag">Vim</span><span
-            class="resume-tag">uv</span></div>
-          </div>
-          <div class="resume-skill-row">
-            <span class="resume-skill-cat">Writing</span>
-            <div class="resume-tags"><span class="resume-tag">Markdown</span><span class="resume-tag">LaTeX</span><span class="resume-tag">MkDocs</span><span class="resume-tag">Zensical</span></div>
-          </div>
+          <div class="resume-tags"><span class="resume-tag">Embodied AI</span><span class="resume-tag">LLMs</span><span class="resume-tag">AI Infra</span><span class="resume-tag">Distributed Systems</span></div>
         </div>
       </section>
 

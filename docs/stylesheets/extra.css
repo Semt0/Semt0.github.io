@@ -961,14 +961,18 @@ button.md-top {
   position: absolute;
   top: -30px;
   transform-origin: 30% 40%;
-  will-change: transform, opacity;
   backface-visibility: hidden;
   contain: layout style;
   --drift: 0px;
   --swing: 15px;
+  --spin: 0deg;
   --petal-alpha: 0.7;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+.petals-layer.is-paused .petal {
+  animation-play-state: paused;
 }
 
 /* 花瓣形状 A — 带缺口的经典樱花瓣 */
@@ -993,25 +997,25 @@ button.md-top {
 
 /* 近景层：大、快、清晰 */
 .petal--near {
-  width: 14px;
-  height: 18px;
-  --petal-alpha: 0.88;
+  width: 17px;
+  height: 22px;
+  --petal-alpha: 0.82;
   z-index: 2;
 }
 
 /* 中景层：中等 */
 .petal--mid {
-  width: 9px;
-  height: 13px;
-  --petal-alpha: 0.6;
+  width: 10px;
+  height: 14px;
+  --petal-alpha: 0.55;
   z-index: 1;
 }
 
 /* 远景层：小、慢、淡 */
 .petal--far {
-  width: 5px;
-  height: 8px;
-  --petal-alpha: 0.35;
+  width: 6px;
+  height: 9px;
+  --petal-alpha: 0.24;
   z-index: 0;
 }
 
@@ -1019,30 +1023,30 @@ button.md-top {
 @keyframes petal-3d-a {
   0% {
     transform: translate3d(0, -30px, 0)
-               rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+               rotateX(0deg) rotateY(0deg) rotateZ(var(--spin));
     opacity: 0;
   }
   6%  { opacity: var(--petal-alpha); }
   20% {
     transform: translate3d(var(--swing), 20vh, 0)
-               rotateX(60deg) rotateY(25deg) rotateZ(72deg);
+               rotateX(60deg) rotateY(25deg) rotateZ(calc(var(--spin) + 72deg));
   }
   40% {
     transform: translate3d(calc(var(--drift) * 0.6 - var(--swing) * 0.7), 40vh, 0)
-               rotateX(150deg) rotateY(70deg) rotateZ(144deg);
+               rotateX(150deg) rotateY(70deg) rotateZ(calc(var(--spin) + 144deg));
   }
   60% {
     transform: translate3d(calc(var(--drift) + var(--swing) * 0.5), 60vh, 0)
-               rotateX(230deg) rotateY(110deg) rotateZ(216deg);
+               rotateX(230deg) rotateY(110deg) rotateZ(calc(var(--spin) + 216deg));
   }
   80% {
     transform: translate3d(calc(var(--drift) * 0.3 - var(--swing) * 0.3), 80vh, 0)
-               rotateX(310deg) rotateY(155deg) rotateZ(288deg);
+               rotateX(310deg) rotateY(155deg) rotateZ(calc(var(--spin) + 288deg));
   }
   94% { opacity: calc(var(--petal-alpha) * 0.3); }
   100% {
     transform: translate3d(calc(var(--drift) * -0.1), calc(100vh + 30px), 0)
-               rotateX(360deg) rotateY(180deg) rotateZ(360deg);
+               rotateX(360deg) rotateY(180deg) rotateZ(calc(var(--spin) + 360deg));
     opacity: 0;
   }
 }
@@ -1051,26 +1055,26 @@ button.md-top {
 @keyframes petal-3d-b {
   0% {
     transform: translate3d(0, -30px, 0)
-               rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+               rotateX(0deg) rotateY(0deg) rotateZ(var(--spin));
     opacity: 0;
   }
   6%  { opacity: var(--petal-alpha); }
   25% {
     transform: translate3d(calc(var(--swing) * -0.8), 22vh, 0)
-               rotateX(40deg) rotateY(80deg) rotateZ(65deg);
+               rotateX(40deg) rotateY(80deg) rotateZ(calc(var(--spin) + 65deg));
   }
   50% {
     transform: translate3d(calc(var(--drift) * 0.8 + var(--swing) * 0.6), 50vh, 0)
-               rotateX(120deg) rotateY(180deg) rotateZ(150deg);
+               rotateX(120deg) rotateY(180deg) rotateZ(calc(var(--spin) + 150deg));
   }
   75% {
     transform: translate3d(calc(var(--drift) * 0.4 - var(--swing) * 0.5), 75vh, 0)
-               rotateX(240deg) rotateY(270deg) rotateZ(250deg);
+               rotateX(240deg) rotateY(270deg) rotateZ(calc(var(--spin) + 250deg));
   }
   94% { opacity: calc(var(--petal-alpha) * 0.3); }
   100% {
     transform: translate3d(calc(var(--drift) * 0.15), calc(100vh + 30px), 0)
-               rotateX(320deg) rotateY(360deg) rotateZ(340deg);
+               rotateX(320deg) rotateY(360deg) rotateZ(calc(var(--spin) + 340deg));
     opacity: 0;
   }
 }

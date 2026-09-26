@@ -126,6 +126,9 @@ nav = [
            "note/OJ复习/最近公共祖先.md",
            "note/OJ复习/字符串算法.md",
        ]},
+       {"抽象代数" = [
+           "note/抽象代数/公理化集合论与选择公理.md",
+       ]},
    ]},
    {"手记" = "essay/index.md"},
    {"友链" = "friends.md"},
@@ -148,8 +151,8 @@ extra_javascript = [
 
 custom_dir = "overrides"
 
-logo = "images/logo.jpg"
-favicon = "images/logo.jpg"
+logo = "images/logo-emilia.jpg"
+favicon = "images/logo-emilia.jpg"
 language = "zh"
 font = false
 features = [

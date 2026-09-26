@@ -13,6 +13,13 @@ icon: lucide/book-open
 <!-- timeline:auto-begin -->
 <div class="timeline">
   <div class="timeline-item">
+    <div class="timeline-date">2026-09-07</div>
+    <div class="timeline-content">
+      <a href="抽象代数/公理化集合论与选择公理/">公理化集合论与选择公理</a>
+      <span class="timeline-category">抽象代数</span>
+    </div>
+  </div>
+  <div class="timeline-item">
     <div class="timeline-date">2026-06-25</div>
     <div class="timeline-content">
       <a href="CVDL/CVDL_Final_Review/">CVDL 期末复习笔记（精炼版）</a>

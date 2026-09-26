@@ -2,7 +2,7 @@
 // 3D 层次花瓣飘落效果 — 逼真樱花瓣
 (function () {
   var STARTED = false;
-  var PETAL_COUNT = 20;
+  var PETAL_COUNT = 18;
 
   // 仿真樱花渐变：白芯 → 粉 → 深粉边缘
   var PETAL_COLORS = [
@@ -17,9 +17,9 @@
 
   // 三层深度：近景、中景、远景
   var LAYERS = [
-    { cls: "petal--near", weight: 0.2, dur: [12, 16], drift: 90, swing: 40 },
-    { cls: "petal--mid",  weight: 0.5, dur: [18, 25], drift: 60, swing: 30 },
-    { cls: "petal--far",  weight: 0.3, dur: [25, 35], drift: 35, swing: 16 }
+    { cls: "petal--near", weight: 0.2, dur: [11, 15], drift: 105, swing: 44 },
+    { cls: "petal--mid",  weight: 0.5, dur: [19, 27], drift: 62, swing: 30 },
+    { cls: "petal--far",  weight: 0.3, dur: [30, 40], drift: 30, swing: 14 }
   ];
 
   function isLowPerformance() {
@@ -41,7 +41,7 @@
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    var count = isLowPerformance() ? 10 : PETAL_COUNT;
+    var count = isLowPerformance() ? 8 : PETAL_COUNT;
     var container = document.createElement("div");
     container.className = "petals-layer";
     var frag = document.createDocumentFragment();
@@ -63,13 +63,20 @@
 
       // 随机漂移与摇摆幅度
       p.style.setProperty("--drift", (Math.random() * L.drift * 2 - L.drift).toFixed(1) + "px");
-      p.style.setProperty("--swing", (Math.random() * L.swing).toFixed(1) + "px");
+      p.style.setProperty("--swing", ((Math.random() * 2 - 1) * L.swing).toFixed(1) + "px");
+      p.style.setProperty("--spin", (Math.random() * 120 - 60).toFixed(1) + "deg");
 
       frag.appendChild(p);
     }
 
     container.appendChild(frag);
     document.body.appendChild(container);
+
+    // 后台标签页暂停动画，返回时从原位置继续。
+    document.addEventListener("visibilitychange", function () {
+      container.classList.toggle("is-paused", document.hidden);
+    });
+    container.classList.toggle("is-paused", document.hidden);
   }
 
   // 适配 MkDocs/Zensical 的 SPA 导航
