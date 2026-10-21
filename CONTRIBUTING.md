@@ -2,6 +2,29 @@
 
 构建和测试见 [README](README.md)。文章路径决定已有链接和评论归属，请勿随意改名。
 
+## 新增文章流程
+
+1. 在 `docs/blog/`、`docs/note/<科目>/` 或 `docs/essay/` 新建 Markdown，添加 `title` 和 `date: YYYY-MM-DD`。
+2. 将配套图片放入文章所在目录的 `pictures/`，使用相对路径引用。
+3. 在仓库根目录运行 `bash update.sh`，更新三个板块的时间线和博客、笔记导航。
+4. 检查 `zensical.toml` 中的科目显示名称与顺序，再运行 `uv run zensical serve` 预览正文、目录、公式和图片。
+5. 按 [README](README.md#检查与发布) 完成检查，连同生成文件一起提交。
+
+三个板块的 `index.md` 时间线标记区由生成器维护，不手动修改。生成器不会删除旧导航项，移动或删除文章后需同步清理 `zensical.toml`。手记通过时间线访问，不自动逐篇加入导航。
+
+## 元数据与评论
+
+```yaml
+---
+title: 文章标题
+date: 2026-10-21
+# comments: false       # 仅在需要关闭本页评论时启用
+# comment_path: /old/   # 迁移页面时填写原页面的完整 pathname
+---
+```
+
+评论默认开启，以 URL 路径关联讨论；`comment_path` 只改变评论归属，不创建页面重定向。友链页的 `/` 是原首页留言键，普通文章不要复用它。`summary`、`key_points`、`sources` 是可选内容元数据，目前时间线只使用标题、日期与目录分类。
+
 ## 写作规则
 
 当创建或编辑 `docs/note/` 下的学习笔记时，遵守以下规则：
@@ -26,7 +49,7 @@
 
 - **列表编号**：不要混用 `-` 和数字，也不要用 `- (1)` 这种形式。
 
-- **导航**：新建笔记后，把路径加到 `zensical.toml` 对应科目的 `nav` 中。
+- **导航**：新建笔记后运行 `bash update.sh` 自动补齐导航，再按需调整科目名称和顺序。
 
 - **算法/伪代码**：使用 LaTeX `aligned` 环境，不要用 Markdown 列表。详见下方模板。
 
@@ -42,7 +65,7 @@
 title: 本章标题
 date: YYYY-MM-DD
 summary: |
-  用一两句话概括本章核心内容，用于索引和快速预览。
+  用一两句话概括本章核心内容，作为内容摘要保存在文章元数据中。
 key_points:
   - 核心知识点 1
   - 核心知识点 2
@@ -101,7 +124,7 @@ sources:
 
 - **Definitions**: `!!! abstract "定义 X（Name）"` — 始终可见
 - **Theorems / Lemmas / Corollaries**: `!!! abstract "定理 X / 引理 X / 推论 X（Name）"` — 始终可见
-- **Proofs**: `??? note "证明"` — 可折叠（默认收起），结尾用 `$&square;$`
+- **Proofs**: `??? note "证明"` — 可折叠（默认收起），结尾用 `$\square$`
 - **Assumptions**: `!!! note "假设 X"` — 始终可见
 - **Tips / Intuition**: `!!! tip` — 始终可见
 - **Warnings**: `!!! warning` — 始终可见
@@ -133,6 +156,7 @@ $$
 ```
 
 **格式要点：**
+
 - 环境：`\begin{aligned}`，用 `&` 对齐
 - 行号：`1. \quad`, `2. \quad`, ...
 - 关键字：`\textbf{while}`, `\textbf{do}`, `\textbf{end while}`, `\textbf{if}`, `\textbf{then}`, `\textbf{end if}`, `\textbf{for}`, `\textbf{end for}`, `\textbf{return}`
@@ -144,7 +168,7 @@ $$
 
 当笔记需要插图（流程图、收敛曲线、几何示意图等）时：
 
-### 8.1 使用 matplotlib
+### 使用 matplotlib
 
 确保已安装 `numpy` 和 `matplotlib`（否则 `uv sync --group assets`）。在 `scripts/figures/` 下创建 `generate_<topic>_plots.py`：
 
@@ -168,13 +192,14 @@ if __name__ == '__main__':
 ```
 
 **准则：**
+
 - 图中标签用英文（matplotlib CJK 字体支持有限）
 - 分辨率 `dpi=150`
 - 背景 `facecolor='white'`
 - 格式 PNG，存放到 `docs/note/<subject>/pictures/`
 - 引用宽度 `{ width="800" }`
 
-### 8.2 从 PDF 导出页面
+### 从 PDF 导出页面
 
 从 PDF 课件截取页面时，统一使用 `scripts/assets/export_pdf_pages.py`：
 
@@ -188,4 +213,4 @@ uv run --group assets python scripts/assets/export_pdf_pages.py \
   --overwrite
 ```
 
-参数固定为 `zoom=6.0`、`alpha=False`。如仍模糊可提升到 `zoom=8.0`。页码默认 1-based，0-based 需加 `--base 0`。覆盖已有文件必须加 `--overwrite`。
+默认倍率为 `--zoom 6.0`，输出为不带透明通道的 PNG。如仍模糊可尝试 `--zoom 8.0`。页码默认 1-based，0-based 需加 `--base 0`。覆盖已有文件必须加 `--overwrite`。

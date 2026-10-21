@@ -6,7 +6,7 @@ The layout follows the Cheatsheet-Template style:
   https://github.com/zhuozhiyongde/Cheatsheet-Template
 
 Usage:
-    python scripts/generate_cheatsheet.py <input.json> <output.pdf>
+    uv run --group assets python scripts/assets/generate_cheatsheet.py <input.json> <output.pdf>
 """
 from __future__ import annotations
 
