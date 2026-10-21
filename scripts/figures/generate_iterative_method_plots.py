@@ -4,6 +4,10 @@ Generate illustrations for iterative methods note.
 Using English labels for better compatibility.
 """
 
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, Arc, FancyBboxPatch, Circle, Ellipse
@@ -63,7 +67,7 @@ def plot_iteration_process():
                 ax.text(mid_x, mid_y + 0.15, label, ha='center', fontsize=9)
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/iteration_flow.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/iteration_flow.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: iteration_flow.png")
@@ -122,7 +126,7 @@ def plot_jacobi_vs_gauss_seidel():
     ax2.axis('off')
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/jacobi_vs_gauss_seidel.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/jacobi_vs_gauss_seidel.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: jacobi_vs_gauss_seidel.png")
@@ -174,7 +178,7 @@ def plot_steepest_descent_path():
     ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/steepest_descent_zigzag.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/steepest_descent_zigzag.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: steepest_descent_zigzag.png")
@@ -229,7 +233,7 @@ def plot_cg_vs_sd():
         ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/cg_vs_sd_comparison.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/cg_vs_sd_comparison.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: cg_vs_sd_comparison.png")
@@ -272,7 +276,7 @@ def plot_sor_omega_effect():
     ax.set_ylim(1e-12, 1)
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/sor_omega_effect.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/sor_omega_effect.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: sor_omega_effect.png")
@@ -318,7 +322,7 @@ def plot_a_conjugate_directions():
     ax.set_ylim(-2.5, 2.5)
 
     plt.tight_layout()
-    plt.savefig('/Users/semt0/blog/Semt0.github.io/docs/note/计算方法/pictures/a_conjugate_directions.png',
+    plt.savefig(ROOT / 'docs/note/计算方法/pictures/a_conjugate_directions.png',
                 dpi=150, bbox_inches='tight', facecolor='white')
     plt.close()
     print("Generated: a_conjugate_directions.png")

@@ -1,0 +1,32 @@
+/* Configure Waline through its public variables instead of overriding its layout. */
+#waline {
+  --waline-font-size: 0.85rem;
+  --waline-white: var(--site-paper);
+  --waline-light-grey: var(--site-muted);
+  --waline-dark-grey: var(--site-muted);
+  --waline-theme-color: var(--md-typeset-a-color);
+  --waline-active-color: var(--md-accent-fg-color);
+  --waline-color: var(--md-default-fg-color);
+  --waline-bg-color: var(--md-default-bg-color);
+  --waline-bg-color-light: var(--site-surface);
+  --waline-bg-color-hover: var(--site-surface);
+  --waline-border-color: var(--site-border);
+  --waline-border: 1px solid var(--site-border);
+  --waline-bq-color: var(--site-surface);
+  --waline-warning-color: var(--site-warning);
+  --waline-disable-bg-color: var(--site-surface);
+  --waline-disable-color: var(--md-default-fg-color--light);
+  --waline-code-bg-color: var(--md-code-bg-color);
+  --waline-info-bg-color: var(--site-surface);
+  --waline-info-color: var(--md-default-fg-color--light);
+  --waline-avatar-size: 2.5rem;
+  --waline-avatar-radius: 50%;
+  --waline-box-shadow: none;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--site-border);
+}
+/* Existing server-rendered comments can contain KaTeX or MathJax SVG. */
+#waline .wl-content :is(.katex, mjx-container, .MathJax) { font-size: 1em; }
+#waline .wl-content :is(.katex-display, .MathJax_Display) { overflow-x: auto; margin: 0.5em 0; }
+#waline .wl-content svg[role="img"][viewBox] { max-width: 100%; height: auto; }

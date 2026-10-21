@@ -1,27 +1,12 @@
 ---
 icon: lucide/users
 title: 友链
-comments: false
+comment_path: /
 ---
 
 # 友链
 
-欢迎交换友链！
-如果你想出现在这里，欢迎通过邮件或 GitHub Issues 联系我。
-
-## 申请格式
-
-- **站点名称**：你的博客标题
-- **站点链接**：完整 URL
-- **一句话介绍**：关于你站点的简短描述
-
-联系方式：
-
-- 邮箱：`smingtao00@gmail.com`
-- GitHub：[`Semt0`](https://github.com/Semt0)
----
-
-## 友链
+互联网上相遇的朋友，也欢迎你留下自己的足迹。
 
 <div class="friend-grid">
 
@@ -58,3 +43,9 @@ comments: false
   </div>
 
 </div>
+
+## 留言与交换友链
+
+欢迎聊天，也欢迎交换友链。留下你的站点名称、链接和一句话介绍就好。
+
+也可以通过 [邮件](mailto:smingtao00@gmail.com) 或 [GitHub](https://github.com/Semt0) 联系我。

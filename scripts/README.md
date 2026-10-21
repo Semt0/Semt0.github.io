@@ -1,65 +1,20 @@
-# scripts
+# 维护工具
 
-## 1 用途
+所有命令从仓库根目录执行。
 
-内容维护、资源处理与项目自动化脚本。
+- `update_site.py`：一次扫描文章，统一解析 YAML、生成时间线、补齐导航；`--check` 检查生成内容是否过期。
+- `check_site.py`：构建后核对文章路由、单页评论开关、唯一评论容器、脚本/样式资源和索引链接。
 
-## 2 内容清单
-
-### 内容更新脚本（由 `update.sh` / CI 调用）
-
-| 脚本 | 用途 | 输出 |
-|------|------|------|
-| `update.sh` | 依次调用所有内容更新脚本 | 多个生成文件 |
-| `update_home_recent.py` | 按笔记 frontmatter `date` 更新主页 Recent | `docs/index.md` |
-| `update_note_counts.py` | 更新笔记首页栏目卡片数量 | `docs/note/index.md` |
-| `update_timeline.py` | 更新 blog/note 时间线 | `docs/blog/index.md`、`docs/note/index.md` |
-| `update_essay_timeline.py` | 更新手记时间线 | `docs/essay/index.md` |
-| `update_nav_blog.py` | 根据博客文件更新 `zensical.toml` 博客导航 | `zensical.toml` |
-| `update_nav_notes.py` | 根据笔记文件更新 `zensical.toml` 笔记导航 | `zensical.toml` |
-| `check_indexes.py` | 检查目录索引 README 完整性与大小 | 终端报告 |
-
-### 资源处理脚本（手动调用）
+`assets/` 中的工具按需运行，使用 `uv run --group assets python scripts/assets/<脚本>.py`：
 
 | 脚本 | 用途 |
-|------|------|
-| `check_pages.py` | 查看 PDF 总页数 |
-| `compress_images.py` | 批量压缩图片 |
-| `export_pdf_pages.py` | 高分辨率导出 PDF 页面为 PNG |
-| `export_pdf_pages_simple.py` | PDF 页面导出简化版 |
+|---|---|
+| `export_pdf_pages.py` | 从 PDF 导出 PNG；`--page 页码:文件名`，默认 1-based，支持 `--zoom`、`--overwrite` |
+| `check_pages.py` | 查看 PDF 页数 |
 | `extract_pdf_text.py` | 提取 PDF 文本 |
-| `generate_cheatsheet.py` | 从 JSON 数据生成 A4 横向四栏速查表 PDF（Pandoc + XeLaTeX） |
+| `compress_images.py` | 压缩图片 |
+| `generate_cheatsheet.py` | JSON → 四栏速查表，额外需要 Pandoc 和 XeLaTeX |
 
-### 绘图生成脚本
+`figures/` 保留复变函数、数值计算、视觉识别和具身智能文章的插图生成源码。两个 recognition 脚本输出不同的教学图，均保留。它们使用相对仓库根目录的输出路径，运行前确保相应 `pictures/` 目录存在。
 
-- `generate_conformal_mapping_plots.py`
-- `generate_diffusion_policy_figures.py`
-- `generate_dp_benchmarks.py`
-- `generate_eigenvalue_plots.py`
-- `generate_iterative_method_plots.py`
-- `generate_recognition_plots.py`
-- `generate_recognition_plots_v2.py`
-
-### 其他辅助脚本
-
-- `fix_music_math_format.py`
-- `polish_music_math_note.py`
-
-## 3 规则与约定
-
-- 影响站点生成流程的脚本，需在 `update.sh` 和 `.github/workflows/docs.yml` 中同步登记。
-- 生成性脚本的输出文件应声明为“不要手动编辑”。
-- 新增脚本后，更新本 `README.md`。
-
-### 依赖说明
-
-- `generate_cheatsheet.py` 需要系统安装 `pandoc` 和 `xelatex`（TeX Live / MacTeX）。
-
-## 4 上下层索引
-
-- 上层：[../README.md](../README.md)、[../CLAUDE.md](../CLAUDE.md)
-- 相关：[../.claude/indexes/docs/javascripts/README.md](../.claude/indexes/docs/javascripts/README.md)
-
-## 5 扩展指南
-
-新增脚本时参见 [扩展指南](../CLAUDE/08-extension.md) 中“新增一个脚本”。
+已合并原来的 6 个 `update_*` 入口；`update.sh` 是统一入口。已删除无对应页面的卡片计数逻辑、依赖未入库 Agent 索引的检查、重复 PDF 导出器及已完成的一次性文章修补脚本。

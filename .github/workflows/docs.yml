@@ -1,36 +1,44 @@
 name: Documentation
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [main, master]
+  pull_request:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
         with:
-          fetch-depth: 0
-      - uses: actions/configure-pages@v5
-      - uses: actions/setup-python@v5
+          enable-cache: true
+      - uses: actions/setup-node@v4
         with:
-          python-version: "3.13"
-      # Keep the site generator aligned with uv.lock; newer releases reject
-      # options used by this site's blog configuration.
-      - run: pip install 'zensical==0.0.23' pyyaml markdown-obsidian-callouts matplotlib numpy pymupdf
-      - run: python3 scripts/update_home_recent.py
-      - run: python3 scripts/update_timeline.py
-      - run: python3 scripts/update_essay_timeline.py
-      - run: zensical build --clean
+          node-version: '22'
+      - run: uv sync --frozen
+      - run: uv run python -m unittest discover -s tests -p 'test_*.py'
+      - run: node --experimental-vm-modules --test tests/*.test.mjs
+      - run: bash update.sh --check
+      - run: uv run zensical build --clean
+      - run: uv run python scripts/check_site.py
       - uses: actions/upload-pages-artifact@v4
+        if: github.event_name == 'push'
         with:
           path: site
+  deploy:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - uses: actions/deploy-pages@v4
         id: deployment

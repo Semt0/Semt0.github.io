@@ -1,23 +1,12 @@
-# tests
+# 回归测试
 
-## 1 用途
+```bash
+uv run python -m unittest discover -s tests -p 'test_*.py'
+node --experimental-vm-modules --test tests/*.test.mjs
+```
 
-项目规则与结构的测试。
+- `test_site.py`：YAML 元数据、确定性排序、URL/HTML 转义、生成区块、导航分组和生成文件一致性。
+- `waline.test.mjs`：本地资源校验、异步下载期间切页、禁用评论、实例清理、评论迁移和失败重试。使用模拟模块，不向线上发布测试评论。
+- 构建后运行 `uv run python scripts/check_site.py` 检查实际 HTML。
 
-## 2 内容清单
-
-- `rules/test_project_rules.py`：规则引擎测试（图片宽度选择、规则触发与优先级）
-
-## 3 规则与约定
-
-- 测试使用项目自身的 Python 环境运行。
-- 新增项目级规则时，应补充对应测试。
-
-## 4 上下层索引
-
-- 上层：[../README.md](../README.md)、[../CLAUDE.md](../CLAUDE.md)
-- 相关：[../scripts/README.md](../scripts/README.md)
-
-## 5 扩展指南
-
-新增测试目录或文件时，在本文件中登记。
+测试不依赖被忽略的 `.trae` / `.claude` 文件，也不要求连接评论服务。

@@ -702,31 +702,33 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "markdown-obsidian-callouts" },
-    { name = "matplotlib" },
-    { name = "numpy" },
-    { name = "pymupdf" },
     { name = "pyyaml" },
+    { name = "zensical" },
 ]
 
 [package.dev-dependencies]
-dev = [
+assets = [
+    { name = "matplotlib" },
+    { name = "numpy" },
     { name = "pdfplumber" },
-    { name = "zensical" },
+    { name = "pillow" },
+    { name = "pymupdf" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "markdown-obsidian-callouts", specifier = ">=0.1.1" },
-    { name = "matplotlib", specifier = ">=3.10.8" },
-    { name = "numpy", specifier = ">=2.4.3" },
-    { name = "pymupdf", specifier = ">=1.24.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "zensical", specifier = "==0.0.23" },
 ]
 
 [package.metadata.requires-dev]
-dev = [
+assets = [
+    { name = "matplotlib", specifier = ">=3.10.8" },
+    { name = "numpy", specifier = ">=2.4.3" },
     { name = "pdfplumber", specifier = ">=0.11.9" },
-    { name = "zensical", specifier = ">=0.0.23" },
+    { name = "pillow", specifier = ">=12.1.0" },
+    { name = "pymupdf", specifier = ">=1.24.0" },
 ]
 
 [[package]]

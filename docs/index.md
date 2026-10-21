@@ -1,92 +1,68 @@
 ---
-title: home
+title: 主页
 icon: lucide/home
+comments: false
+hide:
+  - navigation
+  - toc
 ---
 
 <div class="home-layout">
   <div class="home-hero">
+    <figure class="home-portrait">
+      <img src="https://github.com/Semt0.png" alt="Semt0 的头像" width="112" height="112" fetchpriority="high" decoding="async">
+      <figcaption>Semt0</figcaption>
+    </figure>
     <header class="home-intro">
-      <h1 class="home-title">Hi, I'm Semt0 👋</h1>
-      <p class="home-subtitle">
-        An undergraduate at <strong>Peking University</strong>.
-        Interested in <strong>Math</strong> & <strong>Embodied AI</strong>. Love <strong>Minecraft</strong>.
-      </p>
+      <h1 class="home-title">Hi, I'm <span>Semt0</span><span class="home-wave" aria-hidden="true">👋</span></h1>
+      <p class="home-focus">Exploring <em>Math</em> &amp; <span class="home-topic">Embodied AI</span></p>
+      <p class="home-subtitle">An undergraduate at <strong>Peking University</strong>.<br>Learning, building, and a little Minecraft.</p>
       <div class="home-social-row">
-        <a href="https://codetime.dev" class="home-codetime-link" aria-label="CodeTime"><img class="home-codetime-badge" alt="CodeTime Badge" src="https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36391"></a>
-        <a href="https://github.com/Semt0" class="home-social-link" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
-        <a href="mailto:2400011018@stu.pku.edu.cn" class="home-social-link" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+        <a href="https://github.com/Semt0" class="home-social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 19c-4 1-4-2-6-2m12 5v-4a3.5 3.5 0 0 0-1-3c3.3-.4 6-1.5 6-6a5 5 0 0 0-1.4-3.5c.3-1 .3-2-.1-3.2 0 0-1.1-.4-3.6 1.3a12.3 12.3 0 0 0-6.6 0C5.8 1.9 4.7 2.3 4.7 2.3c-.4 1.2-.4 2.2-.1 3.2A5 5 0 0 0 3.2 9c0 4.5 2.7 5.6 6 6a3.5 3.5 0 0 0-1 3v4"/></svg>GitHub</a>
+        <a href="mailto:2400011018@stu.pku.edu.cn" class="home-social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+        <a href="friends/" class="home-social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2v-9.5A8.5 8.5 0 0 1 10.5 4H13a8 8 0 0 1 8 7.5Z"/><path d="M7 10h9M7 14h6"/></svg>留言</a>
       </div>
+      <a href="https://codetime.dev" class="home-codetime-link" aria-label="CodeTime 编程时长"><img class="home-codetime-badge" alt="CodeTime 编程时长" src="https://shields.jannchie.com/endpoint?style=social&amp;color=222&amp;url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36391" height="20" decoding="async"></a>
     </header>
-    <div class="home-avatar-wrap">
-      <img src="https://github.com/Semt0.png" alt="Semt0" class="home-avatar-img" width="280" height="280" loading="eager" fetchpriority="high" decoding="async" />
-    </div>
+    <p class="home-motto">保持好奇，慢慢生长。</p>
+    <a class="home-scroll" href="#explore" aria-label="浏览内容板块"><span aria-hidden="true">↓</span></a>
   </div>
 
-  <div class="home-sections">
-      <section class="home-section resume-section recent-updates">
-        <h2 class="resume-label">Recent</h2>
-        <div class="resume-content">
-<!-- home-recent:auto-begin -->
-          <a class="resume-card" href="note/抽象代数/公理化集合论与选择公理/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">公理化集合论与选择公理</h3>
-              <p class="resume-card-sub">抽象代数</p>
-              <span class="resume-card-date">2026-09-07</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/CVDL/CVDL_Final_Review/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">CVDL 期末复习笔记（精炼版）</h3>
-              <p class="resume-card-sub">CVDL</p>
-              <span class="resume-card-date">2026-06-25</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/Rust程序设计/期末复习/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Rust 程序设计期末复习</h3>
-              <p class="resume-card-sub">Rust程序设计</p>
-              <span class="resume-card-date">2026-06-19</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/期末复习笔记/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">计算方法期末复习笔记</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span class="resume-card-date">2026-06-16</span>
-            </div>
-          </a>
-          <a class="resume-card" href="note/计算方法/数值微分与数值积分/">
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">数值微分与数值积分</h3>
-              <p class="resume-card-sub">计算方法</p>
-              <span class="resume-card-date">2026-06-11</span>
-            </div>
-          </a>
-<!-- home-recent:auto-end -->
-        </div>
-      </section>
-      <section class="home-section resume-section">
-        <h2 class="resume-label">Education</h2>
-        <div class="resume-content">
-          <a class="resume-card" href="https://www.coe.pku.edu.cn/">
-            <img class="resume-card-logo" src="images/pku.png" alt="" />
-            <div class="resume-card-body">
-              <h3 class="resume-card-title">Peking University</h3>
-              <p class="resume-card-sub">Theoretical and Applied Mechanics && Computer Science</p>
-              <p class="resume-card-meta">College of Engineering && School of EECS</p>
-              <span class="resume-card-date">2024.09 &ndash; Present</span>
-            </div>
-          </a>
-        </div>
-      </section>
-      <section class="home-section resume-section">
-        <h2 class="resume-label">Interests</h2>
-        <div class="resume-content">
-          <div class="resume-tags"><span class="resume-tag">Embodied AI</span><span class="resume-tag">LLMs</span><span class="resume-tag">AI Infra</span><span class="resume-tag">Distributed Systems</span></div>
-        </div>
-      </section>
+  <div class="home-section-heading" id="explore"><h2>随处逛逛</h2><span>EXPLORE THE BLOG</span></div>
+  <nav class="home-destinations" aria-label="内容板块">
+    <a class="home-destination" href="blog/">
+      <span class="home-card-top"><span>01 / BLOG</span><span aria-hidden="true">↗</span></span>
+      <h2>博客</h2><p>技术、实践，以及过程中的思考。</p>
+      <span class="home-card-link">读博客 <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="home-destination" href="note/">
+      <span class="home-card-top"><span>02 / NOTES</span><span aria-hidden="true">↗</span></span>
+      <h2>笔记</h2><p>把学过的东西，整理成自己的语言。</p>
+      <span class="home-card-link">翻笔记 <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="home-destination" href="essay/">
+      <span class="home-card-top"><span>03 / ESSAYS</span><span aria-hidden="true">↗</span></span>
+      <h2>手记</h2><p>学习之外，留一些空间给生活。</p>
+      <span class="home-card-link">看手记 <span aria-hidden="true">→</span></span>
+    </a>
+  </nav>
 
+  <div class="home-details">
+    <section class="home-education">
+      <h2 class="home-section-label">EDUCATION <span>求学</span></h2>
+      <div class="home-school">
+        <img src="images/pku.png" alt="" width="64" height="64" loading="lazy">
+        <div><a class="home-school-name" href="https://www.coe.pku.edu.cn/">Peking University <span aria-hidden="true">↗</span></a><p class="home-school-date">2024.09 — Present</p></div>
+      </div>
+      <p class="home-degree">Theoretical and Applied Mechanics<br>&amp; Computer Science</p>
+      <p class="home-school-meta">College of Engineering &amp; School of EECS</p>
+    </section>
+    <section class="home-interests">
+      <h2 class="home-section-label">INTERESTS <span>关注</span></h2>
+      <ul class="home-interest-list"><li>Embodied AI</li><li>LLMs</li><li>AI Infra</li><li>Distributed Systems</li></ul>
+      <p class="home-interest-note">从数学到智能，从想法到实现。</p>
+    </section>
   </div>
+
+  <div class="home-signoff"><p>很高兴在这里遇见你。</p><a href="friends/">朋友们与留言 <span aria-hidden="true">↗</span></a></div>
 </div>
-
-<div id="waline"></div>

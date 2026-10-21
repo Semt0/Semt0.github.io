@@ -1,8 +1,4 @@
-#!/bin/bash
-
-uv run python scripts/update_home_recent.py
-uv run python scripts/update_note_counts.py
-uv run python scripts/update_timeline.py
-uv run python scripts/update_essay_timeline.py
-uv run python scripts/update_nav_blog.py
-uv run python scripts/update_nav_notes.py
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+exec uv run python scripts/update_site.py "$@"

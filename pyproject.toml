@@ -1,19 +1,21 @@
 [project]
 name = "semt0-blog"
 version = "0.1.0"
-description = "Add your description here"
+description = "Semt0's blog and learning notes"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "zensical==0.0.23",
     "markdown-obsidian-callouts>=0.1.1",
-    "matplotlib>=3.10.8",
-    "numpy>=2.4.3",
-    "pymupdf>=1.24.0",
     "pyyaml>=6.0.3",
 ]
 
+# Optional authoring tools; the website build does not need scientific/PDF packages.
 [dependency-groups]
-dev = [
+assets = [
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.3",
+    "pymupdf>=1.24.0",
     "pdfplumber>=0.11.9",
-    "zensical>=0.0.23",
+    "pillow>=12.1.0",
 ]
