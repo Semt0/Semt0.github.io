@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets'
+import { Icon } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import Section from '@/components/home/Section.astro'
+import PostPreview from '@/components/ContentPreview.astro'
+import RepositoryCard from '@/components/home/RepositoryCard.astro'
+import GitHubActivity from '@/components/home/GitHubActivity.astro'
+import AboutBio from '@/components/AboutBio.astro'
+import { getContentEntries, sortContentEntries } from '@/utils/content'
+import projectData from '../data/projects.json'
+import { profile } from '../data/profile'
+import avatar from '@/assets/avatar.svg'
+import '@/assets/styles/home.css'
+const posts = sortContentEntries(await getContentEntries())
+const recentPosts = posts.slice(0, 6)
+const degrees = profile.degree.split(' + ')
+---
+
+<PageLayout meta={{ title: 'Home' }} pageClass='home-surface'>
+  <main class='home-page'>
+    <section class='home-profile animate' id='content-header' aria-labelledby='intro-title'>
+      <Image class='home-avatar' src={avatar} alt='Semt0' width={112} height={112} loading='eager' fetchpriority='high' />
+      <h1 id='intro-title'>Semt0</h1>
+      <p class='home-tagline'>Stay curious. Keep learning.</p>
+      <div class='home-socials'>
+        <span>Beijing, China</span>
+        <a href='https://github.com/Semt0'><Icon name='github' class='size-4' /> GitHub</a>
+        <a href='mailto:2400011018@stu.pku.edu.cn'>Email ↗</a>
+      </div>
+      <a href='https://codetime.dev' aria-label='CodeTime coding activity' class='home-codetime'>
+        <img src='https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36391' alt='CodeTime coding activity' height='20' loading='eager' />
+      </a>
+    </section>
+
+    <div id='content' class='home-sections animate'>
+      <Section title='About'>
+        <AboutBio />
+      </Section>
+      <Section title='Posts'>
+        <ul class='home-recent-list'>{recentPosts.map((post) => <PostPreview {post} />)}</ul>
+        <a href='/blog' class='home-section-link'>All {posts.length} posts <span aria-hidden='true'>→</span></a>
+      </Section>
+      <Section title='Education'>
+        <a href='https://www.pku.edu.cn/' class='home-education' aria-label='Peking University — Education'>
+          <img class='home-pku-seal' src='/branding/pku-seal.svg' alt='' aria-hidden='true' width='240' height='240' loading='eager' />
+          <div class='home-education-copy'>
+            <h3>Peking University</h3>
+            <p>{degrees[0]}<br />+ {degrees[1]}</p>
+            <p>September 2024 – Present</p>
+          </div>
+        </a>
+      </Section>
+      <Section title='Projects'>
+        <div class='home-project-grid'>{projectData.projects.map(project => <RepositoryCard {project} />)}</div>
+        <a href='/projects' class='home-section-link'>All projects <span aria-hidden='true'>→</span></a>
+      </Section>
+      <Section title='GitHub'><GitHubActivity /></Section>
+    </div>
+  </main>
+</PageLayout>

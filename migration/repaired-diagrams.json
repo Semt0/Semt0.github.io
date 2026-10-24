@@ -1,0 +1,8 @@
+{
+  "reason": "Two image references in the original Markdown have no corresponding file in the source Git tree. These are new explanatory vector diagrams, not recovered originals. Original Markdown snapshots remain unmodified.",
+  "source": "note/复变函数/复数与平面点集.md",
+  "assets": {
+    "complex-plane.svg": "bf2eb7fb7130504801ff7b8d1924bc8497cc0ce4ef5029f5dd16f77c37707d5f",
+    "connected-domains.svg": "1815fd648097c8e1d6b38fc069985dafec9bb800c153e2e979ccb8518055efa7"
+  }
+}

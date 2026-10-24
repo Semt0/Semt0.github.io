@@ -1,0 +1,42 @@
+{
+  "generatedOn": "2026-10-24",
+  "mode": "built-in image_gen.imagegen",
+  "usage": "Distinct section backgrounds; CSS applies opacity and a vertical fade. Home retains the earlier blue painting.",
+  "images": [
+    {
+      "section": "blog",
+      "asset": "src/assets/backgrounds/blog.png",
+      "generatedSource": "/Users/semt0/.codex/generated_images/01a16c80-2864-75c0-a042-be5ac4b3f5fe/exec-cff6ff7d-0007-48a7-a77d-dfcbe2fe1bce.png",
+      "prompt": "Use case: stylized-concept. Asset type: a wide 2.4:1 background painting for the blog section of a personal blog. Long flowing bands like the surface of a calm blue sea, broad diagonal palette-knife strokes and airy foamy white highlights. A spacious, fluid composition. Style: refined abstract impasto oil painting, tactile palette-knife ridges, consistent with an icy blue and white painted blog banner. Palette: predominantly cool blue, powder blue, cerulean, pale cyan, and white; restrained saturation. Keep the upper middle quiet and light enough for a website heading. Fill the entire canvas; the website will apply a fade. No text, letters, numbers, people, logos, border, watermark, or website mockup. Create one landscape image, not a collage or grid.",
+      "sha256": "a4299c23286c72a12dd9521a828abd81a0ed9e19c378aaed60c950897f8cc8f8"
+    },
+    {
+      "section": "projects",
+      "asset": "src/assets/backgrounds/projects.png",
+      "generatedSource": "/Users/semt0/.codex/generated_images/01a16c80-2864-75c0-a042-be5ac4b3f5fe/exec-26f8990a-d89e-4c93-9309-1db2d7dcd55f.png",
+      "prompt": "Use case: stylized-concept. Asset type: a wide 2.4:1 background painting for the projects section of a personal blog. Interlocking abstract crystalline planes and angular blue layers, a distinct architectural composition built from broad palette-knife strokes, with pale icy highlights. Style: refined abstract impasto oil painting, tactile palette-knife ridges, consistent with an icy blue and white painted blog banner. Palette: predominantly cool blue, powder blue, cerulean, pale cyan, and white; restrained saturation. Keep the upper middle quiet and light enough for a website heading. Fill the entire canvas; the website will apply a fade. No text, letters, numbers, people, logos, border, watermark, or website mockup. Create one landscape image, not a collage or grid.",
+      "sha256": "2da4dcd002b337f67f93932a60da1ae97674b66177a465dd292c57cc391fd7ac"
+    },
+    {
+      "section": "archives",
+      "asset": "src/assets/backgrounds/archives.png",
+      "generatedSource": "/Users/semt0/.codex/generated_images/01a16c80-2864-75c0-a042-be5ac4b3f5fe/exec-be3d65db-ba7b-4396-94aa-883212a6e871.png",
+      "prompt": "Use case: stylized-concept. Asset type: a wide 2.4:1 background painting for the archives section of a personal blog. Distant layered mountain silhouettes in pale slate blue and cornflower blue, veils of mist and a quiet horizon, rendered entirely with thick yet soft palette-knife oil-paint strokes. Style: refined abstract impasto oil painting, tactile palette-knife ridges, consistent with an icy blue and white painted blog banner. Palette: predominantly cool blue, powder blue, cerulean, pale cyan, and white; restrained saturation. Keep the upper middle quiet and light enough for a website heading. Fill the entire canvas; the website will apply a fade. No text, letters, numbers, people, logos, border, watermark, or website mockup. Create one landscape image, not a collage or grid.",
+      "sha256": "ddb5355cf7d48416e1a7163c7b5e43f80ae8a163e2c5426322fd2de8daeced73"
+    },
+    {
+      "section": "about",
+      "asset": "src/assets/backgrounds/about.png",
+      "generatedSource": "/Users/semt0/.codex/generated_images/01a16c80-2864-75c0-a042-be5ac4b3f5fe/exec-dd404c02-15c5-4c2c-bbbd-c8235b523748.png",
+      "prompt": "Use case: stylized-concept. Asset type: a wide 2.4:1 background painting for the about section of a personal blog. An expansive pale blue sky with billowing clouds formed from broad tactile oil-paint strokes, gentle light and abundant breathing room; a serene open composition. Style: refined abstract impasto oil painting, tactile palette-knife ridges, consistent with an icy blue and white painted blog banner. Palette: predominantly cool blue, powder blue, cerulean, pale cyan, and white; restrained saturation. Keep the upper middle quiet and light enough for a website heading. Fill the entire canvas; the website will apply a fade. No text, letters, numbers, people, logos, border, watermark, or website mockup. Create one landscape image, not a collage or grid.",
+      "sha256": "027f012bca685417d8baed6a2ab4b98d28b3b0fb2f06773a821102a76fcf46f1"
+    },
+    {
+      "section": "links",
+      "asset": "src/assets/backgrounds/links.png",
+      "generatedSource": "/Users/semt0/.codex/generated_images/01a16c80-2864-75c0-a042-be5ac4b3f5fe/exec-998b0807-eb92-463d-a37e-786dd0988e46.png",
+      "prompt": "Use case: stylized-concept. Asset type: a wide 2.4:1 background painting for the links section of a personal blog. Two flowing ribbons of blue and cyan paint meeting and merging into gentle ripples, an airy friendly composition of broad curved palette-knife strokes and pearly white highlights. Style: refined abstract impasto oil painting, tactile palette-knife ridges, consistent with an icy blue and white painted blog banner. Palette: predominantly cool blue, powder blue, cerulean, pale cyan, and white; restrained saturation. Keep the upper middle quiet and light enough for a website heading. Fill the entire canvas; the website will apply a fade. No text, letters, numbers, people, logos, border, watermark, or website mockup. Create one landscape image, not a collage or grid.",
+      "sha256": "734058033c9d284d2f2c4c3a2c0e070438ffb3c13c80761b63762ac676cee1d4"
+    }
+  ]
+}

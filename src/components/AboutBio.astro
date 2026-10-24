@@ -1,0 +1,22 @@
+---
+import { profile } from '../data/profile'
+
+interface Props { id?: string; class?: string }
+const { id, class: className } = Astro.props
+---
+
+<div {id} class:list={['about-bio', className]} lang='zh-CN'>
+  {profile.aboutLines.map((line, index) => <p class:list={{ 'about-connect': index === profile.aboutLines.length - 1 }}>
+    {line.includes('connect')
+      ? <>{line.split('connect')[0]}<a href='mailto:2400011018@stu.pku.edu.cn'>connect</a>{line.split('connect')[1]}</>
+      : line}
+  </p>)}
+</div>
+
+<style>
+  .about-bio { display: flex; flex-direction: column; gap: .35rem; }
+  .about-bio p { margin: 0; line-height: 1.85; text-wrap: pretty; }
+  .about-bio .about-connect { margin-top: .55rem; font-weight: 500; }
+  .about-connect a { color: hsl(var(--primary)); text-decoration: underline; text-decoration-color: hsl(var(--primary) / .35); text-underline-offset: .2em; }
+  .about-connect a:hover { text-decoration-color: currentColor; }
+</style>

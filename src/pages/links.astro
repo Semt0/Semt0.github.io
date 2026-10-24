@@ -1,0 +1,52 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import friends from '../data/links.json'
+import { Comment } from '@/components/waline'
+---
+
+<PageLayout meta={{ title: 'Links', description: 'Friends, their blogs, and places worth visiting.' }}>
+  <main class='links-page'>
+    <header id='content-header' class='animate'>
+      <h1>Links</h1>
+      <p>Friends I've met along the way, and their corners of the web.</p>
+    </header>
+    <div id='content' class='animate'>
+      <section aria-label='Friends’ blogs' class='friend-grid'>
+        {friends.map(friend => <a class='friend-card' href={friend.url} data-friend={friend.url}>
+          <img src={friend.avatar} alt='' width='56' height='56' loading='lazy' />
+          <div class='friend-copy'><h2>{friend.name}</h2><p>{friend.description}</p><span>{new URL(friend.url).hostname}</span></div>
+          <span class='friend-arrow' aria-hidden='true'>↗</span>
+        </a>)}
+      </section>
+      <section class='exchange-links' aria-labelledby='exchange-title'>
+        <h2 id='exchange-title'>Exchange links</h2>
+        <p>I'd love to discover your corner of the web. Send me your site name, URL, and a short introduction.</p>
+        <a href='mailto:2400011018@stu.pku.edu.cn'>Say hello by email ↗</a>
+      </section>
+      <section class='mt-12' aria-labelledby='guestbook-title'>
+        <h2 id='guestbook-title' class='mb-5 text-xl font-medium'>Guestbook</h2>
+        <Comment path='/' />
+      </section>
+    </div>
+  </main>
+</PageLayout>
+
+<style>
+  .links-page { max-width: 58rem; margin: 0 auto; }
+  header { margin-bottom: 2.5rem; }
+  h1 { margin-bottom: 1rem; font-size: 1.875rem; font-weight: 500; }
+  header p, .exchange-links p { color: hsl(var(--muted-foreground)); font-size: .95rem; line-height: 1.85; }
+  .friend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .friend-card { display: flex; align-items: center; gap: 1rem; min-width: 0; padding: 1.4rem; border: 1px solid hsl(var(--border)); border-radius: 1rem; background: hsl(var(--background) / .8); box-shadow: 0 3px 16px hsl(var(--primary) / .035); transition: background .2s, border-color .2s; }
+  .friend-card:hover { background: hsl(var(--background) / .96); border-color: hsl(var(--primary) / .5); }
+  .friend-card img { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid hsl(var(--border)); }
+  .friend-copy { min-width: 0; }
+  .friend-copy h2 { font-size: 1rem; font-weight: 500; line-height: 1.6; }
+  .friend-copy p { margin-top: .25rem; font-size: .85rem; color: hsl(var(--muted-foreground)); }
+  .friend-copy span { display: block; margin-top: .6rem; font-size: .7rem; color: hsl(var(--muted-foreground)); overflow-wrap: anywhere; }
+  .friend-arrow { margin-left: auto; align-self: flex-start; color: hsl(var(--muted-foreground)); }
+  .exchange-links { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid hsl(var(--border)); }
+  .exchange-links h2 { margin-bottom: .6rem; font-size: 1.25rem; font-weight: 500; }
+  .exchange-links a { display: inline-block; margin-top: .8rem; font-size: .85rem; color: hsl(var(--primary)); }
+  @media (max-width: 639px) { .friend-grid { grid-template-columns: minmax(0, 1fr); } .friend-card { padding: 1.2rem; } }
+</style>

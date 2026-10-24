@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-labelledby="title desc">
+<title id="title">Simply and multiply connected domains</title><desc id="desc">In the left disk every closed curve can contract to a point. In the right annulus, a closed curve surrounding the excluded central hole cannot contract within the domain.</desc>
+<rect width="680" height="300" rx="16" fill="#f4f8fc"/>
+<g stroke="#6c95bd" stroke-width="2" fill="#d9e9f7"><circle cx="175" cy="132" r="94"/><path d="M599 132A94 94 0 1 1 411 132A94 94 0 1 1 599 132ZM542 132A37 37 0 1 0 468 132A37 37 0 1 0 542 132Z" fill-rule="evenodd"/></g>
+<g fill="none" stroke="#397db5" stroke-width="2.5" stroke-dasharray="7 4"><ellipse cx="175" cy="132" rx="65" ry="48"/><circle cx="505" cy="132" r="65"/></g>
+<circle cx="175" cy="132" r="4" fill="#397db5"/>
+<g fill="#2d4665" font-family="system-ui,sans-serif" font-size="18" text-anchor="middle"><text x="175" y="257">Simply connected</text><text x="505" y="257">Multiply connected</text><text x="505" y="138" font-size="15">hole</text></g></svg>

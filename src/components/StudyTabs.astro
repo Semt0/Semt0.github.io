@@ -1,0 +1,62 @@
+<script>
+  function initializeStudyTabs() {
+    let groupIndex = 0
+    document.querySelectorAll<HTMLElement>('.study-tab').forEach((panel) => {
+      if (panel.dataset.tabReady || panel.previousElementSibling?.classList.contains('study-tab')) return
+      const panels: HTMLElement[] = [panel]
+      let next = panel.nextElementSibling
+      while (next instanceof HTMLElement && next.classList.contains('study-tab')) {
+        panels.push(next)
+        next = next.nextElementSibling
+      }
+      if (panels.length < 2) return
+      const group = document.createElement('div')
+      group.className = 'study-tabs'
+      const list = document.createElement('div')
+      list.className = 'study-tab-list'
+      list.setAttribute('role', 'tablist')
+      list.setAttribute('aria-label', 'Examples')
+      panel.before(group)
+      group.append(list)
+      const groupId = `study-tabs-${groupIndex++}`
+      const buttons = panels.map((item, i) => {
+        const label = item.querySelector<HTMLElement>(':scope > .study-title')
+        const button = document.createElement('button')
+        button.textContent = label?.textContent || `Example ${i + 1}`
+        button.type = 'button'
+        button.setAttribute('role', 'tab')
+        button.id = `${groupId}-tab-${i}`
+        item.id = `${groupId}-panel-${i}`
+        item.setAttribute('role', 'tabpanel')
+        item.setAttribute('aria-labelledby', button.id)
+        item.dataset.tabReady = 'true'
+        button.setAttribute('aria-controls', item.id)
+        if (label) label.hidden = true
+        list.append(button)
+        group.append(item)
+        return button
+      })
+      function activate(index: number, focus = false) {
+        panels.forEach((item, i) => {
+          item.hidden = i !== index
+          buttons[i].setAttribute('aria-selected', String(i === index))
+          buttons[i].tabIndex = i === index ? 0 : -1
+        })
+        if (focus) buttons[index].focus()
+      }
+      buttons.forEach((button, i) => {
+        button.addEventListener('click', () => activate(i))
+        button.addEventListener('keydown', (event) => {
+          const key = event.key
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) return
+          event.preventDefault()
+          activate(key === 'Home' ? 0 : key === 'End' ? panels.length - 1 :
+            (i + (key === 'ArrowRight' ? 1 : -1) + panels.length) % panels.length, true)
+        })
+      })
+      activate(0)
+    })
+  }
+  initializeStudyTabs()
+  document.addEventListener('astro:page-load', initializeStudyTabs)
+</script>

@@ -1,0 +1,8 @@
+{
+  "reference": "https://arthals.ink/tags/具身智能导论",
+  "checked_on": "2026-10-24",
+  "layout": "Pure tag page: 70rem maximum site container, full-width single-column detailed PostPreview list, gap-y-3",
+  "card": "Rounded 16px border, 20px desktop padding, date, title and arrow, description, reading time, language, tag pills",
+  "implementation": "Adapted from astro-pure 1.4.9 PostPreview (Apache-2.0); docs-aware destinations and wrapping tags",
+  "content": "Semt0's existing notes only; reference article content and branding were not copied."
+}

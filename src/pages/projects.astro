@@ -1,0 +1,36 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import RepositoryCard from '@/components/home/RepositoryCard.astro'
+import GitHubActivity from '@/components/home/GitHubActivity.astro'
+import projectData from '../data/projects.json'
+---
+
+<PageLayout meta={{ title: 'Projects', description: 'Selected projects, learning repositories, and GitHub activity by Semt0.' }}>
+  <main class='projects-page'>
+    <header class='animate' id='content-header'>
+      <h1>Projects</h1>
+      <p>Things I build and learn from, selected from my <a href='https://github.com/Semt0'>GitHub repositories ↗</a>.</p>
+    </header>
+    <div id='content' class='animate'>
+      <section class='project-grid' aria-label='Selected GitHub projects'>
+        {projectData.projects.map(project => <RepositoryCard {project} />)}
+      </section>
+      <section class='projects-activity' aria-labelledby='github-heading'>
+        <h2 id='github-heading'>On GitHub</h2>
+        <GitHubActivity />
+      </section>
+    </div>
+  </main>
+</PageLayout>
+
+<style>
+  .projects-page { max-width: 58rem; margin: 0 auto; }
+  header { margin-bottom: 2rem; }
+  h1 { font-size: 1.875rem; font-weight: 500; margin-bottom: 1rem; }
+  header p { color: hsl(var(--muted-foreground)); font-size: .95rem; line-height: 1.8; }
+  header a:hover { color: hsl(var(--primary)); }
+  .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .projects-activity { margin-top: 2.5rem; }
+  h2 { font-size: 1.25rem; font-weight: 500; margin-bottom: 1rem; }
+  @media (max-width: 639px) { .project-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,0 +1,48 @@
+/* Shared blue palette; section images and fade strengths live in data/backgrounds.ts. */
+.page-surface {
+  --surface-sky: 211 88% 85%;
+  --surface-blue: 196 85% 82%;
+  --surface-ice: 215 85% 91%;
+  --surface-mist: 201 70% 89%;
+  --surface-glow: .56;
+  position: relative;
+  isolation: isolate;
+  background-image:
+    radial-gradient(ellipse 45rem 34rem at 4% 0, hsl(var(--surface-sky) / var(--surface-glow)), transparent 72%),
+    radial-gradient(ellipse 48rem 34rem at 100% 18rem, hsl(var(--surface-blue) / var(--surface-glow)), transparent 74%),
+    radial-gradient(ellipse 40rem 38rem at 0 65rem, hsl(var(--surface-ice) / .34), transparent 75%),
+    radial-gradient(ellipse 40rem 35rem at 100% 95rem, hsl(var(--surface-mist) / .28), transparent 76%);
+  background-repeat: no-repeat;
+}
+.dark .page-surface {
+  --surface-sky: 218 68% 32%;
+  --surface-blue: 207 74% 34%;
+  --surface-ice: 216 60% 22%;
+  --surface-mist: 201 55% 20%;
+  --surface-glow: .38;
+}
+.page-backdrop {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--backdrop-height);
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--backdrop-image);
+  background-size: cover;
+  background-position: center 35%;
+  opacity: var(--backdrop-opacity);
+  mask-image: linear-gradient(to bottom, #000 0%, #000b 42%, transparent 100%);
+}
+.dark .page-backdrop { opacity: var(--backdrop-dark-opacity); }
+.page-surface .repository-card,
+.page-surface .github-activity {
+  background-color: hsl(var(--background) / .76);
+  box-shadow: 0 3px 16px hsl(var(--primary) / .035);
+}
+.page-surface .repository-card:hover { background-color: hsl(var(--background) / .95); }
+@media (max-width: 767px) {
+  .page-surface { background-size: 100% 55rem, 100% 65rem, 100% 100%, 100% 100%; }
+}
+@media (forced-colors: active) {
+  .page-backdrop { display: none; }
+}

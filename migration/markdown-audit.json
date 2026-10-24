@@ -1,0 +1,584 @@
+{
+  "pr-pitfalls": {
+    "math": 0,
+    "code": 7,
+    "callouts": 5,
+    "tabs": 0
+  },
+  "three-weeks": {
+    "math": 0,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "writing/cs231n-01": {
+    "math": 100,
+    "code": 32,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "writing/04": {
+    "math": 306,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "complex-analysis/01": {
+    "math": 146,
+    "code": 0,
+    "callouts": 24,
+    "tabs": 0
+  },
+  "complex-analysis/02": {
+    "math": 437,
+    "code": 0,
+    "callouts": 19,
+    "tabs": 3
+  },
+  "complex-analysis/03": {
+    "math": 428,
+    "code": 0,
+    "callouts": 31,
+    "tabs": 0
+  },
+  "complex-analysis/04": {
+    "math": 165,
+    "code": 0,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "complex-analysis/05": {
+    "math": 564,
+    "code": 0,
+    "callouts": 41,
+    "tabs": 0
+  },
+  "complex-analysis/06": {
+    "math": 503,
+    "code": 0,
+    "callouts": 32,
+    "tabs": 0
+  },
+  "complex-analysis/07": {
+    "math": 240,
+    "code": 0,
+    "callouts": 22,
+    "tabs": 0
+  },
+  "complex-analysis/08": {
+    "math": 110,
+    "code": 0,
+    "callouts": 14,
+    "tabs": 0
+  },
+  "complex-analysis/09": {
+    "math": 252,
+    "code": 1,
+    "callouts": 34,
+    "tabs": 0
+  },
+  "ode/01": {
+    "math": 66,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "ode/02": {
+    "math": 116,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "ode/03": {
+    "math": 176,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "ode/04": {
+    "math": 396,
+    "code": 0,
+    "callouts": 10,
+    "tabs": 0
+  },
+  "ode/05": {
+    "math": 104,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "mathematical-physics/01": {
+    "math": 48,
+    "code": 0,
+    "callouts": 11,
+    "tabs": 0
+  },
+  "mathematical-physics/02": {
+    "math": 84,
+    "code": 0,
+    "callouts": 6,
+    "tabs": 0
+  },
+  "mathematical-physics/03": {
+    "math": 96,
+    "code": 0,
+    "callouts": 9,
+    "tabs": 0
+  },
+  "mathematical-physics/04": {
+    "math": 160,
+    "code": 0,
+    "callouts": 9,
+    "tabs": 0
+  },
+  "mathematical-physics/05": {
+    "math": 160,
+    "code": 0,
+    "callouts": 7,
+    "tabs": 0
+  },
+  "cvdl/ml-intro": {
+    "math": 60,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "cvdl/recognition-1": {
+    "math": 242,
+    "code": 0,
+    "callouts": 56,
+    "tabs": 0
+  },
+  "cvdl/detection": {
+    "math": 180,
+    "code": 0,
+    "callouts": 9,
+    "tabs": 0
+  },
+  "cvdl/cvdl-review": {
+    "math": 62,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "cvdl/pixelcomputing": {
+    "math": 81,
+    "code": 0,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "cvdl/rnn-tranformer": {
+    "math": 61,
+    "code": 0,
+    "callouts": 2,
+    "tabs": 0
+  },
+  "cvdl/tracking": {
+    "math": 47,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "cvdl/3dvision": {
+    "math": 72,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "cvdl/generativemodels": {
+    "math": 55,
+    "code": 0,
+    "callouts": 1,
+    "tabs": 0
+  },
+  "cvdl/cvdl-final-review": {
+    "math": 263,
+    "code": 2,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "foundation-models/gradient-descent": {
+    "math": 356,
+    "code": 0,
+    "callouts": 33,
+    "tabs": 0
+  },
+  "foundation-models/transformer": {
+    "math": 57,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "foundation-models/parameters-computations-and-memories-in-language-models": {
+    "math": 199,
+    "code": 0,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "foundation-models/popular-llm-models": {
+    "math": 41,
+    "code": 1,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "foundation-models/accelerated-gradient-descent": {
+    "math": 136,
+    "code": 0,
+    "callouts": 10,
+    "tabs": 0
+  },
+  "foundation-models/stochastic-gradient-descent": {
+    "math": 177,
+    "code": 0,
+    "callouts": 12,
+    "tabs": 0
+  },
+  "foundation-models/momentum-and-adaptive-sgd": {
+    "math": 76,
+    "code": 0,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "foundation-models/flashattention": {
+    "math": 54,
+    "code": 0,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "foundation-models/data-preparation-for-llm-pre-training": {
+    "math": 0,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "foundation-models/parameter-efficient-fine-tuning": {
+    "math": 30,
+    "code": 0,
+    "callouts": 1,
+    "tabs": 0
+  },
+  "foundation-models/efficient-llm-inference": {
+    "math": 3,
+    "code": 0,
+    "callouts": 1,
+    "tabs": 0
+  },
+  "foundation-models/chain-of-thought": {
+    "math": 0,
+    "code": 0,
+    "callouts": 1,
+    "tabs": 0
+  },
+  "cs231n/image-classification-with-linear-classifiers": {
+    "math": 102,
+    "code": 3,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "cs231n/regularization-and-optimization": {
+    "math": 70,
+    "code": 5,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "numerical-methods/01": {
+    "math": 193,
+    "code": 0,
+    "callouts": 1,
+    "tabs": 0
+  },
+  "numerical-methods/02": {
+    "math": 98,
+    "code": 3,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "numerical-methods/03": {
+    "math": 266,
+    "code": 23,
+    "callouts": 3,
+    "tabs": 14
+  },
+  "numerical-methods/04": {
+    "math": 183,
+    "code": 3,
+    "callouts": 3,
+    "tabs": 2
+  },
+  "numerical-methods/05": {
+    "math": 641,
+    "code": 0,
+    "callouts": 53,
+    "tabs": 0
+  },
+  "numerical-methods/06": {
+    "math": 382,
+    "code": 0,
+    "callouts": 23,
+    "tabs": 0
+  },
+  "numerical-methods/07": {
+    "math": 482,
+    "code": 0,
+    "callouts": 30,
+    "tabs": 0
+  },
+  "numerical-methods/08": {
+    "math": 141,
+    "code": 0,
+    "callouts": 10,
+    "tabs": 0
+  },
+  "numerical-methods/09": {
+    "math": 283,
+    "code": 0,
+    "callouts": 18,
+    "tabs": 0
+  },
+  "numerical-methods/10": {
+    "math": 396,
+    "code": 2,
+    "callouts": 31,
+    "tabs": 0
+  },
+  "numerical-methods/11": {
+    "math": 206,
+    "code": 0,
+    "callouts": 25,
+    "tabs": 0
+  },
+  "numerical-methods/12": {
+    "math": 370,
+    "code": 0,
+    "callouts": 53,
+    "tabs": 0
+  },
+  "numerical-methods/13": {
+    "math": 320,
+    "code": 0,
+    "callouts": 18,
+    "tabs": 0
+  },
+  "algorithms/01": {
+    "math": 15,
+    "code": 3,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "algorithms/02": {
+    "math": 197,
+    "code": 1,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "algorithms/03": {
+    "math": 433,
+    "code": 0,
+    "callouts": 49,
+    "tabs": 0
+  },
+  "algorithms/04": {
+    "math": 509,
+    "code": 0,
+    "callouts": 24,
+    "tabs": 0
+  },
+  "algorithms/05": {
+    "math": 365,
+    "code": 0,
+    "callouts": 32,
+    "tabs": 0
+  },
+  "algorithms/06": {
+    "math": 316,
+    "code": 0,
+    "callouts": 39,
+    "tabs": 0
+  },
+  "algorithms/07": {
+    "math": 285,
+    "code": 0,
+    "callouts": 13,
+    "tabs": 0
+  },
+  "ai-hardware/01": {
+    "math": 113,
+    "code": 1,
+    "callouts": 7,
+    "tabs": 0
+  },
+  "ai-hardware/02": {
+    "math": 284,
+    "code": 2,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "rust/draft": {
+    "math": 0,
+    "code": 7,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "rust/02": {
+    "math": 2,
+    "code": 33,
+    "callouts": 15,
+    "tabs": 0
+  },
+  "rust/03": {
+    "math": 0,
+    "code": 33,
+    "callouts": 26,
+    "tabs": 0
+  },
+  "parallel-programming/01": {
+    "math": 5,
+    "code": 9,
+    "callouts": 13,
+    "tabs": 0
+  },
+  "parallel-programming/02": {
+    "math": 31,
+    "code": 16,
+    "callouts": 14,
+    "tabs": 0
+  },
+  "parallel-programming/03": {
+    "math": 16,
+    "code": 52,
+    "callouts": 29,
+    "tabs": 0
+  },
+  "parallel-programming/04": {
+    "math": 3,
+    "code": 22,
+    "callouts": 7,
+    "tabs": 0
+  },
+  "parallel-programming/05": {
+    "math": 3,
+    "code": 14,
+    "callouts": 5,
+    "tabs": 0
+  },
+  "parallel-programming/06": {
+    "math": 2,
+    "code": 20,
+    "callouts": 8,
+    "tabs": 0
+  },
+  "parallel-programming/07": {
+    "math": 7,
+    "code": 0,
+    "callouts": 7,
+    "tabs": 0
+  },
+  "parallel-programming/08": {
+    "math": 9,
+    "code": 21,
+    "callouts": 10,
+    "tabs": 0
+  },
+  "parallel-programming/09": {
+    "math": 1,
+    "code": 18,
+    "callouts": 24,
+    "tabs": 0
+  },
+  "parallel-programming/10": {
+    "math": 4,
+    "code": 9,
+    "callouts": 16,
+    "tabs": 0
+  },
+  "oj/01": {
+    "math": 338,
+    "code": 12,
+    "callouts": 2,
+    "tabs": 0
+  },
+  "oj/02": {
+    "math": 75,
+    "code": 9,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "oj/03": {
+    "math": 87,
+    "code": 7,
+    "callouts": 3,
+    "tabs": 0
+  },
+  "oj/04": {
+    "math": 54,
+    "code": 1,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "oj/05": {
+    "math": 135,
+    "code": 7,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "abstract-algebra/01": {
+    "math": 91,
+    "code": 0,
+    "callouts": 16,
+    "tabs": 0
+  },
+  "journal/01": {
+    "math": 40,
+    "code": 6,
+    "callouts": 13,
+    "tabs": 0
+  },
+  "journal/02": {
+    "math": 41,
+    "code": 0,
+    "callouts": 15,
+    "tabs": 0
+  },
+  "journal/03": {
+    "math": 70,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "journal/04": {
+    "math": 22,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "journal/05": {
+    "math": 0,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "journal/06": {
+    "math": 17,
+    "code": 20,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "journal/07": {
+    "math": 1,
+    "code": 7,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "gs-net": {
+    "math": 21,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  },
+  "journal/c-review": {
+    "math": 0,
+    "code": 0,
+    "callouts": 0,
+    "tabs": 0
+  }
+}

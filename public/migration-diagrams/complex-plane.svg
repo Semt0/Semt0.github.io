@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 350" role="img" aria-labelledby="title desc">
+<title id="title">The complex plane</title><desc id="desc">The complex number z=x+iy is represented by the vector from the origin to the point (x,y), with magnitude rho and argument phi.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#516b8b"/></marker></defs>
+<rect width="560" height="350" rx="16" fill="#f4f8fc"/>
+<g fill="none" stroke="#516b8b" stroke-width="2"><path d="M45 278H520M100 320V28" marker-end="url(#arrow)"/><path d="M100 278L406 84" stroke="#367cba" stroke-width="3" marker-end="url(#arrow)"/><path d="M100 84H406V278" stroke-dasharray="6 5" stroke="#9aafc5"/><path d="M158 278A58 58 0 0 0 149 247" stroke="#b98539"/></g>
+<circle cx="406" cy="84" r="5" fill="#367cba"/>
+<g fill="#2d4665" font-family="system-ui,sans-serif" font-size="19"><text x="490" y="306">Re z</text><text x="117" y="40">Im z</text><text x="78" y="302">O</text><text x="401" y="301">x</text><text x="73" y="91">y</text><text x="418" y="76">z = x + iy</text><text x="232" y="160">ρ = |z|</text><text x="165" y="265">φ</text></g></svg>

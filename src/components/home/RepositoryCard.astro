@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-pure/user'
+import data from '../../data/projects.json'
+type Props = { project: (typeof data.projects)[number] }
+const { project } = Astro.props
+---
+
+<article class='repository-card' data-repository={project.name}>
+  <a class='repository-main' href={project.url}>
+    <div class='repository-heading'>
+      <Icon name='github' class='size-4' /><h3>{project.title}</h3>
+      <span class='repository-arrow' aria-hidden='true'>↗</span>
+    </div>
+    <p>{project.summary}</p>
+    <div class='repository-meta'><span>{project.language}</span><span>{project.category}</span></div>
+  </a>
+  {project.fork && project.parent && <a class='repository-source' href={`https://github.com/${project.parent}`}>Fork of {project.parent}</a>}
+</article>
+
+<style>
+  .repository-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid hsl(var(--border)); border-radius: 1rem; background: hsl(var(--muted) / .45); transition: border-color .2s, background .2s; }
+  .repository-card:hover { border-color: hsl(var(--primary) / .45); background: hsl(var(--muted)); }
+  .repository-main { padding: 1.15rem 1.2rem; flex: 1; }
+  .repository-heading { display: flex; align-items: center; gap: .55rem; }
+  h3 { font-size: 1rem; font-weight: 500; line-height: 1.5; }
+  .repository-heading :global(svg) { flex-shrink: 0; color: hsl(var(--muted-foreground)); }
+  .repository-arrow { margin-left: auto; color: hsl(var(--muted-foreground)); }
+  .repository-main p { font-size: .85rem; line-height: 1.75; color: hsl(var(--muted-foreground)); margin-top: .6rem; }
+  .repository-meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: 1rem; font-size: .72rem; color: hsl(var(--muted-foreground)); }
+  .repository-meta span:first-child::before { content: ''; display: inline-block; width: .45rem; height: .45rem; background: hsl(var(--primary) / .65); border-radius: 50%; margin-right: .4rem; }
+  .repository-source { display: block; padding: .65rem 1.2rem; border-top: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); font-size: .68rem; overflow-wrap: anywhere; }
+  .repository-source:hover { color: hsl(var(--primary)); }
+</style>

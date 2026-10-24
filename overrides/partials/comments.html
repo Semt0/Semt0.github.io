@@ -1,4 +1,0 @@
-{# Single mount point; an optional stable key preserves threads when pages move. #}
-{% if page and (page.meta.comments is not defined or page.meta.comments != false) %}
-  <div id="waline" class="katex-ignore" data-comment-path="{{ page.meta.comment_path | default('') | e }}" data-client-url="{{ 'vendor/waline/waline.js' | url }}"></div>
-{% endif %}

@@ -1,0 +1,12 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { Button } from 'astro-pure/user'
+import AboutBio from '@/components/AboutBio.astro'
+---
+<PageLayout meta={{ title: '关于我' }}>
+  <Button title='Back' href='/' variant='back' />
+  <main class='mx-auto mt-8 max-w-3xl' data-pagefind-body>
+    <h1 id='content-header' class='animate mb-6 text-3xl font-medium'>关于我</h1>
+    <AboutBio id='content' class='animate' />
+  </main>
+</PageLayout>

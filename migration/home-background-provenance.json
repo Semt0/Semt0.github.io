@@ -1,0 +1,10 @@
+{
+  "generated_on": "2026-10-24",
+  "mode": "built-in image_gen.imagegen",
+  "asset": "src/assets/images/home-blue.png",
+  "reference": "src/assets/images/demo-banner.png (Fuwari bundled asset; style and palette reference only)",
+  "prompt": "Use case: stylized-concept. Reference image: Fuwari's bundled demo-banner.png, style and palette reference only. Create a NEW wide 2.4:1 blog banner: an abstract impasto oil painting in icy white, pale cyan and cerulean blue. Broad overlapping palette-knife strokes, thick tactile ridges, airy highlights above, deeper blue strokes below. Match the reference's cool, fresh, painterly feeling with a new arrangement of strokes. Fill the entire canvas; no text, people, recognizable objects, logos or watermark.",
+  "original_asset": "../fuwari-preview/src/assets/images/semt0-banner.png",
+  "reuse": "Copied unchanged from the earlier Fuwari trial; rendered as a fading background with CSS.",
+  "sha256": "7bef67d991c9e59db148e8d182fa9a4ab6bbe9bea09ce58c89dd88a44188d376"
+}

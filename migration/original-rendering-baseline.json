@@ -1,0 +1,393 @@
+{
+  "source_commit": "56f2034f54d58b70ac531755ef930e317cb609b0",
+  "posts": {
+    "pr-pitfalls": {
+      "math": 0,
+      "html_sha256": "bfbbf223feea9cd5ca9e52bdc7e5e3841e487f71f3c3901ca7fba8525c105656"
+    },
+    "three-weeks": {
+      "math": 0,
+      "html_sha256": "8c801bd97db6c83e387ce4766967687ec457745a66c3c26dd9bbcfa4c3d88def"
+    },
+    "writing/cs231n-01": {
+      "math": 100,
+      "html_sha256": "470a837c55439e4b38f7473aef24383a8b2fec3fa1dc99a7568cce347da1141f"
+    },
+    "writing/04": {
+      "math": 306,
+      "html_sha256": "9bc5bec918ae260981b610059c45542f958b411deefb4bb495555c6cff190dae"
+    },
+    "complex-analysis/01": {
+      "math": 146,
+      "html_sha256": "de3b3b49e0a388b37f4d78b0703b02d062ff121d893617b9a600148e8352312b"
+    },
+    "complex-analysis/02": {
+      "math": 437,
+      "html_sha256": "af6bdb1c947bb6413f06531e2eb3e19efbadfd89d8f3db1f67644b56dacc941c"
+    },
+    "complex-analysis/03": {
+      "math": 419,
+      "html_sha256": "f8358fa9a80464c5675594f879d2edbc5e9631774f20fe07b9e3b684b83b8e85"
+    },
+    "complex-analysis/04": {
+      "math": 165,
+      "html_sha256": "3dfeb3e209d4439700c331c7231bab8a2dad6483d8c35d173c4757b05fda02e2"
+    },
+    "complex-analysis/05": {
+      "math": 553,
+      "html_sha256": "90e317733f22d5eca75d0aaf845dc925547204194343d7fa9e6971c12b7b290a"
+    },
+    "complex-analysis/06": {
+      "math": 502,
+      "html_sha256": "a7c3763be5a06148bf0388d004d5061391e63e893794fbc90c212408a20dfcaa"
+    },
+    "complex-analysis/07": {
+      "math": 240,
+      "html_sha256": "42b1ee1075f3591cd1ae826bfdce1f17fd90ed2588e08b05e03183c395a3685e"
+    },
+    "complex-analysis/08": {
+      "math": 110,
+      "html_sha256": "2b01f87fe70043e9f7ee53b53d476c5a3ef61cfa2dd1f6de688c20a4c2535e07"
+    },
+    "complex-analysis/09": {
+      "math": 244,
+      "html_sha256": "a81ce50779a9ec525b9be65aadfeff3337c51314c06b05bd28260ade74aeca3f"
+    },
+    "ode/01": {
+      "math": 53,
+      "html_sha256": "409cc541958cce7d4cd2e728043b502481f084f626688c2381327dc632e32be1"
+    },
+    "ode/02": {
+      "math": 105,
+      "html_sha256": "caabc354da4548c34ef496e9835c7b073997537d5dd3fb3d616c706623e2bd76"
+    },
+    "ode/03": {
+      "math": 164,
+      "html_sha256": "537b04b8b4158e1ba5e7be8a8d1df29fdfb28afb9bfb20bfc37b556b4b527762"
+    },
+    "ode/04": {
+      "math": 362,
+      "html_sha256": "46149c37f4a9b5f21a75a7e3687bf34190fbd086d3b168d15033f97cefb6cd84"
+    },
+    "ode/05": {
+      "math": 94,
+      "html_sha256": "691588abce711947f9b42e2028fe3c195937314eee46d242c07e32077d205b7d"
+    },
+    "mathematical-physics/01": {
+      "math": 48,
+      "html_sha256": "5b04a3382e25c3ae1adf8af886db351d809b4a0c674b56c87f2f9a9c71f87318"
+    },
+    "mathematical-physics/02": {
+      "math": 84,
+      "html_sha256": "89a306a304cfe657412eeead9249de681a5598f71c48958d85e5cbdde464399b"
+    },
+    "mathematical-physics/03": {
+      "math": 96,
+      "html_sha256": "b4e6c893357867585d5abc04d6c1d1e17a6e1479eb8a04b4049c4c342c48d68f"
+    },
+    "mathematical-physics/04": {
+      "math": 160,
+      "html_sha256": "2e56421dfaf0390f4ea9e28110b326b3c8f492628859c63557d43f828671c004"
+    },
+    "mathematical-physics/05": {
+      "math": 160,
+      "html_sha256": "ba5159de15642143e1bb559626f27204fdef5feab9b9add85b029c3039d26733"
+    },
+    "cvdl/ml-intro": {
+      "math": 50,
+      "html_sha256": "5121153f239a64ed35e9a7d0a664a23b14333be51e333795e7f9f10f01fc4f4d"
+    },
+    "cvdl/recognition-1": {
+      "math": 242,
+      "html_sha256": "8dde29526e0bb2cfb7ff2a5b439bf97778afa0f32d70b0a81fa3c0eaf6abdaea"
+    },
+    "cvdl/detection": {
+      "math": 180,
+      "html_sha256": "8d95e8560cd567f0272177cd3b65bce54e3af87c863bc62bb99a5c6bcecbaf15"
+    },
+    "cvdl/cvdl-review": {
+      "math": 62,
+      "html_sha256": "3e94b09ce2734fcba9c5408d411ab8eb0b23128b97353f8d5fb4887f1b085e3f"
+    },
+    "cvdl/pixelcomputing": {
+      "math": 81,
+      "html_sha256": "09531f3fd18fc4544e82c42789a9e987964359ffc10d59daa8693ef21d95c572"
+    },
+    "cvdl/rnn-tranformer": {
+      "math": 61,
+      "html_sha256": "e3da921bafeaa2b86749f9ff39477715edd59d5152e3c41f21f6d4383b934497"
+    },
+    "cvdl/tracking": {
+      "math": 47,
+      "html_sha256": "5b5be5dc4698a122c08439908d433da1896674b0aa6fc883bdaa05a29bdd241c"
+    },
+    "cvdl/3dvision": {
+      "math": 72,
+      "html_sha256": "289029a9b539062e58a763629fbc774a6723a0460c232b29fee424ee6f38bb0c"
+    },
+    "cvdl/generativemodels": {
+      "math": 55,
+      "html_sha256": "55c22ec3f7abe235d7b273b0e2003aa27d8a2164ab9aa6a7ee417442e37b7aff"
+    },
+    "cvdl/cvdl-final-review": {
+      "math": 261,
+      "html_sha256": "02f66e8a7cb8aa92bb477a680d4628e7248886fa54f49501f4821c4d6701a714"
+    },
+    "foundation-models/gradient-descent": {
+      "math": 355,
+      "html_sha256": "52d2dd41a07bf7406a3c00a86709bc409254c0a7c4cdf211a778b81cdec22bf9"
+    },
+    "foundation-models/transformer": {
+      "math": 57,
+      "html_sha256": "29eb3226fefd921038dcb1f86bde1cba6c6648c08774d2bd7d8f9a4b6735a950"
+    },
+    "foundation-models/parameters-computations-and-memories-in-language-models": {
+      "math": 199,
+      "html_sha256": "432270807b202ba83b58672ab16701db621607e654b31c604ff085180545500a"
+    },
+    "foundation-models/popular-llm-models": {
+      "math": 41,
+      "html_sha256": "9c428140507761995af185bca6f853274d5231fb898ae1e5bcd2e3d7a340d8f4"
+    },
+    "foundation-models/accelerated-gradient-descent": {
+      "math": 136,
+      "html_sha256": "daa711656537662685e017c13a99c551917e5b249d80ef8734cbc2cf7f2e979a"
+    },
+    "foundation-models/stochastic-gradient-descent": {
+      "math": 177,
+      "html_sha256": "2ccb2fcf16ec493052bd51d6f6a25de886d2bdb0035b51626642e0e10ae5dca6"
+    },
+    "foundation-models/momentum-and-adaptive-sgd": {
+      "math": 76,
+      "html_sha256": "28e3d364d1ffaf705a22355cba053f0a4f2e9c6356239c69edb30b75a7623c86"
+    },
+    "foundation-models/flashattention": {
+      "math": 54,
+      "html_sha256": "ffd4f6324c1450aa4113df56ab044fb49b1dfebea5a416e46983f37d0d3a9887"
+    },
+    "foundation-models/data-preparation-for-llm-pre-training": {
+      "math": 0,
+      "html_sha256": "28963b250259468f3d94aaa8abd1f75859399d556187b6c8760dd5153a51641b"
+    },
+    "foundation-models/parameter-efficient-fine-tuning": {
+      "math": 30,
+      "html_sha256": "aed28f0eb4ca704f590518ed825d50073b525c1470c5684edc9b64e10a11659f"
+    },
+    "foundation-models/efficient-llm-inference": {
+      "math": 3,
+      "html_sha256": "84c6b5cbfeb3992f99867aa179f75876161f460ed3e6190befc8b613b2af7989"
+    },
+    "foundation-models/chain-of-thought": {
+      "math": 0,
+      "html_sha256": "aecc7c8a6c1f86bbe2f6df37cb6d1f42ee659c6be3712a793a8780f50cfbf8aa"
+    },
+    "cs231n/image-classification-with-linear-classifiers": {
+      "math": 102,
+      "html_sha256": "81936b774dbe5b58c13e7612fc368b7c3d65b3b366bfd7998bc05f0deca7f801"
+    },
+    "cs231n/regularization-and-optimization": {
+      "math": 70,
+      "html_sha256": "5f6e88a00f8a78466d6e0be4261cda7d6d4394d75f4ada61d39ada024f448cf4"
+    },
+    "numerical-methods/01": {
+      "math": 181,
+      "html_sha256": "8b0339362017c8af3bf82da907991ebf400866603a418e34eaf285cf961dba88"
+    },
+    "numerical-methods/02": {
+      "math": 98,
+      "html_sha256": "4a3dba307144099f50f086e89da5bff3d6c37c9d4ce751a569c947cb1b7c0952"
+    },
+    "numerical-methods/03": {
+      "math": 266,
+      "html_sha256": "a02c12db1c8c6f7acfcfb2b88781f948d5eea4166eb75b9eb07397459f3a26c0"
+    },
+    "numerical-methods/04": {
+      "math": 183,
+      "html_sha256": "b3e7772d1db0250df713e2780096caf80f31c702dddbc00203f188b7bfc1c59c"
+    },
+    "numerical-methods/05": {
+      "math": 641,
+      "html_sha256": "4144b3a07374ce011372f983c58781ed8b29533358cf93086ba71fe83895ed1c"
+    },
+    "numerical-methods/06": {
+      "math": 379,
+      "html_sha256": "a91bd775a67cf6635770be63a259b2472b6a8f01a504e5e947e4a3b2bdeecc55"
+    },
+    "numerical-methods/07": {
+      "math": 482,
+      "html_sha256": "70933ce3292f0d6dae83fb6c40ca726269e982a4b1315cba5c544f17980ea67f"
+    },
+    "numerical-methods/08": {
+      "math": 141,
+      "html_sha256": "bd996902073d1180167e7fbc4a84f5d8f01ede3538afe6caf49a1bb701772529"
+    },
+    "numerical-methods/09": {
+      "math": 283,
+      "html_sha256": "673dc6736701d46e7d0e9bab0749bb36b4625a468577ee9d37c2ea75cfdd7566"
+    },
+    "numerical-methods/10": {
+      "math": 396,
+      "html_sha256": "5844e3d3180fad93315c0e845f113cc9fa665b75244d3a5943e274d039feb75c"
+    },
+    "numerical-methods/11": {
+      "math": 204,
+      "html_sha256": "3360d65bd62f72639f1551725da3e2ca2c0bb38992a8c63d06041a1f4c5e9616"
+    },
+    "numerical-methods/12": {
+      "math": 369,
+      "html_sha256": "4aa0539719b56780f31e2ab7db00ca4018a16d44df8199a97e71c18f0738eb68"
+    },
+    "numerical-methods/13": {
+      "math": 320,
+      "html_sha256": "7d9970fb1e20924c2142ff83a86cdcced5bddf6fad5c86e27f8f4ee1cac25fe4"
+    },
+    "algorithms/01": {
+      "math": 14,
+      "html_sha256": "487b7302710c958e4ae58248cd3e259139e50c354ce20bc709b8b4d33a1f1439"
+    },
+    "algorithms/02": {
+      "math": 196,
+      "html_sha256": "a737d2175753d7efa9c7166c1dc2711b0ebec0ec628b26f92464f4a4effac6e0"
+    },
+    "algorithms/03": {
+      "math": 433,
+      "html_sha256": "1333bf11bbe14e77feeaaaccf937bfff84387af0de59afeb2c26610685df8d78"
+    },
+    "algorithms/04": {
+      "math": 509,
+      "html_sha256": "ace9e0df8708c1bb41b74c5189139d6b72ac6cfb0b41f368996b2011eca684b0"
+    },
+    "algorithms/05": {
+      "math": 365,
+      "html_sha256": "ca6112f90db30db85ec5d7bb926395b7f61e9ce0c5d19bb68e3375b56e93f41b"
+    },
+    "algorithms/06": {
+      "math": 316,
+      "html_sha256": "a9593fca069080291adcde7cd793b2e03c5bb72d0292654a574c9ade554e1026"
+    },
+    "algorithms/07": {
+      "math": 285,
+      "html_sha256": "24e1c1f9685ee2b14f06786625e4767942ece8ddfc503cf50b1a6676e8df0aae"
+    },
+    "ai-hardware/01": {
+      "math": 113,
+      "html_sha256": "eddfa8cbad6916b9614208acfe91a9074f1f6a673b222dce31d7f8d694dbdde5"
+    },
+    "ai-hardware/02": {
+      "math": 284,
+      "html_sha256": "c7d0d27bb628ee7df748867bf416ee4cf1ff14a99004d4f81a3bcbd67ea81e23"
+    },
+    "rust/draft": {
+      "math": 0,
+      "html_sha256": "c9eb81eadc1ee482f7b61b55ccc3b16ef1eb0bfb8209734760092912c9fbfd58"
+    },
+    "rust/02": {
+      "math": 2,
+      "html_sha256": "b8fa8b9d0dff6fa8cf8e5cf49d721276bb810f1b91831fba705614ad9cd4c572"
+    },
+    "rust/03": {
+      "math": 0,
+      "html_sha256": "ac040e8e321d7eada363e9bcfa1cb9942f0fadbf81c52a130e021e0ca050b1d8"
+    },
+    "parallel-programming/01": {
+      "math": 5,
+      "html_sha256": "c71d926b9bd699fad1d90ef59e1aee5f5de48e718fb21e8abcc2d52d6d5bd77b"
+    },
+    "parallel-programming/02": {
+      "math": 31,
+      "html_sha256": "3ab333a3a2bdd8af3f6b37ccbdf02bfdfd19411042c07a9f04f3b0153d187645"
+    },
+    "parallel-programming/03": {
+      "math": 16,
+      "html_sha256": "752ccd4dc02e7477ce667cda23beb2b605e3ef1b70ade31476274f49f9c47538"
+    },
+    "parallel-programming/04": {
+      "math": 3,
+      "html_sha256": "410555b4b99dc643b2deb006b31eb2220f7ad2a6a6273ca6f8412b4ca1836b55"
+    },
+    "parallel-programming/05": {
+      "math": 3,
+      "html_sha256": "a152882f6af3a7ac9fdaea14efe6c7be097e4dfafaf36f81e5e4a204eb5eb3a6"
+    },
+    "parallel-programming/06": {
+      "math": 2,
+      "html_sha256": "5d841910c44fada9c4e0b40625504359ced20cbb4b182eb5600e400947b9d53e"
+    },
+    "parallel-programming/07": {
+      "math": 7,
+      "html_sha256": "c83b18ae6117c20e79a8dc06088a0be5525d64a890cd1b5d7d4fe280336c7d15"
+    },
+    "parallel-programming/08": {
+      "math": 9,
+      "html_sha256": "ae57658447b28f035122fe665bd63cfaa75d40498e79d6bc9b1e084d0bd9aa20"
+    },
+    "parallel-programming/09": {
+      "math": 1,
+      "html_sha256": "353f105b421c5581a2034e8824bfe510f1f01cadf7c699d8d09e66f800533d34"
+    },
+    "parallel-programming/10": {
+      "math": 4,
+      "html_sha256": "d3aa022014cbbfffb20073e7c0f2fc78845118da3524018c475e6052d66532b5"
+    },
+    "oj/01": {
+      "math": 338,
+      "html_sha256": "679eb6ca54462a3df83754f7211ae586ea44d9fbe730b39b6dde25006d923b22"
+    },
+    "oj/02": {
+      "math": 75,
+      "html_sha256": "31ecef4f1cbc074e529df1b039465cfc42d3e9a82ceaef6c8c3e5ada925b0ce6"
+    },
+    "oj/03": {
+      "math": 87,
+      "html_sha256": "393d0c16ed49135d42462d84317de9a88e31004b680ddf57621677516cf64cd6"
+    },
+    "oj/04": {
+      "math": 54,
+      "html_sha256": "89242e1e762b15d972849ba6e01f6e275330f934ad6997696485d5736fafafb1"
+    },
+    "oj/05": {
+      "math": 133,
+      "html_sha256": "3dbaf61d4d3a050dbac5bb2abd64277966c9aef62f81d815f4670c73f5c17217"
+    },
+    "abstract-algebra/01": {
+      "math": 91,
+      "html_sha256": "88668c362d451201b130d35ff49467445312d59dff3e03301a9dfd0bd5c68c6e"
+    },
+    "journal/01": {
+      "math": 40,
+      "html_sha256": "73942f00a0701ebd3ff72c92a157c7e53264c5642ab8bff04a7daa33f986b327"
+    },
+    "journal/02": {
+      "math": 41,
+      "html_sha256": "b87b0bff84faf2a6869375e851b90ad79cf490385e8245f6c53950e2793c96a6"
+    },
+    "journal/03": {
+      "math": 69,
+      "html_sha256": "659ea76edb5fa49d4e6646b8788a38def6bc4c9088f7f800f1a380ba27b1c180"
+    },
+    "journal/04": {
+      "math": 22,
+      "html_sha256": "d8a95975b10713a1c6b13e806e8c8bb083b2878b2c84ffded3d77a168a7c48a7"
+    },
+    "journal/05": {
+      "math": 0,
+      "html_sha256": "9a8dda5fe6a4c83bd16caae0eceb6ea47a233e00a18a0e5848e3afde7d073307"
+    },
+    "journal/06": {
+      "math": 17,
+      "html_sha256": "a5d2517dc2a4eaeee71e6e0908675aef01941bc06b0d5ddefb76a791c4bf740e"
+    },
+    "journal/07": {
+      "math": 1,
+      "html_sha256": "2b20458b9e048f50dbd7b4bdb53c986e5dd5c1cac2eca163e5ebb15976304eb3"
+    },
+    "gs-net": {
+      "math": 21,
+      "html_sha256": "22d8b1a4c23f61532d75b4cb3be5fb6111d39499e0b91d44c77af9b1f706f916"
+    },
+    "journal/c-review": {
+      "math": 0,
+      "html_sha256": "d994c37d37b4b03074dd8f38212a2405f130c4578ebdda21c21f20f0f601be1a"
+    }
+  }
+}

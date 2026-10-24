@@ -1,9 +1,0 @@
-Waline client 3.16.1
-Unmodified upstream distribution files.
-License: see LICENSE.
-
-https://unpkg.com/@waline/client@3.16.1/dist/waline.js
-SHA-256: 4b007b2a4ffd4c1d40e17c7f781e52557ddc709d68aff00218c92067dd1fe462
-
-https://unpkg.com/@waline/client@3.16.1/dist/waline.css
-SHA-256: 9e418af7d3a507f6c4add97932ed728cd08a81693934f677c75143c726523976

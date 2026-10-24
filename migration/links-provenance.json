@@ -1,0 +1,20 @@
+{
+  "source": "../semt0.github.io/docs/friends.md",
+  "source_sha256": "314853ee654fbf903950e23964eb9374642d15dc29b2463195bfdfe487c6b7f0",
+  "legacyCommentPath": "/",
+  "commentsEnabled": false,
+  "friends": [
+    {
+      "url": "https://vvkahpm.github.io",
+      "avatarSource": "https://github.com/vvkahpm.png?size=112",
+      "avatar": "public/links/vvkahpm.png",
+      "avatar_sha256": "9249563436252cdb1a4996d88630e1409e33a6ae0bf2c29caa5d1222fabbed79"
+    },
+    {
+      "url": "https://segemipl.github.io",
+      "avatarSource": "https://github.com/segemipl.png?size=112",
+      "avatar": "public/links/segemipl.png",
+      "avatar_sha256": "4d136d31b8a958a824196953c3ef5a3e1a9286716d5cae31ecbfd916f35d62ff"
+    }
+  ]
+}

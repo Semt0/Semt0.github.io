@@ -1,216 +1,94 @@
 # 内容写作
 
-构建和测试见 [README](README.md)。文章路径决定已有链接和评论归属，请勿随意改名。
+本地运行和发布见 [README](README.md)。全部内容放在 `src/content/blog/`，新增文章后自动生成列表、标签、归档和 RSS，不需要手动维护导航或运行旧生成器。
 
-## 新增文章流程
+## 文章模板
 
-1. 在 `docs/blog/`、`docs/note/<科目>/` 或 `docs/essay/` 新建 Markdown，添加 `title` 和 `date: YYYY-MM-DD`。
-2. 将配套图片放入文章所在目录的 `pictures/`，使用相对路径引用。
-3. 在仓库根目录运行 `bash update.sh`，更新三个板块的时间线和博客、笔记导航。
-4. 检查 `zensical.toml` 中的科目显示名称与顺序，再运行 `uv run zensical serve` 预览正文、目录、公式和图片。
-5. 按 [README](README.md#检查与发布) 完成检查，连同生成文件一起提交。
-
-三个板块的 `index.md` 时间线标记区由生成器维护，不手动修改。生成器不会删除旧导航项，移动或删除文章后需同步清理 `zensical.toml`。手记通过时间线访问，不自动逐篇加入导航。
-
-## 元数据与评论
+推荐使用 `pnpm new <slug> --title "标题"`，也可以直接新建文件：
 
 ```yaml
 ---
 title: 文章标题
-date: 2026-10-21
-# comments: false       # 仅在需要关闭本页评论时启用
-# comment_path: /old/   # 迁移页面时填写原页面的完整 pathname
+description: 用一两句话概括内容，不超过 160 个字符。
+publishDate: '2026-10-24'
+tags: [博客]
+draft: true
+language: 中文
+# updatedDate: '2026-10-25'
+# comment: false
 ---
 ```
 
-评论默认开启，以 URL 路径关联讨论；`comment_path` 只改变评论归属，不创建页面重定向。友链页的 `/` 是原首页留言键，普通文章不要复用它。`summary`、`key_points`、`sources` 是可选内容元数据，目前时间线只使用标题、日期与目录分类。
+标题不超过 60 个字符。开发服务器显示草稿，正式构建排除草稿；准备发布时设置 `draft: false`。修改已有文章可设置 `updatedDate`，RSS 仍以首次发布时间为准。
 
-## 写作规则
+不要在正文重复一级标题，也不要手写目录。正文用 `##`、`###` 组织章节，目录会自动生成。
 
-当创建或编辑 `docs/note/` 下的学习笔记时，遵守以下规则：
+## 课程笔记
 
-- **图片是必需的**：笔记默认必须包含必要插图。来源可以是 PDF 截图、matplotlib 绘图等。图片放在 `pictures/` 子目录，引用格式 `![描述](pictures/filename.png){ width="800" }`。
-
-- **数学公式**：行内用 `$...$`，块级用 `$$...$$`。
-
-- **块级公式间距**：`$$...$$` 前后必须各有一个空行。
-
-- **粗体间距**：`**text**` 与周围非粗体文字之间要留空格，例如 `我是 **秦始皇** 吗`，不要 `我是**秦始皇**吗`。
-
-- **粗体与行内公式**：不要把 `$...$` 包在 `**...**` 里面。公式和强调分开写。
-
-- **避免密集粗体**：一句话里不要连续很多 `**...**`，用逗号或减少强调片段。
-
-- **列表前必须有空行**：使用 `-` 的无序列表前必须插入完整空行。这也适用于 admonition 内部的列表。
-
-- **图片引用**：统一用 `![alt text](pictures/filename.png){ width="600" }`。
-
-- **Frontmatter**：至少包含 `date`；推荐新增 `summary`、`key_points`、`sources`（见下方模板）。
-
-- **列表编号**：不要混用 `-` 和数字，也不要用 `- (1)` 这种形式。
-
-- **导航**：新建笔记后运行 `bash update.sh` 自动补齐导航，再按需调整科目名称和顺序。
-
-- **算法/伪代码**：使用 LaTeX `aligned` 环境，不要用 Markdown 列表。详见下方模板。
-
-## 笔记模板
-
-!!! warning "重要：笔记不需要手动目录"
-    **不要在笔记开头添加 `## 目录` 章节**。Zensical 会自动生成右侧目录导航。
-
-    直接以 `## 1 Section Title` 开始正文即可。
-
-```markdown
----
-title: 本章标题
-date: YYYY-MM-DD
-summary: |
-  用一两句话概括本章核心内容，作为内容摘要保存在文章元数据中。
-key_points:
-  - 核心知识点 1
-  - 核心知识点 2
-  - 核心知识点 3
-sources:
-  - "课程/教材名称，章节"
-  - "论文标题，作者，年份"
-  - "在线资源 URL"
----
-
-## 1 Section Title
-
-### 1.1 Subsection
-
-正文内容...
-
-!!! abstract "定义 X（Name）"
-    定义的正式内容，使用 block formula：
-
-    $$
-    formula
-    $$
-
-直观理解或补充说明放在 admonition 外面。
-
-!!! abstract "定理 X / 引理 X（Name）"
-    定理的正式陈述。
-
-    $$
-    formula
-    $$
-
-??? note "证明"
-    证明过程（可折叠）。最后用 $\square$ 结尾。
-
-!!! tip "提示标题"
-    重要的直觉或记忆技巧。
-
-!!! warning "注意标题"
-    容易出错的地方。
-
-!!! info "信息标题"
-    补充性说明。
-
-!!! note "假设 X"
-    定理所需的假设条件。
-
----
-
-## N 总结
-
-总结表格或核心公式。
+```sh
+pnpm new ode/06 --title "第六章：课程笔记"
 ```
 
-### Admonition 使用规则
+课程文件夹仅帮助保持路径清晰，页面仍属于统一的 Blog。标签保留两个，例如 `[数学, ode]`、`[数学, 复变函数]`、`[计算机, rust]`。课程映射集中在 `src/data/course-tags.json`。
 
-- **Definitions**: `!!! abstract "定义 X（Name）"` — 始终可见
-- **Theorems / Lemmas / Corollaries**: `!!! abstract "定理 X / 引理 X / 推论 X（Name）"` — 始终可见
-- **Proofs**: `??? note "证明"` — 可折叠（默认收起），结尾用 `$\square$`
-- **Assumptions**: `!!! note "假设 X"` — 始终可见
-- **Tips / Intuition**: `!!! tip` — 始终可见
-- **Warnings**: `!!! warning` — 始终可见
-- **Supplementary info**: `!!! info` — 始终可见
-- **Examples**: `???+ example "例X：..."` — 可折叠（默认展开）
-- **Algorithms**: **不要**使用 `!!! abstract` 包裹伪代码块。直接用 `##` 小标题 + LaTeX `aligned` 环境
-- Admonition 正文缩进 **4 个空格**，内部的块级公式前后也要有空行
+脚本可以通过 `--course` 接受完整课程名称或短标签；新课程先加入映射，再用 `--course` 指定。自动生成的 `order` 可以调整，用来确定同日章节的顺序。
 
-### 伪代码格式
+保留资料来源，区分课件或教材的内容与自己补充的理解；适当提供图示、推导与例题。参考资料放在正文中，方便读者直接看到。
 
-所有算法使用 LaTeX `aligned` 环境，用 `###` 小标题作为算法标题：
+## 数学公式
 
-```markdown
-### 算法 X.X（算法名称）
+行内用 `$...$`，块级用独占一行的 `$$`，前后留空行。
+
+````markdown
+由 $a^2+b^2=c^2$ 可得：
 
 $$
-\begin{aligned}
-& \textbf{算法: } \text{AlgorithmName} \\
-& \textbf{输入: } A \in \mathbb{R}^{n \times n}, \quad x^{(0)} \in \mathbb{R}^n, \quad b \in \mathbb{R}^n, \quad N, \quad \varepsilon \\
-& \textbf{输出: } x \approx A^{-1}b \\
-& 1. \quad k \leftarrow 0 \\
-& 2. \quad \textbf{while } k < N \textbf{ do} \\
-& 3. \quad \quad \text{// 循环体} \\
-& 4. \quad \quad k \leftarrow k + 1 \\
-& 5. \quad \textbf{end while} \\
-& 6. \quad \textbf{return } x
-\end{aligned}
+f(x)=\int_0^x t^2\,\mathrm{d}t.
 $$
+````
+
+Markdown 表格里的公式不要直接写 `|`，使用 `\lvert x\rvert`、`\lVert x\rVert` 等 TeX 命令，避免被识别为分栏符。不要把公式包在粗体标记中。
+
+## 提示框与证明
+
+```markdown
+:::study-note[定义]{kind="abstract"}
+
+这里是定义。
+
+:::
+
+:::study-proof[证明]{kind="note" open="true"}
+
+这里是默认展开的证明。
+
+:::
 ```
 
-**格式要点：**
+省略 `open="true"` 时默认折叠。常用 `kind` 为 `abstract`、`note`、`tip`、`info`、`warning` 和 `example`。
 
-- 环境：`\begin{aligned}`，用 `&` 对齐
-- 行号：`1. \quad`, `2. \quad`, ...
-- 关键字：`\textbf{while}`, `\textbf{do}`, `\textbf{end while}`, `\textbf{if}`, `\textbf{then}`, `\textbf{end if}`, `\textbf{for}`, `\textbf{end for}`, `\textbf{return}`
-- 赋值：`\leftarrow`
-- 注释：`\text{// comment}`
-- 输入/输出标签：`\textbf{输入: }`, `\textbf{输出: }`
+嵌套时，外层使用更多冒号，例如外层 `::::study-note`、内层 `:::study-proof`，各自用相同数量的冒号结束。代码示例需要按语言分组时，连续使用 `:::study-tab[Python]`、`:::study-tab[C++]`，会自动生成可键盘切换的标签页。
 
-## 资源生成
+代码块写明语言，例如 `python`、`cpp`、`rust`、`cuda`。列表前留空行；不要在空列表项后隔着空行放缩进图片，这容易被 CommonMark 当成代码。
 
-当笔记需要插图（流程图、收敛曲线、几何示意图等）时：
+## 插图与附件
 
-### 使用 matplotlib
+文章附近的图片使用相对路径，例如 `![说明](./images/figure.png)`。Astro 会处理这些图片。也可以将资源放在 `public/images/<文章名>/` 或 `public/files/<课程>/`，通过 `/images/...`、`/files/...` 引用。
 
-确保已安装 `numpy` 和 `matplotlib`（否则 `uv sync --group assets`）。在 `scripts/figures/` 下创建 `generate_<topic>_plots.py`：
+使用明确的替代文本。公共资源地址不包含 `public` 前缀，也不要使用旧版 `{ width="800" }` 属性语法。需要精确宽度时使用普通 HTML `<img src="/images/example.webp" alt="说明" width="800">`。
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+## 已有链接与评论
 
-plt.rcParams['font.family'] = 'DejaVu Sans'
-plt.rcParams['axes.unicode_minus'] = False
+文章文件路径决定 URL。不要直接改名已经发布的文章；确需移动时，在 `src/legacy-note-redirects.json` 中保留旧地址，并检查历史章节书签。
 
-def plot_example():
-    fig, ax = plt.subplots(figsize=(9, 6))
-    # ... plotting code ...
-    plt.tight_layout()
-    plt.savefig('docs/note/<subject>/pictures/filename.png',
-                dpi=150, bbox_inches='tight', facecolor='white')
-    plt.close()
+迁入文章的 `sourcePath`、`commentPath` 用于来源追踪和历史评论关联，编辑正文时保留这些字段。新文章无需手动填写。Links 留言区的 `/` 是原首页留言键，普通文章不要复用。
 
-if __name__ == '__main__':
-    plot_example()
+## 提交前
+
+```sh
+pnpm build
+pnpm check:site
+git diff --check
 ```
 
-**准则：**
-
-- 图中标签用英文（matplotlib CJK 字体支持有限）
-- 分辨率 `dpi=150`
-- 背景 `facecolor='white'`
-- 格式 PNG，存放到 `docs/note/<subject>/pictures/`
-- 引用宽度 `{ width="800" }`
-
-### 从 PDF 导出页面
-
-从 PDF 课件截取页面时，统一使用 `scripts/assets/export_pdf_pages.py`：
-
-```bash
-uv run --group assets python scripts/assets/export_pdf_pages.py \
-  "docs/note/<subject>/slides/<file>.pdf" \
-  "docs/note/<subject>/pictures" \
-  --page 3:figure_03.png \
-  --page 7:figure_07.png \
-  --page 12:figure_12.png \
-  --overwrite
-```
-
-默认倍率为 `--zoom 6.0`，输出为不带透明通道的 PNG。如仍模糊可尝试 `--zoom 8.0`。页码默认 1-based，0-based 需加 `--base 0`。覆盖已有文件必须加 `--overwrite`。
+本地检查正文、目录、公式、图片和手机排版。使用 `pnpm dev` 查看草稿，使用构建后的预览验证搜索。确认要发布的文章已经设置 `draft: false`，再提交并推送。

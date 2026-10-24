@@ -1,15 +1,15 @@
 # 项目约定
 
-构建、目录结构和命令以 [README.md](README.md) 为准；写作模板见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+这是 Astro Theme Pure 博客，正式网址为 https://semt0.github.io/。构建、写作和发布以 README.md 与 CONTRIBUTING.md 为准。
 
-- 保留文章路径与内容；路径同时决定站点 URL 和评论归属。
-- 不手动编辑 `site/` 或 `<!-- ...:auto-begin -->` / `auto-end` 内的生成内容，运行 `bash update.sh`。
-- 导航保留人工顺序和科目显示名称；生成器只补充缺失条目。
-- 自定义脚本须支持 Zensical 的 `document$` 切页事件和普通页面加载；异步初始化不得挂载到过期页面。
-- 内容默认可见，动画只做渐进增强，遵守 `prefers-reduced-motion`。
-- 全站视觉变量集中在 `theme.css`，页面布局复用 `--site-*`；同时检查浅色、深色与移动端。外部服务是否可用需单独验证。
-- 仅覆盖必要主题局部模板，避免复制主题正文模板。`overrides/` 内不放 Markdown，维护说明写在根目录 `OVERRIDES.md`。
-- 首页关闭评论，友链保留 `comment_path: /`；不要改变文章原有评论路径键。Waline 升级时同步客户端、许可证与来源校验记录。
-- 首页保留 CodeTime 动态徽章与 Semt0 名称；导航标志和 favicon 共用本地 `avatar-icon.svg`。
-- 构建依赖属于默认环境；PDF、绘图工具依赖属于 `assets` 组。
-- 完成改动后运行 README 中与改动相关的测试和构建检查；前端改动按 `tests/README.md` 做浏览器验收。结构或工作流改变时同步维护相关文档。
+- 所有文章放在 `src/content/blog/`，用 `publishDate` 排序。课程笔记统一使用 `src/data/course-tags.json` 中的两个标签。
+- 保留已发布文章的地址。移动文章时维护 `src/legacy-note-redirects.json` 和旧章节书签映射；保留迁入文章的 `sourcePath`、`commentPath`。
+- 本地开发可看草稿，生产构建排除 `draft: true`。不得把草稿写入正式列表、RSS 或搜索索引。
+- `migration/originals/` 与来源哈希是不可变快照；正常写作只改 `src/content/blog/`。日常检查应允许新增文章及编辑旧文，不能要求相邻试版、旧仓库或未提交的资源缓存。
+- 公式用 `$` / `$$`，提示框用 study-note，折叠证明用 study-proof；保留默认展开状态。表格公式避免未转义竖线。
+- About 保持中文五行，界面与专业名称使用英语；首页保留 CodeTime、PKU 教育卡片、GitHub 项目与贡献热力图。
+- 图片、背景和标识保留来源记录。原课件截图是无损 WebP，PDF 为原件。
+- Waline 沿用原服务，迁入文章使用原评论路径，Links 留言键为 `/`；本地不初始化评论组件，销毁离开页面的实例。
+- `dist/`、`.astro/`、`node_modules/` 是生成内容，不提交。不要恢复旧 Zensical 生成器或旧 CI。
+- 修改代码后运行 `pnpm build`、`pnpm check:site`、`git diff --check`。修改 Markdown 插件后先 `pnpm exec astro sync --force`。前端改动检查桌面、手机及深浅主题。
+- 部署使用 `.github/workflows/pages.yml`；推送后以对应提交的 GitHub Actions 成功及线上页面验证确认发布。
