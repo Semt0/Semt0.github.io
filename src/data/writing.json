@@ -1,0 +1,22 @@
+{
+  "types": {
+    "blog": { "label": "博客", "directory": "writing", "tags": ["博客"] },
+    "note": { "label": "课程笔记", "tags": [] },
+    "journal": { "label": "手记", "directory": "journal", "tags": ["手记"] }
+  },
+  "courses": {
+    "常微分方程": "ode",
+    "复变函数": "complex-analysis",
+    "数理方程": "mathematical-physics",
+    "计算方法": "numerical-methods",
+    "抽象代数": "abstract-algebra",
+    "基础模型": "foundation-models",
+    "CVDL": "cvdl",
+    "CS231n": "cs231n",
+    "算法设计与分析": "algorithms",
+    "并行程序设计": "parallel-programming",
+    "Rust程序设计": "rust",
+    "OJ复习": "oj",
+    "AI硬件": "ai-hardware"
+  }
+}

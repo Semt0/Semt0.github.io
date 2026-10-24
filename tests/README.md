@@ -1,10 +1,13 @@
 # 检查范围
 
 ```sh
+pnpm test:writing
 pnpm build
 pnpm check:site
 git diff --check
 ```
+
+`pnpm test:writing` 在临时目录测试写作脚本，覆盖标签扩展、新课程登记与复用、旧命令兼容、自动排序、同名文章保护、无效日期与路径、软链接边界，以及命令行参数。不修改真实笔记，不打开 Typora。
 
 `pnpm build` 执行 Astro 类型诊断并构建静态站点。`pnpm check:site` 对当前 Markdown（含新增文章）生成独立审计，再检查构建结果：文章与标签分页、草稿排除、公式、提示框与折叠状态、图片与本地链接、目录目标、旧链接与旧书签、RSS、搜索、栏目背景、友链、项目和贡献热力图。
 

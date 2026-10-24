@@ -28,13 +28,64 @@ pnpm preview --host 127.0.0.1 --port 4322
 
 全文搜索由构建时生成的 Pagefind 中文索引提供，新增内容后需要重新构建才能更新搜索结果。
 
-## 写一篇新文章
+## 写作入口：自动归档、Typora 与实时预览
+
+在仓库目录运行：
 
 ```sh
-pnpm new my-first-post --title "我的第一篇博客"
+./write
+# 或 pnpm write；原来的 pnpm new 也仍然可用
 ```
 
-会生成 `src/content/blog/my-first-post.md`，默认是草稿。编辑文章简介与正文，发布前把 `draft` 改成 `false`：
+脚本会依次让你选择博客、课程笔记或手记，填写课程、标题、文件名和标签。已有标签会列出来供参考，也可以直接输入新标签，无需预先登记。
+
+创建后默认用 **Typora 打开 Markdown**，并启动或复用本地开发服务器，在默认浏览器中打开对应文章。Typora 按 **⌘S** 保存，浏览器会自动刷新，公式、图片、目录、折叠证明和博客样式都以浏览器中的效果为准。草稿也能在本地预览，正式构建会排除它们。
+
+不想交互时，直接传参数：
+
+```sh
+# 博客 → src/content/blog/writing/robotics-notes.md；标签可以是全新的
+./write robotics-notes --type blog --title "机器人实践" --tags "具身智能,实验记录"
+
+# 已有课程 → src/content/blog/ode/06.md；自动填写数学、ode 和下一章顺序
+./write 06 --type note --course ode --title "第六章：课程笔记"
+# 兼容旧写法：./write ode/06 --title "第六章：课程笔记"
+
+# 手记 → src/content/blog/journal/weekend.md
+./write weekend --type journal --title "周末随记" --tags "生活,游戏"
+
+# 新课程：自动登记课程、两个标签及英文目录，不用提前改配置
+./write 01 --type note --course "测度论" --subject "数学" --folder measure-theory --title "第一章：测度"
+# 下次自动识别目录，也可继续使用 --course 测度论
+./write measure-theory/02 --title "第二章：可测函数"
+```
+
+课程笔记保持“学科 + 课程”两个标签；新课程可以用 `--subject` 自动生成这两个标签，也可以显式填写 `--tags "数学,测度论"`。已有课程的标签保持统一，普通博客和手记的标签自由填写。英文目录决定地址；中文课程第一次需要 `--folder`，以后不用重复填写。
+
+可选参数：
+
+| 参数 | 用途 |
+| --- | --- |
+| `--list` | 查看类型、课程、目录及已有标签，不创建文件 |
+| `--slug my-post` | 通过参数指定英文文件名，和位置参数二选一 |
+| `--description "简介"` | 设置简介，不超过 160 个字符 |
+| `--date 2026-10-24` | 指定真实日期，默认北京时间当天 |
+| `--tag 数学 --tag ode` | 分别传入标签，也可用 `--tags "数学,ode"` |
+| `--no-open` | 不打开应用；仍会准备本地预览 |
+| `--no-preview` | 不启动预览、不打开浏览器，仍可打开 Typora |
+| `--no-typora` | 只打开浏览器预览 |
+| `--no-open --no-preview` | 只创建 Markdown 文件 |
+| `--port 4323` | 默认端口被其他服务占用时换端口 |
+
+从其他目录也能用 `/Users/semt0/projects/blog/semt0.github.io/write` 调用，脚本会自动定位仓库。它拒绝覆盖同名文章，标签、标题和文件名会按原文传给程序，不会作为终端命令执行。
+
+## 创建后怎样写正文
+
+```sh
+pnpm write my-first-post --title "我的第一篇博客"
+```
+
+会生成 `src/content/blog/writing/my-first-post.md`，默认是草稿。编辑文章简介与正文，发布前把 `draft` 改成 `false`：
 
 ```yaml
 ---
@@ -47,7 +98,7 @@ language: 中文
 ---
 ```
 
-正文从二级标题开始，不用重复文章标题，也不用手写目录。文件路径决定文章地址，例如上面的文章发布到 `/blog/my-first-post`。文件名建议使用小写英文和短横线，文章标题可以使用中文。
+正文从二级标题开始，不用重复文章标题，也不用手写目录。文件路径决定文章地址，例如上面的文章发布到 `/blog/writing/my-first-post`。文件名使用小写英文和短横线，文章标题可以使用中文。
 
 也可以直接新建 Markdown，至少填写 `title`、`description`、`publishDate`。`publishDate` 用于排序，不是自动定时发布；是否进入正式站点由 `draft` 决定。
 
@@ -68,13 +119,25 @@ pnpm new rust/lifetimes --title "引用与生命周期"
 pnpm new foundation-models/training-notes --title "训练实践笔记"
 ```
 
-新增课程时，先在 `src/data/course-tags.json` 添加课程名称与两个标签，再显式指定课程：
+新增课程时，脚本会自动更新 `src/data/course-tags.json` 和 `src/data/writing.json`：
 
 ```sh
-pnpm new measure-theory/01 --title "第一章：测度" --course "测度论"
+pnpm write 01 --title "第一章：测度" --type note --course "测度论" --subject "数学" --folder measure-theory
 ```
 
 `order` 用于同一课程、同一天的章节排序；日期相同的章节按照章节号从大到小显示。Blog、标签页、归档、首页最新文章和 RSS 自动生成，不需要再运行旧版的索引生成器。
+
+## 单独打开实时预览
+
+```sh
+pnpm live          # 启动或复用开发预览，打开首页
+pnpm live ode/05   # 直接打开已有课程笔记
+pnpm live --stop   # 停止由写作脚本启动的后台预览
+```
+
+写作脚本启动的预览只监听本机 `127.0.0.1`，关闭 Typora 或浏览器不会停止它。日志在 `.astro/writing-preview.log`，不提交到 Git。如果服务器由 `pnpm dev` 或 `quick_start` 启动，需在原终端按 Ctrl+C 停止，脚本不会停止其他程序。
+
+这里的实时预览使用 `pnpm dev` 对应的开发模式；`pnpm preview` 只展示上一次构建，适合检查正式发布效果。Pagefind 搜索需要重新构建才能更新，不能把构建预览当成写作时的实时预览。
 
 ## 图片、公式与折叠证明
 
@@ -82,9 +145,10 @@ pnpm new measure-theory/01 --title "第一章：测度" --course "测度论"
 
 ```text
 src/content/blog/
-  my-first-post.md
-  images/
-    experiment.png
+  writing/
+    my-first-post.md
+    images/
+      experiment.png
 ```
 
 ```markdown
@@ -146,6 +210,7 @@ git push
 | 标题、导航、作者、日期格式、评论设置 | `src/site.config.ts` |
 | About 五行介绍和英文专业名称 | `src/data/profile.ts` |
 | 课程的两个标签 | `src/data/course-tags.json` |
+| 写作类型、默认目录、课程与目录的对应关系 | `src/data/writing.json`；新课程由写作脚本自动维护 |
 | 友链 | `src/data/links.json`；头像在 `public/links/` |
 | GitHub 代表项目 | `src/data/projects.json` |
 | GitHub 热力图 | `src/data/github-contributions.json` |

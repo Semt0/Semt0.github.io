@@ -10,6 +10,9 @@
     "check": "astro check",
     "check:site": "node scripts/audit-markdown.mjs && python3 scripts/check-site.py",
     "new": "node scripts/new-post.mjs",
+    "write": "node scripts/new-post.mjs",
+    "live": "node scripts/live.mjs",
+    "test:writing": "node --test tests/writing.test.mjs",
     "sync": "astro sync",
     "format": "prettier --write 'src/**/*.{js,ts,md,mdx,astro}'"
   },

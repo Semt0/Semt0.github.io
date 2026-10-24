@@ -19,6 +19,7 @@ jobs:
           node-version: '24'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm test:writing
       - run: pnpm build
       - name: Record deployed commit
         run: node -e 'require("node:fs").writeFileSync("dist/build-info.json", JSON.stringify({commit:process.env.GITHUB_SHA,builtAt:new Date().toISOString()})+"\n")'

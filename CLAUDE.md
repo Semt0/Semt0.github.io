@@ -3,6 +3,7 @@
 这是 Astro Theme Pure 博客，正式网址为 https://semt0.github.io/。构建、写作和发布以 README.md 与 CONTRIBUTING.md 为准。
 
 - 所有文章放在 `src/content/blog/`，用 `publishDate` 排序。课程笔记统一使用 `src/data/course-tags.json` 中的两个标签。
+- 写作入口为 `./write` / `pnpm write`。内容类型、默认目录和课程目录在 `src/data/writing.json`，新课程由脚本自动登记；新标签不需要白名单。改动写作工具后运行 `pnpm test:writing`，自动化单元测试不得打开真实应用或改动已有笔记。
 - 保留已发布文章的地址。移动文章时维护 `src/legacy-note-redirects.json` 和旧章节书签映射；保留迁入文章的 `sourcePath`、`commentPath`。
 - 本地开发可看草稿，生产构建排除 `draft: true`。不得把草稿写入正式列表、RSS 或搜索索引。
 - `migration/originals/` 与来源哈希是不可变快照；正常写作只改 `src/content/blog/`。日常检查应允许新增文章及编辑旧文，不能要求相邻试版、旧仓库或未提交的资源缓存。
