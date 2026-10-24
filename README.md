@@ -6,7 +6,7 @@
 
 ## 本地运行
 
-需要 Node.js 24（最低 22.12）和 pnpm 10.30.3。已经安装 pnpm 时无需重复安装。
+需要 Node.js 24（最低 22.12）和 pnpm 10.30.3；内容检查另需 Python 3.9+，仅使用标准库。已经安装 pnpm 时无需重复安装。
 
 ```sh
 git clone https://github.com/Semt0/Semt0.github.io.git
@@ -50,6 +50,8 @@ language: 中文
 正文从二级标题开始，不用重复文章标题，也不用手写目录。文件路径决定文章地址，例如上面的文章发布到 `/blog/my-first-post`。文件名建议使用小写英文和短横线，文章标题可以使用中文。
 
 也可以直接新建 Markdown，至少填写 `title`、`description`、`publishDate`。`publishDate` 用于排序，不是自动定时发布；是否进入正式站点由 `draft` 决定。
+
+`draft: true` 隐藏的是网站页面；如果将草稿提交到这个公开仓库，Markdown 源文件仍然公开。
 
 ## 写课程笔记
 

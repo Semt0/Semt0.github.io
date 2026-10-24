@@ -40,7 +40,6 @@ node_modules/
 old_blog
 ignore.*
 bunfig.toml
-/src/content/blog/test.*
 /test/
 # Reproducible source-image cache; hashes and immutable source commit are recorded in migration/.
 /migration/asset-cache/
