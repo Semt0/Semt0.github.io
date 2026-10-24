@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 370" role="img" aria-labelledby="title desc">
+<title id="title">Weighted routing example</title>
+<desc id="desc">Undirected graph with nodes A through H. E has neighbors A=10, B=4, C=1, D=2, F=2. Other edges: AB=4, BC=2, BF=3, BG=3, CD=2, FG=4, CH=3. Redrawn from lecture slide 29.</desc>
+<rect x="1" y="1" width="618" height="368" rx="16" fill="#f8fafc" stroke="#cbd5e1"/>
+<g stroke="#64748b" stroke-width="2.4">
+<line x1="420" y1="145" x2="60" y2="260"/>
+<line x1="420" y1="145" x2="235" y2="255"/>
+<line x1="420" y1="145" x2="420" y2="320"/>
+<line x1="420" y1="145" x2="565" y2="235"/>
+<line x1="420" y1="145" x2="235" y2="45"/>
+<line x1="60" y1="260" x2="235" y2="255"/>
+<line x1="235" y1="255" x2="420" y2="320"/>
+<line x1="235" y1="255" x2="235" y2="45"/>
+<line x1="235" y1="255" x2="60" y2="125"/>
+<line x1="420" y1="320" x2="565" y2="235"/>
+<line x1="235" y1="45" x2="60" y2="125"/>
+<line x1="420" y1="320" x2="255" y2="320"/>
+</g><g font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" dominant-baseline="central">
+<rect x="139" y="212" width="30" height="26" rx="7" fill="#f8fafc"/><text x="154" y="225" fill="#334155">10</text>
+<rect x="325" y="197" width="30" height="26" rx="7" fill="#f8fafc"/><text x="340" y="210" fill="#334155">4</text>
+<rect x="425" y="212" width="30" height="26" rx="7" fill="#f8fafc"/><text x="440" y="225" fill="#334155">1</text>
+<rect x="490" y="167" width="30" height="26" rx="7" fill="#f8fafc"/><text x="505" y="180" fill="#334155">2</text>
+<rect x="315" y="62" width="30" height="26" rx="7" fill="#f8fafc"/><text x="330" y="75" fill="#334155">2</text>
+<rect x="133" y="264" width="30" height="26" rx="7" fill="#f8fafc"/><text x="148" y="277" fill="#334155">4</text>
+<rect x="325" y="289" width="30" height="26" rx="7" fill="#f8fafc"/><text x="340" y="302" fill="#334155">2</text>
+<rect x="239" y="132" width="30" height="26" rx="7" fill="#f8fafc"/><text x="254" y="145" fill="#334155">3</text>
+<rect x="120" y="169" width="30" height="26" rx="7" fill="#f8fafc"/><text x="135" y="182" fill="#334155">3</text>
+<rect x="500" y="280" width="30" height="26" rx="7" fill="#f8fafc"/><text x="515" y="293" fill="#334155">2</text>
+<rect x="120" y="52" width="30" height="26" rx="7" fill="#f8fafc"/><text x="135" y="65" fill="#334155">4</text>
+<rect x="325" y="326" width="30" height="26" rx="7" fill="#f8fafc"/><text x="340" y="339" fill="#334155">3</text>
+<circle cx="60" cy="125" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="60" y="125" fill="#1e3a8a" font-weight="650">G</text>
+<circle cx="235" cy="45" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="235" y="45" fill="#1e3a8a" font-weight="650">F</text>
+<circle cx="60" cy="260" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="60" y="260" fill="#1e3a8a" font-weight="650">A</text>
+<circle cx="235" cy="255" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="235" y="255" fill="#1e3a8a" font-weight="650">B</text>
+<circle cx="420" cy="145" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="420" y="145" fill="#1e3a8a" font-weight="650">E</text>
+<circle cx="565" cy="235" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="565" y="235" fill="#1e3a8a" font-weight="650">D</text>
+<circle cx="420" cy="320" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="420" y="320" fill="#1e3a8a" font-weight="650">C</text>
+<circle cx="255" cy="320" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="255" y="320" fill="#1e3a8a" font-weight="650">H</text>
+</g></svg>

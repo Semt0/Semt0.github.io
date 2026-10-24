@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="title desc">
+<title id="title">Weighted routing example</title>
+<desc id="desc">Undirected edges: AB=3, AD=7, BD=3, BC=6, DC=2. Redrawn from lecture slide 21.</desc>
+<rect x="1" y="1" width="478" height="298" rx="16" fill="#f8fafc" stroke="#cbd5e1"/>
+<g stroke="#64748b" stroke-width="2.4">
+<line x1="55" y1="150" x2="240" y2="250"/>
+<line x1="55" y1="150" x2="240" y2="50"/>
+<line x1="240" y1="250" x2="240" y2="50"/>
+<line x1="240" y1="250" x2="425" y2="150"/>
+<line x1="240" y1="50" x2="425" y2="150"/>
+</g><g font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" dominant-baseline="central">
+<rect x="124" y="205" width="30" height="26" rx="7" fill="#f8fafc"/><text x="139" y="218" fill="#334155">3</text>
+<rect x="124" y="69" width="30" height="26" rx="7" fill="#f8fafc"/><text x="139" y="82" fill="#334155">7</text>
+<rect x="244" y="137" width="30" height="26" rx="7" fill="#f8fafc"/><text x="259" y="150" fill="#334155">3</text>
+<rect x="325" y="205" width="30" height="26" rx="7" fill="#f8fafc"/><text x="340" y="218" fill="#334155">6</text>
+<rect x="325" y="69" width="30" height="26" rx="7" fill="#f8fafc"/><text x="340" y="82" fill="#334155">2</text>
+<circle cx="55" cy="150" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="55" y="150" fill="#1e3a8a" font-weight="650">A</text>
+<circle cx="240" cy="50" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="240" y="50" fill="#1e3a8a" font-weight="650">D</text>
+<circle cx="240" cy="250" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="240" y="250" fill="#1e3a8a" font-weight="650">B</text>
+<circle cx="425" cy="150" r="19" fill="#fff" stroke="#2563eb" stroke-width="2.5"/><text x="425" y="150" fill="#1e3a8a" font-weight="650">C</text>
+</g></svg>
