@@ -25,13 +25,22 @@ export function readWriting(root) {
   const config = JSON.parse(fs.readFileSync(configFile, 'utf8'))
   const policy = JSON.parse(fs.readFileSync(policyFile, 'utf8'))
   const base = path.join(root, 'src/content/blog')
-  const posts = fs
-    .readdirSync(base, { recursive: true })
-    .filter((name) => /\.mdx?$/.test(name))
-    .map((name) => {
-      const front = fs.readFileSync(path.join(base, name), 'utf8').match(/^---\s*\n([\s\S]*?)\n---/)
-      return { name: name.split(path.sep).join('/'), meta: front ? YAML.parse(front[1]) : {} }
-    })
+  // Recursive readdir without Dirents follows directory symlinks on some Node versions.
+  // Walk real directories explicitly so tag discovery never reads outside this collection.
+  const names = []
+  function walk(directory) {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const file = path.join(directory, entry.name)
+      if (entry.isDirectory()) walk(file)
+      else if (entry.isFile() && /\.mdx?$/.test(entry.name)) names.push(path.relative(base, file))
+    }
+  }
+  if (fs.lstatSync(base).isSymbolicLink()) throw new Error('博客内容目录必须是普通文件夹。')
+  walk(base)
+  const posts = names.map((name) => {
+    const front = fs.readFileSync(path.join(base, name), 'utf8').match(/^---\s*\n([\s\S]*?)\n---/)
+    return { name: name.split(path.sep).join('/'), meta: front ? YAML.parse(front[1]) : {} }
+  })
   const tags = normalizeTags([
     ...posts.flatMap((post) => post.meta.tags || []),
     ...Object.values(policy).flat()

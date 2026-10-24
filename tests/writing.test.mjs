@@ -102,7 +102,15 @@ test('invalid dates, paths and symlinks do not mutate content or course registra
     assert.throws(() => createPost(root, { ...options, date }), /日期/)
   for (const slug of ['../escape', '/tmp/escape', 'has space', 'x.md'])
     assert.throws(() => createPost(root, { ...options, slug }))
-  fs.symlinkSync(os.tmpdir(), path.join(root, 'src/content/blog/writing'))
+  const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'blog-writing-external-'))
+  t.after(() => fs.rmSync(outside, { recursive: true, force: true }))
+  fs.writeFileSync(path.join(outside, 'unreadable-frontmatter.md'), '---\nbroken: [\n---\n')
+  fs.symlinkSync(outside, path.join(root, 'src/content/blog/writing'))
+  fs.symlinkSync(
+    path.join(outside, 'unreadable-frontmatter.md'),
+    path.join(root, 'src/content/blog/external.md')
+  )
+  assert.equal(readWriting(root).posts.length, 1)
   assert.throws(() => createPost(root, options), /普通文件夹/)
   assert.equal(fs.readFileSync(path.join(root, 'src/data/course-tags.json'), 'utf8'), policy)
   assert.equal(fs.existsSync(path.join(root, '.astro/writing.lock')), false)
