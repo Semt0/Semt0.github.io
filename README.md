@@ -219,7 +219,7 @@ git push
 | 旧链接和旧章节书签 | `src/legacy-note-redirects.json`、`migration/legacy-heading-map.json` |
 | GitHub Pages 部署 | `.github/workflows/pages.yml` |
 
-热力图使用真实 GitHub 贡献记录的本地快照。需要刷新时运行 `python3 scripts/update-github.py`，然后重新构建、提交。普通构建不依赖 GitHub 数据接口。
+首页和 Projects 页共用 GitHub 公开贡献日历。GitHub Pages 在每天北京时间 08:17 定时部署，也会在推送到 `main` 或手动部署时刷新数据。自动刷新发生在构建环境中，不产生额外提交。本地构建使用仓库里的快照，可运行 `python3 scripts/update-github.py` 更新。
 
 评论沿用原 Waline 服务。已迁移文章通过 `commentPath` 关联历史讨论，Links 页继续使用原首页的 `/` 留言键。新文章默认允许评论，用 `comment: false` 可以关闭单篇评论；本地预览不初始化评论区。
 

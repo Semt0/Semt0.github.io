@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets'
 import { Icon } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
@@ -10,7 +9,6 @@ import AboutBio from '@/components/AboutBio.astro'
 import { getContentEntries, sortContentEntries } from '@/utils/content'
 import projectData from '../data/projects.json'
 import { profile } from '../data/profile'
-import avatar from '@/assets/avatar.svg'
 import '@/assets/styles/home.css'
 const posts = sortContentEntries(await getContentEntries())
 const recentPosts = posts.slice(0, 6)
@@ -20,7 +18,7 @@ const degrees = profile.degree.split(' + ')
 <PageLayout meta={{ title: 'Home' }} pageClass='home-surface'>
   <main class='home-page'>
     <section class='home-profile animate' id='content-header' aria-labelledby='intro-title'>
-      <Image class='home-avatar' src={avatar} alt='Semt0' width={112} height={112} loading='eager' fetchpriority='high' />
+      <img class='home-avatar' src='/avatar.jpg' alt='Semt0' width='112' height='112' loading='eager' fetchpriority='high' />
       <h1 id='intro-title'>Semt0</h1>
       <p class='home-tagline'>Stay curious. Keep learning.</p>
       <div class='home-socials'>
